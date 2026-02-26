@@ -20,6 +20,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset, WeightedRandomSampler
+try:
+    from tqdm.auto import tqdm
+except Exception:
+    def tqdm(iterable=None, *args, **kwargs):
+        return iterable if iterable is not None else []
 
 
 NUMERIC_BASES = {
@@ -426,12 +431,20 @@ def train(
     use_amp = device.type == "cuda"
     autocast_dtype = torch.bfloat16 if use_amp else torch.float32
 
-    for epoch in range(1, epochs + 1):
+    epoch_iter = tqdm(range(1, epochs + 1), desc="Training epochs", unit="epoch")
+    for epoch in epoch_iter:
         model.train()
         running = 0.0
         n_batches = 0
 
-        for bn, bc in loader:
+        batch_iter = tqdm(
+            loader,
+            desc=f"Epoch {epoch}/{epochs}",
+            unit="batch",
+            leave=False,
+            total=len(loader),
+        )
+        for bn, bc in batch_iter:
             bn = bn.to(device, non_blocking=True)
             bc = bc.to(device, non_blocking=True)
 
@@ -476,9 +489,10 @@ def train(
 
             running += float(loss.detach().item())
             n_batches += 1
+            batch_iter.set_postfix(loss=f"{loss.detach().item():.4f}")
 
         avg = running / max(1, n_batches)
-        print(f"epoch={epoch}/{epochs} loss={avg:.6f}")
+        epoch_iter.set_postfix(loss=f"{avg:.6f}")
 
     return model
 
@@ -516,6 +530,7 @@ def synthesize(
     with torch.no_grad():
         produced = 0
         latent_dim = model.mu_head.out_features
+        sample_pbar = tqdm(total=sample_rows, desc="Synthesizing rows", unit="row")
         while produced < sample_rows:
             b = min(sample_batch_size, sample_rows - produced)
             z = torch.randn((b, latent_dim), device=device)
@@ -543,6 +558,8 @@ def synthesize(
                 rows.append(out)
 
             produced += b
+            sample_pbar.update(b)
+        sample_pbar.close()
 
     with output_csv.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=prepared.columns)
