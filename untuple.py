@@ -13,6 +13,7 @@ import argparse
 import ast
 import csv
 import random
+from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
@@ -91,6 +92,7 @@ TRIP_CHAIN_BASE_COLS = [
 ]
 
 
+@lru_cache(maxsize=200_000)
 def split_fips11(v: str) -> Tuple[str, str]:
     s = (v or "").strip()
     if not s:
@@ -103,24 +105,25 @@ def split_fips11(v: str) -> Tuple[str, str]:
     return s[:5], s[5:11]
 
 
-def parse_tuple_like(raw: str) -> List[object]:
+@lru_cache(maxsize=500_000)
+def parse_tuple_like(raw: str) -> Tuple[object, ...]:
     s = (raw or "").strip()
     if not s:
-        return []
+        return ()
     try:
         val = ast.literal_eval(s)
         if isinstance(val, tuple):
-            return list(val)
-        if isinstance(val, list):
             return val
-        return [val]
+        if isinstance(val, list):
+            return tuple(val)
+        return (val,)
     except Exception:
         pass
 
     # Fallback for malformed tuple strings.
     if "," in s:
-        return [part.strip().strip("\"'") for part in s.split(",")]
-    return [s]
+        return tuple(part.strip().strip("\"'") for part in s.split(","))
+    return (s,)
 
 
 def as_text(v: object) -> str:
@@ -495,17 +498,19 @@ def main() -> int:
                             rt_k = parse_minutes_value(rt_seq[k]) if k < len(rt_seq) else None
                             arr_abs_seq[k] = (dep_k + rt_k) if dep_k is not None and rt_k is not None else None
 
+                    base_out = {
+                        "household_id": hh_id_str,
+                        "person_id": str(new_person_id),
+                        "persno": str(p),
+                        **household_values,
+                        **person_values,
+                    }
+
                     for t in range(trip_count):
                         new_tripid += 1
-                        out = {c: "" for c in out_cols}
-                        out["household_id"] = hh_id_str
-                        out["person_id"] = str(new_person_id)
+                        out = dict(base_out)
                         out["tripid"] = str(new_tripid)
-                        out["persno"] = str(p)
                         out["tripno"] = str(t + 1)
-
-                        out.update(household_values)
-                        out.update(person_values)
 
                         for tc in trip_chain_cols:
                             if tc == "vehicle":
