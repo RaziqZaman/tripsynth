@@ -40,3 +40,7 @@ htmlcov/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Large generated artifacts (can exceed 1GB)
+synthesized-household-trips.csv
+synthetic_trips.csv
