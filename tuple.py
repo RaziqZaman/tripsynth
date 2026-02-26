@@ -125,6 +125,7 @@ def main() -> None:
 
     o_cols = [c for c in columns_after if c.startswith("o_")]
     od_postfixes = sorted(c[2:] for c in o_cols if f"d_{c[2:]}" in columns_after)
+    od_postfixes = [p for p in od_postfixes if p != "state_fips"]
 
     household_cols_out = [
         "area_type",
