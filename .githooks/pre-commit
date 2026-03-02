@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LIMIT_BYTES=1073741824
+
+too_large=()
+while IFS= read -r -d '' path; do
+  # Skip deleted paths.
+  [[ -e "$path" ]] || continue
+
+  size=$(stat -c '%s' "$path" 2>/dev/null || echo 0)
+  if [[ "$size" -gt "$LIMIT_BYTES" ]]; then
+    too_large+=("$path:$size")
+    # Keep local file but remove from index.
+    git restore --staged -- "$path" 2>/dev/null || git rm --cached -q -- "$path" || true
+  fi
+done < <(git diff --cached --name-only -z --diff-filter=AMCR)
+
+if [[ ${#too_large[@]} -gt 0 ]]; then
+  echo "[pre-commit] Unstaged files larger than 1 GiB:"
+  for entry in "${too_large[@]}"; do
+    path=${entry%%:*}
+    size=${entry##*:}
+    gib=$(awk -v b="$size" 'BEGIN { printf "%.2f", b/1073741824 }')
+    echo "  - $path (${gib} GiB)"
+  done
+  echo "[pre-commit] Files were kept on disk but removed from Git staging."
+fi
