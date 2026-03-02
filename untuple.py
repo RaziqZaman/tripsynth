@@ -110,6 +110,24 @@ def parse_tuple_like(raw: str) -> Tuple[object, ...]:
     s = (raw or "").strip()
     if not s:
         return ()
+
+    # Fast path for common simple tuple/list strings: no quotes and no nesting.
+    # Falls back to ast for complex values to preserve behavior.
+    if "'" not in s and '"' not in s:
+        if (s.startswith("(") and s.endswith(")")) or (s.startswith("[") and s.endswith("]")):
+            inner = s[1:-1].strip()
+            if not inner:
+                return ()
+            if "(" not in inner and ")" not in inner and "[" not in inner and "]" not in inner:
+                parts = [part.strip() for part in inner.split(",")]
+                if parts and parts[-1] == "":
+                    parts = parts[:-1]
+                return tuple(parts)
+        elif "," in s:
+            return tuple(part.strip() for part in s.split(","))
+        else:
+            return (s,)
+
     try:
         val = ast.literal_eval(s)
         if isinstance(val, tuple):
@@ -191,18 +209,18 @@ def detect_od_cols(fieldnames: Sequence[str]) -> List[str]:
     return sorted(set(out))
 
 
-def trip_count_from_person(
-    row: Dict[str, object], pfx: str, trip_cols: Sequence[str], od_cols: Sequence[str]
+def trip_count_from_seq_cache(
+    seq_cache: Dict[str, Tuple[object, ...]], trip_cols: Sequence[str], od_cols: Sequence[str]
 ) -> int:
     lengths: List[int] = []
 
     for c in trip_cols:
-        vals = parse_tuple_like(as_text(row.get(pfx + c, "")))
+        vals = seq_cache.get(c, ())
         if vals:
             lengths.append(len(vals))
 
     for c in od_cols:
-        vals = parse_tuple_like(as_text(row.get(pfx + c, "")))
+        vals = seq_cache.get(c, ())
         if vals:
             lengths.append(max(0, len(vals) - 1))
 
@@ -365,8 +383,8 @@ def main() -> int:
             )
     out_cols = list(dict.fromkeys(out_cols))
 
-    with StringRowWriter(args.output, out_cols) as writer_all, StringRowWriter(
-        args.sample_output, out_cols
+    with StringRowWriter(args.output, out_cols, buffer_size=65536) as writer_all, StringRowWriter(
+        args.sample_output, out_cols, buffer_size=16384
     ) as writer_sample:
         new_household_id = 0
         new_person_id = 0
@@ -415,7 +433,13 @@ def main() -> int:
                 ):
                     continue
 
-                trip_count = trip_count_from_person(hh_row, pfx, trip_chain_cols, od_cols)
+                seq_cache: Dict[str, Tuple[object, ...]] = {}
+                for tc in trip_chain_cols:
+                    seq_cache[tc] = parse_tuple_like(as_text(hh_row.get(pfx + tc, "")))
+                for od in od_cols:
+                    seq_cache[od] = parse_tuple_like(as_text(hh_row.get(pfx + od, "")))
+
+                trip_count = trip_count_from_seq_cache(seq_cache, trip_chain_cols, od_cols)
                 if trip_count <= 0:
                     continue
 
@@ -454,12 +478,6 @@ def main() -> int:
                 person_values["work_tract_fips"] = work_tr
                 person_values["school_state_county_fips"] = school_sc
                 person_values["school_tract_fips"] = school_tr
-
-                seq_cache: Dict[str, List[object]] = {}
-                for tc in trip_chain_cols:
-                    seq_cache[tc] = parse_tuple_like(as_text(hh_row.get(pfx + tc, "")))
-                for od in od_cols:
-                    seq_cache[od] = parse_tuple_like(as_text(hh_row.get(pfx + od, "")))
 
                 dep_delta_seq = seq_cache.get("departure_time_in_minutes_after_arrival", [])
                 rt_seq = seq_cache.get("reported_travel_time", [])
