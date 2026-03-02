@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""Train a contrastive-loss VAE on tupled-survey.csv and synthesize households.
+"""Train a contrastive-loss VAE on tupled-survey.parquet and synthesize households.
 
-Outputs synthesized-household-trips.csv with row count equal to rounded sum of wthhfin.
+Outputs synthesized-household-trips.parquet with row count equal to rounded sum of wthhfin.
 """
 
 from __future__ import annotations
 
 import argparse
-import csv
 import math
 import random
 import re
@@ -20,6 +19,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset, WeightedRandomSampler
+from tabular_io import StringRowWriter, read_rows
 try:
     from tqdm.auto import tqdm
 except Exception:
@@ -54,7 +54,7 @@ def set_seed(seed: int) -> None:
     torch.cuda.manual_seed_all(seed)
 
 
-def normalize_string(v: str | None) -> str:
+def normalize_string(v: object) -> str:
     if v is None:
         return ""
     return str(v).strip()
@@ -272,12 +272,9 @@ class ContrastiveVAE(nn.Module):
 
 
 def prepare_data(input_csv: Path) -> PreparedData:
-    with input_csv.open("r", newline="", encoding="utf-8-sig") as f:
-        reader = csv.DictReader(f)
-        columns = list(reader.fieldnames or [])
-        if not columns:
-            raise ValueError("Input CSV has no columns.")
-        rows = list(reader)
+    columns, rows = read_rows(input_csv)
+    if not columns:
+        raise ValueError("Input table has no columns.")
 
     if "wthhfin" not in columns:
         raise ValueError("Input must include wthhfin column.")
@@ -359,16 +356,6 @@ def prepare_data(input_csv: Path) -> PreparedData:
     )
 
 
-def build_positive_view(
-    x_num: torch.Tensor, x_cat: torch.Tensor, jitter_std: float
-) -> Tuple[torch.Tensor, torch.Tensor]:
-    if jitter_std > 0:
-        x_num_pos = x_num + torch.randn_like(x_num) * jitter_std
-    else:
-        x_num_pos = x_num
-    return x_num_pos, x_cat
-
-
 def train(
     prepared: PreparedData,
     device: torch.device,
@@ -378,11 +365,7 @@ def train(
     emb_dim: int,
     hidden_dim: int,
     latent_dim: int,
-    beta_kl: float,
-    lambda_cat: float,
-    lambda_ctr: float,
     temperature: float,
-    jitter_std: float,
     compile_model: bool,
 ) -> ContrastiveVAE:
     x_num = torch.tensor(prepared.numeric_matrix, dtype=torch.float32)
@@ -452,36 +435,37 @@ def train(
             neg_num = torch.tensor(neg_num_np, dtype=torch.float32, device=device)
             neg_cat = torch.tensor(neg_cat_np, dtype=torch.long, device=device)
 
-            pos_num, pos_cat = build_positive_view(bn, bc, jitter_std=jitter_std)
-
             opt.zero_grad(set_to_none=True)
             with torch.autocast(device_type=device.type, dtype=autocast_dtype, enabled=use_amp):
-                rec_num, rec_cat, mu, logvar, _ = model(bn, bc)
+                rec_num, rec_cat, _, _, _ = model(bn, bc)
 
-                loss_num = F.mse_loss(rec_num, bn)
+                # Per-sample numeric reconstruction distances.
+                d_pos_num = ((rec_num - bn) ** 2).mean(dim=1)
+                d_neg_num = ((rec_num - neg_num) ** 2).mean(dim=1)
 
                 if bc.size(1) > 0:
-                    target_cat = torch.stack(
-                        [emb(bc[:, i]) for i, emb in enumerate(model.cat_embeddings)], dim=1
+                    target_pos_cat = torch.stack(
+                        [emb(bc[:, i]) for i, emb in enumerate(model.cat_embeddings)],
+                        dim=1,
                     )
-                    loss_cat = F.mse_loss(rec_cat, target_cat)
+                    target_neg_cat = torch.stack(
+                        [emb(neg_cat[:, i]) for i, emb in enumerate(model.cat_embeddings)],
+                        dim=1,
+                    )
+                    d_pos_cat = ((rec_cat - target_pos_cat) ** 2).mean(dim=(1, 2))
+                    d_neg_cat = ((rec_cat - target_neg_cat) ** 2).mean(dim=(1, 2))
                 else:
-                    loss_cat = torch.zeros((), device=device)
+                    d_pos_cat = torch.zeros_like(d_pos_num)
+                    d_neg_cat = torch.zeros_like(d_neg_num)
 
-                kl = -0.5 * torch.mean(1.0 + logvar - mu.pow(2) - logvar.exp())
+                d_pos = d_pos_num + d_pos_cat
+                d_neg = d_neg_num + d_neg_cat
 
-                mu_pos, _ = model.encode(pos_num, pos_cat)
-                mu_neg, _ = model.encode(neg_num, neg_cat)
+                # Contrastive objective: positive should be closer than negative.
+                logits = (d_neg - d_pos) / max(temperature, 1e-6)
+                ctr_loss = F.binary_cross_entropy_with_logits(logits, torch.ones_like(logits))
 
-                sim_pos = F.cosine_similarity(mu, mu_pos, dim=1) / temperature
-                sim_neg = F.cosine_similarity(mu, mu_neg, dim=1) / temperature
-
-                ctr_loss = 0.5 * (
-                    F.binary_cross_entropy_with_logits(sim_pos, torch.ones_like(sim_pos))
-                    + F.binary_cross_entropy_with_logits(sim_neg, torch.zeros_like(sim_neg))
-                )
-
-                loss = loss_num + lambda_cat * loss_cat + beta_kl * kl + lambda_ctr * ctr_loss
+                loss = ctr_loss
 
             scaler.scale(loss).backward()
             scaler.step(opt)
@@ -521,56 +505,51 @@ def synthesize(
 ) -> None:
     model.eval()
 
-    rows: List[Dict[str, str]] = []
     num_cols = prepared.numeric_columns
     cat_cols = prepared.categorical_columns
     num_means = torch.tensor(prepared.numeric_means, dtype=torch.float32, device=device)
     num_stds = torch.tensor(prepared.numeric_stds, dtype=torch.float32, device=device)
 
-    with torch.no_grad():
-        produced = 0
-        latent_dim = model.mu_head.out_features
-        sample_pbar = tqdm(total=sample_rows, desc="Synthesizing rows", unit="row")
-        while produced < sample_rows:
-            b = min(sample_batch_size, sample_rows - produced)
-            z = torch.randn((b, latent_dim), device=device)
-            rec_num, rec_cat = model.decode(z)
-            rec_num = rec_num * num_stds + num_means
-            rec_cat_ids = decode_categorical_ids(model, rec_cat)
+    with StringRowWriter(output_csv, prepared.columns, buffer_size=8192) as writer:
+        with torch.no_grad():
+            produced = 0
+            latent_dim = model.mu_head.out_features
+            sample_pbar = tqdm(total=sample_rows, desc="Synthesizing rows", unit="row")
+            while produced < sample_rows:
+                b = min(sample_batch_size, sample_rows - produced)
+                z = torch.randn((b, latent_dim), device=device)
+                rec_num, rec_cat = model.decode(z)
+                rec_num = rec_num * num_stds + num_means
+                rec_cat_ids = decode_categorical_ids(model, rec_cat)
 
-            rec_num_np = rec_num.detach().cpu().numpy()
-            rec_cat_np = rec_cat_ids.detach().cpu().numpy()
+                rec_num_np = rec_num.detach().cpu().numpy()
+                rec_cat_np = rec_cat_ids.detach().cpu().numpy()
 
-            for i in range(b):
-                out: Dict[str, str] = {c: "" for c in prepared.columns}
+                for i in range(b):
+                    out: Dict[str, str] = {c: "" for c in prepared.columns}
 
-                for j, c in enumerate(num_cols):
-                    out[c] = format_numeric(float(rec_num_np[i, j]))
+                    for j, c in enumerate(num_cols):
+                        out[c] = format_numeric(float(rec_num_np[i, j]))
 
-                for j, c in enumerate(cat_cols):
-                    cid = int(rec_cat_np[i, j])
-                    vocab = prepared.cat_vocab_values[j]
-                    if cid < 0 or cid >= len(vocab):
-                        cid = 0
-                    out[c] = vocab[cid]
+                    for j, c in enumerate(cat_cols):
+                        cid = int(rec_cat_np[i, j])
+                        vocab = prepared.cat_vocab_values[j]
+                        if cid < 0 or cid >= len(vocab):
+                            cid = 0
+                        out[c] = vocab[cid]
 
-                out["wthhfin"] = "1"
-                rows.append(out)
+                    out["wthhfin"] = "1"
+                    writer.write(out)
 
-            produced += b
-            sample_pbar.update(b)
-        sample_pbar.close()
-
-    with output_csv.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=prepared.columns)
-        writer.writeheader()
-        writer.writerows(rows)
+                produced += b
+                sample_pbar.update(b)
+            sample_pbar.close()
 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Train contrastive VAE and synthesize household trips")
-    p.add_argument("--input", type=Path, default=Path("tupled-survey.csv"))
-    p.add_argument("--output", type=Path, default=Path("synthesized-household-trips.csv"))
+    p.add_argument("--input", type=Path, default=Path("tupled-survey.parquet"))
+    p.add_argument("--output", type=Path, default=Path("synthesized-household-trips.parquet"))
     p.add_argument("--epochs", type=int, default=40)
     p.add_argument("--batch-size", type=int, default=2048)
     p.add_argument("--sample-batch-size", type=int, default=4096)
@@ -578,11 +557,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--emb-dim", type=int, default=8)
     p.add_argument("--hidden-dim", type=int, default=1024)
     p.add_argument("--latent-dim", type=int, default=256)
-    p.add_argument("--beta-kl", type=float, default=0.05)
-    p.add_argument("--lambda-cat", type=float, default=1.0)
-    p.add_argument("--lambda-ctr", type=float, default=0.2)
     p.add_argument("--temperature", type=float, default=0.2)
-    p.add_argument("--jitter-std", type=float, default=0.01)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--no-compile", action="store_true")
     return p.parse_args()
@@ -612,11 +587,7 @@ def main() -> int:
         emb_dim=args.emb_dim,
         hidden_dim=args.hidden_dim,
         latent_dim=args.latent_dim,
-        beta_kl=args.beta_kl,
-        lambda_cat=args.lambda_cat,
-        lambda_ctr=args.lambda_ctr,
         temperature=args.temperature,
-        jitter_std=args.jitter_std,
         compile_model=not args.no_compile,
     )
 

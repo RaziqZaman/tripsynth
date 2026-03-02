@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import argparse
-import csv
 from collections import defaultdict
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+from tabular_io import read_rows, write_rows
 
 def parse_hhmm_to_minutes(value: str) -> Optional[int]:
     if value is None:
@@ -73,16 +74,13 @@ def trip_sort_key(row: Dict[str, str]) -> Tuple[float, str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Transform combined-flat-survey.csv into tupled-survey.csv"
+        description="Transform combined-flat-survey.csv into tupled-survey.parquet"
     )
-    parser.add_argument("--input", default="combined-flat-survey.csv")
-    parser.add_argument("--output", default="tupled-survey.csv")
+    parser.add_argument("--input", type=Path, default=Path("combined-flat-survey.csv"))
+    parser.add_argument("--output", type=Path, default=Path("tupled-survey.parquet"))
     args = parser.parse_args()
 
-    with open(args.input, newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        original_columns = list(reader.fieldnames or [])
-        raw_rows = list(reader)
+    original_columns, raw_rows = read_rows(args.input)
 
     # Discover FIPS pair prefixes
     state_county_cols = [c for c in original_columns if c.endswith("_state_county_fips")]
@@ -305,10 +303,7 @@ def main() -> None:
 
         out_rows.append(out)
 
-    with open(args.output, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=output_columns)
-        writer.writeheader()
-        writer.writerows(out_rows)
+    write_rows(args.output, output_columns, out_rows)
 
 
 if __name__ == "__main__":

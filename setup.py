@@ -9,12 +9,13 @@ setup(
         "Utilities for transforming survey CSVs, generating count tables, and "
         "training/sampling a contrastive VAE synthesizer."
     ),
-    py_modules=["tuple", "get_counts", "get_tupled_counts", "synthesize", "howdy"],
+    py_modules=["tuple", "get_counts", "get_tupled_counts", "synthesize", "howdy", "untuple", "tabular_io", "validate"],
     python_requires=">=3.10",
     install_requires=[
         "numpy>=1.24",
         "tqdm>=4.66",
         "torch>=2.2",
+        "pyarrow>=15.0",
     ],
     entry_points={
         "console_scripts": [

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create per-column value count CSVs from tupled-survey.csv."""
+"""Create per-column value count CSVs from tupled-survey.parquet."""
 
 from __future__ import annotations
 
@@ -8,16 +8,17 @@ import re
 from collections import Counter
 from pathlib import Path
 
+from tabular_io import read_rows
 
-INPUT_CSV = Path("tupled-survey.csv")
+INPUT_TABLE = Path("tupled-survey.parquet")
 OUTPUT_DIR = Path("tupled-counts")
 NULL_LABEL = "<NULL>"
 
 
-def normalize_value(raw: str | None) -> str:
+def normalize_value(raw: object) -> str:
     if raw is None:
         return NULL_LABEL
-    value = raw.strip()
+    value = str(raw).strip()
     return NULL_LABEL if value == "" else value
 
 
@@ -27,22 +28,18 @@ def safe_filename(name: str) -> str:
 
 
 def main() -> int:
-    if not INPUT_CSV.exists():
-        raise FileNotFoundError(f"Missing input file: {INPUT_CSV}")
+    if not INPUT_TABLE.exists():
+        raise FileNotFoundError(f"Missing input file: {INPUT_TABLE}")
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    with INPUT_CSV.open("r", newline="", encoding="utf-8-sig") as f:
-        reader = csv.DictReader(f)
-        if not reader.fieldnames:
-            raise ValueError("Input CSV has no header row.")
-
-        columns = reader.fieldnames
-        counters: dict[str, Counter[str]] = {col: Counter() for col in columns}
-
-        for row in reader:
-            for col in columns:
-                counters[col][normalize_value(row.get(col))] += 1
+    columns, rows = read_rows(INPUT_TABLE)
+    if not columns:
+        raise ValueError("Input table has no header row.")
+    counters: dict[str, Counter[str]] = {col: Counter() for col in columns}
+    for row in rows:
+        for col in columns:
+            counters[col][normalize_value(row.get(col))] += 1
 
     used_names: dict[str, int] = {}
     for col in columns:
