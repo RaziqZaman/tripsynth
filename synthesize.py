@@ -520,6 +520,7 @@ def train(
     hist_bins: int,
     hist_loss_weight: float,
     hist_sigma_scale: float,
+    grad_clip_norm: float,
     compile_model: bool,
 ) -> ContrastiveVAE:
     x_num = torch.tensor(prepared.numeric_matrix, dtype=torch.float32)
@@ -628,7 +629,10 @@ def train(
                 logits = (d_neg - d_pos) / max(temperature, 1e-6)
                 ctr_loss = F.binary_cross_entropy_with_logits(logits, torch.ones_like(logits))
                 rec_loss = d_pos.mean()
-                kl_loss = -0.5 * torch.mean(1 + logvar - mu.pow(2) - logvar.exp())
+                # Keep KL in fp32 and clamp logvar to avoid exp overflow.
+                mu32 = mu.float()
+                logvar32 = logvar.float().clamp(min=-10.0, max=10.0)
+                kl_loss = -0.5 * torch.mean(1 + logvar32 - mu32.pow(2) - logvar32.exp())
                 hist_loss = soft_histogram_loss(
                     rec_num=rec_num,
                     hist_mins=hist_mins,
@@ -643,7 +647,14 @@ def train(
                     + hist_loss_weight * hist_loss
                 )
 
+            if not torch.isfinite(loss).item():
+                batch_iter.set_postfix(loss="nan", hist="nan")
+                continue
+
             scaler.scale(loss).backward()
+            scaler.unscale_(opt)
+            if grad_clip_norm > 0:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=grad_clip_norm)
             scaler.step(opt)
             scaler.update()
 
@@ -793,16 +804,17 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--epochs", type=int, default=120)
     p.add_argument("--batch-size", type=int, default=128)
     p.add_argument("--sample-batch-size", type=int, default=4096)
-    p.add_argument("--lr", type=float, default=2e-4)
+    p.add_argument("--lr", type=float, default=5e-5)
     p.add_argument("--emb-dim", type=int, default=8)
     p.add_argument("--hidden-dim", type=int, default=8192)
     p.add_argument("--latent-dim", type=int, default=4096)
     p.add_argument("--temperature", type=float, default=0.2)
     p.add_argument("--kl-beta", type=float, default=1e-3)
-    p.add_argument("--contrastive-weight", type=float, default=0.5)
+    p.add_argument("--contrastive-weight", type=float, default=0.2)
     p.add_argument("--hist-bins", type=int, default=32)
-    p.add_argument("--hist-loss-weight", type=float, default=0.2)
+    p.add_argument("--hist-loss-weight", type=float, default=0.05)
     p.add_argument("--hist-sigma-scale", type=float, default=0.5)
+    p.add_argument("--grad-clip-norm", type=float, default=1.0)
     p.add_argument(
         "--p-empty-retain",
         type=float,
@@ -864,6 +876,7 @@ def main() -> int:
         hist_bins=args.hist_bins,
         hist_loss_weight=args.hist_loss_weight,
         hist_sigma_scale=args.hist_sigma_scale,
+        grad_clip_norm=args.grad_clip_norm,
         compile_model=not args.no_compile,
     )
 
