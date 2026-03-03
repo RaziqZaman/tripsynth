@@ -2,7 +2,7 @@
 """Validate synthetic trips against survey data with per-column histogram matching.
 
 Compares shared columns across:
-- synthetic_trips.parquet (default)
+- sample_synthetic_trips.csv (default)
 - combined-flat-survey.csv (default)
 
 Outputs:
@@ -14,19 +14,25 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import math
 import re
+import zlib
 from collections import Counter
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List
 
 import numpy as np
 
-from tabular_io import get_fieldnames, iter_rows
+from tabular_io import count_rows, get_fieldnames, iter_rows
+try:
+    from tqdm.auto import tqdm
+except Exception:
+    def tqdm(iterable=None, *args, **kwargs):
+        return iterable if iterable is not None else []
 
-DEFAULT_SYNTH = Path("synthetic_trips.parquet")
+DEFAULT_SYNTH = Path("sample_synthetic_trips.csv")
 DEFAULT_SURVEY_CANDIDATES = [
     Path("cobined-flat-survey.csv"),
     Path("combined-flat-survey.csv"),
@@ -84,7 +90,21 @@ def normalize_value(raw: object) -> str:
 
 
 def parse_numeric(raw: object) -> float | None:
-    s = normalize_value(raw)
+    if raw is None:
+        return None
+    if isinstance(raw, (int, float)):
+        x = float(raw)
+        return x if math.isfinite(x) else None
+    s = str(raw).strip()
+    return parse_numeric_text(s)
+
+
+def stable_bucket(value: str, n_buckets: int) -> int:
+    return stable_bucket_cached(value, n_buckets)
+
+
+@lru_cache(maxsize=1_000_000)
+def parse_numeric_text(s: str) -> float | None:
     if not s:
         return None
     try:
@@ -96,18 +116,21 @@ def parse_numeric(raw: object) -> float | None:
     return x
 
 
-def stable_bucket(value: str, n_buckets: int) -> int:
-    digest = hashlib.blake2b(value.encode("utf-8"), digest_size=8).digest()
-    return int.from_bytes(digest, byteorder="little", signed=False) % n_buckets
+@lru_cache(maxsize=1_000_000)
+def stable_bucket_cached(value: str, n_buckets: int) -> int:
+    # Much faster than cryptographic hashing while remaining deterministic.
+    return zlib.crc32(value.encode("utf-8")) % n_buckets
 
 
-def scan_dataset(path: Path, columns: List[str], unique_cap: int) -> tuple[int, Dict[str, ColumnScan]]:
+def scan_dataset(
+    path: Path, columns: List[str], unique_cap: int, desc: str, total_rows_hint: int | None = None
+) -> tuple[int, Dict[str, ColumnScan]]:
     scans: Dict[str, ColumnScan] = {
         c: ColumnScan(unique_values=set()) for c in columns
     }
     total_rows = 0
 
-    for row in iter_rows(path):
+    for row in tqdm(iter_rows(path), desc=desc, unit="row", total=total_rows_hint):
         total_rows += 1
         for col in columns:
             raw = row.get(col)
@@ -229,10 +252,18 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Optional cap on number of shared columns validated.",
     )
+    parser.set_defaults(skip_plots=False)
     parser.add_argument(
         "--skip-plots",
+        dest="skip_plots",
         action="store_true",
         help="Skip saving histogram plots.",
+    )
+    parser.add_argument(
+        "--with-plots",
+        dest="skip_plots",
+        action="store_false",
+        help="Generate histogram plots (default).",
     )
     return parser.parse_args()
 
@@ -267,8 +298,23 @@ def main() -> int:
     if not shared_cols:
         raise ValueError("No shared columns found between synthetic and survey tables.")
 
-    synth_rows, synth_scan = scan_dataset(args.synthetic, shared_cols, args.max_categories_plot)
-    survey_rows, survey_scan = scan_dataset(args.survey, shared_cols, args.max_categories_plot)
+    synth_total_rows = count_rows(args.synthetic)
+    survey_total_rows = count_rows(args.survey)
+
+    synth_rows, synth_scan = scan_dataset(
+        args.synthetic,
+        shared_cols,
+        args.max_categories_plot,
+        desc="Scanning synthetic",
+        total_rows_hint=synth_total_rows,
+    )
+    survey_rows, survey_scan = scan_dataset(
+        args.survey,
+        shared_cols,
+        args.max_categories_plot,
+        desc="Scanning survey",
+        total_rows_hint=survey_total_rows,
+    )
 
     metadata: Dict[str, dict[str, object]] = {}
     for col in shared_cols:
@@ -310,45 +356,59 @@ def main() -> int:
                 "r_count": Counter() if exact else np.zeros(args.hash_buckets, dtype=np.int64),
             }
 
-    def accumulate(path: Path, side: str) -> None:
-        for row in iter_rows(path):
-            for col in shared_cols:
+    numeric_cols = [c for c in shared_cols if metadata[c]["kind"] == "numeric"]
+    categorical_exact_cols = [
+        c for c in shared_cols if metadata[c]["kind"] == "categorical" and metadata[c]["mode"] == "exact"
+    ]
+    categorical_hashed_cols = [
+        c for c in shared_cols if metadata[c]["kind"] == "categorical" and metadata[c]["mode"] == "hashed"
+    ]
+
+    def accumulate(path: Path, side: str, total_rows: int) -> None:
+        label = "Accumulating synthetic" if side == "s" else "Accumulating survey"
+        for row in tqdm(iter_rows(path), total=total_rows, desc=label, unit="row"):
+            for col in numeric_cols:
                 info = metadata[col]
                 raw = row.get(col)
-                if info["kind"] == "numeric":
-                    x = parse_numeric(raw)
-                    if x is None:
-                        continue
-                    idx = histogram_index(float(x), float(info["min"]), float(info["max"]), args.bins)
-                    if side == "s":
-                        info["s_hist"][idx] += 1
-                        info["s_stats"].update(float(x))
-                    else:
-                        info["r_hist"][idx] += 1
-                        info["r_stats"].update(float(x))
+                x = parse_numeric(raw)
+                if x is None:
+                    continue
+                idx = histogram_index(float(x), float(info["min"]), float(info["max"]), args.bins)
+                if side == "s":
+                    info["s_hist"][idx] += 1
+                    info["s_stats"].update(float(x))
                 else:
-                    token = normalize_value(raw)
-                    if token == "":
-                        token = NULL_LABEL
-                    if info["mode"] == "exact":
-                        if side == "s":
-                            info["s_count"][token] += 1
-                        else:
-                            info["r_count"][token] += 1
-                    else:
-                        b = stable_bucket(token, args.hash_buckets)
-                        if side == "s":
-                            info["s_count"][b] += 1
-                        else:
-                            info["r_count"][b] += 1
+                    info["r_hist"][idx] += 1
+                    info["r_stats"].update(float(x))
 
-    accumulate(args.synthetic, "s")
-    accumulate(args.survey, "r")
+            for col in categorical_exact_cols:
+                info = metadata[col]
+                token = normalize_value(row.get(col))
+                if token == "":
+                    token = NULL_LABEL
+                if side == "s":
+                    info["s_count"][token] += 1
+                else:
+                    info["r_count"][token] += 1
+
+            for col in categorical_hashed_cols:
+                info = metadata[col]
+                token = normalize_value(row.get(col))
+                if token == "":
+                    token = NULL_LABEL
+                b = stable_bucket(token, args.hash_buckets)
+                if side == "s":
+                    info["s_count"][b] += 1
+                else:
+                    info["r_count"][b] += 1
+
+    accumulate(args.synthetic, "s", synth_rows)
+    accumulate(args.survey, "r", survey_rows)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     validation_rows: List[Dict[str, str]] = []
 
-    for col in shared_cols:
+    for col in tqdm(shared_cols, desc="Scoring columns", unit="col"):
         info = metadata[col]
         s_non_empty = synth_scan[col].non_empty
         r_non_empty = survey_scan[col].non_empty

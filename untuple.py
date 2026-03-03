@@ -251,7 +251,7 @@ def main() -> int:
     ap.add_argument("--input", type=Path, default=Path("synthesized-household-trips.parquet"))
     ap.add_argument("--output", type=Path, default=Path("synthetic_trips.parquet"))
     ap.add_argument("--sample-output", type=Path, default=Path("sample_synthetic_trips.csv"))
-    ap.add_argument("--sample-households", type=int, default=5040)
+    ap.add_argument("--sample-households", type=int, default=55440)
     ap.add_argument("--seed", type=int, default=42)
     args = ap.parse_args()
 
