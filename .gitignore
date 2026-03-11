@@ -46,3 +46,8 @@ synthesized-household-trips.csv
 synthetic_trips.csv
 comparison_histograms/
 synthetic_trips.zip
+chunked_synthetic_trips.zip
+chunked_synthetic_trips/
+sample_synthetic_trips*.csv
+synthetic_trips*.csv
+*.parquet

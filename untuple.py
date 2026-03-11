@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import ast
 import random
+from contextlib import ExitStack
 from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
@@ -246,30 +247,31 @@ def parse_vehicle_item(v: object) -> Tuple[str, str, str, str, str, str]:
     return arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description="Untuple synthesized-household-trips.parquet")
-    ap.add_argument("--input", type=Path, default=Path("synthesized-household-trips.parquet"))
-    ap.add_argument("--output", type=Path, default=Path("synthetic_trips.parquet"))
-    ap.add_argument("--sample-output", type=Path, default=Path("sample_synthetic_trips.csv"))
-    ap.add_argument("--sample-households", type=int, default=55440)
-    ap.add_argument("--seed", type=int, default=42)
-    args = ap.parse_args()
+def untuple_households(
+    input_path: Path,
+    output_path: Path,
+    sample_output_path: Path | None = None,
+    sample_households: int = 55440,
+    seed: int = 42,
+) -> None:
+    if not input_path.exists():
+        raise FileNotFoundError(f"Missing input file: {input_path}")
 
-    if not args.input.exists():
-        raise FileNotFoundError(f"Missing input file: {args.input}")
-
-    total_households = count_rows(args.input)
+    total_households = count_rows(input_path)
     if total_households <= 0:
         raise ValueError("Input table has no rows.")
 
-    sample_n = min(args.sample_households, total_households)
-    rng = random.Random(args.seed)
-    sampled_households = set(rng.sample(range(1, total_households + 1), sample_n))
+    sample_n = 0
+    sampled_households: set[int] = set()
+    if sample_output_path is not None and sample_households > 0:
+        sample_n = min(sample_households, total_households)
+        rng = random.Random(seed)
+        sampled_households = set(rng.sample(range(1, total_households + 1), sample_n))
 
-    fieldnames = get_fieldnames(args.input)
+    fieldnames = get_fieldnames(input_path)
     if not fieldnames:
         raise ValueError("Input table has no header row.")
-    reader = iter_rows(args.input)
+    reader = iter_rows(input_path)
 
     p_slots = detect_p_slots(fieldnames)
     j1_cols = detect_j1_cols(fieldnames)
@@ -383,9 +385,13 @@ def main() -> int:
             )
     out_cols = list(dict.fromkeys(out_cols))
 
-    with StringRowWriter(args.output, out_cols, buffer_size=65536) as writer_all, StringRowWriter(
-        args.sample_output, out_cols, buffer_size=16384
-    ) as writer_sample:
+    with ExitStack() as stack:
+        writer_all = stack.enter_context(StringRowWriter(output_path, out_cols, buffer_size=65536))
+        writer_sample = (
+            stack.enter_context(StringRowWriter(sample_output_path, out_cols, buffer_size=16384))
+            if sample_output_path is not None and sample_n > 0
+            else None
+        )
         new_household_id = 0
         new_person_id = 0
         new_tripid = 0
@@ -540,12 +546,31 @@ def main() -> int:
                             out["d_tract_fips"] = d_tr
 
                     writer_all.write(out)
-                    if write_sample:
+                    if write_sample and writer_sample is not None:
                         writer_sample.write(out)
 
-    print(f"Wrote {args.output}")
-    print(
-        f"Wrote {args.sample_output} using {sample_n} sampled households out of {total_households}"
+    print(f"Wrote {output_path}")
+    if sample_output_path is not None and sample_n > 0:
+        print(
+            f"Wrote {sample_output_path} using {sample_n} sampled households out of {total_households}"
+        )
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Untuple synthesized-household-trips.parquet")
+    ap.add_argument("--input", type=Path, default=Path("synthesized-household-trips.parquet"))
+    ap.add_argument("--output", type=Path, default=Path("synthetic_trips.parquet"))
+    ap.add_argument("--sample-output", type=Path, default=Path("sample_synthetic_trips.csv"))
+    ap.add_argument("--sample-households", type=int, default=55440)
+    ap.add_argument("--seed", type=int, default=42)
+    args = ap.parse_args()
+
+    untuple_households(
+        input_path=args.input,
+        output_path=args.output,
+        sample_output_path=args.sample_output,
+        sample_households=args.sample_households,
+        seed=args.seed,
     )
     return 0
 
