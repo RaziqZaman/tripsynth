@@ -611,7 +611,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--critical-non-null-threshold", type=float, default=0.95)
     p.add_argument("--integer-threshold", type=float, default=0.98)
     p.add_argument("--p-empty-retain", type=float, default=0.2)
-    p.add_argument("--sample-households", type=int, default=55440)
+    p.add_argument("--sample-rows", type=int, default=10080)
+    p.add_argument("--sample-households", dest="sample_rows", type=int)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--no-compile", action="store_true")
     return p.parse_args()
@@ -681,7 +682,7 @@ def main() -> int:
         integer_numeric_columns=prepared_split.integer_numeric_columns,
         device=device,
         output_path=args.household_output,
-        sample_rows=prepared.target_rows,
+        sample_rows=args.sample_rows,
         sample_batch_size=args.sample_batch_size,
         p_empty_retain=args.p_empty_retain,
         sample_noise_std=args.sample_noise_std,
@@ -692,7 +693,7 @@ def main() -> int:
         input_path=args.household_output,
         output_path=args.trip_output,
         sample_output_path=args.sample_trip_output,
-        sample_households=args.sample_households,
+        sample_rows=args.sample_rows,
         seed=args.seed,
     )
     return 0

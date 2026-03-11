@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-LIMIT_BYTES=1073741824
+LIMIT_BYTES=104857600
 
 too_large=()
 while IFS= read -r -d '' path; do
@@ -17,12 +17,12 @@ while IFS= read -r -d '' path; do
 done < <(git diff --cached --name-only -z --diff-filter=AMCR)
 
 if [[ ${#too_large[@]} -gt 0 ]]; then
-  echo "[pre-commit] Unstaged files larger than 1 GiB:"
+  echo "[pre-commit] Unstaged files larger than 100 MiB:"
   for entry in "${too_large[@]}"; do
     path=${entry%%:*}
     size=${entry##*:}
-    gib=$(awk -v b="$size" 'BEGIN { printf "%.2f", b/1073741824 }')
-    echo "  - $path (${gib} GiB)"
+    mib=$(awk -v b="$size" 'BEGIN { printf "%.2f", b/1048576 }')
+    echo "  - $path (${mib} MiB)"
   done
   echo "[pre-commit] Files were kept on disk but removed from Git staging."
 fi

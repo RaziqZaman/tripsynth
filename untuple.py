@@ -4,7 +4,7 @@
 Input: synthesized-household-trips.parquet
 Outputs:
 - synthetic_trips.parquet
-- sample_synthetic_trips.csv (all trips from 5040 randomly selected households)
+- sample_synthetic_trips.csv (up to 10080 sampled trip rows)
 """
 
 from __future__ import annotations
@@ -228,6 +228,27 @@ def trip_count_from_seq_cache(
     return max(lengths) if lengths else 0
 
 
+def trimmed_seq_len(seq: Sequence[object]) -> int:
+    end = len(seq)
+    while end > 0 and not as_text(seq[end - 1]).strip():
+        end -= 1
+    return end
+
+
+def trip_count_from_trimmed_seq_cache(
+    seq_cache: Dict[str, Tuple[object, ...]], trip_cols: Sequence[str], od_cols: Sequence[str]
+) -> int:
+    lengths: List[int] = []
+
+    for c in trip_cols:
+        lengths.append(trimmed_seq_len(seq_cache.get(c, ())))
+
+    for c in od_cols:
+        lengths.append(max(0, trimmed_seq_len(seq_cache.get(c, ())) - 1))
+
+    return max(lengths) if lengths else 0
+
+
 def get_seq_value(seq: Sequence[object], idx: int) -> str:
     if idx < 0 or idx >= len(seq):
         return ""
@@ -251,6 +272,7 @@ def untuple_households(
     input_path: Path,
     output_path: Path,
     sample_output_path: Path | None = None,
+    sample_rows: int = 10080,
     sample_households: int = 55440,
     seed: int = 42,
 ) -> None:
@@ -395,6 +417,7 @@ def untuple_households(
         new_household_id = 0
         new_person_id = 0
         new_tripid = 0
+        sample_rows_written = 0
 
         for hh_row in tqdm(
             reader,
@@ -404,7 +427,9 @@ def untuple_households(
         ):
             new_household_id += 1
             hh_id_str = str(new_household_id)
-            write_sample = new_household_id in sampled_households
+            write_sample = (
+                sample_rows_written < sample_rows and new_household_id in sampled_households
+            )
 
             household_values = {
                 "area_type": as_text(hh_row.get("area_type", "")).strip(),
@@ -445,11 +470,6 @@ def untuple_households(
                 for od in od_cols:
                     seq_cache[od] = parse_tuple_like(as_text(hh_row.get(pfx + od, "")))
 
-                trip_count = trip_count_from_seq_cache(seq_cache, trip_chain_cols, od_cols)
-                if trip_count <= 0:
-                    continue
-
-                new_person_id += 1
                 person_values = {
                     "age": as_text(hh_row.get(pfx + "age", "")).strip(),
                     "disability": as_text(hh_row.get(pfx + "disability", "")).strip(),
@@ -484,6 +504,21 @@ def untuple_households(
                 person_values["work_tract_fips"] = work_tr
                 person_values["school_state_county_fips"] = school_sc
                 person_values["school_tract_fips"] = school_tr
+
+                declared_trip_count = parse_minutes_value(person_values["person_tripcount"])
+                inferred_trip_count = trip_count_from_trimmed_seq_cache(
+                    seq_cache, trip_chain_cols, od_cols
+                )
+                trip_count = (
+                    declared_trip_count
+                    if declared_trip_count is not None and declared_trip_count > 0
+                    else inferred_trip_count
+                )
+                if trip_count <= 0:
+                    continue
+
+                new_person_id += 1
+                person_values["person_tripcount"] = str(trip_count)
 
                 dep_delta_seq = seq_cache.get("departure_time_in_minutes_after_arrival", [])
                 rt_seq = seq_cache.get("reported_travel_time", [])
@@ -546,13 +581,19 @@ def untuple_households(
                             out["d_tract_fips"] = d_tr
 
                     writer_all.write(out)
-                    if write_sample and writer_sample is not None:
+                    if (
+                        write_sample
+                        and writer_sample is not None
+                        and sample_rows_written < sample_rows
+                    ):
                         writer_sample.write(out)
+                        sample_rows_written += 1
 
     print(f"Wrote {output_path}")
-    if sample_output_path is not None and sample_n > 0:
+    if sample_output_path is not None and sample_n > 0 and sample_rows > 0:
         print(
-            f"Wrote {sample_output_path} using {sample_n} sampled households out of {total_households}"
+            f"Wrote {sample_output_path} with {sample_rows_written} sampled trip rows "
+            f"using up to {sample_n} sampled households out of {total_households}"
         )
 
 
@@ -561,6 +602,7 @@ def main() -> int:
     ap.add_argument("--input", type=Path, default=Path("synthesized-household-trips.parquet"))
     ap.add_argument("--output", type=Path, default=Path("synthetic_trips.parquet"))
     ap.add_argument("--sample-output", type=Path, default=Path("sample_synthetic_trips.csv"))
+    ap.add_argument("--sample-rows", type=int, default=10080)
     ap.add_argument("--sample-households", type=int, default=55440)
     ap.add_argument("--seed", type=int, default=42)
     args = ap.parse_args()
@@ -569,6 +611,7 @@ def main() -> int:
         input_path=args.input,
         output_path=args.output,
         sample_output_path=args.sample_output,
+        sample_rows=args.sample_rows,
         sample_households=args.sample_households,
         seed=args.seed,
     )
