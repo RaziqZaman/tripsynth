@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import shutil
 import subprocess
 import sys
@@ -14,6 +15,22 @@ def run_cmd(cmd: list[str]) -> tuple[bool, str]:
         return True, out
     except Exception as exc:  # pragma: no cover - best effort diagnostics
         return False, str(exc)
+
+
+class Tee:
+    """Write stdout to the terminal and a log file at the same time."""
+
+    def __init__(self, *streams) -> None:
+        self.streams = streams
+
+    def write(self, data: str) -> int:
+        for stream in self.streams:
+            stream.write(data)
+        return len(data)
+
+    def flush(self) -> None:
+        for stream in self.streams:
+            stream.flush()
 
 
 def check_nvidia_smi() -> None:
@@ -43,6 +60,8 @@ def check_torch_cuda() -> None:
     print(f"torch built with CUDA: {torch.version.cuda}")
     available = torch.cuda.is_available()
     print(f"torch.cuda.is_available(): {available}")
+    device = "cuda" if available else "cpu"
+    print(f"running tensor multiplication on: {device}")
 
     if available:
         count = torch.cuda.device_count()
@@ -52,11 +71,22 @@ def check_torch_cuda() -> None:
     else:
         print("CUDA is not available to PyTorch.")
 
+    try:
+        left = torch.tensor([[1.0, 2.0], [3.0, 4.0]], device=device)
+        right = torch.tensor([[5.0, 6.0], [7.0, 8.0]], device=device)
+        result = left @ right
+        print("tensor matmul result:")
+        print(result)
+    except Exception as exc:
+        print(f"tensor multiplication failed: {exc}")
+
 
 def main() -> int:
-    print("Howdy! Checking CUDA access...\n")
-    check_nvidia_smi()
-    check_torch_cuda()
+    with open("howdy.txt", "w", encoding="utf-8") as log_file:
+        with contextlib.redirect_stdout(Tee(sys.stdout, log_file)):
+            print("Howdy! Checking CUDA access...\n")
+            check_nvidia_smi()
+            check_torch_cuda()
     return 0
 
 

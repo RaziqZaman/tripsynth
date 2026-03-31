@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Raw trip survey rows transformed into tupled VAE input</title>
+  <desc id="desc">A presentation-ready figure showing raw household-chained survey trips on the left and tupled VAE input columns on the right, connected by the tuple transformation step.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f6f1e8"/>
+      <stop offset="100%" stop-color="#e3edf2"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffdfa"/>
+      <stop offset="100%" stop-color="#f7fbfc"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#27343b" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#b85c38"/>
+    </marker>
+    <style>
+      .title { font: 700 36px Georgia, 'Times New Roman', serif; fill: #172126; }
+      .subtitle { font: 500 18px Georgia, 'Times New Roman', serif; fill: #51626a; }
+      .panel-title { font: 700 24px Georgia, 'Times New Roman', serif; fill: #18323a; }
+      .chip { font: 700 15px 'Trebuchet MS', Verdana, sans-serif; fill: white; }
+      .table-head { font: 700 15px 'Trebuchet MS', Verdana, sans-serif; fill: #17363e; }
+      .cell { font: 500 14px 'Trebuchet MS', Verdana, sans-serif; fill: #24353a; }
+      .mono { font: 500 14px 'Courier New', monospace; fill: #24353a; }
+      .small { font: 500 13px 'Trebuchet MS', Verdana, sans-serif; fill: #4f6168; }
+      .callout-title { font: 700 16px 'Trebuchet MS', Verdana, sans-serif; fill: #17363e; }
+      .callout-text { font: 500 14px 'Trebuchet MS', Verdana, sans-serif; fill: #2e434a; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="150" cy="110" r="120" fill="#d8e5e8" opacity="0.45"/>
+  <circle cx="1440" cy="120" r="160" fill="#efd6c7" opacity="0.40"/>
+  <circle cx="1480" cy="780" r="180" fill="#dce8d9" opacity="0.42"/>
+
+  <text x="90" y="78" class="title">From Raw Trip Rows to Tupled VAE Input</text>
+  <text x="90" y="112" class="subtitle">Example household 140000204 with 2 people and 5 trips</text>
+
+  <rect x="70" y="160" width="620" height="650" rx="28" fill="url(#panel)" stroke="#cdd9dd" filter="url(#shadow)"/>
+  <rect x="760" y="160" width="770" height="670" rx="28" fill="url(#panel)" stroke="#cdd9dd" filter="url(#shadow)"/>
+
+  <text x="110" y="208" class="panel-title">A. Household-Chained Survey Rows</text>
+  <text x="800" y="208" class="panel-title">B. Tupled Survey Row Fed to the VAE</text>
+
+  <rect x="110" y="228" width="190" height="32" rx="16" fill="#355c7d"/>
+  <text x="205" y="249" text-anchor="middle" class="chip">Trip-Level Representation</text>
+  <rect x="800" y="228" width="220" height="32" rx="16" fill="#b85c38"/>
+  <text x="910" y="249" text-anchor="middle" class="chip">One Row Per Household</text>
+
+  <line x1="690" y1="485" x2="760" y2="485" stroke="#b85c38" stroke-width="6" marker-end="url(#arrow)"/>
+  <text x="725" y="455" text-anchor="middle" class="panel-title" fill="#b85c38">tuple.py</text>
+  <text x="725" y="515" text-anchor="middle" class="small">group by household, rank people,</text>
+  <text x="725" y="537" text-anchor="middle" class="small">convert trip chains to tuples</text>
+
+  <g transform="translate(110,280)">
+    <rect width="540" height="42" fill="#dfeaf0" rx="10"/>
+    <text x="18" y="27" class="table-head">person_id</text>
+    <text x="155" y="27" class="table-head">tripno</text>
+    <text x="245" y="27" class="table-head">o_act</text>
+    <text x="330" y="27" class="table-head">d_act</text>
+    <text x="402" y="27" class="table-head">dep</text>
+    <text x="470" y="27" class="table-head">mode</text>
+
+    <rect y="52" width="540" height="54" fill="#ffffff" rx="10"/>
+    <text x="18" y="86" class="mono">14000020401</text>
+    <text x="160" y="86" class="cell">1</text>
+    <text x="250" y="86" class="cell">1</text>
+    <text x="334" y="86" class="cell">2</text>
+    <text x="396" y="86" class="cell">845</text>
+    <text x="476" y="86" class="cell">4</text>
+
+    <rect y="116" width="540" height="54" fill="#f6fafb" rx="10"/>
+    <text x="18" y="150" class="mono">14000020401</text>
+    <text x="160" y="150" class="cell">2</text>
+    <text x="250" y="150" class="cell">2</text>
+    <text x="334" y="150" class="cell">1</text>
+    <text x="396" y="150" class="cell">1545</text>
+    <text x="476" y="150" class="cell">4</text>
+
+    <rect y="196" width="540" height="2" fill="#d6e1e4"/>
+    <text x="0" y="225" class="callout-title">Person 1 trip chain</text>
+    <text x="0" y="249" class="callout-text">Home -&gt; activity 2 -&gt; Home</text>
+
+    <rect y="286" width="540" height="54" fill="#ffffff" rx="10"/>
+    <text x="18" y="320" class="mono">14000020402</text>
+    <text x="160" y="320" class="cell">1</text>
+    <text x="250" y="320" class="cell">1</text>
+    <text x="334" y="320" class="cell">2</text>
+    <text x="396" y="320" class="cell">640</text>
+    <text x="476" y="320" class="cell">4</text>
+
+    <rect y="350" width="540" height="54" fill="#f6fafb" rx="10"/>
+    <text x="18" y="384" class="mono">14000020402</text>
+    <text x="160" y="384" class="cell">2</text>
+    <text x="250" y="384" class="cell">2</text>
+    <text x="330" y="384" class="cell">11</text>
+    <text x="392" y="384" class="cell">1600</text>
+    <text x="476" y="384" class="cell">4</text>
+
+    <rect y="414" width="540" height="54" fill="#ffffff" rx="10"/>
+    <text x="18" y="448" class="mono">14000020402</text>
+    <text x="160" y="448" class="cell">3</text>
+    <text x="246" y="448" class="cell">11</text>
+    <text x="334" y="448" class="cell">1</text>
+    <text x="392" y="448" class="cell">1645</text>
+    <text x="476" y="448" class="cell">4</text>
+
+    <rect y="494" width="540" height="2" fill="#d6e1e4"/>
+    <text x="0" y="523" class="callout-title">Person 2 trip chain</text>
+    <text x="0" y="547" class="callout-text">Home -&gt; activity 2 -&gt; activity 11 -&gt; Home</text>
+  </g>
+
+  <g transform="translate(800,280)">
+    <rect width="690" height="42" fill="#f0e2d8" rx="10"/>
+    <text x="18" y="27" class="table-head">column</text>
+    <text x="395" y="27" class="table-head">sample value</text>
+
+    <rect y="52" width="690" height="44" fill="#ffffff" rx="10"/>
+    <text x="18" y="80" class="mono">household_id</text>
+    <text x="395" y="80" class="mono">140000204</text>
+
+    <rect y="102" width="690" height="44" fill="#f9fbfb" rx="10"/>
+    <text x="18" y="130" class="mono">hhsize</text>
+    <text x="395" y="130" class="mono">2</text>
+
+    <rect y="152" width="690" height="44" fill="#ffffff" rx="10"/>
+    <text x="18" y="180" class="mono">numvehicles</text>
+    <text x="395" y="180" class="mono">2</text>
+
+    <rect y="214" width="690" height="2" fill="#d6e1e4"/>
+    <text x="0" y="246" class="callout-title">Person slots are ordered by descending age</text>
+
+    <rect y="268" width="690" height="44" fill="#ffffff" rx="10"/>
+    <text x="18" y="296" class="mono">P1-age</text>
+    <text x="395" y="296" class="mono">76</text>
+
+    <rect y="318" width="690" height="44" fill="#f9fbfb" rx="10"/>
+    <text x="18" y="346" class="mono">P1-travel_mode</text>
+    <text x="395" y="346" class="mono">('4', '4', '4')</text>
+
+    <rect y="368" width="690" height="44" fill="#ffffff" rx="10"/>
+    <text x="18" y="396" class="mono">P1-od_activity</text>
+    <text x="395" y="396" class="mono">('1', '2', '11', '1')</text>
+
+    <rect y="418" width="690" height="72" fill="#f9fbfb" rx="10"/>
+    <text x="18" y="444" class="mono">
+      <tspan x="18" dy="0">P1-departure_time_in_minutes</tspan>
+      <tspan x="18" dy="18">_after_arrival</tspan>
+    </text>
+    <text x="395" y="455" class="mono">(400, 540, 15)</text>
+
+    <rect y="500" width="690" height="72" fill="#ffffff" rx="10"/>
+    <text x="18" y="528" class="mono">P1-vehicle</text>
+    <text x="350" y="525" class="mono">
+      <tspan x="395" dy="0">(('4.0','3.0','2018.0',</tspan>
+      <tspan x="395" dy="18">'Toyota','RAV4','2.0'), ...)</tspan>
+    </text>
+
+    <rect y="590" width="690" height="2" fill="#d6e1e4"/>
+    <text x="0" y="622" class="callout-title">Second person becomes a second fixed-width slot</text>
+
+    <rect y="644" width="690" height="44" fill="#ffffff" rx="10"/>
+    <text x="18" y="672" class="mono">P2-age</text>
+    <text x="395" y="672" class="mono">74</text>
+
+    <rect y="694" width="690" height="44" fill="#f9fbfb" rx="10"/>
+    <text x="18" y="722" class="mono">P2-travel_mode</text>
+    <text x="395" y="722" class="mono">('4', '4')</text>
+
+    <rect y="744" width="690" height="44" fill="#ffffff" rx="10"/>
+    <text x="18" y="772" class="mono">P2-od_activity</text>
+    <text x="395" y="772" class="mono">('1', '2', '1')</text>
+  </g>
+</svg>
