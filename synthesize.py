@@ -47,6 +47,26 @@ NUMERIC_BASES = {
 }
 
 
+# These columns contain tuple-valued per-trip sequences in the tupled household table.
+# Treating them as scalar numerics collapses each whole sequence to its mean, which
+# destroys the time/trip structure that untuple.py later relies on.
+TUPLED_NUMERIC_SEQUENCE_BASES = {
+    "departure_time_in_minutes_after_arrival",
+    "reported_travel_time",
+    "travelers_hh",
+    "travelers_nonhh",
+    "vehicle_occupancy",
+}
+
+
+# These tuple-valued fields must be present for active people or downstream
+# trip-time reconstruction will emit empty departure times.
+REQUIRED_NON_EMPTY_TUPLED_FIELDS = {
+    "departure_time_in_minutes_after_arrival",
+    "reported_travel_time",
+}
+
+
 def set_seed(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -64,28 +84,22 @@ def is_numeric_column(col: str) -> bool:
     c = col.strip()
     if c == "wthhfin":
         return False
+    if c in TUPLED_NUMERIC_SEQUENCE_BASES:
+        return False
     if c in NUMERIC_BASES:
         return True
     if c.endswith("-age"):
-        return True
-    if c.endswith("-departure_time_in_minutes_after_arrival"):
         return True
     if c.endswith("-job_count"):
         return True
     if c.endswith("-person_tripcount"):
         return True
-    if c.endswith("-reported_travel_time"):
-        return True
     if c.endswith("-td_telecommute_time"):
-        return True
-    if c.endswith("-travelers_hh"):
-        return True
-    if c.endswith("-travelers_nonhh"):
-        return True
-    if c.endswith("-vehicle_occupancy"):
         return True
     if c.endswith("-walk_bike_loop_trips"):
         return True
+    if any(c.endswith(f"-{base}") for base in TUPLED_NUMERIC_SEQUENCE_BASES):
+        return False
     # user requested telecommute_days; tupled columns use j1_telecommute_days
     if c.endswith("-j1_telecommute_days") or c.endswith("-telecommute_days"):
         return True
@@ -755,9 +769,11 @@ def synthesize(
                     empty_mask = (rec_cat_np[:, j] == empty_id) & active_mask
                     if np.any(empty_mask):
                         empty_idx = np.where(empty_mask)[0]
-                        retain = np.random.rand(empty_idx.size) < float(
+                        base_name = c.split("-", 1)[1] if "-" in c else c
+                        retain_prob = 0.0 if base_name in REQUIRED_NON_EMPTY_TUPLED_FIELDS else float(
                             min(1.0, max(0.0, p_empty_retain))
                         )
+                        retain = np.random.rand(empty_idx.size) < retain_prob
                         fill_idx = empty_idx[~retain]
                         if fill_idx.size > 0:
                             rec_cat_np[fill_idx, j] = np.random.choice(

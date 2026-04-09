@@ -40,6 +40,9 @@ DEFAULT_SURVEY_CANDIDATES = [
 DEFAULT_OUTPUT_DIR = Path("comparison_histograms")
 DEFAULT_VALIDATION_CSV = Path("validation.csv")
 NULL_LABEL = "<NULL>"
+MINUTES_PER_DAY = 24 * 60
+TIME_BUCKET_MINUTES = 10
+TIME_BUCKETS_PER_DAY = MINUTES_PER_DAY // TIME_BUCKET_MINUTES
 
 
 @dataclass
@@ -99,6 +102,48 @@ def parse_numeric(raw: object) -> float | None:
     return parse_numeric_text(s)
 
 
+def is_time_column(col: str) -> bool:
+    return col.endswith("_time_hhmm")
+
+
+@lru_cache(maxsize=1_000_000)
+def parse_time_text_to_minutes(s: str) -> float | None:
+    s = (s or "").strip()
+    if not s:
+        return None
+
+    if ":" in s:
+        parts = s.split(":")
+        if len(parts) != 2:
+            return None
+        h, m = parts[0].strip(), parts[1].strip()
+    else:
+        digits = "".join(ch for ch in s if ch.isdigit())
+        if not digits:
+            return None
+        if len(digits) <= 2:
+            h, m = "0", digits
+        else:
+            h, m = digits[:-2], digits[-2:]
+
+    if not h.isdigit() or not m.isdigit():
+        return None
+    minute = int(m)
+    if minute < 0 or minute > 59:
+        return None
+
+    total = int(h) * 60 + minute
+    return float(total % MINUTES_PER_DAY)
+
+
+def parse_column_value(col: str, raw: object) -> float | None:
+    if is_time_column(col):
+        if raw is None:
+            return None
+        return parse_time_text_to_minutes(str(raw))
+    return parse_numeric(raw)
+
+
 def stable_bucket(value: str, n_buckets: int) -> int:
     return stable_bucket_cached(value, n_buckets)
 
@@ -139,7 +184,7 @@ def scan_dataset(
             if text:
                 scan.non_empty += 1
 
-                x = parse_numeric(raw)
+                x = parse_column_value(col, raw)
                 if x is not None:
                     scan.numeric_count += 1
                     if x < scan.min_value:
@@ -331,49 +376,48 @@ def main() -> int:
         )
 
         if is_numeric:
-            min_value = min(s.min_value, r.min_value)
-            max_value = max(s.max_value, r.max_value)
-            if not math.isfinite(min_value) or not math.isfinite(max_value):
-                min_value, max_value = 0.0, 1.0
-            if max_value <= min_value:
-                min_value -= 0.5
-                max_value += 0.5
+            is_time = is_time_column(col)
+            min_value = 0.0 if is_time else min(s.min_value, r.min_value)
+            max_value = float(MINUTES_PER_DAY) if is_time else max(s.max_value, r.max_value)
+            if not is_time:
+                if not math.isfinite(min_value) or not math.isfinite(max_value):
+                    min_value, max_value = 0.0, 1.0
+                if max_value <= min_value:
+                    min_value -= 0.5
+                    max_value += 0.5
+            bins = TIME_BUCKETS_PER_DAY if is_time else args.bins
             metadata[col] = {
-                "kind": "numeric",
+                "kind": "time" if is_time else "numeric",
                 "min": min_value,
                 "max": max_value,
-                "s_hist": np.zeros(args.bins, dtype=np.int64),
-                "r_hist": np.zeros(args.bins, dtype=np.int64),
+                "s_hist": np.zeros(bins, dtype=np.int64),
+                "r_hist": np.zeros(bins, dtype=np.int64),
                 "s_stats": RunningStats(),
                 "r_stats": RunningStats(),
             }
         else:
-            exact = s.unique_values is not None and r.unique_values is not None
             metadata[col] = {
                 "kind": "categorical",
-                "mode": "exact" if exact else "hashed",
-                "s_count": Counter() if exact else np.zeros(args.hash_buckets, dtype=np.int64),
-                "r_count": Counter() if exact else np.zeros(args.hash_buckets, dtype=np.int64),
+                "mode": "exact",
+                "s_count": Counter(),
+                "r_count": Counter(),
             }
 
-    numeric_cols = [c for c in shared_cols if metadata[c]["kind"] == "numeric"]
-    categorical_exact_cols = [
-        c for c in shared_cols if metadata[c]["kind"] == "categorical" and metadata[c]["mode"] == "exact"
-    ]
-    categorical_hashed_cols = [
-        c for c in shared_cols if metadata[c]["kind"] == "categorical" and metadata[c]["mode"] == "hashed"
-    ]
+    histogram_cols = [c for c in shared_cols if metadata[c]["kind"] in {"numeric", "time"}]
+    categorical_cols = [c for c in shared_cols if metadata[c]["kind"] == "categorical"]
 
     def accumulate(path: Path, side: str, total_rows: int) -> None:
         label = "Accumulating synthetic" if side == "s" else "Accumulating survey"
         for row in tqdm(iter_rows(path), total=total_rows, desc=label, unit="row"):
-            for col in numeric_cols:
+            for col in histogram_cols:
                 info = metadata[col]
                 raw = row.get(col)
-                x = parse_numeric(raw)
+                x = parse_column_value(col, raw)
                 if x is None:
                     continue
                 idx = histogram_index(float(x), float(info["min"]), float(info["max"]), args.bins)
+                if info["kind"] == "time":
+                    idx = int(max(0, min(TIME_BUCKETS_PER_DAY - 1, float(x) // TIME_BUCKET_MINUTES)))
                 if side == "s":
                     info["s_hist"][idx] += 1
                     info["s_stats"].update(float(x))
@@ -381,26 +425,15 @@ def main() -> int:
                     info["r_hist"][idx] += 1
                     info["r_stats"].update(float(x))
 
-            for col in categorical_exact_cols:
+            for col in categorical_cols:
                 info = metadata[col]
                 token = normalize_value(row.get(col))
                 if token == "":
-                    token = NULL_LABEL
+                    continue
                 if side == "s":
                     info["s_count"][token] += 1
                 else:
                     info["r_count"][token] += 1
-
-            for col in categorical_hashed_cols:
-                info = metadata[col]
-                token = normalize_value(row.get(col))
-                if token == "":
-                    token = NULL_LABEL
-                b = stable_bucket(token, args.hash_buckets)
-                if side == "s":
-                    info["s_count"][b] += 1
-                else:
-                    info["r_count"][b] += 1
 
     accumulate(args.synthetic, "s", synth_rows)
     accumulate(args.survey, "r", survey_rows)
@@ -415,7 +448,7 @@ def main() -> int:
         s_missing_rate = 1.0 - (s_non_empty / synth_rows if synth_rows > 0 else 0.0)
         r_missing_rate = 1.0 - (r_non_empty / survey_rows if survey_rows > 0 else 0.0)
 
-        if info["kind"] == "numeric":
+        if info["kind"] in {"numeric", "time"}:
             s_hist = normalized_distribution(info["s_hist"])
             r_hist = normalized_distribution(info["r_hist"])
             metric_js = js_distance(s_hist, r_hist)
@@ -424,16 +457,40 @@ def main() -> int:
             if not args.skip_plots:
                 x_min = float(info["min"])
                 x_max = float(info["max"])
-                edges = np.linspace(x_min, x_max, args.bins + 1)
+                bins = len(info["s_hist"])
+                edges = np.linspace(x_min, x_max, bins + 1)
                 centers = 0.5 * (edges[:-1] + edges[1:])
+                widths = np.diff(edges)
 
                 fig, ax = plt.subplots(figsize=(10, 5.5))
-                ax.step(centers, r_hist, where="mid", label="survey", linewidth=1.5)
-                ax.step(centers, s_hist, where="mid", label="synthetic", linewidth=1.5)
+                ax.bar(
+                    centers,
+                    r_hist,
+                    width=widths,
+                    align="center",
+                    label="survey",
+                    alpha=0.45,
+                    color="#4C78A8",
+                    edgecolor="none",
+                )
+                ax.bar(
+                    centers,
+                    s_hist,
+                    width=widths,
+                    align="center",
+                    label="synthetic",
+                    alpha=0.45,
+                    color="#F58518",
+                    edgecolor="none",
+                )
                 ax.set_title(f"Histogram Match: {col}")
-                ax.set_xlabel(col)
+                ax.set_xlabel("Minute of day" if info["kind"] == "time" else col)
                 ax.set_ylabel("Probability")
                 ax.grid(True, alpha=0.2)
+                if info["kind"] == "time":
+                    tick_hours = np.arange(0, MINUTES_PER_DAY + 1, 180, dtype=np.float64)
+                    ax.set_xticks(tick_hours)
+                    ax.set_xticklabels([f"{int(h // 60):02d}:00" for h in tick_hours])
                 ax.legend()
                 fig.tight_layout()
                 fig.savefig(args.output_dir / f"{safe_filename(col)}.png", dpi=140)
@@ -444,8 +501,8 @@ def main() -> int:
             validation_rows.append(
                 {
                     "column": col,
-                    "column_type": "numeric",
-                    "distribution_mode": "histogram",
+                    "column_type": "numeric" if info["kind"] == "numeric" else "time",
+                    "distribution_mode": "histogram" if info["kind"] == "numeric" else "10_minute_histogram",
                     "js_distance": f"{metric_js:.6f}",
                     "tv_distance": f"{metric_tv:.6f}",
                     "synthetic_non_empty": str(s_non_empty),
@@ -459,15 +516,11 @@ def main() -> int:
                 }
             )
         else:
-            if info["mode"] == "exact":
-                s_count: Counter = info["s_count"]
-                r_count: Counter = info["r_count"]
-                categories = sorted(set(s_count.keys()) | set(r_count.keys()))
-                s_arr = np.array([s_count.get(c, 0) for c in categories], dtype=np.float64)
-                r_arr = np.array([r_count.get(c, 0) for c in categories], dtype=np.float64)
-            else:
-                s_arr = info["s_count"].astype(np.float64)
-                r_arr = info["r_count"].astype(np.float64)
+            s_count = info["s_count"]
+            r_count = info["r_count"]
+            categories = sorted(set(s_count.keys()) | set(r_count.keys()))
+            s_arr = np.array([s_count.get(c, 0) for c in categories], dtype=np.float64)
+            r_arr = np.array([r_count.get(c, 0) for c in categories], dtype=np.float64)
 
             p = normalized_distribution(s_arr)
             q = normalized_distribution(r_arr)
@@ -476,30 +529,23 @@ def main() -> int:
 
             if not args.skip_plots:
                 fig, ax = plt.subplots(figsize=(10, 5.5))
-                if info["mode"] == "exact":
-                    s_count = info["s_count"]
-                    r_count = info["r_count"]
-                    top = sorted(
-                        set(s_count.keys()) | set(r_count.keys()),
-                        key=lambda k: s_count.get(k, 0) + r_count.get(k, 0),
-                        reverse=True,
-                    )[: args.max_categories_plot]
-                    xs = np.arange(len(top), dtype=np.float64)
-                    s_vals = np.array([s_count.get(k, 0) for k in top], dtype=np.float64)
-                    r_vals = np.array([r_count.get(k, 0) for k in top], dtype=np.float64)
-                    s_vals = normalized_distribution(s_vals)
-                    r_vals = normalized_distribution(r_vals)
-                    width = 0.45
-                    ax.bar(xs - width / 2, r_vals, width=width, label="survey")
-                    ax.bar(xs + width / 2, s_vals, width=width, label="synthetic")
-                    ax.set_xticks(xs)
-                    ax.set_xticklabels(top, rotation=75, ha="right", fontsize=8)
-                    ax.set_xlabel("Category")
-                else:
-                    xs = np.arange(args.hash_buckets, dtype=np.float64)
-                    ax.plot(xs, q, label="survey", linewidth=1.2)
-                    ax.plot(xs, p, label="synthetic", linewidth=1.2)
-                    ax.set_xlabel("Hashed category bucket")
+                top = sorted(
+                    set(s_count.keys()) | set(r_count.keys()),
+                    key=lambda k: s_count.get(k, 0) + r_count.get(k, 0),
+                    reverse=True,
+                )[: args.max_categories_plot]
+                xs = np.arange(len(top), dtype=np.float64)
+                s_vals = normalized_distribution(
+                    np.array([s_count.get(k, 0) for k in top], dtype=np.float64)
+                )
+                r_vals = normalized_distribution(
+                    np.array([r_count.get(k, 0) for k in top], dtype=np.float64)
+                )
+                ax.bar(xs, r_vals, width=0.9, label="survey", alpha=0.45, color="#4C78A8", edgecolor="none")
+                ax.bar(xs, s_vals, width=0.9, label="synthetic", alpha=0.45, color="#F58518", edgecolor="none")
+                ax.set_xticks(xs)
+                ax.set_xticklabels(top, rotation=75, ha="right", fontsize=8)
+                ax.set_xlabel("Category")
 
                 ax.set_title(f"Histogram Match: {col}")
                 ax.set_ylabel("Probability")
@@ -513,7 +559,7 @@ def main() -> int:
                 {
                     "column": col,
                     "column_type": "categorical",
-                    "distribution_mode": str(info["mode"]),
+                    "distribution_mode": "exact",
                     "js_distance": f"{metric_js:.6f}",
                     "tv_distance": f"{metric_tv:.6f}",
                     "synthetic_non_empty": str(s_non_empty),
