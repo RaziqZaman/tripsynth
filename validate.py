@@ -43,6 +43,28 @@ NULL_LABEL = "<NULL>"
 MINUTES_PER_DAY = 24 * 60
 TIME_BUCKET_MINUTES = 10
 TIME_BUCKETS_PER_DAY = MINUTES_PER_DAY // TIME_BUCKET_MINUTES
+ID_COL_RE = re.compile(r"(^id$|_id$|^id_|^tripid$|^tripno$|^persno$)", re.IGNORECASE)
+SEMANTIC_NUMERIC_COLUMNS = {
+    "age",
+    "departure_time_in_minutes_after_arrival",
+    "hhsize",
+    "job_count",
+    "jobs_count",
+    "numbicycle",
+    "numbicycles",
+    "numvehicle",
+    "numvehicles",
+    "numworkers",
+    "person_tripcount",
+    "reported_travel_time",
+    "td_shop_time",
+    "td_shoptime",
+    "td_telecommute_time",
+    "travelers_hh",
+    "travelers_nonhh",
+    "vehicle_occupancy",
+    "walk_bike_loop_trips",
+}
 
 
 @dataclass
@@ -77,6 +99,25 @@ class RunningStats:
 def safe_filename(name: str) -> str:
     cleaned = re.sub(r"[^A-Za-z0-9._-]+", "_", name.strip())
     return cleaned or "unnamed_column"
+
+
+def is_id_column(col: str) -> bool:
+    return bool(ID_COL_RE.search(col.strip()))
+
+
+def is_validation_target_column(col: str) -> bool:
+    return col.strip().lower() != "wthhfin" and not is_id_column(col)
+
+
+def base_column_name(col: str) -> str:
+    c = col.strip()
+    if "-" in c:
+        return c.rsplit("-", 1)[-1]
+    return c
+
+
+def is_semantic_numeric_column(col: str) -> bool:
+    return base_column_name(col) in SEMANTIC_NUMERIC_COLUMNS
 
 
 def resolve_default_survey_path() -> Path:
@@ -337,7 +378,7 @@ def main() -> int:
 
     synth_cols = set(get_fieldnames(args.synthetic))
     survey_cols = set(get_fieldnames(args.survey))
-    shared_cols = sorted(synth_cols & survey_cols)
+    shared_cols = sorted(c for c in (synth_cols & survey_cols) if is_validation_target_column(c))
     if args.max_columns is not None:
         shared_cols = shared_cols[: args.max_columns]
     if not shared_cols:
@@ -371,6 +412,7 @@ def main() -> int:
         is_numeric = (
             s.non_empty > 0
             and r.non_empty > 0
+            and is_semantic_numeric_column(col)
             and s_frac >= args.numeric_threshold
             and r_frac >= args.numeric_threshold
         )

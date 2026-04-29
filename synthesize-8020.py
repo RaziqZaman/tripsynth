@@ -35,6 +35,8 @@ from validate import (
     NULL_LABEL,
     RunningStats,
     histogram_index,
+    is_semantic_numeric_column,
+    is_validation_target_column,
     js_distance,
     normalized_distribution,
     normalize_value,
@@ -512,7 +514,7 @@ def validate_outputs(args: argparse.Namespace) -> None:
 
     synth_cols = set(get_fieldnames(args.trip_output))
     holdout_cols = set(get_fieldnames(args.holdout_trips))
-    shared_cols = sorted(synth_cols & holdout_cols)
+    shared_cols = sorted(c for c in (synth_cols & holdout_cols) if is_validation_target_column(c))
     if args.max_columns is not None:
         shared_cols = shared_cols[: args.max_columns]
     if not shared_cols:
@@ -544,6 +546,7 @@ def validate_outputs(args: argparse.Namespace) -> None:
         is_numeric = (
             s.non_empty > 0
             and h.non_empty > 0
+            and is_semantic_numeric_column(col)
             and s_frac >= args.numeric_threshold
             and h_frac >= args.numeric_threshold
         )

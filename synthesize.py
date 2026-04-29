@@ -28,7 +28,6 @@ except Exception:
 
 
 NUMERIC_BASES = {
-    "hh_income_detailed",
     "hhsize",
     "numbicycles",
     "numvehicles",
