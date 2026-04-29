@@ -187,6 +187,104 @@ def format_numeric_for_column(value: float, column: str, integer_columns: set[st
     return format_numeric(value)
 
 
+def build_numeric_tv_targets(
+    numeric_matrix: np.ndarray,
+    weights: np.ndarray,
+    bins: int,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    num_numeric = int(numeric_matrix.shape[1])
+    mins = np.zeros(num_numeric, dtype=np.float32)
+    maxs = np.ones(num_numeric, dtype=np.float32)
+    targets = np.zeros((num_numeric, bins), dtype=np.float32)
+    w = weights.astype(np.float64)
+    if float(w.sum()) <= 0:
+        w = np.ones_like(w, dtype=np.float64)
+    w = w / float(w.sum())
+
+    for j in range(num_numeric):
+        col = numeric_matrix[:, j].astype(np.float64)
+        mn = float(np.min(col)) if col.size else 0.0
+        mx = float(np.max(col)) if col.size else 1.0
+        if not math.isfinite(mn):
+            mn = 0.0
+        if not math.isfinite(mx):
+            mx = 1.0
+        if mx <= mn:
+            mx = mn + 1.0
+        hist, _ = np.histogram(col, bins=bins, range=(mn, mx), weights=w)
+        if float(hist.sum()) <= 0:
+            hist = np.ones(bins, dtype=np.float64) / float(bins)
+        else:
+            hist = hist / float(hist.sum())
+        mins[j] = mn
+        maxs[j] = mx
+        targets[j] = hist.astype(np.float32)
+    return mins, maxs, targets
+
+
+def build_categorical_tv_targets(
+    categorical_matrix: np.ndarray,
+    weights: np.ndarray,
+    cat_cardinalities: Sequence[int],
+) -> List[np.ndarray]:
+    w = weights.astype(np.float64)
+    if float(w.sum()) <= 0:
+        w = np.ones_like(w, dtype=np.float64)
+    targets: List[np.ndarray] = []
+    for j, card in enumerate(cat_cardinalities):
+        probs = np.bincount(
+            categorical_matrix[:, j],
+            weights=w,
+            minlength=int(card),
+        ).astype(np.float64)
+        if float(probs.sum()) <= 0:
+            probs[:] = 1.0
+        probs = probs / float(probs.sum())
+        targets.append(probs.astype(np.float32))
+    return targets
+
+
+def numeric_tv_loss(
+    rec_num: torch.Tensor,
+    hist_mins: torch.Tensor,
+    hist_maxs: torch.Tensor,
+    hist_targets: torch.Tensor,
+    sigma_scale: float = 0.5,
+) -> torch.Tensor:
+    if rec_num.size(1) == 0:
+        return rec_num.new_zeros(())
+    bins = int(hist_targets.size(1))
+    losses: List[torch.Tensor] = []
+    for j in range(rec_num.size(1)):
+        x = rec_num[:, j]
+        mn = hist_mins[j]
+        mx = hist_maxs[j]
+        span = torch.clamp(mx - mn, min=1e-6)
+        x = torch.clamp(x, mn, mx)
+        centers = torch.linspace(mn, mx, bins, device=rec_num.device, dtype=rec_num.dtype)
+        sigma = torch.clamp((span / max(bins, 1)) * sigma_scale, min=1e-4)
+        diff = (x.unsqueeze(1) - centers.unsqueeze(0)) / sigma
+        soft_assign = torch.exp(-0.5 * diff * diff)
+        pred = soft_assign.mean(dim=0)
+        pred = pred / torch.clamp(pred.sum(), min=1e-8)
+        target = hist_targets[j].to(dtype=pred.dtype)
+        losses.append(0.5 * torch.sum(torch.abs(pred - target)))
+    return torch.stack(losses).mean()
+
+
+def categorical_tv_loss(
+    cat_logits: Sequence[torch.Tensor],
+    cat_targets: Sequence[torch.Tensor],
+) -> torch.Tensor:
+    if not cat_logits:
+        return torch.zeros((), device=cat_targets[0].device if cat_targets else None)
+    losses: List[torch.Tensor] = []
+    for logits, target in zip(cat_logits, cat_targets):
+        pred = F.softmax(logits.float(), dim=1).mean(dim=0)
+        losses.append(0.5 * torch.sum(torch.abs(pred - target)))
+    return torch.stack(losses).mean()
+
+
 def train(
     prepared: PreparedData,
     device: torch.device,
@@ -203,7 +301,10 @@ def train(
     grad_clip_norm: float,
     compile_model: bool,
     reconstruction_weight: float = 1.0,
-    contrastive_weight: float = 0.25,
+    contrastive_weight: float = 1.0,
+    tv_loss_weight: float = 1.0,
+    tv_bins: int = 40,
+    tv_every_n_batches: int = 0,
     epoch_callback: Callable[[int, ReconstructionContrastiveAutoencoder], None] | None = None,
 ) -> ReconstructionContrastiveAutoencoder:
     x_num = torch.tensor(prepared.numeric_matrix, dtype=torch.float32)
@@ -245,16 +346,35 @@ def train(
 
     use_amp = device.type == "cuda"
     autocast_dtype = torch.bfloat16 if use_amp else torch.float32
+    tv_every_n_batches = max(0, int(tv_every_n_batches))
+    tv_midpoint_batch = max(1, len(loader) // 2)
+    hist_mins_np, hist_maxs_np, hist_targets_np = build_numeric_tv_targets(
+        prepared.numeric_matrix,
+        prepared.weights,
+        bins=max(2, int(tv_bins)),
+    )
+    hist_mins = torch.tensor(hist_mins_np, dtype=torch.float32, device=device)
+    hist_maxs = torch.tensor(hist_maxs_np, dtype=torch.float32, device=device)
+    hist_targets = torch.tensor(hist_targets_np, dtype=torch.float32, device=device)
+    cat_targets = [
+        torch.tensor(target, dtype=torch.float32, device=device)
+        for target in build_categorical_tv_targets(
+            prepared.categorical_matrix,
+            prepared.weights,
+            prepared.cat_cardinalities,
+        )
+    ]
     epoch_iter = tqdm(range(1, epochs + 1), desc="Training epochs", unit="epoch")
     for epoch in epoch_iter:
         model.train()
         running = 0.0
         running_recon = 0.0
         running_ctr = 0.0
+        running_tv = 0.0
         n_batches = 0
 
         batch_iter = tqdm(loader, desc=f"Epoch {epoch}/{epochs}", unit="batch", leave=False)
-        for bn, bc in batch_iter:
+        for batch_idx, (bn, bc) in enumerate(batch_iter, start=1):
             bn = bn.to(device, non_blocking=True)
             bc = bc.to(device, non_blocking=True)
 
@@ -291,8 +411,26 @@ def train(
                 logits = torch.cat([pos_logits, neg_logits], dim=1) / max(temperature, 1e-6)
                 targets = torch.zeros(anchor.size(0), dtype=torch.long, device=device)
                 contrastive_loss = F.cross_entropy(logits, targets)
+                should_compute_tv = (
+                    batch_idx == tv_midpoint_batch
+                    if tv_every_n_batches == 0
+                    else batch_idx % tv_every_n_batches == 0
+                )
+                if should_compute_tv:
+                    tv_loss = numeric_tv_loss(
+                        rec_num=rec_num.float(),
+                        hist_mins=hist_mins,
+                        hist_maxs=hist_maxs,
+                        hist_targets=hist_targets,
+                    ) + categorical_tv_loss(cat_logits, cat_targets)
+                else:
+                    tv_loss = rec_num.new_zeros(())
 
-                loss = reconstruction_weight * recon_loss + contrastive_weight * contrastive_loss
+                loss = (
+                    reconstruction_weight * recon_loss
+                    + contrastive_weight * contrastive_loss
+                    + tv_loss_weight * tv_loss
+                )
 
             if not torch.isfinite(loss).item():
                 batch_iter.set_postfix(loss="nan")
@@ -308,17 +446,20 @@ def train(
             running += float(loss.detach().item())
             running_recon += float(recon_loss.detach().item())
             running_ctr += float(contrastive_loss.detach().item())
+            running_tv += float(tv_loss.detach().item())
             n_batches += 1
             batch_iter.set_postfix(
                 loss=f"{loss.detach().item():.4f}",
                 recon=f"{recon_loss.detach().item():.4f}",
                 ctr=f"{contrastive_loss.detach().item():.4f}",
+                tv=f"{tv_loss.detach().item():.4f}",
             )
 
         epoch_iter.set_postfix(
             loss=f"{(running / max(1, n_batches)):.6f}",
             recon=f"{(running_recon / max(1, n_batches)):.6f}",
             ctr=f"{(running_ctr / max(1, n_batches)):.6f}",
+            tv=f"{(running_tv / max(1, n_batches)):.6f}",
         )
         if epoch_callback is not None:
             epoch_callback(epoch, model)
@@ -474,10 +615,19 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--latent-noise-std", type=float, default=0.1)
     p.add_argument("--sample-noise-std", type=float, default=0.2)
     p.add_argument("--grad-clip-norm", type=float, default=1.0)
+    p.add_argument("--reconstruction-weight", type=float, default=1.0)
+    p.add_argument("--contrastive-weight", type=float, default=1.0)
+    p.add_argument("--tv-loss-weight", type=float, default=1.0)
+    p.add_argument(
+        "--tv-every-n-batches",
+        type=int,
+        default=0,
+        help="Compute TV every N batches; 0 computes it once per epoch at the middle batch.",
+    )
     p.add_argument("--critical-non-null-threshold", type=float, default=0.95)
     p.add_argument("--integer-threshold", type=float, default=0.98)
     p.add_argument("--p-empty-retain", type=float, default=0.2)
-    p.add_argument("--sample-rows", type=int, default=10080)
+    p.add_argument("--sample-rows", type=int, default=55440)
     p.add_argument("--sample-households", dest="sample_rows", type=int)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--bins", type=int, default=40)
@@ -1024,6 +1174,11 @@ def main() -> int:
         latent_noise_std=args.latent_noise_std,
         grad_clip_norm=args.grad_clip_norm,
         compile_model=not args.no_compile,
+        reconstruction_weight=args.reconstruction_weight,
+        contrastive_weight=args.contrastive_weight,
+        tv_loss_weight=args.tv_loss_weight,
+        tv_bins=args.bins,
+        tv_every_n_batches=args.tv_every_n_batches,
         epoch_callback=checkpoint_callback,
     )
 
