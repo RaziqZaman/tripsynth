@@ -7,6 +7,7 @@ import argparse
 import importlib.util
 import math
 import re
+import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
@@ -502,6 +503,45 @@ def materialize_holdout(args: argparse.Namespace) -> None:
 
 
 def validate_outputs(args: argparse.Namespace) -> None:
+    cmd = [
+        sys.executable,
+        "validate-20pct.py",
+        "--input",
+        str(args.input),
+        "--synthetic",
+        str(args.trip_output),
+        "--holdout-fraction",
+        str(args.holdout_fraction),
+        "--seed",
+        str(args.seed),
+        "--holdout-households",
+        str(args.holdout_households),
+        "--holdout-trips",
+        str(args.holdout_trips),
+        "--validation-csv",
+        str(args.validation_csv),
+        "--output-dir",
+        str(args.output_dir),
+        "--bins",
+        str(args.bins),
+        "--hash-buckets",
+        str(args.hash_buckets),
+        "--max-categories-plot",
+        str(args.max_categories_plot),
+        "--numeric-threshold",
+        str(args.numeric_threshold),
+    ]
+    if args.max_columns is not None:
+        cmd.extend(["--max-columns", str(args.max_columns)])
+    if args.skip_plots:
+        cmd.append("--skip-plots")
+    else:
+        cmd.append("--with-plots")
+
+    print(f"$ {' '.join(cmd)}", flush=True)
+    subprocess.run(cmd, check=True)
+    return
+
     plt = None
     if not args.skip_plots:
         try:

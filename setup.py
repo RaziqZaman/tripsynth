@@ -9,7 +9,7 @@ setup(
         "Utilities for transforming survey CSVs, generating count tables, and "
         "training/sampling a contrastive VAE synthesizer."
     ),
-    py_modules=["tuple", "get_counts", "get_tupled_counts", "synthesize", "howdy", "untuple", "tabular_io", "validate"],
+    py_modules=["tuple", "get_counts", "get_tupled_counts", "synthesize", "untuple", "tabular_io", "validate"],
     python_requires=">=3.10",
     install_requires=[
         "numpy>=1.24",
