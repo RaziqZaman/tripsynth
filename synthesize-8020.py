@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import importlib.util
 import math
 import re
@@ -12,7 +13,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 from types import ModuleType
-from typing import Dict, List, Sequence, Tuple
+from typing import Callable, Dict, List, Sequence, Tuple
 
 import numpy as np
 import torch
@@ -203,6 +204,7 @@ def train(
     compile_model: bool,
     reconstruction_weight: float = 1.0,
     contrastive_weight: float = 0.25,
+    epoch_callback: Callable[[int, ReconstructionContrastiveAutoencoder], None] | None = None,
 ) -> ReconstructionContrastiveAutoencoder:
     x_num = torch.tensor(prepared.numeric_matrix, dtype=torch.float32)
     x_cat = torch.tensor(prepared.categorical_matrix, dtype=torch.long)
@@ -318,6 +320,8 @@ def train(
             recon=f"{(running_recon / max(1, n_batches)):.6f}",
             ctr=f"{(running_ctr / max(1, n_batches)):.6f}",
         )
+        if epoch_callback is not None:
+            epoch_callback(epoch, model)
 
     return model
 
@@ -451,6 +455,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--holdout-households", type=Path, default=Path("heldout_households_20pct.parquet"))
     p.add_argument("--holdout-trips", type=Path, default=Path("heldout_trips_20pct.parquet"))
     p.add_argument("--validation-csv", type=Path, default=Path("validation_20pct.csv"))
+    p.add_argument("--validation-history-csv", type=Path, default=Path("validation_history_20pct.csv"))
+    p.add_argument("--validation-checkpoint-dir", type=Path, default=Path("validation_checkpoints_20pct"))
+    p.add_argument("--validation-interval", type=int, default=24)
+    p.add_argument("--keep-validation-checkpoint-data", action="store_true")
     p.add_argument("--output-dir", type=Path, default=Path("comparison_histograms_20pct"))
     p.add_argument("--holdout-fraction", type=float, default=0.2)
     p.add_argument("--epochs", type=int, default=120)
@@ -813,6 +821,130 @@ def validate_outputs(args: argparse.Namespace) -> None:
     print(f"Wrote {args.validation_csv}")
 
 
+def summarize_validation_csv(path: Path) -> tuple[int, float, float]:
+    with path.open("r", newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    if not rows:
+        return 0, 0.0, 0.0
+    mean_js = sum(float(row["js_distance"]) for row in rows) / len(rows)
+    mean_tv = sum(float(row["tv_distance"]) for row in rows) / len(rows)
+    return len(rows), mean_js, mean_tv
+
+
+def append_validation_history(
+    path: Path,
+    row: Dict[str, str],
+    fieldnames: Sequence[str],
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    write_header = not path.exists() or path.stat().st_size == 0
+    with path.open("a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        if write_header:
+            writer.writeheader()
+        writer.writerow(row)
+
+
+def run_checkpoint_validation(
+    *,
+    epoch: int,
+    model: ReconstructionContrastiveAutoencoder,
+    prepared: PreparedData,
+    integer_numeric_columns: set[str],
+    device: torch.device,
+    args: argparse.Namespace,
+) -> None:
+    checkpoint_dir = args.validation_checkpoint_dir / f"epoch_{epoch:04d}"
+    checkpoint_dir.mkdir(parents=True, exist_ok=True)
+    household_path = checkpoint_dir / "synthesized_households.parquet"
+    trip_path = checkpoint_dir / "synthetic_trips.parquet"
+    validation_path = checkpoint_dir / "validation.csv"
+    histogram_dir = checkpoint_dir / "histograms"
+
+    synthesize_households(
+        model=model,
+        prepared=prepared,
+        integer_numeric_columns=integer_numeric_columns,
+        device=device,
+        output_path=household_path,
+        sample_rows=args.sample_rows,
+        sample_batch_size=args.sample_batch_size,
+        p_empty_retain=args.p_empty_retain,
+        sample_noise_std=args.sample_noise_std,
+    )
+    untuple_households(
+        input_path=household_path,
+        output_path=trip_path,
+        sample_output_path=None,
+        seed=args.seed,
+    )
+
+    cmd = [
+        sys.executable,
+        "validate-20pct.py",
+        "--input",
+        str(args.input),
+        "--synthetic",
+        str(trip_path),
+        "--holdout-fraction",
+        str(args.holdout_fraction),
+        "--seed",
+        str(args.seed),
+        "--holdout-households",
+        str(args.holdout_households),
+        "--holdout-trips",
+        str(args.holdout_trips),
+        "--validation-csv",
+        str(validation_path),
+        "--output-dir",
+        str(histogram_dir),
+        "--bins",
+        str(args.bins),
+        "--hash-buckets",
+        str(args.hash_buckets),
+        "--max-categories-plot",
+        str(args.max_categories_plot),
+        "--numeric-threshold",
+        str(args.numeric_threshold),
+        "--skip-plots",
+    ]
+    if args.max_columns is not None:
+        cmd.extend(["--max-columns", str(args.max_columns)])
+
+    print(f"$ {' '.join(cmd)}", flush=True)
+    subprocess.run(cmd, check=True)
+
+    column_count, mean_js, mean_tv = summarize_validation_csv(validation_path)
+    append_validation_history(
+        args.validation_history_csv,
+        {
+            "epoch": str(epoch),
+            "columns": str(column_count),
+            "mean_js_distance": f"{mean_js:.6f}",
+            "mean_tv_distance": f"{mean_tv:.6f}",
+            "validation_csv": str(validation_path),
+            "checkpoint_data_kept": str(bool(args.keep_validation_checkpoint_data)).lower(),
+            "synthetic_trips": str(trip_path) if args.keep_validation_checkpoint_data else "",
+        },
+        [
+            "epoch",
+            "columns",
+            "mean_js_distance",
+            "mean_tv_distance",
+            "validation_csv",
+            "checkpoint_data_kept",
+            "synthetic_trips",
+        ],
+    )
+    if not args.keep_validation_checkpoint_data:
+        household_path.unlink(missing_ok=True)
+        trip_path.unlink(missing_ok=True)
+    print(
+        f"checkpoint_validation epoch={epoch} columns={column_count} "
+        f"mean_js={mean_js:.6f} mean_tv={mean_tv:.6f}"
+    )
+
+
 def main() -> int:
     args = parse_args()
     synth_mod = load_synthesize_module()
@@ -823,6 +955,8 @@ def main() -> int:
         raise ValueError("--bins must be >= 1")
     if args.hash_buckets < 2:
         raise ValueError("--hash-buckets must be >= 2")
+    if args.validation_interval < 0:
+        raise ValueError("--validation-interval must be >= 0")
 
     set_seed(args.seed)
 
@@ -863,6 +997,18 @@ def main() -> int:
         f"estimated_train_mem_gib total={est_total_gib:.2f} params+opt={est_param_gib:.2f} activations={est_act_gib:.2f}"
     )
 
+    def checkpoint_callback(epoch: int, current_model: ReconstructionContrastiveAutoencoder) -> None:
+        if args.validation_interval <= 0 or epoch % args.validation_interval != 0:
+            return
+        run_checkpoint_validation(
+            epoch=epoch,
+            model=current_model,
+            prepared=prepared,
+            integer_numeric_columns=prepared_split.integer_numeric_columns,
+            device=device,
+            args=args,
+        )
+
     model = train(
         prepared=prepared,
         device=device,
@@ -878,6 +1024,7 @@ def main() -> int:
         latent_noise_std=args.latent_noise_std,
         grad_clip_norm=args.grad_clip_norm,
         compile_model=not args.no_compile,
+        epoch_callback=checkpoint_callback,
     )
 
     synthesize_households(
