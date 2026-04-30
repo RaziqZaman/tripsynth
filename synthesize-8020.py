@@ -7,6 +7,7 @@ import argparse
 import csv
 import importlib.util
 import math
+import random
 import re
 import subprocess
 import sys
@@ -285,6 +286,29 @@ def categorical_tv_loss(
     return torch.stack(losses).mean()
 
 
+def normalized_numeric_reconstruction_loss(num_loss: torch.Tensor) -> torch.Tensor:
+    return 1.0 - torch.exp(-num_loss)
+
+
+def normalized_categorical_reconstruction_loss(
+    cat_logits: Sequence[torch.Tensor],
+    targets: torch.Tensor,
+    cat_cardinalities: Sequence[int],
+) -> Tuple[torch.Tensor, torch.Tensor]:
+    if not cat_logits:
+        zero = targets.new_zeros((), dtype=torch.float32)
+        return zero, zero
+
+    raw_losses: List[torch.Tensor] = []
+    normalized_losses: List[torch.Tensor] = []
+    for j, logits in enumerate(cat_logits):
+        raw = F.cross_entropy(logits, targets[:, j], reduction="mean")
+        denom = math.log(max(2, int(cat_cardinalities[j])))
+        raw_losses.append(raw)
+        normalized_losses.append(1.0 - torch.exp(-(raw / max(denom, 1e-6))))
+    return torch.stack(raw_losses).mean(), torch.stack(normalized_losses).mean()
+
+
 def train(
     prepared: PreparedData,
     device: torch.device,
@@ -305,6 +329,12 @@ def train(
     tv_loss_weight: float = 1.0,
     tv_bins: int = 40,
     tv_every_n_batches: int = 0,
+    loss_history_csv: Path | None = None,
+    loss_curve_png: Path | None = None,
+    write_loss_plots: bool = True,
+    checkpoint_path: Path | None = None,
+    resume_checkpoint_path: Path | None = None,
+    checkpoint_every_epochs: int = 1,
     epoch_callback: Callable[[int, ReconstructionContrastiveAutoencoder], None] | None = None,
 ) -> ReconstructionContrastiveAutoencoder:
     x_num = torch.tensor(prepared.numeric_matrix, dtype=torch.float32)
@@ -332,11 +362,37 @@ def train(
         hidden_layers=hidden_layers,
         dropout=dropout,
     ).to(device)
+    checkpoint = None
+    start_epoch = 1
+    loss_history_rows: List[Dict[str, str]] = []
+    if resume_checkpoint_path is not None:
+        checkpoint = load_training_checkpoint(resume_checkpoint_path, device)
+        model.load_state_dict(checkpoint["model_state"])
+        start_epoch = int(checkpoint["epoch"]) + 1
+        loss_history_rows = list(checkpoint.get("loss_history_rows", []))
+        print(
+            f"Resumed training checkpoint {resume_checkpoint_path} at epoch {checkpoint['epoch']}",
+            flush=True,
+        )
+
     if compile_model and hasattr(torch, "compile"):
         model = torch.compile(model)  # type: ignore[assignment]
 
     opt = torch.optim.AdamW(model.parameters(), lr=lr, betas=(0.9, 0.95), weight_decay=1e-4)
     scaler = torch.cuda.amp.GradScaler(enabled=device.type == "cuda")
+    if checkpoint is not None:
+        if "optimizer_state" in checkpoint:
+            opt.load_state_dict(checkpoint["optimizer_state"])
+        if "scaler_state" in checkpoint:
+            scaler.load_state_dict(checkpoint["scaler_state"])
+        if "torch_rng_state" in checkpoint:
+            torch.set_rng_state(checkpoint["torch_rng_state"].cpu())
+        if device.type == "cuda" and "cuda_rng_state_all" in checkpoint:
+            torch.cuda.set_rng_state_all(checkpoint["cuda_rng_state_all"])
+        if "numpy_rng_state" in checkpoint:
+            np.random.set_state(checkpoint["numpy_rng_state"])
+        if "python_rng_state" in checkpoint:
+            random.setstate(checkpoint["python_rng_state"])
     neg_sampler = MarginalNegativeSampler(
         weights=prepared.weights,
         numeric_matrix=prepared.numeric_matrix,
@@ -364,13 +420,26 @@ def train(
             prepared.cat_cardinalities,
         )
     ]
-    epoch_iter = tqdm(range(1, epochs + 1), desc="Training epochs", unit="epoch")
+    if start_epoch > epochs:
+        print(
+            f"Checkpoint is already at epoch {start_epoch - 1}; skipping training for requested epochs={epochs}.",
+            flush=True,
+        )
+        return model
+
+    checkpoint_every_epochs = max(0, int(checkpoint_every_epochs))
+    epoch_iter = tqdm(range(start_epoch, epochs + 1), desc="Training epochs", unit="epoch")
     for epoch in epoch_iter:
         model.train()
         running = 0.0
         running_recon = 0.0
         running_ctr = 0.0
         running_tv = 0.0
+        running_raw_recon = 0.0
+        running_raw_num = 0.0
+        running_raw_cat = 0.0
+        running_raw_ctr = 0.0
+        running_raw_tv = 0.0
         n_batches = 0
 
         batch_iter = tqdm(loader, desc=f"Epoch {epoch}/{epochs}", unit="batch", leave=False)
@@ -390,16 +459,14 @@ def train(
                 rec_num, cat_logits, _, dec_hidden = model.decode(z)
 
                 num_loss = F.mse_loss(rec_num, bn)
-                cat_losses = [
-                    F.cross_entropy(logits, bc[:, j], reduction="mean")
-                    for j, logits in enumerate(cat_logits)
-                ]
-                cat_loss = (
-                    torch.stack(cat_losses).mean()
-                    if cat_losses
-                    else rec_num.new_zeros(())
+                cat_loss, normalized_cat_loss = normalized_categorical_reconstruction_loss(
+                    cat_logits,
+                    bc,
+                    prepared.cat_cardinalities,
                 )
-                recon_loss = num_loss + cat_loss
+                normalized_num_loss = normalized_numeric_reconstruction_loss(num_loss)
+                recon_loss = 0.5 * (normalized_num_loss + normalized_cat_loss)
+                raw_recon_loss = num_loss + cat_loss
 
                 anchor = F.normalize(model.anchor_projector(z), dim=1)
                 positive = F.normalize(model.positive_projector(dec_hidden), dim=1)
@@ -410,21 +477,27 @@ def train(
                 neg_logits = anchor @ negative.T
                 logits = torch.cat([pos_logits, neg_logits], dim=1) / max(temperature, 1e-6)
                 targets = torch.zeros(anchor.size(0), dtype=torch.long, device=device)
-                contrastive_loss = F.cross_entropy(logits, targets)
+                raw_contrastive_loss = F.cross_entropy(logits, targets)
+                contrastive_scale = math.log(max(2, logits.size(1)))
+                contrastive_loss = 1.0 - torch.exp(
+                    -(raw_contrastive_loss / max(contrastive_scale, 1e-6))
+                )
                 should_compute_tv = (
                     batch_idx == tv_midpoint_batch
                     if tv_every_n_batches == 0
                     else batch_idx % tv_every_n_batches == 0
                 )
                 if should_compute_tv:
-                    tv_loss = numeric_tv_loss(
+                    raw_tv_loss = numeric_tv_loss(
                         rec_num=rec_num.float(),
                         hist_mins=hist_mins,
                         hist_maxs=hist_maxs,
                         hist_targets=hist_targets,
                     ) + categorical_tv_loss(cat_logits, cat_targets)
+                    tv_loss = 0.5 * raw_tv_loss
                 else:
                     tv_loss = rec_num.new_zeros(())
+                    raw_tv_loss = rec_num.new_zeros(())
 
                 loss = (
                     reconstruction_weight * recon_loss
@@ -447,6 +520,11 @@ def train(
             running_recon += float(recon_loss.detach().item())
             running_ctr += float(contrastive_loss.detach().item())
             running_tv += float(tv_loss.detach().item())
+            running_raw_recon += float(raw_recon_loss.detach().item())
+            running_raw_num += float(num_loss.detach().item())
+            running_raw_cat += float(cat_loss.detach().item())
+            running_raw_ctr += float(raw_contrastive_loss.detach().item())
+            running_raw_tv += float(raw_tv_loss.detach().item())
             n_batches += 1
             batch_iter.set_postfix(
                 loss=f"{loss.detach().item():.4f}",
@@ -455,12 +533,52 @@ def train(
                 tv=f"{tv_loss.detach().item():.4f}",
             )
 
+        avg_loss = running / max(1, n_batches)
+        avg_recon = running_recon / max(1, n_batches)
+        avg_ctr = running_ctr / max(1, n_batches)
+        avg_tv = running_tv / max(1, n_batches)
+        avg_raw_recon = running_raw_recon / max(1, n_batches)
+        avg_raw_num = running_raw_num / max(1, n_batches)
+        avg_raw_cat = running_raw_cat / max(1, n_batches)
+        avg_raw_ctr = running_raw_ctr / max(1, n_batches)
+        avg_raw_tv = running_raw_tv / max(1, n_batches)
         epoch_iter.set_postfix(
-            loss=f"{(running / max(1, n_batches)):.6f}",
-            recon=f"{(running_recon / max(1, n_batches)):.6f}",
-            ctr=f"{(running_ctr / max(1, n_batches)):.6f}",
-            tv=f"{(running_tv / max(1, n_batches)):.6f}",
+            loss=f"{avg_loss:.6f}",
+            recon=f"{avg_recon:.6f}",
+            ctr=f"{avg_ctr:.6f}",
+            tv=f"{avg_tv:.6f}",
         )
+        loss_history_rows.append(
+            {
+                "epoch": str(epoch),
+                "total_loss": f"{avg_loss:.8f}",
+                "reconstruction_loss": f"{avg_recon:.8f}",
+                "contrastive_loss": f"{avg_ctr:.8f}",
+                "tv_loss": f"{avg_tv:.8f}",
+                "raw_reconstruction_loss": f"{avg_raw_recon:.8f}",
+                "raw_numeric_loss": f"{avg_raw_num:.8f}",
+                "raw_categorical_loss": f"{avg_raw_cat:.8f}",
+                "raw_contrastive_loss": f"{avg_raw_ctr:.8f}",
+                "raw_tv_loss": f"{avg_raw_tv:.8f}",
+            }
+        )
+        if loss_history_csv is not None:
+            write_loss_history(loss_history_csv, loss_history_rows)
+        if write_loss_plots and loss_curve_png is not None:
+            save_loss_curves(loss_curve_png, loss_history_rows)
+        if (
+            checkpoint_path is not None
+            and checkpoint_every_epochs > 0
+            and epoch % checkpoint_every_epochs == 0
+        ):
+            save_training_checkpoint(
+                checkpoint_path,
+                epoch=epoch,
+                model=model,
+                optimizer=opt,
+                scaler=scaler,
+                loss_history_rows=loss_history_rows,
+            )
         if epoch_callback is not None:
             epoch_callback(epoch, model)
 
@@ -598,6 +716,16 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--validation-csv", type=Path, default=Path("validation_20pct.csv"))
     p.add_argument("--validation-history-csv", type=Path, default=Path("validation_history_20pct.csv"))
     p.add_argument("--validation-checkpoint-dir", type=Path, default=Path("validation_checkpoints_20pct"))
+    p.add_argument("--training-loss-csv", type=Path, default=Path("training_loss_20pct.csv"))
+    p.add_argument("--training-loss-plot", type=Path, default=Path("training_loss_curves_20pct.png"))
+    p.add_argument("--training-checkpoint", type=Path, default=Path("training_checkpoint_20pct.pt"))
+    p.add_argument("--resume-training-checkpoint", type=Path, default=None)
+    p.add_argument(
+        "--checkpoint-every-epochs",
+        type=int,
+        default=1,
+        help="Save a resumable training checkpoint every N epochs; 0 disables model checkpoints.",
+    )
     p.add_argument("--validation-interval", type=int, default=24)
     p.add_argument("--keep-validation-checkpoint-data", action="store_true")
     p.add_argument("--output-dir", type=Path, default=Path("comparison_histograms_20pct"))
@@ -995,6 +1123,111 @@ def append_validation_history(
         writer.writerow(row)
 
 
+def write_loss_history(path: Path, rows: Sequence[Dict[str, str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fieldnames = [
+        "epoch",
+        "total_loss",
+        "reconstruction_loss",
+        "contrastive_loss",
+        "tv_loss",
+        "raw_reconstruction_loss",
+        "raw_numeric_loss",
+        "raw_categorical_loss",
+        "raw_contrastive_loss",
+        "raw_tv_loss",
+    ]
+    with path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def save_loss_curves(path: Path, rows: Sequence[Dict[str, str]]) -> None:
+    if not rows:
+        return
+    try:
+        import matplotlib.pyplot as plt  # type: ignore
+    except ModuleNotFoundError:
+        return
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    epochs = np.array([int(row["epoch"]) for row in rows], dtype=np.int64)
+    series = [
+        ("total_loss", "Total"),
+        ("reconstruction_loss", "Reconstruction"),
+        ("contrastive_loss", "Contrastive"),
+        ("tv_loss", "TV"),
+    ]
+
+    fig, axes = plt.subplots(2, 1, figsize=(11, 8), sharex=True)
+    for key, label in series:
+        values = np.array([float(row[key]) for row in rows], dtype=np.float64)
+        axes[0].plot(epochs, values, marker="o", markersize=2.5, linewidth=1.4, label=label)
+    axes[0].set_title("Training Loss Components")
+    axes[0].set_ylabel("Loss")
+    axes[0].grid(True, alpha=0.2)
+    axes[0].legend()
+
+    for key, label in series:
+        values = np.array([float(row[key]) for row in rows], dtype=np.float64)
+        positive = values[values > 0]
+        if positive.size == values.size:
+            axes[1].plot(epochs, values, marker="o", markersize=2.5, linewidth=1.4, label=label)
+    axes[1].set_yscale("log")
+    axes[1].set_xlabel("Epoch")
+    axes[1].set_ylabel("Loss, log scale")
+    axes[1].grid(True, alpha=0.2)
+    axes[1].legend()
+
+    fig.tight_layout()
+    fig.savefig(path, dpi=160)
+    plt.close(fig)
+
+
+def unwrap_compiled_model(model: nn.Module) -> nn.Module:
+    return getattr(model, "_orig_mod", model)
+
+
+def load_training_checkpoint(path: Path, device: torch.device) -> Dict[str, object]:
+    try:
+        checkpoint = torch.load(path, map_location=device, weights_only=False)
+    except TypeError:
+        checkpoint = torch.load(path, map_location=device)
+    if not isinstance(checkpoint, dict):
+        raise ValueError(f"Training checkpoint is not a dict: {path}")
+    if "epoch" not in checkpoint or "model_state" not in checkpoint:
+        raise ValueError(f"Training checkpoint is missing required keys: {path}")
+    return checkpoint
+
+
+def save_training_checkpoint(
+    path: Path,
+    *,
+    epoch: int,
+    model: nn.Module,
+    optimizer: torch.optim.Optimizer,
+    scaler: torch.cuda.amp.GradScaler,
+    loss_history_rows: Sequence[Dict[str, str]],
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    checkpoint = {
+        "epoch": int(epoch),
+        "model_state": unwrap_compiled_model(model).state_dict(),
+        "optimizer_state": optimizer.state_dict(),
+        "scaler_state": scaler.state_dict(),
+        "loss_history_rows": list(loss_history_rows),
+        "torch_rng_state": torch.get_rng_state(),
+        "cuda_rng_state_all": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
+        "numpy_rng_state": np.random.get_state(),
+        "python_rng_state": random.getstate(),
+    }
+    tmp_path = path.with_name(f"{path.name}.tmp")
+    torch.save(checkpoint, tmp_path)
+    tmp_path.replace(path)
+    print(f"Saved training checkpoint epoch={epoch} path={path}", flush=True)
+
+
 def run_checkpoint_validation(
     *,
     epoch: int,
@@ -1056,8 +1289,11 @@ def run_checkpoint_validation(
         str(args.max_categories_plot),
         "--numeric-threshold",
         str(args.numeric_threshold),
-        "--skip-plots",
     ]
+    if args.skip_plots:
+        cmd.append("--skip-plots")
+    else:
+        cmd.append("--with-plots")
     if args.max_columns is not None:
         cmd.extend(["--max-columns", str(args.max_columns)])
 
@@ -1107,6 +1343,10 @@ def main() -> int:
         raise ValueError("--hash-buckets must be >= 2")
     if args.validation_interval < 0:
         raise ValueError("--validation-interval must be >= 0")
+    if args.checkpoint_every_epochs < 0:
+        raise ValueError("--checkpoint-every-epochs must be >= 0")
+    if args.resume_training_checkpoint is not None and not args.resume_training_checkpoint.exists():
+        raise FileNotFoundError(f"Missing training checkpoint: {args.resume_training_checkpoint}")
 
     set_seed(args.seed)
 
@@ -1179,6 +1419,12 @@ def main() -> int:
         tv_loss_weight=args.tv_loss_weight,
         tv_bins=args.bins,
         tv_every_n_batches=args.tv_every_n_batches,
+        loss_history_csv=args.training_loss_csv,
+        loss_curve_png=args.training_loss_plot,
+        write_loss_plots=not args.skip_plots,
+        checkpoint_path=args.training_checkpoint,
+        resume_checkpoint_path=args.resume_training_checkpoint,
+        checkpoint_every_epochs=args.checkpoint_every_epochs,
         epoch_callback=checkpoint_callback,
     )
 

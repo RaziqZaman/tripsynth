@@ -17,7 +17,12 @@ def run(cmd: list[str], cwd: Path) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--epochs", type=int, default=24)
-    parser.add_argument("--validation-interval", type=int, default=4)
+    parser.add_argument("--validation-interval", type=int, default=60)
+    parser.add_argument("--training-loss-csv", type=Path, default=Path("training_loss_20pct.csv"))
+    parser.add_argument("--training-loss-plot", type=Path, default=Path("training_loss_curves_20pct.png"))
+    parser.add_argument("--training-checkpoint", type=Path, default=Path("training_checkpoint_20pct.pt"))
+    parser.add_argument("--resume-training-checkpoint", type=Path, default=None)
+    parser.add_argument("--checkpoint-every-epochs", type=int, default=1)
     parser.add_argument("--sample-rows", type=int, default=55440)
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--sample-batch-size", type=int, default=256)
@@ -45,6 +50,11 @@ def main() -> int:
 
     plot_flag = "--skip-plots" if args.skip_plots else "--with-plots"
     compile_flags = [] if args.compile else ["--no-compile"]
+    resume_flags = (
+        ["--resume-training-checkpoint", str(args.resume_training_checkpoint)]
+        if args.resume_training_checkpoint is not None
+        else []
+    )
 
     run(
         [
@@ -54,6 +64,14 @@ def main() -> int:
             str(args.epochs),
             "--validation-interval",
             str(args.validation_interval),
+            "--training-loss-csv",
+            str(args.training_loss_csv),
+            "--training-loss-plot",
+            str(args.training_loss_plot),
+            "--training-checkpoint",
+            str(args.training_checkpoint),
+            "--checkpoint-every-epochs",
+            str(args.checkpoint_every_epochs),
             "--sample-rows",
             str(args.sample_rows),
             "--batch-size",
@@ -76,6 +94,7 @@ def main() -> int:
             str(args.tv_every_n_batches),
             plot_flag,
             *compile_flags,
+            *resume_flags,
         ],
         cwd=repo_root,
     )
