@@ -1,0 +1,2 @@
+epoch,columns,mean_js_distance,mean_tv_distance,validation_csv,checkpoint_data_kept,synthetic_trips
+8,95,0.486574,0.469168,loss_weight_sweep_quick_20pct/recon_1_contrastive_0/validation_checkpoints_20pct/epoch_0008/validation.csv,false,
