@@ -3,7 +3,7 @@ o_activity,categorical,18,18,0.90099327,0.09900673
 o_tpb_taz,categorical,3350,2992,0.79877292,0.20122708
 d_activity,categorical,18,18,0.91730848,0.08269152
 d_tpb_taz,categorical,3352,2979,0.78734303,0.21265697
-departure_time_min,numeric,1053,1205,0.22443097,0.77556903
+departure_time_min,numeric,96,88,0.86554071,0.13445929
 travel_mode,categorical,14,12,0.94879633,0.05120367
 transit_access_mode,categorical,7,7,0.97154043,0.02845957
 transit_egress_mode,categorical,7,7,0.97154967,0.02845033
@@ -21,7 +21,7 @@ subway_egress_mode,categorical,6,6,0.97652030,0.02347970
 hov_used,categorical,2,2,0.99712519,0.00287481
 toll_road_used,categorical,2,2,0.99336127,0.00663873
 distance,numeric,50,50,0.89421086,0.10578914
-reported_travel_time,numeric,226,200,0.22872763,0.77127237
+reported_travel_time,numeric,54,21,0.92253741,0.07746259
 year,numeric,40,35,0.85493229,0.14506771
 bodytype,categorical,9,9,0.96947452,0.03052548
 make,categorical,66,53,0.91831037,0.08168963

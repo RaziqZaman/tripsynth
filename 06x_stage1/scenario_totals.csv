@@ -1,0 +1,3 @@
+scenario,input_rows,included_rows,person_trips_unscaled,vehicle_trips_unscaled,scale,vehicle_trips_scaled,road_modes
+real,111808,73184,12052584.03580832,10098948.02842929,0.071220756089,719254.71428575,positive_occupancy
+synthetic,110880,70708,70708.00000000,59937.89285715,12.000000000000,719254.71428575,positive_occupancy

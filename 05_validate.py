@@ -57,6 +57,8 @@ NUMERIC_COLUMNS = {
 
 MISSING_LABEL = "N/A"
 OTHER_LABEL = "(other)"
+FIFTEEN_MINUTE_BIN_COLUMNS = {"departure_time_min", "reported_travel_time"}
+FIFTEEN_MINUTES = 15
 
 
 def parse_args() -> argparse.Namespace:
@@ -103,6 +105,7 @@ def safe_filename(value: str) -> str:
 
 
 def numeric_counts(
+    column: str,
     real: pd.Series,
     synthetic: pd.Series,
     bins: int,
@@ -122,7 +125,16 @@ def numeric_counts(
         synthetic_counts[MISSING_LABEL] = len(synthetic)
         return real_counts, synthetic_counts, [MISSING_LABEL]
 
-    if is_integer_like(combined):
+    if column in FIFTEEN_MINUTE_BIN_COLUMNS:
+        real_binned = real_numeric.dropna().apply(fifteen_minute_bin_label)
+        synthetic_binned = synthetic_numeric.dropna().apply(fifteen_minute_bin_label)
+        real_counts.update(Counter(real_binned))
+        synthetic_counts.update(Counter(synthetic_binned))
+        labels = sorted(
+            set(real_counts) | set(synthetic_counts),
+            key=fifteen_minute_bin_start,
+        )
+    elif is_integer_like(combined):
         real_integer = real_numeric.dropna().round().astype(int).astype(str)
         synthetic_integer = synthetic_numeric.dropna().round().astype(int).astype(str)
         real_counts.update(Counter(real_integer))
@@ -181,7 +193,18 @@ def numeric_range_label(left: float, right: float) -> str:
     return f"{left:.6g}-{right:.6g}"
 
 
+def fifteen_minute_bin_label(value: float) -> str:
+    start = int(math.floor(float(value) / FIFTEEN_MINUTES) * FIFTEEN_MINUTES)
+    end = start + FIFTEEN_MINUTES - 1
+    return f"{start}-{end}"
+
+
+def fifteen_minute_bin_start(label: str) -> int:
+    return int(label.split("-", 1)[0])
+
+
 def bucketed_numeric_columns(
+    column: str,
     real: pd.Series,
     synthetic: pd.Series,
     bins: int,
@@ -199,7 +222,14 @@ def bucketed_numeric_columns(
             pd.Series([MISSING_LABEL] * len(synthetic), index=synthetic.index),
         )
 
-    if is_integer_like(combined):
+    if column in FIFTEEN_MINUTE_BIN_COLUMNS:
+        real_bucketed = real_numeric.apply(
+            lambda value: fifteen_minute_bin_label(value) if pd.notna(value) else MISSING_LABEL
+        )
+        synthetic_bucketed = synthetic_numeric.apply(
+            lambda value: fifteen_minute_bin_label(value) if pd.notna(value) else MISSING_LABEL
+        )
+    elif is_integer_like(combined):
         real_bucketed = real_numeric.round().astype("Int64").astype(str)
         synthetic_bucketed = synthetic_numeric.round().astype("Int64").astype(str)
     else:
@@ -245,6 +275,7 @@ def bucketed_columns(
     for column in common_columns:
         if column in NUMERIC_COLUMNS:
             real_column, synthetic_column = bucketed_numeric_columns(
+                column,
                 real[column],
                 synthetic[column],
                 numeric_bins,
@@ -569,6 +600,7 @@ def main() -> int:
         is_numeric = column in NUMERIC_COLUMNS
         if is_numeric:
             real_counts, synthetic_counts, labels = numeric_counts(
+                column,
                 real[column],
                 synthetic[column],
                 args.numeric_bins,
