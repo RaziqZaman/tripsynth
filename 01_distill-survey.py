@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 INPUT_CSV = Path("00x_consolidated-survey.csv")
-OUTPUT_CSV = Path("01x_distilled_survey.csv")
+OUTPUT_CSV = Path("01x_distilled-survey.csv")
 
 REMOVE_COLUMNS = {
     "household_id",
