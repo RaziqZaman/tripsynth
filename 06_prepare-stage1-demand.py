@@ -28,6 +28,23 @@ def parse_args() -> argparse.Namespace:
             "blank keeps every row with positive vehicle_occupancy"
         ),
     )
+    parser.add_argument(
+        "--taz-centroids",
+        type=Path,
+        default=None,
+        help="optional TAZ centroid CSV with taz/state columns for geography filtering",
+    )
+    parser.add_argument(
+        "--state-filter",
+        default="",
+        help="optional state name to filter on, e.g. Maryland",
+    )
+    parser.add_argument(
+        "--state-filter-mode",
+        choices=["both", "either"],
+        default="both",
+        help="whether both OD TAZs or either OD TAZ must match --state-filter",
+    )
     return parser.parse_args()
 
 
@@ -43,13 +60,48 @@ def parse_road_modes(value: str) -> set[str] | None:
     return modes or None
 
 
-def include_row(row: dict[str, str], road_modes: set[str] | None) -> bool:
+def read_taz_states(path: Path | None) -> dict[str, str]:
+    if path is None:
+        return {}
+    states: dict[str, str] = {}
+    with path.open(newline="") as input_file:
+        reader = csv.DictReader(input_file)
+        for row in reader:
+            taz = row.get("taz", "")
+            state = row.get("state", "")
+            if taz and state:
+                states[taz] = state
+    return states
+
+
+def geography_allowed(
+    row: dict[str, str],
+    taz_states: dict[str, str],
+    state_filter: str,
+    state_filter_mode: str,
+) -> bool:
+    if not state_filter:
+        return True
+    origin_state = taz_states.get(row.get("o_tpb_taz", ""), "")
+    destination_state = taz_states.get(row.get("d_tpb_taz", ""), "")
+    if state_filter_mode == "either":
+        return origin_state == state_filter or destination_state == state_filter
+    return origin_state == state_filter and destination_state == state_filter
+
+
+def include_row(
+    row: dict[str, str],
+    road_modes: set[str] | None,
+    taz_states: dict[str, str],
+    state_filter: str,
+    state_filter_mode: str,
+) -> bool:
     occupancy = parse_float(row.get("vehicle_occupancy", "0"))
     if occupancy <= 0:
         return False
-    if road_modes is None:
-        return True
-    return row.get("travel_mode", "") in road_modes
+    if road_modes is not None and row.get("travel_mode", "") not in road_modes:
+        return False
+    return geography_allowed(row, taz_states, state_filter, state_filter_mode)
 
 
 def iter_vehicle_rows(
@@ -58,6 +110,9 @@ def iter_vehicle_rows(
     person_weight_column: str | None,
     default_person_weight: float,
     road_modes: set[str] | None,
+    taz_states: dict[str, str],
+    state_filter: str,
+    state_filter_mode: str,
 ) -> tuple[list[dict[str, str]], dict[str, float]]:
     rows: list[dict[str, str]] = []
     totals = {
@@ -71,7 +126,7 @@ def iter_vehicle_rows(
         reader = csv.DictReader(input_file)
         for row_id, row in enumerate(reader, start=1):
             totals["input_rows"] += 1
-            if not include_row(row, road_modes):
+            if not include_row(row, road_modes, taz_states, state_filter, state_filter_mode):
                 continue
 
             occupancy = parse_float(row.get("vehicle_occupancy", "0"))
@@ -189,6 +244,9 @@ def write_totals(
 def main() -> int:
     args = parse_args()
     road_modes = parse_road_modes(args.road_modes)
+    taz_states = read_taz_states(args.taz_centroids)
+    if args.state_filter and not taz_states:
+        raise ValueError("--state-filter requires --taz-centroids")
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     real_rows, real_totals = iter_vehicle_rows(
@@ -197,6 +255,9 @@ def main() -> int:
         person_weight_column="wthhfin",
         default_person_weight=1.0,
         road_modes=road_modes,
+        taz_states=taz_states,
+        state_filter=args.state_filter,
+        state_filter_mode=args.state_filter_mode,
     )
     synthetic_rows, synthetic_totals = iter_vehicle_rows(
         args.synthetic_csv,
@@ -204,6 +265,9 @@ def main() -> int:
         person_weight_column=None,
         default_person_weight=1.0,
         road_modes=road_modes,
+        taz_states=taz_states,
+        state_filter=args.state_filter,
+        state_filter_mode=args.state_filter_mode,
     )
 
     synthetic_vehicle_trips_scaled = (

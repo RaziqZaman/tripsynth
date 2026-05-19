@@ -26,8 +26,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out", type=Path, default=OUTPUT_CSV)
     parser.add_argument("--where", default="1=1")
     parser.add_argument("--out-fields", default="*")
+    parser.add_argument("--out-sr", default="4326")
     parser.add_argument("--page-size", type=int, default=2000)
     parser.add_argument("--sleep", type=float, default=0.1)
+    parser.add_argument(
+        "--include-geometry-json",
+        action="store_true",
+        help="include compact geometry_json for line/polygon map matching",
+    )
     return parser.parse_args()
 
 
@@ -35,6 +41,7 @@ def fetch_page(
     query_url: str,
     where: str,
     out_fields: str,
+    out_sr: str,
     page_size: int,
     offset: int,
 ) -> dict[str, Any]:
@@ -43,6 +50,7 @@ def fetch_page(
         "where": where,
         "outFields": out_fields,
         "returnGeometry": "true",
+        "outSR": out_sr,
         "resultRecordCount": str(page_size),
         "resultOffset": str(offset),
     }
@@ -54,12 +62,14 @@ def fetch_page(
     return payload
 
 
-def geometry_fields(feature: dict[str, Any]) -> dict[str, Any]:
+def geometry_fields(feature: dict[str, Any], include_geometry_json: bool) -> dict[str, Any]:
     geometry = feature.get("geometry") or {}
     output: dict[str, Any] = {}
     for key in ["x", "y", "longitude", "latitude"]:
         if key in geometry:
             output[f"geometry_{key}"] = geometry[key]
+    if include_geometry_json and geometry:
+        output["geometry_json"] = json.dumps(geometry, separators=(",", ":"))
     return output
 
 
@@ -74,6 +84,7 @@ def main() -> int:
             args.query_url,
             args.where,
             args.out_fields,
+            args.out_sr,
             args.page_size,
             offset,
         )
@@ -92,7 +103,7 @@ def main() -> int:
     for feature in features:
         row = {
             **(feature.get("attributes") or {}),
-            **geometry_fields(feature),
+            **geometry_fields(feature, args.include_geometry_json),
         }
         rows.append(row)
         fieldnames.update(row)
