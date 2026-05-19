@@ -101,23 +101,33 @@ def numeric_counts(
         synthetic_counts[MISSING_LABEL] = len(synthetic)
         return real_counts, synthetic_counts, [MISSING_LABEL]
 
-    min_value = float(combined.min())
-    max_value = float(combined.max())
-    if math.isclose(min_value, max_value):
-        edges = np.array([min_value - 0.5, max_value + 0.5])
+    if is_integer_like(combined):
+        real_integer = real_numeric.dropna().round().astype(int).astype(str)
+        synthetic_integer = synthetic_numeric.dropna().round().astype(int).astype(str)
+        real_counts.update(Counter(real_integer))
+        synthetic_counts.update(Counter(synthetic_integer))
+        labels = sorted(
+            set(real_counts) | set(synthetic_counts),
+            key=lambda value: int(value),
+        )
     else:
-        edges = np.linspace(min_value, max_value, bins + 1)
+        min_value = float(combined.min())
+        max_value = float(combined.max())
+        if math.isclose(min_value, max_value):
+            edges = np.array([min_value - 0.5, max_value + 0.5])
+        else:
+            edges = np.linspace(min_value, max_value, bins + 1)
 
-    labels = [
-        f"{edges[index]:.3g}-{edges[index + 1]:.3g}"
-        for index in range(len(edges) - 1)
-    ]
+        labels = [
+            integer_bin_label(edges[index], edges[index + 1])
+            for index in range(len(edges) - 1)
+        ]
 
-    real_hist, _ = np.histogram(real_numeric.dropna().to_numpy(), bins=edges)
-    synthetic_hist, _ = np.histogram(synthetic_numeric.dropna().to_numpy(), bins=edges)
+        real_hist, _ = np.histogram(real_numeric.dropna().to_numpy(), bins=edges)
+        synthetic_hist, _ = np.histogram(synthetic_numeric.dropna().to_numpy(), bins=edges)
 
-    real_counts.update(dict(zip(labels, real_hist.tolist())))
-    synthetic_counts.update(dict(zip(labels, synthetic_hist.tolist())))
+        real_counts.update(dict(zip(labels, real_hist.tolist())))
+        synthetic_counts.update(dict(zip(labels, synthetic_hist.tolist())))
 
     real_missing = int(real_numeric.isna().sum())
     synthetic_missing = int(synthetic_numeric.isna().sum())
@@ -127,6 +137,21 @@ def numeric_counts(
         labels.append(MISSING_LABEL)
 
     return real_counts, synthetic_counts, labels
+
+
+def is_integer_like(values: pd.Series) -> bool:
+    numeric = pd.to_numeric(values, errors="coerce").dropna().to_numpy()
+    if numeric.size == 0:
+        return False
+    return bool(np.all(np.isclose(numeric, np.round(numeric))))
+
+
+def integer_bin_label(left: float, right: float) -> str:
+    left_text = str(int(round(left)))
+    right_text = str(int(round(right)))
+    if left_text == right_text:
+        return left_text
+    return f"{left_text}-{right_text}"
 
 
 def categorical_counts(
