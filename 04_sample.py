@@ -409,17 +409,39 @@ def save_training_history(history: list[dict[str, float]], model_dir: Path) -> N
     if not history:
         return
 
+    plot_training_loss(
+        history,
+        model_dir / "training_loss_curve.png",
+        title="VAE training loss",
+        log_scale=False,
+    )
+    plot_training_loss(
+        history,
+        model_dir / "training_loss_curve_log.png",
+        title="VAE training loss (log scale)",
+        log_scale=True,
+    )
+
+
+def plot_training_loss(
+    history: list[dict[str, float]],
+    output_path: Path,
+    title: str,
+    log_scale: bool,
+) -> None:
     epochs = [row["epoch"] for row in history]
     fig, ax = plt.subplots(figsize=(10, 6))
     for key in ["loss", "numeric_loss", "categorical_loss", "kl_loss"]:
         ax.plot(epochs, [row[key] for row in history], label=key)
     ax.set_xlabel("epoch")
     ax.set_ylabel("loss")
-    ax.set_title("VAE training loss")
+    ax.set_title(title)
+    if log_scale:
+        ax.set_yscale("log")
     ax.grid(alpha=0.25)
     ax.legend()
     fig.tight_layout()
-    fig.savefig(model_dir / "training_loss_curve.png", dpi=150)
+    fig.savefig(output_path, dpi=150)
     plt.close(fig)
 
 
