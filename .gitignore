@@ -50,3 +50,21 @@ chunked_synthetic_trips/
 sample_synthetic_trips*.csv
 synthetic_trips*.csv
 *.parquet
+
+# Model checkpoints and generated training artifacts
+04_model/vae.pt
+
+# MATSim and population-scale generated outputs
+06x_stage1_osm/
+06x_stage1_md_internal/matsim_real/
+06x_stage1_md_internal/matsim_synthetic/
+07x_population_scale/
+
+# County MATSim runs are large; keep only compact review outputs in Git.
+08x_county_runs/*
+!08x_county_runs/county_manifest.csv
+!08x_county_runs/county_validation_summary.csv
+!08x_county_runs/performance_visualizations/
+!08x_county_runs/performance_visualizations/**
+!08x_county_runs/spatial_pattern_tests/
+!08x_county_runs/spatial_pattern_tests/**

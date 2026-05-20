@@ -21,6 +21,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     parser.add_argument("--synthetic-scale", type=float, default=DEFAULT_SYNTHETIC_SCALE)
     parser.add_argument(
+        "--real-scale",
+        type=float,
+        default=None,
+        help="optional fixed scale for real weighted survey vehicle trips; defaults to matching synthetic scaled vehicle trips",
+    )
+    parser.add_argument(
         "--road-modes",
         default="",
         help=(
@@ -275,9 +281,13 @@ def main() -> int:
     )
     real_vehicle_trips = real_totals["unscaled_vehicle_trips"]
     real_scale = (
-        synthetic_vehicle_trips_scaled / real_vehicle_trips
-        if real_vehicle_trips
-        else 0.0
+        args.real_scale
+        if args.real_scale is not None
+        else (
+            synthetic_vehicle_trips_scaled / real_vehicle_trips
+            if real_vehicle_trips
+            else 0.0
+        )
     )
 
     write_vehicle_trips(args.output_dir / "real_vehicle_trips.csv", real_rows, real_scale)

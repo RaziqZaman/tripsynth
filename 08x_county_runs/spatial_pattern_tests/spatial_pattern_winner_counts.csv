@@ -1,0 +1,7 @@
+metric,real,synthetic,tie
+log_pearson,0,9,0
+pairwise_concordance,3,6,0
+pearson,3,6,0
+spearman,2,7,0
+top_capture,1,7,1
+top_jaccard,1,7,1

@@ -1,0 +1,7 @@
+metric,real_wins,synthetic_wins,ties
+mae,9,0,0
+rmse,8,1,0
+mape,9,0,0
+correlation,3,6,0
+geh_lt_5_share,8,1,0
+abs_total_error_share,9,0,0
