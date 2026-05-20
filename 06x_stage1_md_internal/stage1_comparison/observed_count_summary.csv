@@ -1,0 +1,9 @@
+metric,value
+matched_count_points,8762.0
+observed_volume_total,110635944.0
+observed_volume_mean,12626.791143574526
+observed_volume_median,5260.5
+observed_volume_p90,27801.900000000056
+match_distance_mean_m,1.4043848436430035
+match_distance_median_m,0.915
+match_distance_max_m,98.093

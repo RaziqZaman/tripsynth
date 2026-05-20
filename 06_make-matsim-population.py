@@ -99,12 +99,12 @@ def write_person(
     output_file.write(f'  <person id="{escape(person_id)}">\n')
     output_file.write('    <plan selected="yes">\n')
     output_file.write(
-        f'      <act type="{origin_type}" x="{origin[0]:.6f}" y="{origin[1]:.6f}" '
+        f'      <activity type="{origin_type}" x="{origin[0]:.6f}" y="{origin[1]:.6f}" '
         f'end_time="{departure_time}" />\n'
     )
     output_file.write('      <leg mode="car" />\n')
     output_file.write(
-        f'      <act type="{destination_type}" x="{destination[0]:.6f}" '
+        f'      <activity type="{destination_type}" x="{destination[0]:.6f}" '
         f'y="{destination[1]:.6f}" />\n'
     )
     output_file.write('    </plan>\n')
@@ -126,6 +126,7 @@ def main() -> int:
     with args.vehicle_trips.open(newline="") as input_file, open_output(args.out) as output_file:
         reader = csv.DictReader(input_file)
         output_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        output_file.write('<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">\n')
         output_file.write('<population>\n')
         for row in reader:
             origin = centroids.get(row.get("o_tpb_taz", ""))

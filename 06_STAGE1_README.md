@@ -150,79 +150,62 @@ reduced-demand universe.
 
 ## Current Runnable Network Path
 
-For the first Maryland traffic-count validation pass, use the MDOT AADT line
-layer as the count-bearing network:
+The MDOT AADT line layer is useful as an observed-count source, but it is not a
+fully routable road network. The runnable MATSim path now uses a Maryland OSM
+road network from Geofabrik, cleans it to the largest connected drivable
+component, and maps MDOT AADT count points onto the OSM links.
+
+Prepare the OSM network, matched observed counts, and MATSim configs with:
 
 ```bash
-.venv/bin/python 06_fetch-aadt-line-network.py --page-size 1000
-.venv/bin/python 06_make-matsim-network.py
+./06_prepare-osm-stage1.sh
 ```
 
-Outputs:
-
-- `06x_stage1/network_links.csv`
-- `06x_stage1/observed_counts.csv`
-- `06x_stage1/network.xml.gz`
-- `06x_stage1/matsim_link_count_map.csv`
-
-This network is Maryland-only, so use the Maryland-internal demand set for the
-first run:
+The wrapper runs these steps with progress bars:
 
 ```bash
-.venv/bin/python 06_prepare-stage1-demand.py \
-  --synthetic-scale 12 \
-  --taz-centroids 06x_stage1/taz_centroids.csv \
-  --state-filter Maryland \
-  --state-filter-mode both \
-  --output-dir 06x_stage1_md_internal
-
-.venv/bin/python 06_make-matsim-population.py \
-  --vehicle-trips 06x_stage1_md_internal/real_vehicle_trips.csv \
-  --taz-centroids 06x_stage1/taz_centroids.csv \
-  --out 06x_stage1_md_internal/real_population.xml.gz
-
-.venv/bin/python 06_make-matsim-population.py \
-  --vehicle-trips 06x_stage1_md_internal/synthetic_vehicle_trips.csv \
-  --taz-centroids 06x_stage1/taz_centroids.csv \
-  --out 06x_stage1_md_internal/synthetic_population.xml.gz
+.venv/bin/python 06_download-osm-network.py
+.venv/bin/python 06_make-osm-matsim-network.py
+.venv/bin/python 06_match-counts-to-links.py   --links 06x_stage1_osm/network_links.csv   --out 06x_stage1_osm/observed_counts.csv   --max-distance-m 100
+.venv/bin/python 06_write-matsim-configs.py   --stage1-dir 06x_stage1_osm   --scenario-dir 06x_stage1_md_internal
 ```
 
-The MD-internal scenario keeps `synthetic_scale = 12` and rescales the real
-survey demand to the same total simulated vehicle demand.
+Current OSM outputs:
 
-After MATSim or another assignment engine writes directed link volumes, aggregate
-them back to count-link IDs before comparison:
+- `06x_stage1_osm/maryland-latest.osm.pbf`
+- `06x_stage1_osm/network.xml.gz`
+- `06x_stage1_osm/network_links.csv`
+- `06x_stage1_osm/matsim_link_count_map.csv`
+- `06x_stage1_osm/observed_counts.csv`
+- `06x_stage1_osm/network_stats.json`
+
+The current build matched 8,762 of 8,773 MDOT AADT count points within 100 m.
+The generated configs in `06x_stage1_md_internal/` point at
+`06x_stage1_osm/network.xml.gz`.
+
+The Maryland-internal demand set is still the right first run, because the count
+validation target is Maryland AADT:
 
 ```bash
-.venv/bin/python 06_aggregate-matsim-volumes.py \
-  --link-volumes 06x_stage1_md_internal/real_matsim_link_volumes.csv \
-  --out 06x_stage1_md_internal/real_assigned_link_counts.csv
+.venv/bin/python 06_prepare-stage1-demand.py   --synthetic-scale 12   --taz-centroids 06x_stage1/taz_centroids.csv   --state-filter Maryland   --state-filter-mode both   --output-dir 06x_stage1_md_internal
 
-.venv/bin/python 06_aggregate-matsim-volumes.py \
-  --link-volumes 06x_stage1_md_internal/synthetic_matsim_link_volumes.csv \
-  --out 06x_stage1_md_internal/synthetic_assigned_link_counts.csv
+.venv/bin/python 06_make-matsim-population.py   --vehicle-trips 06x_stage1_md_internal/real_vehicle_trips.csv   --taz-centroids 06x_stage1/taz_centroids.csv   --out 06x_stage1_md_internal/real_population.xml.gz
+
+.venv/bin/python 06_make-matsim-population.py   --vehicle-trips 06x_stage1_md_internal/synthetic_vehicle_trips.csv   --taz-centroids 06x_stage1/taz_centroids.csv   --out 06x_stage1_md_internal/synthetic_population.xml.gz
 ```
 
-Then compare against MDOT AADT counts:
-
-```bash
-.venv/bin/python 06_compare-stage1-counts.py \
-  --scenario-totals 06x_stage1_md_internal/scenario_totals.csv \
-  --observed-counts 06x_stage1/observed_counts.csv \
-  --real-assigned 06x_stage1_md_internal/real_assigned_link_counts.csv \
-  --synthetic-assigned 06x_stage1_md_internal/synthetic_assigned_link_counts.csv \
-  --out 06x_stage1_md_internal/count_validation.csv \
-  --summary-out 06x_stage1_md_internal/count_validation_summary.csv
-```
+After MATSim writes directed link volumes, `06_postprocess_matsim.sh` now uses
+`NETWORK_DIR=06x_stage1_osm` by default, so it aggregates simulated volumes back
+to the OSM links that carry matched MDOT counts.
 
 ## MATSim Runner
 
 This repo now has a tiny Maven runner under `06_matsim/`. It uses the standard
-MATSim Controler entry point and the `org.matsim:matsim:2025.0` dependency.
+MATSim Controler entry point and the `org.matsim:matsim:15.0` dependency.
 MATSim itself documents command-line runs through `org.matsim.run.Controler`, and
 the official install docs recommend Maven-based project setup.
 
-This machine currently needs Java and Maven installed first:
+This machine currently uses Java 17, Maven, and MATSim 15.0. If Java or Maven is missing, install them first:
 
 ```bash
 ./06_matsim_prereqs.sh
@@ -257,6 +240,25 @@ Expected comparison outputs:
 
 - `06x_stage1_md_internal/count_validation.csv`
 - `06x_stage1_md_internal/count_validation_summary.csv`
+
+## Stage 1 Comparison Bundle
+
+Build failure-aware synthetic-vs-real summaries and charts with:
+
+```bash
+.venv/bin/python 06_visualize-stage1-results.py
+```
+
+Outputs are written to:
+
+- `06x_stage1_md_internal/stage1_comparison/*.csv`
+- `06x_stage1_md_internal/stage1_comparison/charts/*.png`
+
+If MATSim has not completed successfully, the comparison bundle still writes run
+status diagnostics and weighted-demand overlap metrics, while count-validation
+outputs are marked unavailable. The MATSim run scripts now default to
+`MATSIM_HEAP=96g` via `MAVEN_OPTS`; override with, for example,
+`MATSIM_HEAP=64g ./06_run_matsim_real.sh`.
 
 The default configs run only iteration `0`, which is a first network-loading
 comparison rather than a calibrated multi-iteration MATSim study.

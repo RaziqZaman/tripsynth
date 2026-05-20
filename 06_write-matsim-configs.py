@@ -62,6 +62,7 @@ def write_config(
 
     path.write_text(
         f'''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
 <config>
   <module name="global">
     <param name="randomSeed" value="{random_seed}" />
@@ -90,20 +91,16 @@ def write_config(
   <module name="qsim">
     <param name="startTime" value="00:00:00" />
     <param name="endTime" value="30:00:00" />
-    <param name="flowCapFactor" value="1.0" />
-    <param name="storageCapFactor" value="1.0" />
+    <param name="flowCapacityFactor" value="1.0" />
+    <param name="storageCapacityFactor" value="1.0" />
     <param name="numberOfThreads" value="{threads}" />
     <param name="trafficDynamics" value="queue" />
     <param name="vehiclesSource" value="defaultVehicle" />
     <param name="removeStuckVehicles" value="true" />
-    <param name="stuckTime" value="00:30:00" />
+    <param name="stuckTime" value="1800" />
   </module>
 
-  <module name="routing">
-    <param name="networkModes" value="car" />
-  </module>
-
-  <module name="scoring">
+  <module name="planCalcScore">
     <parameterset type="modeParams">
       <param name="mode" value="car" />
       <param name="constant" value="0.0" />

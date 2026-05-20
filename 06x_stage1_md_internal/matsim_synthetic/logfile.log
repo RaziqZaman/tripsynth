@@ -1,0 +1,1326 @@
+2026-05-19T21:23:36,812  INFO Gbl:64 JVM: 17.0.18; Ubuntu; mixed mode, sharing; 64-bit
+2026-05-19T21:23:36,812  INFO Gbl:68 OS: Linux; 6.17.0-19-generic; amd64
+2026-05-19T21:23:36,812  INFO Gbl:71 CPU cores: 32
+2026-05-19T21:23:36,814  INFO Gbl:72 max. Memory: 98304.0MB (103079215104B)
+2026-05-19T21:23:36,814  INFO Gbl:110 MATSim-Build: ra76d70e12c1ca93f702007bdf2cc365001d5f50e (2023-04-12 08:36:22)
+2026-05-19T21:23:36,815  INFO ControlerListenerManagerImpl:108 calling notifyStartup on org.matsim.core.controler.ControlerDefaultsModule$1
+2026-05-19T21:23:36,816  INFO MemoryObserver:42 used RAM: 18379 MB  free: 11700 MB  total: 30080 MB
+2026-05-19T21:23:36,820  INFO ControlerListenerManagerImpl:108 calling notifyStartup on org.matsim.guice.DependencyGraphControlerListener
+2026-05-19T21:23:36,820  INFO ControlerListenerManagerImpl:108 calling notifyStartup on org.matsim.counts.CountsControlerListener
+2026-05-19T21:23:36,820  INFO ControlerListenerManagerImpl:108 calling notifyStartup on org.matsim.analysis.ModeStatsControlerListener
+2026-05-19T21:23:36,820  INFO ControlerListenerManagerImpl:108 calling notifyStartup on org.matsim.analysis.ScoreStatsControlerListener
+2026-05-19T21:23:36,821  INFO ControlerListenerManagerImpl:111 all ControlerStartupListeners called.
+2026-05-19T21:23:36,821  INFO ControlerUtils:80 config dump before iterations start
+2026-05-19T21:23:36,827  INFO ControlerUtils:84 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
+<config>
+	<module name="JDEQSim" >
+		<param name="carSize" value="7.5" />
+		<param name="endTime" value="undefined" />
+		<param name="flowCapacityFactor" value="1.0" />
+		<param name="gapTravelSpeed" value="15.0" />
+		<param name="minimumInFlowCapacity" value="1800.0" />
+		<param name="squeezeTime" value="1800.0" />
+		<param name="storageCapacityFactor" value="1.0" />
+	</module>
+	<module name="ReplanningAnnealer" >
+		<!-- Activate the scaling of replanning modules using an annealing approach rather than fixed rates. -->
+		<param name="activateAnnealingModule" value="false" />
+	</module>
+	<module name="TimeAllocationMutator" >
+		<!-- Default:true; Defines whether time mutation changes an activity's duration. -->
+		<param name="mutationAffectsDuration" value="true" />
+		<!-- Default:1800.0; Defines how many seconds a time mutation can maximally shift a time. -->
+		<param name="mutationRange" value="1800.0" />
+	</module>
+	<module name="changeMode" >
+		<!-- Defines whether car availability is considered be considered or not. An agent has no car only if it has no license, or never access to a car. Default: true -->
+		<param name="ignoreCarAvailability" value="true" />
+		<!-- Defines the mode switch behavior. Possible values [fromAllModesToSpecifiedModes, fromSpecifiedModesToSpecifiedModes] Default: fromSpecifiedModesToSpecifiedModes. -->
+		<param name="modeSwitchBehavior" value="fromSpecifiedModesToSpecifiedModes" />
+		<!-- Defines all the modes available, including chain-based modes, seperated by commas -->
+		<param name="modes" value="car,pt" />
+	</module>
+	<module name="controler" >
+		<!-- Defines what should be done with the ITERS directory when a simulation finished successfully -->
+		<param name="cleanItersAtEnd" value="keep" />
+		<!-- Compression algorithm to use when writing out data to files. Possible values: [none, gzip, lz4, zst] -->
+		<param name="compressionType" value="gzip" />
+		<!-- Sets whether graphs showing some analyses should automatically be generated during the simulation. The generation of graphs usually takes a small amount of time that does not have any weight in big simulations, but add a significant overhead in smaller runs or in test cases where the graphical output is not even requested. -->
+		<param name="createGraphs" value="false" />
+		<!-- Defines when the scoring functions for the population are created. Default=IterationStarts. Possible values: [IterationStarts, BeforeMobsim] -->
+		<param name="createScoringFunctionType" value="IterationStarts" />
+		<!-- true if at the end of a run, plans, network, config etc should be dumped to a file -->
+		<param name="dumpDataAtEnd" value="true" />
+		<!-- Default=false. If enabled, the router takes travel times needed for turning moves into account. Cannot be used if the (Fast)AStarLandmarks routing or TravelTimeCalculator.separateModes is enabled. -->
+		<param name="enableLinkToLinkRouting" value="false" />
+		<!-- Default=xml; Specifies the file format for writing events. Currently supported: [xml, pb, json]
+		Multiple values can be specified separated by commas (','). -->
+		<param name="eventsFileFormat" value="xml" />
+		<!-- Default=0. First Iteration of a simulation. -->
+		<param name="firstIteration" value="0" />
+		<!-- Default=1000. Last Iteration of a simulation. -->
+		<param name="lastIteration" value="0" />
+		<!-- Defines which mobility simulation will be used. Currently supported: qsim JDEQSim hermes 
+		Depending on the chosen mobsim, you'll have to add additional config modules to configure the corresponding mobsim.
+		For 'qsim', add a module 'qsim' to the config. -->
+		<param name="mobsim" value="qsim" />
+		<param name="outputDirectory" value="/home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic" />
+		<!-- Possible values: failIfDirectoryExists,overwriteExistingFiles,deleteDirectoryIfExists -->
+		<param name="overwriteFiles" value="deleteDirectoryIfExists" />
+		<!-- The type of routing (least cost path) algorithm used, may have the values: [Dijkstra, AStarLandmarks, FastDijkstra, FastAStarLandmarks, SpeedyALT] -->
+		<param name="routingAlgorithmType" value="AStarLandmarks" />
+		<!-- An identifier for the current run which is used as prefix for output files and mentioned in output xml files etc. -->
+		<param name="runId" value="null" />
+		<!-- Comma-separated list of visualizer output file formats. `transims' and `otfvis'. -->
+		<param name="snapshotFormat" value="" />
+		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations events are written to a file. `0' disables events writing completely. -->
+		<param name="writeEventsInterval" value="1" />
+		<!-- iterationNumber % writePlansInterval == 0 defines (hopefully) in which iterations plans are written to a file. `0' disables plans writing completely.  Some plans in early iterations are always written -->
+		<param name="writePlansInterval" value="1" />
+		<!-- iterationNumber % writeSnapshotsInterval == 0 defines in which iterations snapshots are written to a file. `0' disables snapshots writing completely -->
+		<param name="writeSnapshotsInterval" value="1" />
+		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations trips CSV are written to a file. `0' disables trips writing completely. -->
+		<param name="writeTripsInterval" value="50" />
+	</module>
+	<module name="counts" >
+		<!-- Transport modes that will be respected for the counts comparison. 'car' is default, which includes also bussed from the pt simulation module. Use this parameter in combination with 'filterModes' = true! -->
+		<param name="analyzedModes" value="car" />
+		<!-- Specifies over how many iterations the link volumes should be averaged that are used for the counts comparison. Use 1 or 0 to only use the link volumes of a single iteration. This values cannot be larger than the value specified for writeCountsInterval -->
+		<param name="averageCountsOverIterations" value="5" />
+		<!-- factor by which to re-scale the simulated values.  necessary when simulation runs with something different from 100%.  needs to be adapted manually -->
+		<param name="countsScaleFactor" value="1.0" />
+		<!-- distance to distanceFilterCenterNode to include counting stations. The unit of distance is the Euclidean distance implied by the coordinate system -->
+		<param name="distanceFilter" value="null" />
+		<!-- node id for center node of distance filter -->
+		<param name="distanceFilterCenterNode" value="null" />
+		<!-- If true, link counts from legs performed on modes not included in the 'analyzedModes' parameter are ignored. -->
+		<param name="filterModes" value="false" />
+		<!-- The Coordinates Reference System in which the coordinates are expressed in the input file. At import, the coordinates will be converted to the coordinate system defined in "global", and willbe converted back at export. If not specified, no conversion happens. -->
+		<param name="inputCRS" value="null" />
+		<!-- input file name to counts package -->
+		<param name="inputCountsFile" value="null" />
+		<!-- possible values: `html', `txt', `all' -->
+		<param name="outputformat" value="txt" />
+		<!-- Specifies how often the counts comparison should be calculated and written. -->
+		<param name="writeCountsInterval" value="10" />
+	</module>
+	<module name="facilities" >
+		<!-- This defines how facilities should be created. Possible values: none fromFile setInScenario onePerActivityLinkInPlansFile onePerActivityLinkInPlansFileExceptWhenCoordinatesAreGiven onePerActivityLocationInPlansFile  -->
+		<param name="facilitiesSource" value="none" />
+		<!-- A prefix to be used for auto-generated IDs. -->
+		<param name="idPrefix" value="f_auto_" />
+		<!-- The Coordinates Reference System in which the coordinates are expressed in the input file. At import, the coordinates will be converted to the coordinate system defined in "global", and willbe converted back at export. If not specified, no conversion happens. -->
+		<param name="inputCRS" value="null" />
+		<param name="inputFacilitiesFile" value="null" />
+		<param name="inputFacilityAttributesFile" value="null" />
+		<param name="insistingOnUsingDeprecatedFacilitiesAttributeFile" value="false" />
+	</module>
+	<module name="global" >
+		<param name="coordinateSystem" value="EPSG:4326" />
+		<param name="defaultDelimiter" value=";" />
+		<param name="insistingOnDeprecatedConfigVersion" value="true" />
+		<!-- "global" number of threads.  This number is used, e.g., for replanning, but NOT in QSim.  This can typically be set to as many cores as you have available, or possibly even slightly more. -->
+		<param name="numberOfThreads" value="8" />
+		<param name="randomSeed" value="20260519" />
+	</module>
+	<module name="hermes" >
+		<!-- Simulation End Time -->
+		<param name="endTime" value="30:00:00" />
+		<param name="flowCapacityFactor" value="1.0" />
+		<param name="mainMode" value="car" />
+		<param name="storageCapacityFactor" value="1.0" />
+		<!-- time in seconds.  Time after which the frontmost vehicle on a link is called `stuck' if it does not move. Set to Integer.MAX_VALUE to disable this behavior -->
+		<param name="stuckTime" value="10" />
+		<!-- treats PT as deterministic. PT vehicles will run with a steady speed. Should be used with separate network layers for PT and other network modes. -->
+		<param name="useDeterministicPt" value="false" />
+	</module>
+	<module name="households" >
+		<param name="inputFile" value="null" />
+		<param name="inputHouseholdAttributesFile" value="null" />
+		<param name="insistingOnUsingDeprecatedHouseholdsAttributeFile" value="false" />
+	</module>
+	<module name="linkStats" >
+		<!-- Specifies over how many iterations the link volumes should be averaged that are used for the link statistics. Use 1 or 0 to only use the link volumes of a single iteration. This values cannot be larger than the value specified for writeLinkStatsInterval -->
+		<param name="averageLinkStatsOverIterations" value="5" />
+		<!-- Specifies how often the link stats should be calculated and written. Use 0 to disable the generation of link stats. -->
+		<param name="writeLinkStatsInterval" value="50" />
+	</module>
+	<module name="network" >
+		<!-- The Coordinates Reference System in which the coordinates are expressed in the input file. At import, the coordinates will be converted to the coordinate system defined in "global", and willbe converted back at export. If not specified, no conversion happens. -->
+		<param name="inputCRS" value="null" />
+		<param name="inputChangeEventsFile" value="null" />
+		<param name="inputNetworkFile" value="/home/raziq/Documents/Code/umd/tripsynth/06x_stage1_osm/network.xml.gz" />
+		<param name="laneDefinitionsFile" value="null" />
+		<param name="timeVariantNetwork" value="false" />
+	</module>
+	<module name="parallelEventHandling" >
+		<!-- Estimated number of events during mobsim run. An optional optimization hint for the framework. -->
+		<param name="estimatedNumberOfEvents" value="null" />
+		<!-- Size of the events Queue. Increase for very large scenarios -->
+		<param name="eventsQueueSize" value="131072" />
+		<!-- Number of threads for parallel events handler. _null_ means the framework decides by itself. 0 is currently not possible. -->
+		<param name="numberOfThreads" value="null" />
+		<!-- If enabled, each event handler is assigned to its own thread. Note that enabling this feature disabled the numberOfThreads option! This feature is still experimental! -->
+		<param name="oneThreadPerHandler" value="false" />
+		<!-- If enabled, it is ensured that all events that are created during a time step of the mobility simulation are processed before the next time step is simulated. E.g. neccessary when within-day replanning is used. -->
+		<param name="synchronizeOnSimSteps" value="true" />
+	</module>
+	<module name="planCalcScore" >
+		<!-- logit model scale parameter. default: 1.  Has name and default value for historical reasons (see Bryan Raney's phd thesis). -->
+		<param name="BrainExpBeta" value="1.0" />
+		<param name="PathSizeLogitBeta" value="1.0" />
+		<!-- fraction of iterations at which MSA score averaging is started. The matsim theory department suggests to use this together with switching off choice set innovation (where a similar switch exists), but it has not been tested yet. -->
+		<param name="fractionOfIterationsToStartScoreMSA" value="null" />
+		<!-- new_score = (1-learningRate)*old_score + learningRate * score_from_mobsim.  learning rates close to zero emulate score averaging, but slow down initial convergence -->
+		<param name="learningRate" value="1.0" />
+		<!-- There used to be a plateau between duration=0 and duration=zeroUtilityDuration. This caused durations to evolve to zero once they were below zeroUtilityDuration, causing problems.  Only use this switch if you need to be backwards compatible with some old results.  (changed nov'13) -->
+		<param name="usingOldScoringBelowZeroUtilityDuration" value="false" />
+		<!-- write a plans file in each iteration directory which contains what each agent actually did, and the score it received. -->
+		<param name="writeExperiencedPlans" value="false" />
+		<parameterset type="scoringParameters" >
+			<param name="earlyDeparture" value="-0.0" />
+			<param name="lateArrival" value="-18.0" />
+			<param name="marginalUtilityOfMoney" value="1.0" />
+			<param name="performing" value="6.0" />
+			<param name="subpopulation" value="null" />
+			<param name="utilityOfLineSwitch" value="-1.0" />
+			<param name="waiting" value="-0.0" />
+			<param name="waitingPt" value="-6.0" />
+			<parameterset type="activityParams" >
+				<param name="activityType" value="dummy" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<!-- typical duration of activity.  needs to be defined and non-zero.  in sec. -->
+				<param name="typicalDuration" value="02:00:00" />
+				<!-- method to compute score at typical duration.  Options: | uniform | relative | Use uniform for backwards compatibility (all activities same score; higher proba to drop long acts). -->
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="car interaction" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="pt interaction" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="bike interaction" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="drt interaction" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="taxi interaction" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="other interaction" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="walk interaction" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_1" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_10" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_11" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_12" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_13" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_14" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_15" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_16" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_17" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_18" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_2" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_3" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_4" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_5" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_6" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_7" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_8" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_9" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="true" />
+				<param name="typicalDuration" value="12:00:00" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="ride interaction" />
+				<param name="closingTime" value="undefined" />
+				<param name="earliestEndTime" value="undefined" />
+				<param name="latestStartTime" value="undefined" />
+				<param name="minimalDuration" value="undefined" />
+				<param name="openingTime" value="undefined" />
+				<param name="priority" value="1.0" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+				<param name="typicalDurationScoreComputation" value="relative" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<!-- [utils] alternative-specific constant.  Normally per trip, but that is probably buggy for multi-leg trips. -->
+				<param name="constant" value="0.0" />
+				<!-- [unit_of_money/day] Fixed cost of mode, per day. -->
+				<param name="dailyMonetaryConstant" value="0.0" />
+				<!-- [utils] daily utility constant. default=0 to be backwards compatible -->
+				<param name="dailyUtilityConstant" value="0.0" />
+				<!-- [utils/m] utility of traveling (e.g. walking or driving) per m, normally negative.  this is on top of the time (dis)utility. -->
+				<param name="marginalUtilityOfDistance_util_m" value="0.0" />
+				<!-- [utils/hr] additional marginal utility of traveling.  normally negative.  this comes on top of the opportunity cost of time -->
+				<param name="marginalUtilityOfTraveling_util_hr" value="-6.0" />
+				<param name="mode" value="pt" />
+				<!-- [unit_of_money/m] conversion of distance into money. Normally negative. -->
+				<param name="monetaryDistanceRate" value="0.0" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="constant" value="0.0" />
+				<param name="dailyMonetaryConstant" value="0.0" />
+				<param name="dailyUtilityConstant" value="0.0" />
+				<param name="marginalUtilityOfDistance_util_m" value="0.0" />
+				<param name="marginalUtilityOfTraveling_util_hr" value="-6.0" />
+				<param name="mode" value="walk" />
+				<param name="monetaryDistanceRate" value="0.0" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="constant" value="0.0" />
+				<param name="dailyMonetaryConstant" value="0.0" />
+				<param name="dailyUtilityConstant" value="0.0" />
+				<param name="marginalUtilityOfDistance_util_m" value="0.0" />
+				<param name="marginalUtilityOfTraveling_util_hr" value="-6.0" />
+				<param name="mode" value="bike" />
+				<param name="monetaryDistanceRate" value="0.0" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="constant" value="0.0" />
+				<param name="dailyMonetaryConstant" value="0.0" />
+				<param name="dailyUtilityConstant" value="0.0" />
+				<param name="marginalUtilityOfDistance_util_m" value="0.0" />
+				<param name="marginalUtilityOfTraveling_util_hr" value="-6.0" />
+				<param name="mode" value="ride" />
+				<param name="monetaryDistanceRate" value="0.0" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="constant" value="0.0" />
+				<param name="dailyMonetaryConstant" value="0.0" />
+				<param name="dailyUtilityConstant" value="0.0" />
+				<param name="marginalUtilityOfDistance_util_m" value="0.0" />
+				<param name="marginalUtilityOfTraveling_util_hr" value="-6.0" />
+				<param name="mode" value="other" />
+				<param name="monetaryDistanceRate" value="0.0" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="constant" value="0.0" />
+				<param name="dailyMonetaryConstant" value="0.0" />
+				<param name="dailyUtilityConstant" value="0.0" />
+				<param name="marginalUtilityOfDistance_util_m" value="0.0" />
+				<param name="marginalUtilityOfTraveling_util_hr" value="-6.0" />
+				<param name="mode" value="car" />
+				<param name="monetaryDistanceRate" value="0.0" />
+			</parameterset>
+		</parameterset>
+	</module>
+	<module name="plans" >
+		<!-- String: minOfDurationAndEndTime tryEndTimeThenDuration endTimeOnly. Anything besides minOfDurationAndEndTime will internally use a different (simpler) version of the TimeAllocationMutator. -->
+		<param name="activityDurationInterpretation" value="tryEndTimeThenDuration" />
+		<!-- Possible values: reject,useMainModeIdentifier -->
+		<param name="handlingOfPlansWithoutRoutingMode" value="reject" />
+		<!-- The Coordinates Reference System in which the coordinates are expressed in the input file. At import, the coordinates will be converted to the coordinate system defined in "global", and willbe converted back at export. If not specified, no conversion happens. -->
+		<param name="inputCRS" value="null" />
+		<param name="inputPersonAttributesFile" value="null" />
+		<param name="inputPlansFile" value="/home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/synthetic_population.xml.gz" />
+		<param name="insistingOnUsingDeprecatedPersonAttributeFile" value="false" />
+		<!-- Defines how routes are stored in memory. Currently supported: LinkNetworkRoute, MediumCompressedNetworkRoute, HeavyCompressedNetworkRoute. -->
+		<param name="networkRouteType" value="LinkNetworkRoute" />
+		<!-- (not tested) will remove plan attributes that are presumably not used, such as activityStartTime. default=false. Use with Caution! -->
+		<param name="removingUnnecessaryPlanAttributes" value="false" />
+		<!-- Defines how departure times are interpreted in rerouting applications. If set to 'ignoreDelays', the departure time of a trip when routing along a plan will always be the nominal (plan-based) activity end time. If set to 'shiftActivityEndTimes', routing along a plan will accumulate travel times and shift activity end times if necessary -->
+		<param name="tripDurationHandling" value="ignoreDelays" />
+	</module>
+	<module name="planscalcroute" >
+		<!-- Defines how access and egress to main mode is simulated. Either of [none, accessEgressModeToLink, walkConstantTimeToLink, accessEgressModeToLinkPlusTimeConstant], Current default=none which means no access or egress trips are simulated. -->
+		<param name="accessEgressType" value="none" />
+		<!-- Some typical teleportation routing params are set by default, such as for walk and bike.  Setting this switch to "true" will clear them.  Note that this will also clear settings for helper modes such as for non_network_walk -->
+		<param name="clearDefaultTeleportedModeParams" value="false" />
+		<!-- All the modes for which the router is supposed to generate network routes (like car) -->
+		<param name="networkModes" value="car" />
+		<!-- strength of the randomness for the utility of money in routing under toll.  Leads to Pareto-optimal route with randomly drawn money-vs-other-attributes tradeoff. Technically the width parameter of a log-normal distribution. 3.0 seems to be a good value.  -->
+		<param name="routingRandomness" value="3.0" />
+		<parameterset type="teleportedModeParameters" >
+			<param name="beelineDistanceFactor" value="1.3" />
+			<param name="mode" value="bike" />
+			<!-- Free-speed factor for a teleported mode. Travel time = teleportedModeFreespeedFactor * <freespeed car travel time>. Insert a line like this for every such mode. Please do not set teleportedModeFreespeedFactor as well as teleportedModeSpeed for the same mode, but if you do, +teleportedModeFreespeedFactor wins over teleportedModeSpeed. -->
+			<param name="teleportedModeFreespeedFactor" value="null" />
+			<!-- Speed for a teleported mode. Travel time = (<beeline distance> * beelineDistanceFactor) / teleportedModeSpeed. Insert a line like this for every such mode. -->
+			<param name="teleportedModeSpeed" value="4.166666666666667" />
+		</parameterset>
+		<parameterset type="teleportedModeParameters" >
+			<param name="beelineDistanceFactor" value="1.3" />
+			<param name="mode" value="walk" />
+			<param name="teleportedModeFreespeedFactor" value="null" />
+			<param name="teleportedModeSpeed" value="0.8333333333333333" />
+		</parameterset>
+		<parameterset type="teleportedModeParameters" >
+			<param name="beelineDistanceFactor" value="1.3" />
+			<param name="mode" value="non_network_walk" />
+			<param name="teleportedModeFreespeedFactor" value="null" />
+			<param name="teleportedModeSpeed" value="0.8333333333333333" />
+		</parameterset>
+		<parameterset type="teleportedModeParameters" >
+			<param name="beelineDistanceFactor" value="1.3" />
+			<param name="mode" value="ride" />
+			<param name="teleportedModeFreespeedFactor" value="1.0" />
+			<param name="teleportedModeSpeed" value="null" />
+		</parameterset>
+		<parameterset type="teleportedModeParameters" >
+			<param name="beelineDistanceFactor" value="1.3" />
+			<param name="mode" value="pt" />
+			<param name="teleportedModeFreespeedFactor" value="2.0" />
+			<param name="teleportedModeSpeed" value="null" />
+		</parameterset>
+	</module>
+	<module name="ptCounts" >
+		<!-- factor by which to re-scale the simulated values.  necessary when simulation runs with something different from 100%.  needs to be adapted manually -->
+		<param name="countsScaleFactor" value="1.0" />
+		<!-- distance to distanceFilterCenterNode to include counting stations. The unit of distance is the Euclidean distance implied by the coordinate system -->
+		<param name="distanceFilter" value="null" />
+		<!-- node id for center node of distance filter -->
+		<param name="distanceFilterCenterNode" value="null" />
+		<!-- input file containing the alighting (getting off) counts for pt -->
+		<param name="inputAlightCountsFile" value="null" />
+		<!-- input file containing the boarding (getting on) counts for pt -->
+		<param name="inputBoardCountsFile" value="null" />
+		<!-- input file containing the occupancy counts for pt -->
+		<param name="inputOccupancyCountsFile" value="null" />
+		<!-- possible values: `html', `txt', `all' -->
+		<param name="outputformat" value="null" />
+		<!-- every how many iterations (starting with 0) counts comparisons are generated -->
+		<param name="ptCountsInterval" value="10" />
+	</module>
+	<module name="qsim" >
+		<param name="endTime" value="30:00:00" />
+		<!-- If set to withLinkAttributes snapshots will only be generated for links which include generateSnapshotForLink as attribute key. Default is no filtering. -->
+		<param name="filterSnapshots" value="no" />
+		<param name="flowCapacityFactor" value="1.0" />
+		<!-- decides if waiting vehicles enter the network after or before the already driving vehicles were moved. Default: false -->
+		<param name="insertingWaitingVehiclesBeforeDrivingVehicles" value="true" />
+		<!-- If link dynamics is set as SeepageQ, set to false if all seep modes should perform seepage. Default is true (better option). -->
+		<param name="isRestrictingSeepage" value="true" />
+		<!-- If link dynamics is set as SeepageQ, set to true if seep mode do not consumes any space on the link. Default is false. -->
+		<param name="isSeepModeStorageFree" value="false" />
+		<!-- default: FIFO; options: FIFO PassingQ SeepageQ -->
+		<param name="linkDynamics" value="FIFO" />
+		<!-- The (initial) width of the links of the network. Use positive floating point values. This is used only for visualisation. -->
+		<param name="linkWidth" value="30.0" />
+		<!-- [comma-separated list] Defines which modes are congested modes. Technically, these are the modes that the departure handler of the netsimengine handles.  Effective cell size, effective lane width, flow capacity factor, and storage capacity factor need to be set with diligence.  Need to be vehicular modes to make sense. -->
+		<param name="mainMode" value="car" />
+		<!-- Shortens a link in the visualization, i.e. its start and end point are moved into towards the center. Does not affect traffic flow.  -->
+		<param name="nodeOffset" value="0.0" />
+		<!-- Number of threads used for the QSim.  Note that this setting is independent from the "global" threads setting.  In contrast to earlier versions, the non-parallel special version is no longer there. -->
+		<param name="numberOfThreads" value="8" />
+		<!-- Boolean. `true': stuck vehicles are removed, aborting the plan; `false': stuck vehicles are forced into the next link. `false' is probably the better choice. -->
+		<param name="removeStuckVehicles" value="true" />
+		<!-- If link dynamics is set as SeepageQ, set a seep mode. Default is bike. -->
+		<param name="seepMode" value="bike" />
+		<!-- Possible values: minOfEndtimeAndMobsimFinished,onlyUseEndtime -->
+		<param name="simEndtimeInterpretation" value="null" />
+		<!-- Options: maxOfStarttimeAndEarliestActivityEnd onlyUseStarttime  -->
+		<param name="simStarttimeInterpretation" value="maxOfStarttimeAndEarliestActivityEnd" />
+		<!-- snapshotStyle. One of: equiDist queue withHoles withHolesAndShowHoles kinematicWaves  -->
+		<param name="snapshotStyle" value="queue" />
+		<param name="snapshotperiod" value="00:00:00" />
+		<param name="startTime" value="00:00:00" />
+		<param name="storageCapacityFactor" value="1.0" />
+		<!-- time in seconds.  Time after which the frontmost vehicle on a link is called `stuck' if it does not move. -->
+		<param name="stuckTime" value="1800.0" />
+		<param name="timeStepSize" value="00:00:01" />
+		<!-- options: queue withHoles kinematicWaves  -->
+		<param name="trafficDynamics" value="queue" />
+		<!-- Set this parameter to true if lanes should be used, false if not. -->
+		<param name="useLanes" value="false" />
+		<!-- If a route does not reference a vehicle, agents will use the vehicle with the same id as their own. -->
+		<param name="usePersonIdForMissingVehicleId" value="true" />
+		<!-- If false, the qsim accumulates fractional flows up to one flow unit in every time step.  If true, flows are updated only if an agent wants to enter the link or an agent is added to buffer. Default is true. -->
+		<param name="usingFastCapacityUpdate" value="true" />
+		<!-- Defines what happens if an agent wants to depart, but the specified vehicle is not available. One of: teleport wait exception  -->
+		<param name="vehicleBehavior" value="teleport" />
+		<!-- If vehicles should all be the same default vehicle, or come from the vehicles file, or something else.  Possible values:  defaultVehicle modeVehicleTypesFromVehiclesData fromVehiclesData -->
+		<param name="vehiclesSource" value="defaultVehicle" />
+	</module>
+	<module name="strategy" >
+		<!-- the external executable will be called with a config file as argument.  This is the pathname to a possible skeleton config, to which additional information will be added.  Can be null. -->
+		<param name="ExternalExeConfigTemplate" value="null" />
+		<!-- time out value (in seconds) after which matsim will consider the external strategy as failed -->
+		<param name="ExternalExeTimeOut" value="3600" />
+		<!-- root directory for temporary files generated by the external executable. Provided as a service; I don't think this is used by MATSim. -->
+		<param name="ExternalExeTmpFileRootDir" value="null" />
+		<!-- fraction of iterations where innovative strategies are switched off.  Something like 0.8 should be good.  E.g. if you run from iteration 400 to iteration 500, innovation is switched off at iteration 480 -->
+		<param name="fractionOfIterationsToDisableInnovation" value="Infinity" />
+		<!-- maximum number of plans per agent.  ``0'' means ``infinity''.  Currently (2010), ``5'' is a good number -->
+		<param name="maxAgentPlanMemorySize" value="5" />
+		<!-- strategyName of PlanSelector for plans removal.  Possible defaults: WorstPlanSelector SelectRandom SelectExpBetaForRemoval ChangeExpBetaForRemoval PathSizeLogitSelectorForRemoval . The current default, WorstPlanSelector is not a good choice from a discrete choice theoretical perspective. Alternatives, however, have not been systematically tested. kai, feb'12 -->
+		<param name="planSelectorForRemoval" value="WorstPlanSelector" />
+	</module>
+	<module name="subtourModeChoice" >
+		<!-- Only for backwards compatibility.  Defines if only trips from modes list should change mode, or all trips.  Options: fromAllModesToSpecifiedModes fromSpecifiedModesToSpecifiedModes betweenAllAndFewerConstraints  -->
+		<param name="behavior" value="fromSpecifiedModesToSpecifiedModes" />
+		<!-- Defines the chain-based modes, seperated by commas -->
+		<param name="chainBasedModes" value="car,bike" />
+		<!-- Defines whether car availability must be considered or not. A agent has no car only if it has no license, or never access to a car -->
+		<param name="considerCarAvailability" value="false" />
+		<!-- If greater than 0, subtours will also consider coordinates to be at the same location when smaller than set distance. -->
+		<param name="coordDistance" value="0.0" />
+		<!-- Defines all the modes available, including chain-based modes, seperated by commas -->
+		<param name="modes" value="car,pt,bike,walk" />
+		<!-- Defines the probability of changing a single trip for a unchained mode instead of subtour. -->
+		<param name="probaForRandomSingleTripMode" value="0.0" />
+	</module>
+	<module name="transit" >
+		<!-- The Coordinates Reference System in which the coordinates are expressed in the input file. At import, the coordinates will be converted to the coordinate system defined in "global", and willbe converted back at export. If not specified, no conversion happens. -->
+		<param name="inputScheduleCRS" value="null" />
+		<param name="insistingOnUsingDeprecatedAttributeFiles" value="false" />
+		<!-- The type of transit routing algorithm used, may have the values: [DijkstraBased, SwissRailRaptor] -->
+		<param name="routingAlgorithmType" value="SwissRailRaptor" />
+		<!-- Optional input file containing additional attributes for transit lines, stored as ObjectAttributes. -->
+		<param name="transitLinesAttributesFile" value="null" />
+		<!-- Comma-separated list of transportation modes that are handled as transit. Defaults to 'pt'. -->
+		<param name="transitModes" value="pt" />
+		<!-- Input file containing the transit schedule to be simulated. -->
+		<param name="transitScheduleFile" value="null" />
+		<!-- Optional input file containing additional attributes for transit stop facilities, stored as ObjectAttributes. -->
+		<param name="transitStopsAttributesFile" value="null" />
+		<!-- Set this parameter to true if transit should be simulated, false if not. -->
+		<param name="useTransit" value="false" />
+		<param name="usingTransitInMobsim" value="true" />
+		<!-- Input file containing the vehicles used by the departures in the transit schedule. -->
+		<param name="vehiclesFile" value="null" />
+	</module>
+	<module name="transitRouter" >
+		<!-- additional time the router allocates when a line switch happens. Can be interpreted as a 'safety' time that agents need to safely transfer from one line to another -->
+		<param name="additionalTransferTime" value="0.0" />
+		<!-- Factor with which direct walk generalized cost is multiplied before it is compared to the pt generalized cost.  Set to a very high value to reduce direct walk results. -->
+		<param name="directWalkFactor" value="1.0" />
+		<!-- step size to increase searchRadius if no stops are found -->
+		<param name="extensionRadius" value="200.0" />
+		<!-- maximum beeline distance between stops that agents could transfer to by walking -->
+		<param name="maxBeelineWalkConnectionDistance" value="100.0" />
+		<!-- the radius in which stop locations are searched, given a start or target coordinate -->
+		<param name="searchRadius" value="1000.0" />
+	</module>
+	<module name="travelTimeCalculator" >
+		<!-- (only for backwards compatibility; only used if separateModes==false && + filterModes==true)  Transport modes that will be respected by the travel time collector. 'car' is default which includes also buses from the pt simulation module. -->
+		<param name="analyzedModes" value="car" />
+		<param name="calculateLinkToLinkTravelTimes" value="false" />
+		<param name="calculateLinkTravelTimes" value="true" />
+		<!-- (only for backwards compatiblity; only used if separateModes==false)  Only modes included in analyzedModes are included. -->
+		<param name="filterModes" value="false" />
+		<!-- The lenght (in sec) of the time period that is splited into time bins; an additional time bin is created to aggregate all travel times collected after maxTime -->
+		<param name="maxTime" value="108000" />
+		<!-- (only for backwards compatibility) If false, link travel times are measured and aggregated over all vehicles using the link. -->
+		<param name="separateModes" value="true" />
+		<!-- How to deal with congested time bins that have no link entry events. `optimistic' assumes free speed (too optimistic); 'experimental_LastMile' is experimental and probably too pessimistic. -->
+		<param name="travelTimeAggregator" value="optimistic" />
+		<!-- The size of the time bin (in sec) into which the link travel times are aggregated for the router -->
+		<param name="travelTimeBinSize" value="900" />
+		<!-- possible values: TravelTimeCalculatorArray TravelTimeCalculatorHashMap  -->
+		<param name="travelTimeCalculator" value="TravelTimeCalculatorArray" />
+		<!-- How to deal with link entry times at different positions during the time bin. Currently supported: average, linearinterpolation -->
+		<param name="travelTimeGetter" value="average" />
+	</module>
+	<module name="vehicles" >
+		<param name="vehiclesFile" value="null" />
+	</module>
+	<module name="vspExperimental" >
+		<!-- (do not use except of you have to) There was a problem with pt interaction scoring.  Some people solved it by overwriting the parameters of the pt interaction activity type.  Doing this now throws an Exception.  If you still insist on doing this, set the following to true. -->
+		<param name="isAbleToOverwritePtInteractionParams" value="false" />
+		<param name="isGeneratingBoardingDeniedEvent" value="false" />
+		<!-- if an approximation of the opportunity cost of time is included into the radius calculation for location choice.`true' will be faster, but it is an approximation.  Default is `true'; `false' is available for backwards compatibility. -->
+		<param name="isUsingOpportunityCostOfTimeForLocationChoice" value="true" />
+		<param name="logitScaleParamForPlansRemoval" value="1.0" />
+		<!-- Options: | ignore | info | warn | abort | .  When violating VSP defaults, this results in nothing, logfile infos, logfile warnings, or aborts.  Members of VSP should use `abort' or talk to kai. -->
+		<param name="vspDefaultsCheckingLevel" value="ignore" />
+		<!-- if true then writes output_events in output directory.  default is `false'. Will only work when lastIteration is multiple of events writing interval -->
+		<param name="writingOutputEvents" value="true" />
+	</module>
+
+</config>
+
+2026-05-19T21:23:36,827  INFO ControlerUtils:85 Complete config dump done.
+2026-05-19T21:23:36,827  INFO ControlerUtils:86 Checking consistency of config...
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827 ERROR PlanCalcScoreConfigGroup$ScoringParameterSet:1544 it looks like you have an activity type with opening time set to 0:00 and closing time set to 24:00. This is most probably not the same as not setting them at all.  In particular, activities which extend past midnight may not accumulate scores.
+2026-05-19T21:23:36,827  INFO VspConfigConsistencyCheckerImpl:64 NOT running vsp config consistency check because vsp defaults checking level is set to IGNORE
+2026-05-19T21:23:36,828  INFO ControlerUtils:88 Checking consistency of config done.
+2026-05-19T21:23:36,957  WARN PrepareForSimImpl:229 'usePersonIdForMissingVehicleId' is deprecated. It will be removed soon.
+2026-05-19T21:23:36,958  INFO Counter:70 [VehiclesImpl] added vehicle # 1
+2026-05-19T21:23:36,958  INFO Counter:70 [VehiclesImpl] added vehicle # 2
+2026-05-19T21:23:36,959  INFO Counter:70 [VehiclesImpl] added vehicle # 4
+2026-05-19T21:23:36,959  INFO Counter:70 [VehiclesImpl] added vehicle # 8
+2026-05-19T21:23:36,959  INFO Counter:70 [VehiclesImpl] added vehicle # 16
+2026-05-19T21:23:36,959  INFO Counter:70 [VehiclesImpl] added vehicle # 32
+2026-05-19T21:23:36,959  INFO Counter:70 [VehiclesImpl] added vehicle # 64
+2026-05-19T21:23:36,959  INFO Counter:70 [VehiclesImpl] added vehicle # 128
+2026-05-19T21:23:36,960  INFO Counter:70 [VehiclesImpl] added vehicle # 256
+2026-05-19T21:23:36,960  INFO Counter:70 [VehiclesImpl] added vehicle # 512
+2026-05-19T21:23:36,961  INFO Counter:70 [VehiclesImpl] added vehicle # 1024
+2026-05-19T21:23:36,963  INFO Counter:70 [VehiclesImpl] added vehicle # 2048
+2026-05-19T21:23:36,965  INFO Counter:70 [VehiclesImpl] added vehicle # 4096
+2026-05-19T21:23:36,970  INFO Counter:70 [VehiclesImpl] added vehicle # 8192
+2026-05-19T21:23:36,980  INFO Counter:70 [VehiclesImpl] added vehicle # 16384
+2026-05-19T21:23:36,993  INFO Counter:70 [VehiclesImpl] added vehicle # 32768
+2026-05-19T21:23:37,020  INFO Counter:70 [VehiclesImpl] added vehicle # 65536
+2026-05-19T21:23:37,074  INFO Counter:70 [VehiclesImpl] added vehicle # 131072
+2026-05-19T21:23:41,013  INFO PreProcessDijkstra:119 nodes in dead ends: 1431600 (total nodes: 4124160). Done in 3734 ms
+2026-05-19T21:23:41,428  INFO PreProcessLandmarks:113 Putting landmarks on network...
+2026-05-19T21:23:41,498  INFO LandmarkerPieSlices:97 Filling sectors...
+2026-05-19T21:23:45,391  INFO LandmarkerPieSlices:108 Refining landmarks...
+2026-05-19T21:23:46,210  INFO LandmarkerPieSlices:110 done
+2026-05-19T21:23:46,211  INFO PreProcessLandmarks:116 done in 4783 ms
+2026-05-19T21:23:46,211  INFO PreProcessLandmarks:118 Initializing landmarks data
+2026-05-19T21:23:47,544  INFO PreProcessLandmarks:130 Calculating distance from each node to each of the 16 landmarks using 8 threads...
+2026-05-19T21:23:47,723  INFO PreProcessLandmarks:140 wait for landmarks Calculator to finish...
+2026-05-19T21:24:18,967  INFO PreProcessLandmarks:164 done in 31423 ms
+2026-05-19T21:24:18,983  INFO NetworkImpl:165  node # 1
+2026-05-19T21:24:18,984  INFO NetworkImpl:165  node # 4
+2026-05-19T21:24:18,984  INFO NetworkImpl:165  node # 16
+2026-05-19T21:24:18,984  INFO NetworkImpl:165  node # 64
+2026-05-19T21:24:18,984  INFO NetworkImpl:165  node # 256
+2026-05-19T21:24:18,984  INFO NetworkImpl:165  node # 1024
+2026-05-19T21:24:18,985  INFO NetworkImpl:165  node # 4096
+2026-05-19T21:24:18,986  INFO NetworkImpl:165  node # 16384
+2026-05-19T21:24:18,990  INFO NetworkImpl:165  node # 65536
+2026-05-19T21:24:19,002  INFO NetworkImpl:165  node # 262144
+2026-05-19T21:24:19,032  INFO NetworkImpl:165  node # 1048576
+2026-05-19T21:24:19,152  INFO NetworkImpl:161  link # 1
+2026-05-19T21:24:19,152  INFO NetworkImpl:161  link # 4
+2026-05-19T21:24:19,152  INFO NetworkImpl:161  link # 16
+2026-05-19T21:24:19,152  INFO NetworkImpl:161  link # 64
+2026-05-19T21:24:19,153  INFO NetworkImpl:161  link # 256
+2026-05-19T21:24:19,153  INFO NetworkImpl:161  link # 1024
+2026-05-19T21:24:19,155  INFO NetworkImpl:161  link # 4096
+2026-05-19T21:24:19,159  INFO NetworkImpl:161  link # 16384
+2026-05-19T21:24:19,172  INFO NetworkImpl:161  link # 65536
+2026-05-19T21:24:19,221  INFO NetworkImpl:161  link # 262144
+2026-05-19T21:24:19,446  INFO NetworkImpl:161  link # 1048576
+2026-05-19T21:24:20,347  INFO NetworkImpl:161  link # 4194304
+2026-05-19T21:24:21,881  WARN RandomizingTimeDistanceTravelDisutilityFactory:113 There will be no routing randomness. The randomization of the travel disutility requires the monetary distance rate to be different than zero. Continuing anyway.
+2026-05-19T21:24:21,881  WARN RandomizingTimeDistanceTravelDisutilityFactory:118 There will be no routing randomness. The randomization of the travel disutility requires the travel time cost rate to be different than zero. Continuing anyway.
+2026-05-19T21:24:21,881  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T21:24:24,752  INFO PreProcessDijkstra:119 nodes in dead ends: 1431600 (total nodes: 4124160). Done in 2869 ms
+2026-05-19T21:24:25,064  INFO PreProcessLandmarks:113 Putting landmarks on network...
+2026-05-19T21:24:25,136  INFO LandmarkerPieSlices:97 Filling sectors...
+2026-05-19T21:24:28,336  INFO LandmarkerPieSlices:108 Refining landmarks...
+2026-05-19T21:24:29,149  INFO LandmarkerPieSlices:110 done
+2026-05-19T21:24:29,150  INFO PreProcessLandmarks:116 done in 4086 ms
+2026-05-19T21:24:29,150  INFO PreProcessLandmarks:118 Initializing landmarks data
+2026-05-19T21:24:30,021  INFO PreProcessLandmarks:130 Calculating distance from each node to each of the 16 landmarks using 8 threads...
+2026-05-19T21:24:30,205  INFO PreProcessLandmarks:140 wait for landmarks Calculator to finish...
+2026-05-19T21:24:36,816  INFO MemoryObserver:42 used RAM: 28125 MB  free: 28418 MB  total: 56544 MB
+2026-05-19T21:24:59,950  INFO PreProcessLandmarks:164 done in 29929 ms
+2026-05-19T21:25:00,045  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T21:25:00,178  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T21:25:00,280  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T21:25:00,376  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T21:25:00,473  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T21:25:00,610  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T21:25:00,747  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T21:25:00,956  INFO NetworkImpl:419 building QuadTree for nodes: xrange(-80.5145164,-74.049959); yrange(36.956046,40.9031226)
+2026-05-19T21:25:01,647  INFO NetworkImpl:428 Building QuadTree took 0.75 seconds.
+2026-05-19T21:25:02,257  INFO Counter:70 [PersonPrepareForSim] handled person # 1
+2026-05-19T21:25:02,299  INFO Counter:70 [PersonPrepareForSim] handled person # 2
+2026-05-19T21:25:02,392  INFO Counter:70 [PersonPrepareForSim] handled person # 4
+2026-05-19T21:25:02,537  INFO Counter:70 [PersonPrepareForSim] handled person # 8
+2026-05-19T21:25:03,568  INFO Counter:70 [PersonPrepareForSim] handled person # 16
+2026-05-19T21:25:03,816  INFO Counter:70 [PersonPrepareForSim] handled person # 32
+2026-05-19T21:25:04,198  INFO Counter:70 [PersonPrepareForSim] handled person # 64
+2026-05-19T21:25:06,085  INFO Counter:70 [PersonPrepareForSim] handled person # 128
+2026-05-19T21:25:09,907  INFO Counter:70 [PersonPrepareForSim] handled person # 256
+2026-05-19T21:25:14,899  INFO Counter:70 [PersonPrepareForSim] handled person # 512
+2026-05-19T21:25:29,505  INFO Counter:70 [PersonPrepareForSim] handled person # 1024
+2026-05-19T21:25:36,817  INFO MemoryObserver:42 used RAM: 37369 MB  free: 19174 MB  total: 56544 MB
+2026-05-19T21:25:55,589  INFO Counter:70 [PersonPrepareForSim] handled person # 2048
+2026-05-19T21:26:32,200  INFO Counter:70 [PersonPrepareForSim] handled person # 4096
+2026-05-19T21:26:36,817  INFO MemoryObserver:42 used RAM: 40582 MB  free: 20185 MB  total: 60768 MB
+2026-05-19T21:27:36,818  INFO MemoryObserver:42 used RAM: 48150 MB  free: 12617 MB  total: 60768 MB
+2026-05-19T21:28:05,464  INFO Counter:70 [PersonPrepareForSim] handled person # 8192
+2026-05-19T21:28:36,818  INFO MemoryObserver:42 used RAM: 38812 MB  free: 22947 MB  total: 61760 MB
+2026-05-19T21:29:36,819  INFO MemoryObserver:42 used RAM: 42741 MB  free: 19018 MB  total: 61760 MB
+2026-05-19T21:30:36,819  INFO MemoryObserver:42 used RAM: 46735 MB  free: 15024 MB  total: 61760 MB
+2026-05-19T21:30:57,532  INFO Counter:70 [PersonPrepareForSim] handled person # 16384
+2026-05-19T21:31:36,820  INFO MemoryObserver:42 used RAM: 50905 MB  free: 10854 MB  total: 61760 MB
+2026-05-19T21:32:36,820  INFO MemoryObserver:42 used RAM: 52449 MB  free: 9310 MB  total: 61760 MB
+2026-05-19T21:33:36,821  INFO MemoryObserver:42 used RAM: 35815 MB  free: 25944 MB  total: 61760 MB
+2026-05-19T21:34:36,824  INFO MemoryObserver:42 used RAM: 36232 MB  free: 25527 MB  total: 61760 MB
+2026-05-19T21:35:36,825  INFO MemoryObserver:42 used RAM: 37870 MB  free: 23889 MB  total: 61760 MB
+2026-05-19T21:36:36,825  INFO MemoryObserver:42 used RAM: 36224 MB  free: 25535 MB  total: 61760 MB
+2026-05-19T21:37:07,573  INFO Counter:70 [PersonPrepareForSim] handled person # 32768
+2026-05-19T21:37:36,826  INFO MemoryObserver:42 used RAM: 36609 MB  free: 25150 MB  total: 61760 MB
+2026-05-19T21:38:36,826  INFO MemoryObserver:42 used RAM: 35056 MB  free: 26703 MB  total: 61760 MB
+2026-05-19T21:39:36,828  INFO MemoryObserver:42 used RAM: 36082 MB  free: 25677 MB  total: 61760 MB
+2026-05-19T21:40:36,829  INFO MemoryObserver:42 used RAM: 37075 MB  free: 24684 MB  total: 61760 MB
+2026-05-19T21:41:36,829  INFO MemoryObserver:42 used RAM: 36126 MB  free: 25633 MB  total: 61760 MB
+2026-05-19T21:42:36,862  INFO MemoryObserver:42 used RAM: 37968 MB  free: 23791 MB  total: 61760 MB
+2026-05-19T21:43:36,862  INFO MemoryObserver:42 used RAM: 42507 MB  free: 19252 MB  total: 61760 MB
+2026-05-19T21:44:36,868  INFO MemoryObserver:42 used RAM: 47847 MB  free: 13912 MB  total: 61760 MB
+2026-05-19T21:45:36,870  INFO MemoryObserver:42 used RAM: 34976 MB  free: 26783 MB  total: 61760 MB
+2026-05-19T21:46:36,873  INFO MemoryObserver:42 used RAM: 40586 MB  free: 21173 MB  total: 61760 MB
+2026-05-19T21:47:31,973  INFO Counter:70 [PersonPrepareForSim] handled person # 65536
+2026-05-19T21:47:36,874  INFO MemoryObserver:42 used RAM: 46770 MB  free: 14989 MB  total: 61760 MB
+2026-05-19T21:48:36,906  INFO MemoryObserver:42 used RAM: 55288 MB  free: 6471 MB  total: 61760 MB
+2026-05-19T21:49:36,907  INFO MemoryObserver:42 used RAM: 39399 MB  free: 22360 MB  total: 61760 MB
+2026-05-19T21:50:36,907  INFO MemoryObserver:42 used RAM: 45894 MB  free: 15865 MB  total: 61760 MB
+2026-05-19T21:51:36,908  INFO MemoryObserver:42 used RAM: 54484 MB  free: 7275 MB  total: 61760 MB
+2026-05-19T21:52:36,908  INFO MemoryObserver:42 used RAM: 38759 MB  free: 23000 MB  total: 61760 MB
+2026-05-19T21:53:36,909  INFO MemoryObserver:42 used RAM: 45245 MB  free: 16514 MB  total: 61760 MB
+2026-05-19T21:54:36,909  INFO MemoryObserver:42 used RAM: 53408 MB  free: 8351 MB  total: 61760 MB
+2026-05-19T21:55:36,909  INFO MemoryObserver:42 used RAM: 37776 MB  free: 23983 MB  total: 61760 MB
+2026-05-19T21:56:36,910  INFO MemoryObserver:42 used RAM: 44308 MB  free: 17451 MB  total: 61760 MB
+2026-05-19T21:57:36,910  INFO MemoryObserver:42 used RAM: 52802 MB  free: 8957 MB  total: 61760 MB
+2026-05-19T21:58:36,911  INFO MemoryObserver:42 used RAM: 37410 MB  free: 24349 MB  total: 61760 MB
+2026-05-19T21:59:36,911  INFO MemoryObserver:42 used RAM: 43577 MB  free: 18182 MB  total: 61760 MB
+2026-05-19T22:00:36,912  INFO MemoryObserver:42 used RAM: 52406 MB  free: 9353 MB  total: 61760 MB
+2026-05-19T22:01:36,912  INFO MemoryObserver:42 used RAM: 37834 MB  free: 23925 MB  total: 61760 MB
+2026-05-19T22:02:36,912  INFO MemoryObserver:42 used RAM: 47782 MB  free: 13977 MB  total: 61760 MB
+2026-05-19T22:03:36,913  INFO MemoryObserver:42 used RAM: 35260 MB  free: 26499 MB  total: 61760 MB
+2026-05-19T22:04:36,913  INFO MemoryObserver:42 used RAM: 42527 MB  free: 19232 MB  total: 61760 MB
+2026-05-19T22:04:55,347  INFO Counter:70 [PersonPrepareForSim] handled person # 131072
+2026-05-19T22:05:36,914  INFO MemoryObserver:42 used RAM: 52742 MB  free: 9017 MB  total: 61760 MB
+2026-05-19T22:06:36,914  INFO MemoryObserver:42 used RAM: 37967 MB  free: 23792 MB  total: 61760 MB
+2026-05-19T22:07:36,915  INFO MemoryObserver:42 used RAM: 48416 MB  free: 13343 MB  total: 61760 MB
+2026-05-19T22:08:36,947  INFO MemoryObserver:42 used RAM: 36426 MB  free: 25333 MB  total: 61760 MB
+2026-05-19T22:09:36,947  INFO MemoryObserver:42 used RAM: 43053 MB  free: 18706 MB  total: 61760 MB
+2026-05-19T22:10:36,948  INFO MemoryObserver:42 used RAM: 52874 MB  free: 8885 MB  total: 61760 MB
+2026-05-19T22:11:36,948  INFO MemoryObserver:42 used RAM: 40412 MB  free: 21347 MB  total: 61760 MB
+2026-05-19T22:12:36,949  INFO MemoryObserver:42 used RAM: 47114 MB  free: 14645 MB  total: 61760 MB
+2026-05-19T22:13:36,949  INFO MemoryObserver:42 used RAM: 36058 MB  free: 25701 MB  total: 61760 MB
+2026-05-19T22:14:36,950  INFO MemoryObserver:42 used RAM: 45160 MB  free: 16599 MB  total: 61760 MB
+2026-05-19T22:15:36,950  INFO MemoryObserver:42 used RAM: 51548 MB  free: 10211 MB  total: 61760 MB
+2026-05-19T22:16:36,951  INFO MemoryObserver:42 used RAM: 39590 MB  free: 22169 MB  total: 61760 MB
+2026-05-19T22:17:36,951  INFO MemoryObserver:42 used RAM: 48461 MB  free: 13298 MB  total: 61760 MB
+2026-05-19T22:18:36,952  INFO MemoryObserver:42 used RAM: 54807 MB  free: 6952 MB  total: 61760 MB
+2026-05-19T22:19:36,952  INFO MemoryObserver:42 used RAM: 43687 MB  free: 18072 MB  total: 61760 MB
+2026-05-19T22:20:36,952  INFO MemoryObserver:42 used RAM: 52626 MB  free: 9133 MB  total: 61760 MB
+2026-05-19T22:21:36,953  INFO MemoryObserver:42 used RAM: 39263 MB  free: 22496 MB  total: 61760 MB
+2026-05-19T22:22:36,985  INFO MemoryObserver:42 used RAM: 49428 MB  free: 12331 MB  total: 61760 MB
+2026-05-19T22:23:36,985  INFO MemoryObserver:42 used RAM: 35506 MB  free: 26253 MB  total: 61760 MB
+2026-05-19T22:24:36,986  INFO MemoryObserver:42 used RAM: 45217 MB  free: 16542 MB  total: 61760 MB
+2026-05-19T22:25:36,986  INFO MemoryObserver:42 used RAM: 55000 MB  free: 6759 MB  total: 61760 MB
+2026-05-19T22:26:36,987  INFO MemoryObserver:42 used RAM: 41223 MB  free: 20536 MB  total: 61760 MB
+2026-05-19T22:27:36,987  INFO MemoryObserver:42 used RAM: 47145 MB  free: 14614 MB  total: 61760 MB
+2026-05-19T22:28:36,988  INFO MemoryObserver:42 used RAM: 36882 MB  free: 24877 MB  total: 61760 MB
+2026-05-19T22:29:30,092  INFO Counter:75 [PersonPrepareForSim] handled person # 218002
+2026-05-19T22:29:30,664  INFO AbstractController:134 ###################################################
+2026-05-19T22:29:30,665  INFO AbstractController:135 ### ITERATION 0 BEGINS
+2026-05-19T22:29:30,675  INFO ControlerListenerManagerImpl:146 calling notifyIterationStarts on org.matsim.analysis.LegHistogramListener
+2026-05-19T22:29:30,676  INFO ControlerListenerManagerImpl:146 calling notifyIterationStarts on org.matsim.analysis.LinkStatsControlerListener
+2026-05-19T22:29:30,676  INFO ControlerListenerManagerImpl:146 calling notifyIterationStarts on org.matsim.core.replanning.ReplanningContextImpl
+2026-05-19T22:29:30,676  INFO ControlerListenerManagerImpl:146 calling notifyIterationStarts on org.matsim.core.scoring.ScoringFunctionsForPopulation$$Lambda$242/0x0000732e0c4a8688
+2026-05-19T22:29:30,881  INFO ControlerListenerManagerImpl:146 calling notifyIterationStarts on org.matsim.core.scoring.ExperiencedPlansServiceImpl$1
+2026-05-19T22:29:30,891  INFO ControlerListenerManagerImpl:149 [it.0] all ControlerIterationStartsListeners called.
+2026-05-19T22:29:30,891  INFO ControlerListenerManagerImpl:225 calling notifyBeforeMobsim on org.matsim.core.controler.corelisteners.EventsHandlingImpl
+2026-05-19T22:29:30,892  INFO EventsManagerImpl:168 resetting Event-Handlers
+2026-05-19T22:29:30,892  INFO EventsManagerImpl:175   org.matsim.core.trafficmonitoring.TravelTimeCalculator
+2026-05-19T22:29:31,181  INFO EventsManagerImpl:175   org.matsim.analysis.VolumesAnalyzer
+2026-05-19T22:29:31,190  INFO EventsManagerImpl:175   org.matsim.core.scoring.ScoringFunctionsForPopulation
+2026-05-19T22:29:31,191  INFO EventsManagerImpl:175   org.matsim.analysis.LegHistogram
+2026-05-19T22:29:31,191  INFO EventsManagerImpl:175   org.matsim.analysis.CalcLegTimes
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:138 adding Event-Handler: org.matsim.core.events.algorithms.EventWriterXML
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:144   org.matsim.core.events.algorithms.EventWriter
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:144   org.matsim.core.events.handler.BasicEventHandler
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:205     > org.matsim.api.core.v01.events.Event
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:154 
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:138 adding Event-Handler: org.matsim.core.events.algorithms.EventWriterXML
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:144   org.matsim.core.events.algorithms.EventWriter
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:144   org.matsim.core.events.handler.BasicEventHandler
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:205     > org.matsim.api.core.v01.events.Event
+2026-05-19T22:29:31,211  INFO EventsManagerImpl:154 
+2026-05-19T22:29:31,211  INFO ControlerListenerManagerImpl:225 calling notifyBeforeMobsim on org.matsim.core.controler.corelisteners.PlansDumpingImpl
+2026-05-19T22:29:31,211  INFO PlansDumpingImpl:77 dumping plans...
+2026-05-19T22:29:31,296  INFO Counter:70 [PopulationWriter] dumped person # 1
+2026-05-19T22:29:31,296  INFO Counter:70 [PopulationWriter] dumped person # 2
+2026-05-19T22:29:31,297  INFO Counter:70 [PopulationWriter] dumped person # 4
+2026-05-19T22:29:31,297  INFO Counter:70 [PopulationWriter] dumped person # 8
+2026-05-19T22:29:31,298  INFO Counter:70 [PopulationWriter] dumped person # 16
+2026-05-19T22:29:31,301  INFO Counter:70 [PopulationWriter] dumped person # 32
+2026-05-19T22:29:31,305  INFO Counter:70 [PopulationWriter] dumped person # 64
+2026-05-19T22:29:31,324  INFO Counter:70 [PopulationWriter] dumped person # 128
+2026-05-19T22:29:31,348  INFO Counter:70 [PopulationWriter] dumped person # 256
+2026-05-19T22:29:31,383  INFO Counter:70 [PopulationWriter] dumped person # 512
+2026-05-19T22:29:31,424  INFO Counter:70 [PopulationWriter] dumped person # 1024
+2026-05-19T22:29:31,532  INFO Counter:70 [PopulationWriter] dumped person # 2048
+2026-05-19T22:29:31,742  INFO Counter:70 [PopulationWriter] dumped person # 4096
+2026-05-19T22:29:32,136  INFO Counter:70 [PopulationWriter] dumped person # 8192
+2026-05-19T22:29:32,944  INFO Counter:70 [PopulationWriter] dumped person # 16384
+2026-05-19T22:29:34,669  INFO Counter:70 [PopulationWriter] dumped person # 32768
+2026-05-19T22:29:36,988  INFO MemoryObserver:42 used RAM: 44306 MB  free: 17453 MB  total: 61760 MB
+2026-05-19T22:29:37,988  INFO Counter:70 [PopulationWriter] dumped person # 65536
+2026-05-19T22:29:44,634  INFO Counter:70 [PopulationWriter] dumped person # 131072
+2026-05-19T22:29:53,624  INFO PopulationWriter:145 Population written to: /home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic/ITERS/it.0/0.plans.xml.gz
+2026-05-19T22:29:53,629  INFO Counter:75 [PopulationWriter] dumped person # 218002
+2026-05-19T22:29:53,629  INFO PlansDumpingImpl:94 finished plans dump.
+2026-05-19T22:29:53,629  INFO ControlerListenerManagerImpl:230 calling notifyBeforeMobsim on org.matsim.core.population.VspPlansCleaner
+2026-05-19T22:29:53,679  INFO ControlerListenerManagerImpl:233 [it.0] all ControlerBeforeMobsimListeners called.
+2026-05-19T22:29:53,769  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T22:29:53,854  INFO RandomizingTimeDistanceTravelDisutilityFactory:86  sigma: 3.0; resulting normalization: 0.011108996538242306
+2026-05-19T22:29:54,439  INFO Counter:70 [PersonPrepareForSim] handled person # 2
+2026-05-19T22:29:54,439  INFO Counter:70 [PersonPrepareForSim] handled person # 4
+2026-05-19T22:29:54,440  INFO Counter:70 [PersonPrepareForSim] handled person # 32
+2026-05-19T22:29:54,439  INFO Counter:70 [PersonPrepareForSim] handled person # 1
+2026-05-19T22:29:54,439  INFO Counter:70 [PersonPrepareForSim] handled person # 8
+2026-05-19T22:29:54,440  INFO Counter:70 [PersonPrepareForSim] handled person # 64
+2026-05-19T22:29:54,439  INFO Counter:70 [PersonPrepareForSim] handled person # 16
+2026-05-19T22:29:54,440  INFO Counter:70 [PersonPrepareForSim] handled person # 128
+2026-05-19T22:29:54,440  INFO Counter:70 [PersonPrepareForSim] handled person # 256
+2026-05-19T22:29:54,440  INFO Counter:70 [PersonPrepareForSim] handled person # 512
+2026-05-19T22:29:54,440  INFO Counter:70 [PersonPrepareForSim] handled person # 1024
+2026-05-19T22:29:54,441  INFO Counter:70 [PersonPrepareForSim] handled person # 2048
+2026-05-19T22:29:54,442  INFO Counter:70 [PersonPrepareForSim] handled person # 4096
+2026-05-19T22:29:54,444  INFO Counter:70 [PersonPrepareForSim] handled person # 8192
+2026-05-19T22:29:54,448  INFO Counter:70 [PersonPrepareForSim] handled person # 16384
+2026-05-19T22:29:54,456  INFO Counter:70 [PersonPrepareForSim] handled person # 32768
+2026-05-19T22:29:54,472  INFO Counter:70 [PersonPrepareForSim] handled person # 65536
+2026-05-19T22:29:54,503  INFO Counter:70 [PersonPrepareForSim] handled person # 131072
+2026-05-19T22:29:54,538  INFO Counter:75 [PersonPrepareForSim] handled person # 218002
+2026-05-19T22:29:54,588  INFO MobsimListenerManager:50 calling addQueueSimulationListener
+2026-05-19T22:29:54,588  INFO MobsimListenerManager:54   assigned class org.matsim.core.mobsim.framework.listeners.MobsimListener to interface org.matsim.core.mobsim.framework.listeners.MobsimAfterSimStepListener
+2026-05-19T22:29:54,588  INFO MobsimListenerManager:54   assigned class org.matsim.core.mobsim.framework.listeners.MobsimListener to interface org.matsim.core.mobsim.framework.listeners.MobsimInitializedListener
+2026-05-19T22:29:54,588  INFO MobsimListenerManager:54   assigned class org.matsim.core.mobsim.framework.listeners.MobsimListener to interface org.matsim.core.mobsim.framework.listeners.MobsimBeforeCleanupListener
+2026-05-19T22:29:54,588  INFO MobsimListenerManager:54   assigned class org.matsim.core.mobsim.framework.listeners.MobsimListener to interface org.matsim.core.mobsim.framework.listeners.MobsimListener
+2026-05-19T22:29:54,588  INFO MobsimListenerManager:54   assigned class org.matsim.core.mobsim.framework.listeners.MobsimListener to interface org.matsim.vis.snapshotwriters.SnapshotWriterManager
+2026-05-19T22:30:06,032  INFO QSimProvider:131 Added MobsimEngine class org.matsim.core.mobsim.qsim.ActivityEngineDefaultImpl
+2026-05-19T22:30:06,033  INFO QSimProvider:137 Added Activityhandler class org.matsim.core.mobsim.qsim.ActivityEngineDefaultImpl
+2026-05-19T22:30:06,033  INFO QSimProvider:143 Added DepartureHandler class org.matsim.core.mobsim.qsim.qnetsimengine.VehicularDepartureHandler
+2026-05-19T22:30:06,033  INFO QSimProvider:131 Added MobsimEngine class org.matsim.core.mobsim.qsim.qnetsimengine.QNetsimEngineWithThreadpool
+2026-05-19T22:30:06,033  INFO QSimProvider:131 Added MobsimEngine class org.matsim.core.mobsim.qsim.DefaultTeleportationEngine
+2026-05-19T22:30:06,033  INFO QSimProvider:143 Added DepartureHandler class org.matsim.core.mobsim.qsim.DefaultTeleportationEngine
+2026-05-19T22:30:06,033  INFO QSimProvider:149 Added AgentSource class org.matsim.core.mobsim.qsim.agents.PopulationAgentSource
+2026-05-19T22:30:06,033  INFO MobsimListenerManager:50 calling addQueueSimulationListener
+2026-05-19T22:30:06,033  INFO MobsimListenerManager:54   assigned class org.matsim.core.mobsim.framework.listeners.MobsimListener to interface org.matsim.core.mobsim.qsim.messagequeueengine.MessageQueueEngine
+2026-05-19T22:30:06,033  INFO MobsimListenerManager:54   assigned class org.matsim.core.mobsim.framework.listeners.MobsimListener to interface org.matsim.core.mobsim.framework.listeners.MobsimListener
+2026-05-19T22:30:06,033  INFO MobsimListenerManager:54   assigned class org.matsim.core.mobsim.framework.listeners.MobsimListener to interface org.matsim.core.mobsim.framework.listeners.MobsimBeforeSimStepListener
+2026-05-19T22:30:06,033  INFO QSimProvider:155 Added MobsimListener class org.matsim.core.mobsim.qsim.messagequeueengine.MessageQueueEngine
+2026-05-19T22:30:06,036  INFO PopulationUtils:1202 adding scenario element for allpersons container
+2026-05-19T22:30:06,037  INFO PopulationImpl:107  person # 1
+2026-05-19T22:30:06,037  INFO PopulationImpl:107  person # 4
+2026-05-19T22:30:06,037  INFO PopulationImpl:107  person # 16
+2026-05-19T22:30:06,037  INFO PopulationImpl:107  person # 64
+2026-05-19T22:30:06,037  INFO PopulationImpl:107  person # 256
+2026-05-19T22:30:06,039  INFO PopulationImpl:107  person # 1024
+2026-05-19T22:30:06,041  INFO PopulationImpl:107  person # 4096
+2026-05-19T22:30:06,047  INFO PopulationImpl:107  person # 16384
+2026-05-19T22:30:06,069  INFO PopulationImpl:107  person # 65536
+2026-05-19T22:30:06,124  INFO VehicleUtils:328 adding scenario element for allvehicles container
+2026-05-19T22:30:06,124  INFO Counter:70 [VehiclesImpl] added vehicle # 1
+2026-05-19T22:30:06,124  INFO Counter:70 [VehiclesImpl] added vehicle # 2
+2026-05-19T22:30:06,124  INFO Counter:70 [VehiclesImpl] added vehicle # 4
+2026-05-19T22:30:06,124  INFO Counter:70 [VehiclesImpl] added vehicle # 8
+2026-05-19T22:30:06,124  INFO Counter:70 [VehiclesImpl] added vehicle # 16
+2026-05-19T22:30:06,124  INFO Counter:70 [VehiclesImpl] added vehicle # 32
+2026-05-19T22:30:06,125  INFO Counter:70 [VehiclesImpl] added vehicle # 64
+2026-05-19T22:30:06,125  INFO Counter:70 [VehiclesImpl] added vehicle # 128
+2026-05-19T22:30:06,126  INFO Counter:70 [VehiclesImpl] added vehicle # 256
+2026-05-19T22:30:06,126  INFO Counter:70 [VehiclesImpl] added vehicle # 512
+2026-05-19T22:30:06,127  INFO Counter:70 [VehiclesImpl] added vehicle # 1024
+2026-05-19T22:30:06,128  INFO Counter:70 [VehiclesImpl] added vehicle # 2048
+2026-05-19T22:30:06,130  INFO Counter:70 [VehiclesImpl] added vehicle # 4096
+2026-05-19T22:30:06,133  INFO Counter:70 [VehiclesImpl] added vehicle # 8192
+2026-05-19T22:30:06,139  INFO Counter:70 [VehiclesImpl] added vehicle # 16384
+2026-05-19T22:30:06,151  INFO Counter:70 [VehiclesImpl] added vehicle # 32768
+2026-05-19T22:30:06,170  INFO Counter:70 [VehiclesImpl] added vehicle # 65536
+2026-05-19T22:30:06,209  INFO Counter:70 [VehiclesImpl] added vehicle # 131072
+2026-05-19T22:30:07,130  INFO AbstractQNetsimEngine:428 Assigned 515520 nodes and 1085326 links to QSimEngineRunner #0
+2026-05-19T22:30:07,130  INFO AbstractQNetsimEngine:428 Assigned 515520 nodes and 1085268 links to QSimEngineRunner #1
+2026-05-19T22:30:07,130  INFO AbstractQNetsimEngine:428 Assigned 515520 nodes and 1085288 links to QSimEngineRunner #2
+2026-05-19T22:30:07,130  INFO AbstractQNetsimEngine:428 Assigned 515520 nodes and 1084931 links to QSimEngineRunner #3
+2026-05-19T22:30:07,130  INFO AbstractQNetsimEngine:428 Assigned 515520 nodes and 1084287 links to QSimEngineRunner #4
+2026-05-19T22:30:07,130  INFO AbstractQNetsimEngine:428 Assigned 515520 nodes and 1085321 links to QSimEngineRunner #5
+2026-05-19T22:30:07,130  INFO AbstractQNetsimEngine:428 Assigned 515520 nodes and 1085372 links to QSimEngineRunner #6
+2026-05-19T22:30:07,130  INFO AbstractQNetsimEngine:428 Assigned 515520 nodes and 1085319 links to QSimEngineRunner #7
+2026-05-19T22:30:07,179  INFO EventsManagerImpl:115  event # 1
+2026-05-19T22:30:07,182  INFO EventsManagerImpl:115  event # 4
+2026-05-19T22:30:07,182  INFO EventsManagerImpl:115  event # 16
+2026-05-19T22:30:07,185  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 03:26:00 : #links=1 #nodes=1
+2026-05-19T22:30:07,189  INFO QSim:566 SIMULATION (NEW QSim) AT 03:26:00 : #Veh=218002 lost=0 simT=0.0s realT=12s; (s/r): 0.0
+2026-05-19T22:30:07,194  INFO EventsManagerImpl:115  event # 64
+2026-05-19T22:30:07,200  INFO EventsManagerImpl:115  event # 256
+2026-05-19T22:30:07,211  INFO EventsManagerImpl:115  event # 1024
+2026-05-19T22:30:07,226  INFO EventsManagerImpl:115  event # 4096
+2026-05-19T22:30:07,291  INFO EventsManagerImpl:115  event # 16384
+2026-05-19T22:30:07,314  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 04:00:00 : #links=25 #nodes=31
+2026-05-19T22:30:07,314  INFO QSim:566 SIMULATION (NEW QSim) AT 04:00:00 : #Veh=218002 lost=0 simT=2040.0s realT=12s; (s/r): 170.0
+2026-05-19T22:30:07,418  INFO EventsManagerImpl:115  event # 65536
+2026-05-19T22:30:07,662  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 05:00:00 : #links=86 #nodes=103
+2026-05-19T22:30:07,663  INFO QSim:566 SIMULATION (NEW QSim) AT 05:00:00 : #Veh=217895 lost=0 simT=5640.0s realT=13s; (s/r): 433.84615384615387
+2026-05-19T22:30:07,675  INFO EventsManagerImpl:115  event # 262144
+2026-05-19T22:30:08,610  INFO EventsManagerImpl:115  event # 1048576
+2026-05-19T22:30:09,031  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 06:00:00 : #links=494 #nodes=571
+2026-05-19T22:30:09,031  INFO QSim:566 SIMULATION (NEW QSim) AT 06:00:00 : #Veh=217379 lost=0 simT=9240.0s realT=14s; (s/r): 660.0
+2026-05-19T22:30:12,916  INFO EventsManagerImpl:115  event # 4194304
+2026-05-19T22:30:18,266  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 07:00:00 : #links=1645 #nodes=1820
+2026-05-19T22:30:18,266  INFO QSim:566 SIMULATION (NEW QSim) AT 07:00:00 : #Veh=215064 lost=0 simT=12840.0s realT=23s; (s/r): 558.2608695652174
+2026-05-19T22:30:34,303  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 08:00:00 : #links=2907 #nodes=3680
+2026-05-19T22:30:34,303  INFO QSim:566 SIMULATION (NEW QSim) AT 08:00:00 : #Veh=209210 lost=0 simT=16440.0s realT=39s; (s/r): 421.53846153846155
+2026-05-19T22:30:34,624  INFO EventsManagerImpl:115  event # 16777216
+2026-05-19T22:30:36,988  INFO MemoryObserver:42 used RAM: 54354 MB  free: 12845 MB  total: 67200 MB
+2026-05-19T22:31:00,892  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 09:00:00 : #links=4148 #nodes=5083
+2026-05-19T22:31:00,892  INFO QSim:566 SIMULATION (NEW QSim) AT 09:00:00 : #Veh=199135 lost=0 simT=20040.0s realT=66s; (s/r): 303.6363636363636
+2026-05-19T22:31:36,988  INFO MemoryObserver:42 used RAM: 55897 MB  free: 24006 MB  total: 79904 MB
+2026-05-19T22:31:37,747  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 10:00:00 : #links=4655 #nodes=5565
+2026-05-19T22:31:37,747  INFO QSim:566 SIMULATION (NEW QSim) AT 10:00:00 : #Veh=186063 lost=0 simT=23640.0s realT=103s; (s/r): 229.51456310679612
+2026-05-19T22:32:00,655  INFO EventsManagerImpl:115  event # 67108864
+2026-05-19T22:32:15,008  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 11:00:00 : #links=4753 #nodes=5669
+2026-05-19T22:32:15,008  INFO QSim:566 SIMULATION (NEW QSim) AT 11:00:00 : #Veh=171844 lost=0 simT=27240.0s realT=140s; (s/r): 194.57142857142858
+2026-05-19T22:32:36,989  INFO MemoryObserver:42 used RAM: 54822 MB  free: 25081 MB  total: 79904 MB
+2026-05-19T22:32:54,954  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 12:00:00 : #links=5056 #nodes=5912
+2026-05-19T22:32:54,954  INFO QSim:566 SIMULATION (NEW QSim) AT 12:00:00 : #Veh=157221 lost=0 simT=30840.0s realT=180s; (s/r): 171.33333333333334
+2026-05-19T22:33:37,020  INFO MemoryObserver:42 used RAM: 63783 MB  free: 16120 MB  total: 79904 MB
+2026-05-19T22:33:37,699  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 13:00:00 : #links=5418 #nodes=6312
+2026-05-19T22:33:37,699  INFO QSim:566 SIMULATION (NEW QSim) AT 13:00:00 : #Veh=141982 lost=0 simT=34440.0s realT=223s; (s/r): 154.4394618834081
+2026-05-19T22:34:23,715  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 14:00:00 : #links=5629 #nodes=6759
+2026-05-19T22:34:23,715  INFO QSim:566 SIMULATION (NEW QSim) AT 14:00:00 : #Veh=124925 lost=0 simT=38040.0s realT=269s; (s/r): 141.41263940520446
+2026-05-19T22:34:37,053  INFO MemoryObserver:42 used RAM: 52188 MB  free: 27715 MB  total: 79904 MB
+2026-05-19T22:35:12,794  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 15:00:00 : #links=5789 #nodes=6936
+2026-05-19T22:35:12,794  INFO QSim:566 SIMULATION (NEW QSim) AT 15:00:00 : #Veh=106288 lost=0 simT=41640.0s realT=318s; (s/r): 130.9433962264151
+2026-05-19T22:35:37,053  INFO MemoryObserver:42 used RAM: 59158 MB  free: 23145 MB  total: 82304 MB
+2026-05-19T22:36:06,099  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 16:00:00 : #links=6550 #nodes=7854
+2026-05-19T22:36:06,099  INFO QSim:566 SIMULATION (NEW QSim) AT 16:00:00 : #Veh=87350 lost=0 simT=45240.0s realT=371s; (s/r): 121.94070080862534
+2026-05-19T22:36:37,053  INFO MemoryObserver:42 used RAM: 67422 MB  free: 14881 MB  total: 82304 MB
+2026-05-19T22:37:00,350  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 17:00:00 : #links=6319 #nodes=7515
+2026-05-19T22:37:00,350  INFO QSim:566 SIMULATION (NEW QSim) AT 17:00:00 : #Veh=66828 lost=0 simT=48840.0s realT=425s; (s/r): 114.91764705882353
+2026-05-19T22:37:37,054  INFO MemoryObserver:42 used RAM: 50065 MB  free: 32238 MB  total: 82304 MB
+2026-05-19T22:37:52,328  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 18:00:00 : #links=6030 #nodes=6950
+2026-05-19T22:37:52,328  INFO QSim:566 SIMULATION (NEW QSim) AT 18:00:00 : #Veh=47086 lost=0 simT=52440.0s realT=477s; (s/r): 109.937106918239
+2026-05-19T22:37:57,052  INFO EventsManagerImpl:115  event # 268435456
+2026-05-19T22:38:37,054  INFO MemoryObserver:42 used RAM: 55129 MB  free: 29254 MB  total: 84384 MB
+2026-05-19T22:38:39,338  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 19:00:00 : #links=4721 #nodes=5718
+2026-05-19T22:38:39,339  INFO QSim:566 SIMULATION (NEW QSim) AT 19:00:00 : #Veh=29550 lost=0 simT=56040.0s realT=524s; (s/r): 106.94656488549619
+2026-05-19T22:39:11,953  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 20:00:00 : #links=3302 #nodes=3897
+2026-05-19T22:39:11,953  INFO QSim:566 SIMULATION (NEW QSim) AT 20:00:00 : #Veh=16525 lost=0 simT=59640.0s realT=557s; (s/r): 107.07360861759426
+2026-05-19T22:39:29,677  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 21:00:00 : #links=1981 #nodes=2358
+2026-05-19T22:39:29,677  INFO QSim:566 SIMULATION (NEW QSim) AT 21:00:00 : #Veh=8316 lost=0 simT=63240.0s realT=575s; (s/r): 109.98260869565217
+2026-05-19T22:39:37,054  INFO MemoryObserver:42 used RAM: 61139 MB  free: 23244 MB  total: 84384 MB
+2026-05-19T22:39:38,287  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 22:00:00 : #links=927 #nodes=1072
+2026-05-19T22:39:38,287  INFO QSim:566 SIMULATION (NEW QSim) AT 22:00:00 : #Veh=3705 lost=0 simT=66840.0s realT=583s; (s/r): 114.6483704974271
+2026-05-19T22:39:41,929  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 23:00:00 : #links=453 #nodes=602
+2026-05-19T22:39:41,929  INFO QSim:566 SIMULATION (NEW QSim) AT 23:00:00 : #Veh=1564 lost=0 simT=70440.0s realT=587s; (s/r): 120.0
+2026-05-19T22:39:43,594  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 24:00:00 : #links=330 #nodes=387
+2026-05-19T22:39:43,594  INFO QSim:566 SIMULATION (NEW QSim) AT 24:00:00 : #Veh=578 lost=0 simT=74040.0s realT=589s; (s/r): 125.70458404074702
+2026-05-19T22:39:44,401  INFO AbstractQNetsimEngine:366 SIMULATION (QNetsimEngine) AT 25:00:00 : #links=48 #nodes=57
+2026-05-19T22:39:44,401  INFO QSim:566 SIMULATION (NEW QSim) AT 25:00:00 : #Veh=90 lost=0 simT=77640.0s realT=589s; (s/r): 131.81663837011885
+2026-05-19T22:39:46,154  INFO AbstractController$9:235 ### ITERATION 0 fires after mobsim event
+2026-05-19T22:39:46,154  INFO ControlerListenerManagerImpl:249 calling notifyAfterMobsim on org.matsim.analysis.LegTimesControlerListener
+2026-05-19T22:39:46,156  INFO Gbl:192 Thread performance: Thread=class org.matsim.core.events.SimStepParallelEventsManagerImpl$ProcessEventsRunnable0  cpu-time=565.30267003sec
+2026-05-19T22:39:46,157  INFO LegTimesControlerListener:51 [0] average trip (probably: leg) duration is: 2297 seconds = 00:38:17
+2026-05-19T22:39:46,157  INFO ControlerListenerManagerImpl:249 calling notifyAfterMobsim on org.matsim.core.events.MobsimScopeEventHandling
+2026-05-19T22:39:46,157  INFO ControlerListenerManagerImpl:249 calling notifyAfterMobsim on org.matsim.core.scoring.EventsToActivities$1
+2026-05-19T22:39:46,157  WARN CharyparNagelActivityScoring:247 The first and the last activity do not have the same type. 
+2026-05-19T22:39:46,158  WARN CharyparNagelActivityScoring:248 Will score the first activity from midnight to its end, and the last activity from its start to midnight.
+2026-05-19T22:39:46,158  WARN CharyparNagelActivityScoring:249 Because of the nonlinear function, this is not the same as scoring from start to end.
+2026-05-19T22:39:46,159  WARN CharyparNagelActivityScoring:250 first activity: act [type=act_1][coord=[x=-76.977497 | y=38.820876]][linkId=osm_6087955_2_fwd][startTime=undefined][endTime=18:23:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,159  WARN CharyparNagelActivityScoring:251 last activity: act [type=act_6][coord=[x=-76.981717 | y=38.803818]][linkId=osm_569426678_1_fwd][startTime=18:30:08][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,159  WARN CharyparNagelActivityScoring:252 This may also happen when plans are not completed when the simulation ends.
+2026-05-19T22:39:46,159  WARN CharyparNagelActivityScoring:254 Additional warnings of this type are suppressed.
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:52:21][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:52:01][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:51:55][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:51:50][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:51:45][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:51:40][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:51:35][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,160  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:51:30][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:51:25][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:52:16][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:229 There are opening or closing times defined for the first and last activity. The correctness of the scoring function can thus not be guaranteed.
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:230 first activity: act [type=act_2][coord=[x=-76.724637 | y=38.933375]][linkId=osm_6114815_9_fwd][startTime=undefined][endTime=16:59:00][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:231 last activity: act [type=act_2][coord=[x=-77.255611 | y=39.12504]][linkId=osm_5975046_2_fwd][startTime=17:52:11][endTime=undefined][duration=undefined][facilityId=null]
+2026-05-19T22:39:46,161  WARN CharyparNagelActivityScoring:233 Additional warnings of this type are suppressed.
+2026-05-19T22:39:46,324  INFO ControlerListenerManagerImpl:252 [it.0] all ControlerAfterMobsimListeners called.
+2026-05-19T22:39:46,324  INFO AbstractController$4:160 ### ITERATION 0 fires scoring event
+2026-05-19T22:39:46,324  INFO ControlerListenerManagerImpl:184 calling notifyScoring on org.matsim.core.scoring.PlansScoringImpl
+2026-05-19T22:39:46,412  INFO NewScoreAssignerImpl:58 it: 0 msaStart: null
+2026-05-19T22:39:46,495  INFO ControlerListenerManagerImpl:195 [it.0] all ControlerScoringListeners called.
+2026-05-19T22:39:46,496  INFO AbstractController$5:168 ### ITERATION 0 fires iteration end event
+2026-05-19T22:39:46,496  INFO ControlerListenerManagerImpl:161 calling notifyIterationEnds on org.matsim.core.controler.corelisteners.EventsHandlingImpl
+2026-05-19T22:39:46,496  INFO EventsManagerImpl:159 removing Event-Handler: org.matsim.core.events.algorithms.EventWriterXML
+2026-05-19T22:39:46,496  INFO EventsManagerImpl:159 removing Event-Handler: org.matsim.core.events.algorithms.EventWriterXML
+2026-05-19T22:39:46,496  INFO ControlerListenerManagerImpl:161 calling notifyIterationEnds on org.matsim.core.scoring.PlansScoringImpl
+2026-05-19T22:39:46,568  INFO ControlerListenerManagerImpl:168 calling notifyIterationEnds on org.matsim.counts.CountsControlerListener
+2026-05-19T22:39:46,568  INFO ControlerListenerManagerImpl:168 calling notifyIterationEnds on org.matsim.analysis.ModeStatsControlerListener
+2026-05-19T22:39:46,651  INFO ModeStatsControlerListener:145 Mode shares over all 218002.0 trips found. MainModeIdentifier: class org.matsim.core.router.RoutingModeMainModeIdentifier
+2026-05-19T22:39:46,651  INFO ModeStatsControlerListener:152 -- mode share of mode car = 1.0
+2026-05-19T22:39:46,652  INFO ControlerListenerManagerImpl:168 calling notifyIterationEnds on org.matsim.analysis.ScoreStatsControlerListener
+2026-05-19T22:39:46,664  INFO ScoreStatsControlerListener:182 -- avg. score of the executed plan of each agent: 121.0840835878143
+2026-05-19T22:39:46,664  INFO ScoreStatsControlerListener:183 -- avg. score of the worst plan of each agent: 121.0840835878143
+2026-05-19T22:39:46,664  INFO ScoreStatsControlerListener:184 -- avg. of the avg. plan score per agent: 121.0840835878143
+2026-05-19T22:39:46,664  INFO ScoreStatsControlerListener:185 -- avg. score of the best plan of each agent: 121.0840835878143
+2026-05-19T22:39:46,666  INFO ControlerListenerManagerImpl:168 calling notifyIterationEnds on org.matsim.analysis.IterationTravelStatsControlerListener
+2026-05-19T22:39:46,730  INFO TravelDistanceStats:144 -- average leg distance per plan (executed plans only): 42452.014954986655 meters
+2026-05-19T22:39:46,731  INFO TravelDistanceStats:145 average leg distance per Person (executed plans only): 42452.014954986655 meters (statistic on all 218002 legs which have a finite distance)
+2026-05-19T22:39:46,731  INFO TravelDistanceStats:146 -- average trip distance per plan (executed plans only): 42452.014954986655 meters
+2026-05-19T22:39:46,731  INFO TravelDistanceStats:147 average trip distance per Person (executed plans only): 42452.014954986655 meters (statistic on all 218002 trips which have a finite distance)
+2026-05-19T22:39:46,731  INFO TravelDistanceStats:148 (TravelDistanceStats takes an average over all legs where the simulation reports travelled (network) distances
+2026-05-19T22:39:46,731  INFO TravelDistanceStats:149 (and teleported legs whose route contains a distance.)
+2026-05-19T22:39:47,938  INFO ControlerListenerManagerImpl:168 calling notifyIterationEnds on org.matsim.analysis.LegHistogramListener
+2026-05-19T22:39:47,945  INFO LegHistogramListener:73 number of legs:	218002	100%
+2026-05-19T22:39:47,946  INFO LegHistogramListener:80 number of car legs:	218002	100.0%
+2026-05-19T22:39:47,946  INFO ControlerListenerManagerImpl:168 calling notifyIterationEnds on org.matsim.analysis.LinkStatsControlerListener
+2026-05-19T22:39:47,946  INFO ControlerListenerManagerImpl:172 [it.0] all ControlerIterationEndsListeners called.
+2026-05-19T22:39:47,948  INFO AbstractController:182 ### ITERATION 0 ENDS
+2026-05-19T22:39:47,948  INFO AbstractController:183 ###################################################
+2026-05-19T22:39:47,948  INFO MatsimRuntimeModifications:80 S H U T D O W N   ---   start shutdown.
+2026-05-19T22:39:47,948  INFO ControlerListenerManagerImpl:122 calling notifyShutdown on org.matsim.core.controler.corelisteners.EventsHandlingImpl
+2026-05-19T22:39:47,948  INFO ControlerListenerManagerImpl:122 calling notifyShutdown on org.matsim.core.controler.corelisteners.DumpDataAtEndImpl
+2026-05-19T22:39:47,980  INFO Counter:70 [PopulationWriter] dumped person # 1
+2026-05-19T22:39:47,980  INFO Counter:70 [PopulationWriter] dumped person # 2
+2026-05-19T22:39:47,981  INFO Counter:70 [PopulationWriter] dumped person # 4
+2026-05-19T22:39:47,981  INFO Counter:70 [PopulationWriter] dumped person # 8
+2026-05-19T22:39:47,981  INFO Counter:70 [PopulationWriter] dumped person # 16
+2026-05-19T22:39:47,981  INFO Counter:70 [PopulationWriter] dumped person # 32
+2026-05-19T22:39:47,983  INFO Counter:70 [PopulationWriter] dumped person # 64
+2026-05-19T22:39:47,998  INFO Counter:70 [PopulationWriter] dumped person # 128
+2026-05-19T22:39:48,018  INFO Counter:70 [PopulationWriter] dumped person # 256
+2026-05-19T22:39:48,050  INFO Counter:70 [PopulationWriter] dumped person # 512
+2026-05-19T22:39:48,087  INFO Counter:70 [PopulationWriter] dumped person # 1024
+2026-05-19T22:39:48,193  INFO Counter:70 [PopulationWriter] dumped person # 2048
+2026-05-19T22:39:48,406  INFO Counter:70 [PopulationWriter] dumped person # 4096
+2026-05-19T22:39:49,193  INFO Counter:70 [PopulationWriter] dumped person # 8192
+2026-05-19T22:39:50,178  INFO Counter:70 [PopulationWriter] dumped person # 16384
+2026-05-19T22:39:51,981  INFO Counter:70 [PopulationWriter] dumped person # 32768
+2026-05-19T22:39:55,517  INFO Counter:70 [PopulationWriter] dumped person # 65536
+2026-05-19T22:40:02,609  INFO Counter:70 [PopulationWriter] dumped person # 131072
+2026-05-19T22:40:11,925  INFO PopulationWriter:145 Population written to: /home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic/output_plans.xml.gz
+2026-05-19T22:40:11,925  INFO Counter:75 [PopulationWriter] dumped person # 218002
+2026-05-19T22:40:11,959  INFO NetworkWriter:70 Writing network to file: /home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic/output_network.xml.gz...
+2026-05-19T22:40:27,383  INFO NetworkWriter:73 done.
+2026-05-19T22:40:27,391  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,392  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,393  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,393  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,394  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,396  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,396  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,397  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,397  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,397  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,398  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,398  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,398  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,399  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,401  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,401  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,402  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,402  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,403  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,404  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,404  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,404  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,405  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,405  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,405  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,405  INFO Config:602 setting context to [file:/home/raziq/Documents/Code/umd/tripsynth/]
+2026-05-19T22:40:27,408  INFO MatsimVehicleWriter:55 about to write vehicles to: /home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic/output_vehicles.xml.gz
+2026-05-19T22:40:27,408  INFO VehicleWriterV2:64 about to write vehicles to: /home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic/output_vehicles.xml.gz
+2026-05-19T22:40:27,508  INFO MatsimVehicleWriter:55 about to write vehicles to: /home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic/output_allVehicles.xml.gz
+2026-05-19T22:40:27,508  INFO VehicleWriterV2:64 about to write vehicles to: /home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic/output_allVehicles.xml.gz
+2026-05-19T22:40:27,602  INFO HouseholdsWriterV10:67 about to write  households to: /home/raziq/Documents/Code/umd/tripsynth/06x_stage1_md_internal/matsim_synthetic/output_households.xml.gz
+2026-05-19T22:40:27,602  INFO Counter:75 [HouseholdsWriter] wrote household # 0
+2026-05-19T22:40:28,132  INFO ControlerListenerManagerImpl:127 calling notifyShutdown on org.matsim.analysis.ScoreStatsControlerListener
+2026-05-19T22:40:28,132  INFO ControlerListenerManagerImpl:127 calling notifyShutdown on org.matsim.analysis.IterationTravelStatsControlerListener
+2026-05-19T22:40:28,132  INFO IterationTravelStatsControlerListener:109 Writing all Person and Attributes to personscsv
+2026-05-19T22:40:28,491  INFO IterationTravelStatsControlerListener:153 ...done
+2026-05-19T22:40:28,491  INFO ControlerListenerManagerImpl:130 all ControlerShutdownListeners called.
+2026-05-19T22:40:28,491  INFO MatsimRuntimeModifications:103 S H U T D O W N   ---   shutdown completed.
+2026-05-19T22:40:28,494  INFO OutputDirectoryLogging:171 closing the logfile, i.e. messages sent to the logger after this message are not written to the logfile.

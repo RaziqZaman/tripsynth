@@ -1,0 +1,3 @@
+scenario,status,failure_reason,elapsed,elapsed_minutes,events_file,events_file_bytes,events_line_count_if_small,events_empty,output_persons_file,output_persons_exists
+real,completed,,19:35.11,19.585166666666666,06x_stage1_md_internal/matsim_real/ITERS/it.0/0.events.xml.gz,1299298908,,False,06x_stage1_md_internal/matsim_real/output_persons.csv.gz,True
+synthetic,completed,,1:17:38,77.63333333333334,06x_stage1_md_internal/matsim_synthetic/ITERS/it.0/0.events.xml.gz,3277133512,,False,06x_stage1_md_internal/matsim_synthetic/output_persons.csv.gz,True

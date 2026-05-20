@@ -93,9 +93,9 @@ def scenario_rows(
     assigned: dict[str, float],
 ) -> list[dict[str, str]]:
     rows = []
-    for key in sorted(set(observed) & set(assigned)):
+    for key in sorted(observed):
         observed_value = observed[key]
-        model_value = assigned[key]
+        model_value = assigned.get(key, 0.0)
         error = model_value - observed_value
         absolute_error = abs(error)
         percent_error = error / observed_value if observed_value else float("nan")
