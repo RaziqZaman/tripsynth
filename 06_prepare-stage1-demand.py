@@ -51,6 +51,17 @@ def parse_args() -> argparse.Namespace:
         default="both",
         help="whether both OD TAZs or either OD TAZ must match --state-filter",
     )
+    parser.add_argument(
+        "--bbox",
+        default="",
+        help="optional lon_min,lat_min,lon_max,lat_max filter on OD TAZ centroids",
+    )
+    parser.add_argument(
+        "--bbox-filter-mode",
+        choices=["both", "either"],
+        default="both",
+        help="whether both OD TAZs or either OD TAZ must fall inside --bbox",
+    )
     return parser.parse_args()
 
 
@@ -64,6 +75,35 @@ def parse_float(value: str, default: float = 0.0) -> float:
 def parse_road_modes(value: str) -> set[str] | None:
     modes = {item.strip() for item in value.split(",") if item.strip()}
     return modes or None
+
+
+def parse_bbox(value: str) -> tuple[float, float, float, float] | None:
+    if not value:
+        return None
+    parts = [parse_float(part.strip(), float("nan")) for part in value.split(",")]
+    if len(parts) != 4 or any(part != part for part in parts):
+        raise ValueError("--bbox must be lon_min,lat_min,lon_max,lat_max")
+    lon_min, lat_min, lon_max, lat_max = parts
+    if lon_min >= lon_max or lat_min >= lat_max:
+        raise ValueError("--bbox minimums must be less than maximums")
+    return lon_min, lat_min, lon_max, lat_max
+
+
+def read_taz_coords(path: Path | None) -> dict[str, tuple[float, float]]:
+    if path is None:
+        return {}
+    coords: dict[str, tuple[float, float]] = {}
+    with path.open(newline="") as input_file:
+        reader = csv.DictReader(input_file)
+        for row in reader:
+            taz = row.get("taz", "")
+            if not taz:
+                continue
+            lon = parse_float(row.get("x", ""), float("nan"))
+            lat = parse_float(row.get("y", ""), float("nan"))
+            if lon == lon and lat == lat:
+                coords[taz] = (lon, lat)
+    return coords
 
 
 def read_taz_states(path: Path | None) -> dict[str, str]:
@@ -95,19 +135,52 @@ def geography_allowed(
     return origin_state == state_filter and destination_state == state_filter
 
 
+def point_in_bbox(point: tuple[float, float] | None, bbox: tuple[float, float, float, float] | None) -> bool:
+    if bbox is None:
+        return True
+    if point is None:
+        return False
+    lon, lat = point
+    lon_min, lat_min, lon_max, lat_max = bbox
+    return lon_min <= lon <= lon_max and lat_min <= lat <= lat_max
+
+
+def bbox_allowed(
+    row: dict[str, str],
+    taz_coords: dict[str, tuple[float, float]],
+    bbox: tuple[float, float, float, float] | None,
+    bbox_filter_mode: str,
+) -> bool:
+    if bbox is None:
+        return True
+    origin_ok = point_in_bbox(taz_coords.get(row.get("o_tpb_taz", "")), bbox)
+    destination_ok = point_in_bbox(taz_coords.get(row.get("d_tpb_taz", "")), bbox)
+    if bbox_filter_mode == "either":
+        return origin_ok or destination_ok
+    return origin_ok and destination_ok
+
+
 def include_row(
     row: dict[str, str],
     road_modes: set[str] | None,
     taz_states: dict[str, str],
     state_filter: str,
     state_filter_mode: str,
+    taz_coords: dict[str, tuple[float, float]],
+    bbox: tuple[float, float, float, float] | None,
+    bbox_filter_mode: str,
 ) -> bool:
     occupancy = parse_float(row.get("vehicle_occupancy", "0"))
     if occupancy <= 0:
         return False
     if road_modes is not None and row.get("travel_mode", "") not in road_modes:
         return False
-    return geography_allowed(row, taz_states, state_filter, state_filter_mode)
+    return geography_allowed(row, taz_states, state_filter, state_filter_mode) and bbox_allowed(
+        row,
+        taz_coords,
+        bbox,
+        bbox_filter_mode,
+    )
 
 
 def iter_vehicle_rows(
@@ -119,6 +192,9 @@ def iter_vehicle_rows(
     taz_states: dict[str, str],
     state_filter: str,
     state_filter_mode: str,
+    taz_coords: dict[str, tuple[float, float]],
+    bbox: tuple[float, float, float, float] | None,
+    bbox_filter_mode: str,
 ) -> tuple[list[dict[str, str]], dict[str, float]]:
     rows: list[dict[str, str]] = []
     totals = {
@@ -132,7 +208,16 @@ def iter_vehicle_rows(
         reader = csv.DictReader(input_file)
         for row_id, row in enumerate(reader, start=1):
             totals["input_rows"] += 1
-            if not include_row(row, road_modes, taz_states, state_filter, state_filter_mode):
+            if not include_row(
+                row,
+                road_modes,
+                taz_states,
+                state_filter,
+                state_filter_mode,
+                taz_coords,
+                bbox,
+                bbox_filter_mode,
+            ):
                 continue
 
             occupancy = parse_float(row.get("vehicle_occupancy", "0"))
@@ -250,9 +335,13 @@ def write_totals(
 def main() -> int:
     args = parse_args()
     road_modes = parse_road_modes(args.road_modes)
+    bbox = parse_bbox(args.bbox)
     taz_states = read_taz_states(args.taz_centroids)
+    taz_coords = read_taz_coords(args.taz_centroids) if bbox is not None else {}
     if args.state_filter and not taz_states:
         raise ValueError("--state-filter requires --taz-centroids")
+    if bbox is not None and not taz_coords:
+        raise ValueError("--bbox requires --taz-centroids with x/y columns")
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     real_rows, real_totals = iter_vehicle_rows(
@@ -264,6 +353,9 @@ def main() -> int:
         taz_states=taz_states,
         state_filter=args.state_filter,
         state_filter_mode=args.state_filter_mode,
+        taz_coords=taz_coords,
+        bbox=bbox,
+        bbox_filter_mode=args.bbox_filter_mode,
     )
     synthetic_rows, synthetic_totals = iter_vehicle_rows(
         args.synthetic_csv,
@@ -274,6 +366,9 @@ def main() -> int:
         taz_states=taz_states,
         state_filter=args.state_filter,
         state_filter_mode=args.state_filter_mode,
+        taz_coords=taz_coords,
+        bbox=bbox,
+        bbox_filter_mode=args.bbox_filter_mode,
     )
 
     synthetic_vehicle_trips_scaled = (

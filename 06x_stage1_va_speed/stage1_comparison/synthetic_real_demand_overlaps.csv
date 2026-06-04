@@ -1,0 +1,8 @@
+distribution,overlap
+departure_hour,0.9113090459444755
+travel_mode,0.959910014637452
+origin_activity,0.9593788808455622
+destination_activity,0.95526188275339
+activity_pair,0.9082017157450091
+origin_taz,0.8343740934718686
+destination_taz,0.8394564506002906

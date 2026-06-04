@@ -278,6 +278,57 @@ def count_validation_summary(scenario_dir: Path) -> pd.DataFrame:
     )
 
 
+def observed_speed_summary(network_dir: Path) -> pd.DataFrame:
+    observed = read_csv_if_exists(network_dir / "observed_speeds.csv")
+    if observed.empty:
+        return pd.DataFrame([{"metric": "matched_speed_segments", "value": 0.0}])
+    observed["observed_speed_mph"] = pd.to_numeric(observed["observed_speed_mph"], errors="coerce")
+    observed["match_distance_m"] = pd.to_numeric(observed["match_distance_m"], errors="coerce")
+    metrics = {
+        "matched_speed_segments": len(observed),
+        "observed_speed_mean_mph": observed["observed_speed_mph"].mean(),
+        "observed_speed_median_mph": observed["observed_speed_mph"].median(),
+        "observed_speed_p10_mph": observed["observed_speed_mph"].quantile(0.1),
+        "observed_speed_p90_mph": observed["observed_speed_mph"].quantile(0.9),
+        "match_distance_mean_m": observed["match_distance_m"].mean(),
+        "match_distance_median_m": observed["match_distance_m"].median(),
+        "match_distance_max_m": observed["match_distance_m"].max(),
+    }
+    return pd.DataFrame([{"metric": metric, "value": value} for metric, value in metrics.items()])
+
+
+def speed_validation_summary(scenario_dir: Path) -> pd.DataFrame:
+    summary_path = scenario_dir / "speed_validation_summary.csv"
+    validation_path = scenario_dir / "speed_validation.csv"
+    if summary_path.exists():
+        return pd.read_csv(summary_path)
+    if validation_path.exists():
+        validation = pd.read_csv(validation_path)
+        if not validation.empty:
+            for column in ["observed_speed_mph", "model_speed_mph", "error_mph", "absolute_error_mph"]:
+                validation[column] = pd.to_numeric(validation[column], errors="coerce")
+            modeled = validation.dropna(subset=["observed_speed_mph", "model_speed_mph"])
+            if not modeled.empty:
+                return modeled.groupby("scenario").agg(
+                    modeled_segments=("segment_id", "nunique"),
+                    observed_mean_speed_mph=("observed_speed_mph", "mean"),
+                    model_mean_speed_mph=("model_speed_mph", "mean"),
+                    mean_bias_mph=("error_mph", "mean"),
+                    mae_mph=("absolute_error_mph", "mean"),
+                    rmse_mph=("error_mph", lambda x: math.sqrt(float(np.mean(np.square(x))))),
+                ).reset_index()
+    return pd.DataFrame(
+        [
+            {
+                "scenario": scenario,
+                "status": "not_available",
+                "reason": "postprocess has not produced speed_validation.csv",
+            }
+            for scenario in ["real", "synthetic"]
+        ]
+    )
+
+
 def setup_plot() -> None:
     plt.rcParams.update(
         {
@@ -387,6 +438,28 @@ def plot_observed_counts(network_dir: Path, out_dir: Path) -> None:
     savefig(out_dir / "count_match_distance_histogram.png")
 
 
+def plot_observed_speeds(network_dir: Path, out_dir: Path) -> None:
+    observed = read_csv_if_exists(network_dir / "observed_speeds.csv")
+    if observed.empty:
+        return
+    observed["observed_speed_mph"] = pd.to_numeric(observed["observed_speed_mph"], errors="coerce")
+    observed["match_distance_m"] = pd.to_numeric(observed["match_distance_m"], errors="coerce")
+
+    plt.figure(figsize=(8, 5))
+    plt.hist(observed["observed_speed_mph"].dropna(), bins=35, color="#4f7f93")
+    plt.xlabel("Observed speed (mph)")
+    plt.ylabel("VDOT 511 segments")
+    plt.title("Observed VDOT 511 Speed Distribution")
+    savefig(out_dir / "observed_speed_histogram.png")
+
+    plt.figure(figsize=(8, 5))
+    plt.hist(observed["match_distance_m"].dropna(), bins=40, color="#8a6f4d")
+    plt.xlabel("Nearest OSM link match distance (m)")
+    plt.ylabel("VDOT 511 segments")
+    plt.title("VDOT 511 Segment-To-OSM Link Match Distance")
+    savefig(out_dir / "speed_match_distance_histogram.png")
+
+
 def plot_run_status(run_status: pd.DataFrame, path: Path) -> None:
     if run_status.empty:
         return
@@ -448,6 +521,59 @@ def plot_validation_if_available(scenario_dir: Path, out_dir: Path) -> None:
     plt.title("GEH Distribution")
     plt.legend()
     savefig(out_dir / "geh_distribution.png")
+
+
+def plot_speed_validation_if_available(scenario_dir: Path, out_dir: Path) -> None:
+    validation_path = scenario_dir / "speed_validation.csv"
+    if not validation_path.exists():
+        (out_dir / "speed_validation_not_available.txt").write_text(
+            "speed_validation.csv is not available because postprocess has not run after a successful simulation.\n"
+        )
+        return
+    validation = pd.read_csv(validation_path)
+    if validation.empty:
+        (out_dir / "speed_validation_not_available.txt").write_text(
+            "speed_validation.csv exists but has no matched speed rows.\n"
+        )
+        return
+    for column in ["observed_speed_mph", "model_speed_mph", "absolute_error_mph", "error_mph"]:
+        validation[column] = pd.to_numeric(validation[column], errors="coerce")
+    modeled = validation.dropna(subset=["observed_speed_mph", "model_speed_mph"])
+    if modeled.empty:
+        (out_dir / "speed_validation_not_available.txt").write_text(
+            "speed_validation.csv has no modeled link speeds for the matched observed segments.\n"
+        )
+        return
+
+    plt.figure(figsize=(7, 7))
+    for scenario, color in [("real", "#2f6f9f"), ("synthetic", "#d8892b")]:
+        group = modeled[modeled["scenario"] == scenario]
+        plt.scatter(
+            group["observed_speed_mph"],
+            group["model_speed_mph"],
+            s=16,
+            alpha=0.55,
+            label=scenario,
+            color=color,
+        )
+    limit = float(np.nanmax(modeled[["observed_speed_mph", "model_speed_mph"]].to_numpy()))
+    plt.plot([0, limit], [0, limit], color="#444444", linewidth=1)
+    plt.xlabel("Observed speed (mph)")
+    plt.ylabel("Modeled link speed (mph)")
+    plt.title("MATSim vs VDOT 511 Speeds")
+    plt.legend()
+    savefig(out_dir / "matsim_vs_observed_speed_scatter.png")
+
+    plt.figure(figsize=(8, 5))
+    bins = np.linspace(0, min(40, modeled["absolute_error_mph"].quantile(0.99)), 40)
+    for scenario, color in [("real", "#2f6f9f"), ("synthetic", "#d8892b")]:
+        group = modeled[modeled["scenario"] == scenario]
+        plt.hist(group["absolute_error_mph"].dropna(), bins=bins, alpha=0.55, label=scenario, color=color)
+    plt.xlabel("Absolute speed error (mph)")
+    plt.ylabel("Matched speed segments")
+    plt.title("Speed Error Distribution")
+    plt.legend()
+    savefig(out_dir / "speed_absolute_error_distribution.png")
 
 
 def write_outputs(args: argparse.Namespace) -> None:
@@ -516,9 +642,17 @@ def write_outputs(args: argparse.Namespace) -> None:
     observed_summary.to_csv(args.out_dir / "observed_count_summary.csv", index=False)
     plot_observed_counts(args.network_dir, charts_dir)
 
+    observed_speeds = observed_speed_summary(args.network_dir)
+    observed_speeds.to_csv(args.out_dir / "observed_speed_summary.csv", index=False)
+    plot_observed_speeds(args.network_dir, charts_dir)
+
     validation_summary = count_validation_summary(args.scenario_dir)
     validation_summary.to_csv(args.out_dir / "count_validation_summary.csv", index=False)
     plot_validation_if_available(args.scenario_dir, charts_dir)
+
+    speed_summary = speed_validation_summary(args.scenario_dir)
+    speed_summary.to_csv(args.out_dir / "speed_validation_summary.csv", index=False)
+    plot_speed_validation_if_available(args.scenario_dir, charts_dir)
 
     manifest = pd.DataFrame(
         [

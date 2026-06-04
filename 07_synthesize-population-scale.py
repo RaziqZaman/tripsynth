@@ -29,7 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
     parser.add_argument("--samples", type=int, default=None)
     parser.add_argument("--weight-column", default=WEIGHT_COLUMN)
-    parser.add_argument("--sample-batch-size", type=int, default=4096)
+    parser.add_argument("--sample-batch-size", type=int, default=2048)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     return parser.parse_args()
@@ -105,7 +105,7 @@ def main() -> int:
         num_numeric=len(preprocessor.numeric_columns),
         cardinalities=cardinalities,
         latent_dim=latent_dim,
-        hidden_dims=list(saved_args.get("hidden_dims", [2048, 1920])),
+        hidden_dims=list(saved_args.get("hidden_dims", [2048, 1920, 1536, 1024])),
         embedding_cap=int(saved_args.get("embedding_cap", 32)),
         dropout=float(saved_args.get("dropout", 0.05)),
     ).to(device)

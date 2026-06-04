@@ -1,0 +1,23 @@
+{
+  "candidate_nodes": 9302440,
+  "highway_segment_counts": {
+    "living_street": 832,
+    "motorway": 16157,
+    "motorway_link": 24924,
+    "primary": 45740,
+    "primary_link": 5808,
+    "residential": 635144,
+    "secondary": 69971,
+    "secondary_link": 3183,
+    "service": 675901,
+    "tertiary": 108411,
+    "tertiary_link": 1280,
+    "trunk": 22126,
+    "trunk_link": 6706,
+    "unclassified": 46413
+  },
+  "kept_segments": 1662596,
+  "matsim_directed_links": 3325192,
+  "raw_segments": 1743599,
+  "ways": 850254
+}

@@ -9,7 +9,8 @@ STATE_FILTER="${STATE_FILTER:-Maryland}"
 STATE_FILTER_MODE="${STATE_FILTER_MODE:-both}"
 MATSIM_HEAP="${MATSIM_HEAP:-112g}"
 THREADS="${THREADS:-8}"
-SAMPLE_BATCH_SIZE="${SAMPLE_BATCH_SIZE:-8192}"
+SAMPLE_BATCH_SIZE="${SAMPLE_BATCH_SIZE:-2048}"
+OBSERVED_SPEEDS="${OBSERVED_SPEEDS:-$NETWORK_DIR/observed_speeds.csv}"
 ALLOW_FULL_POP_MATSIM="${ALLOW_FULL_POP_MATSIM:-0}"
 
 mkdir -p "$POP_DIR" "$SCENARIO_DIR"
@@ -89,32 +90,23 @@ step "Writing MATSim configs"
 run_matsim real
 run_matsim synthetic
 
-step "Extracting MATSim link volumes"
-.venv/bin/python 06_extract-matsim-link-volumes.py \
+step "Extracting MATSim link traversal speeds"
+.venv/bin/python 06_extract-matsim-link-speeds.py \
   --events "$SCENARIO_DIR/matsim_real/output_events.xml.gz" \
-  --out "$SCENARIO_DIR/real_matsim_link_volumes.csv"
-.venv/bin/python 06_extract-matsim-link-volumes.py \
+  --network-links "$NETWORK_DIR/network_links.csv" \
+  --out "$SCENARIO_DIR/real_matsim_link_speeds.csv"
+.venv/bin/python 06_extract-matsim-link-speeds.py \
   --events "$SCENARIO_DIR/matsim_synthetic/output_events.xml.gz" \
-  --out "$SCENARIO_DIR/synthetic_matsim_link_volumes.csv"
+  --network-links "$NETWORK_DIR/network_links.csv" \
+  --out "$SCENARIO_DIR/synthetic_matsim_link_speeds.csv"
 
-step "Aggregating link volumes to observed count links"
-.venv/bin/python 06_aggregate-matsim-volumes.py \
-  --link-volumes "$SCENARIO_DIR/real_matsim_link_volumes.csv" \
-  --link-map "$NETWORK_DIR/matsim_link_count_map.csv" \
-  --out "$SCENARIO_DIR/real_assigned_link_counts.csv"
-.venv/bin/python 06_aggregate-matsim-volumes.py \
-  --link-volumes "$SCENARIO_DIR/synthetic_matsim_link_volumes.csv" \
-  --link-map "$NETWORK_DIR/matsim_link_count_map.csv" \
-  --out "$SCENARIO_DIR/synthetic_assigned_link_counts.csv"
-
-step "Comparing assigned volumes against observed counts"
-.venv/bin/python 06_compare-stage1-counts.py \
-  --scenario-totals "$SCENARIO_DIR/scenario_totals.csv" \
-  --observed-counts "$NETWORK_DIR/observed_counts.csv" \
-  --real-assigned "$SCENARIO_DIR/real_assigned_link_counts.csv" \
-  --synthetic-assigned "$SCENARIO_DIR/synthetic_assigned_link_counts.csv" \
-  --out "$SCENARIO_DIR/count_validation.csv" \
-  --summary-out "$SCENARIO_DIR/count_validation_summary.csv"
+step "Comparing simulated speeds against observed VDOT 511 speeds"
+.venv/bin/python 06_compare-stage1-speeds.py \
+  --observed-speeds "$OBSERVED_SPEEDS" \
+  --real-link-speeds "$SCENARIO_DIR/real_matsim_link_speeds.csv" \
+  --synthetic-link-speeds "$SCENARIO_DIR/synthetic_matsim_link_speeds.csv" \
+  --out "$SCENARIO_DIR/speed_validation.csv" \
+  --summary-out "$SCENARIO_DIR/speed_validation_summary.csv"
 
 step "Building comparison charts and report bundle"
 .venv/bin/python 06_visualize-stage1-results.py \
@@ -124,7 +116,7 @@ step "Building comparison charts and report bundle"
 
 step "DONE"
 echo "Key outputs:"
-echo "  $SCENARIO_DIR/count_validation_summary.csv"
-echo "  $SCENARIO_DIR/count_validation.csv"
+echo "  $SCENARIO_DIR/speed_validation_summary.csv"
+echo "  $SCENARIO_DIR/speed_validation.csv"
 echo "  $SCENARIO_DIR/stage1_comparison/"
 echo "  $POP_DIR/comparison/"

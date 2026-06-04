@@ -52,6 +52,9 @@ class WayRecord:
     lanes: float
     freespeed: float
     capacity: float
+    name: str
+    ref: str
+    route_ref: str
 
 
 @dataclass(frozen=True)
@@ -70,6 +73,9 @@ class SegmentRecord:
     lanes: float
     freespeed: float
     capacity: float
+    name: str
+    ref: str
+    route_ref: str
 
 
 class UnionFind:
@@ -127,6 +133,11 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=1.0,
         help="drop degenerate OSM segments shorter than this",
+    )
+    parser.add_argument(
+        "--bbox",
+        default="",
+        help="optional lon_min,lat_min,lon_max,lat_max filter for a smaller network",
     )
     return parser.parse_args()
 
@@ -253,6 +264,18 @@ class WayCollector(osmium.SimpleHandler):
                 lanes=lanes,
                 freespeed=freespeed,
                 capacity=capacity,
+                name=tags.get("name", ""),
+                ref=tags.get("ref", ""),
+                route_ref=";".join(
+                    value
+                    for value in [
+                        tags.get("ref", ""),
+                        tags.get("nat_ref", ""),
+                        tags.get("int_ref", ""),
+                        tags.get("destination:ref", ""),
+                    ]
+                    if value
+                ),
             )
         )
         self.node_ids.update(node_ids)
@@ -295,10 +318,41 @@ def collect_nodes(path: Path, node_ids: set[int]) -> dict[int, tuple[float, floa
     return collector.nodes
 
 
+def parse_bbox(value: str) -> tuple[float, float, float, float] | None:
+    if not value:
+        return None
+    parts = [parse_float(part.strip(), float("nan")) for part in value.split(",")]
+    if len(parts) != 4 or any(math.isnan(part) for part in parts):
+        raise ValueError("--bbox must be lon_min,lat_min,lon_max,lat_max")
+    lon_min, lat_min, lon_max, lat_max = parts
+    if lon_min >= lon_max or lat_min >= lat_max:
+        raise ValueError("--bbox minimums must be less than maximums")
+    return lon_min, lat_min, lon_max, lat_max
+
+
+def segment_intersects_bbox(
+    from_lon: float,
+    from_lat: float,
+    to_lon: float,
+    to_lat: float,
+    bbox: tuple[float, float, float, float] | None,
+) -> bool:
+    if bbox is None:
+        return True
+    lon_min, lat_min, lon_max, lat_max = bbox
+    return (
+        max(from_lon, to_lon) >= lon_min
+        and min(from_lon, to_lon) <= lon_max
+        and max(from_lat, to_lat) >= lat_min
+        and min(from_lat, to_lat) <= lat_max
+    )
+
+
 def build_segments(
     ways: list[WayRecord],
     nodes: dict[int, tuple[float, float]],
     min_segment_length_m: float,
+    bbox: tuple[float, float, float, float] | None,
 ) -> tuple[list[SegmentRecord], UnionFind]:
     segments: list[SegmentRecord] = []
     components = UnionFind()
@@ -312,6 +366,14 @@ def build_segments(
             if from_coord is None or to_coord is None:
                 continue
             length_m = haversine_m(from_coord[0], from_coord[1], to_coord[0], to_coord[1])
+            if not segment_intersects_bbox(
+                from_coord[0],
+                from_coord[1],
+                to_coord[0],
+                to_coord[1],
+                bbox,
+            ):
+                continue
             if length_m < min_segment_length_m:
                 continue
             sequence += 1
@@ -332,6 +394,9 @@ def build_segments(
                     lanes=way.lanes,
                     freespeed=way.freespeed,
                     capacity=way.capacity,
+                    name=way.name,
+                    ref=way.ref,
+                    route_ref=way.route_ref,
                 )
             )
     return segments, components
@@ -412,6 +477,9 @@ def write_links(path: Path, segments: list[SegmentRecord]) -> None:
             "lanes",
             "freespeed",
             "capacity",
+            "name",
+            "ref",
+            "route_ref",
         ]
         writer = csv.DictWriter(output_file, fieldnames=fieldnames)
         writer.writeheader()
@@ -430,6 +498,9 @@ def write_links(path: Path, segments: list[SegmentRecord]) -> None:
                     "lanes": f"{segment.lanes:.3f}",
                     "freespeed": f"{segment.freespeed:.3f}",
                     "capacity": f"{segment.capacity:.3f}",
+                    "name": segment.name,
+                    "ref": segment.ref,
+                    "route_ref": segment.route_ref,
                 }
             )
 
@@ -490,7 +561,8 @@ def main() -> int:
 
     ways = collect_ways(args.pbf)
     nodes = collect_nodes(args.pbf, ways.node_ids)
-    raw_segments, components = build_segments(ways.ways, nodes, args.min_segment_length_m)
+    bbox = parse_bbox(args.bbox)
+    raw_segments, components = build_segments(ways.ways, nodes, args.min_segment_length_m, bbox)
     kept_segments = filter_largest_component(
         raw_segments,
         components,

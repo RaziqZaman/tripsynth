@@ -56,11 +56,11 @@
 \address[a]{Department of Civil and Environmental Engineering, University of Maryland}
 
 \begin{abstract}
-This study develops and evaluates a weighted, mixed-type Variational Autoencoder (VAE) for synthesizing person-trip records that can be converted into agent-based road-assignment inputs. The revised model treats continuous and nominal variables separately: numeric attributes are standardized and reconstructed with mean squared error, while categorical attributes are embedded, decoded through column-specific softmax heads, and trained with cross-entropy loss. This avoids imposing artificial ordinal distances on variables such as activity purpose, employment status, travel mode, and vehicle type. Household travel survey expansion weights are used during training and to set the population-scale number of synthetic trips; therefore, population and trip totals are control inputs rather than quantities inferred from the VAE. After preprocessing the Maryland Statewide Household Travel Survey and the Metropolitan Washington Council of Governments Regional Travel Survey, the modeling file contains \num{111808} long-format trip records and 79 modeled attributes. The trained VAE uses a 1800-dimensional standard-normal latent prior, two hidden layers with 2048 and 1920 units, categorical embeddings capped at 32 dimensions, and a beta-VAE loss with $\beta=0.01$. Sampling at the survey expansion scale produces \num{19103571} synthetic trip records, matching the weighted survey trip total of \num{19103571.28}. Distributional validation shows strong agreement for travel mode, vehicle occupancy, activity purpose, and reported travel time, while high-cardinality spatial fields remain more difficult. A car-only MATSim Stage 1 validation then evaluates road loading against Maryland State Highway Administration annual average daily traffic counts. The synthetic demand improves spatial correlation with observed count volumes in several county tests but does not yet outperform weighted survey inputs on absolute volume-error metrics. The results indicate that mixed-type VAEs can enrich trip microdata for spatial pattern analysis, but absolute demand calibration and multimodal choice modeling remain necessary before policy applications.
+This study develops and evaluates a weighted, mixed-type Variational Autoencoder (VAE) for synthesizing person-trip records that can be converted into agent-based road-assignment inputs. The revised model treats continuous and nominal variables separately: numeric attributes are standardized and reconstructed with mean squared error, while categorical attributes are embedded, decoded through column-specific softmax heads, and trained with cross-entropy loss. This avoids imposing artificial ordinal distances on variables such as activity purpose, employment status, travel mode, and vehicle type. Household travel survey expansion weights are used during training and to set the population-scale number of synthetic trips; therefore, population and trip totals are control inputs rather than quantities inferred from the VAE. After preprocessing the Maryland Statewide Household Travel Survey and the Metropolitan Washington Council of Governments Regional Travel Survey, the modeling file contains \num{111808} long-format trip records and 79 modeled attributes. The trained VAE uses a 1800-dimensional standard-normal latent prior, four hidden layers with 2048, 1920, 1536, and 1024 units, categorical embeddings capped at 32 dimensions, and a beta-VAE loss with $\beta=0.01$. The deeper encoder and decoder are paired with a smaller training batch size of 512 and sampling batch size of 2048 to improve capacity while limiting GPU memory pressure. Sampling at the survey expansion scale produces \num{19103571} synthetic trip records, matching the weighted survey trip total of \num{19103571.28}. Distributional validation shows strong agreement for travel mode, vehicle occupancy, activity purpose, and reported travel time, while high-cardinality spatial fields remain more difficult. A car-only MATSim Stage 1 validation is revised to compare simulated link traversal speeds against direct observed speeds from the public VDOT 511 travel-time feed, rather than using volume-based proxies. The validation matches VDOT travel-time segments to OSM-derived MATSim links by route metadata and geometry, extracts simulated speeds from MATSim link-entry and link-exit events, and compares weighted-survey and VAE-synthetic demand using speed bias, MAE, RMSE, MAPE, correlation, and within-tolerance shares.
 \end{abstract}
 
 \begin{keyword}
-Variational Autoencoder; Synthetic Trips; Mixed-Type Tabular Data; Household Travel Survey; MATSim; Traffic Counts
+Variational Autoencoder; Synthetic Trips; Mixed-Type Tabular Data; Household Travel Survey; MATSim; Traffic Speeds
 \end{keyword}
 
 \end{frontmatter}
@@ -69,7 +69,7 @@ Variational Autoencoder; Synthetic Trips; Mixed-Type Tabular Data; Household Tra
 \begin{itemize}
     \item A mixed-type VAE models numeric fields and nominal categories with separate loss terms.
     \item Survey weights set the population-scale trip count instead of asking the VAE to predict population totals.
-    \item MATSim validation is framed as a car-only road-assignment and count-matching test, not a full mode-choice model.
+    \item MATSim validation is framed as a car-only road-assignment and observed-speed test, not a full mode-choice model.
 \end{itemize}
 
 \newpage
@@ -81,7 +81,7 @@ The quality of an agent-based simulation depends heavily on the population and t
 
 Deep generative models offer an alternative way to learn high-dimensional joint distributions from observed microdata. Variational Autoencoders (VAEs) are especially attractive because they provide a probabilistic latent representation and a direct sampling mechanism \cite{kingma_auto-encoding_2022}. However, tabular travel data contain a mixture of continuous fields and unordered categories. Treating all fields as integer values and optimizing a single mean squared error loss can impose false ordinal distances on nominal variables such as mode or activity purpose. In this paper, we therefore revise the model to use a mixed-type tabular VAE: numeric variables are reconstructed as standardized continuous values, whereas categorical variables are represented by embeddings and trained with cross-entropy loss.
 
-The purpose of the methodology is not to infer the total population count. In practice, population and trip totals should come from external controls such as survey expansion weights, census products, traffic counts, or planning forecasts. Our objective is narrower and more practical: generate a population-scale set of plausible trip records whose distributions and spatial-temporal patterns can be used as road-assignment demand in an agent-based simulator. The downstream MATSim exercise is correspondingly framed as a Stage 1 car-only network-loading validation against observed traffic counts. It evaluates route loading and spatial count patterns, not multimodal choice or long-run MATSim replanning equilibrium.
+The purpose of the methodology is not to infer the total population count. In practice, population and trip totals should come from external controls such as survey expansion weights, census products, observed traffic data, and planning forecasts. Our objective is narrower and more practical: generate a population-scale set of plausible trip records whose distributions and spatial-temporal patterns can be used as road-assignment demand in an agent-based simulator. The downstream MATSim exercise is correspondingly framed as a Stage 1 car-only network-loading validation against directly observed roadway speeds. It evaluates route loading and simulated link traversal speeds, not multimodal choice or long-run MATSim replanning equilibrium.
 
 \section{Literature Review}\label{sec:lit-review}
 Synthetic population and travel-demand generation has a long history in transport modeling. Travel surveys capture demographics, trip purposes, modes, times, and locations, while census and land-use sources provide more complete population controls. Classical approaches such as iterative proportional fitting, iterative proportional updating, rule-based expansion, and Markov-process methods remain common because they are interpretable and can match known marginals \cite{ramadan2019critical}. Their limitation is that they often require separate modules for population synthesis, trip generation, mode choice, and network assignment.
@@ -90,7 +90,7 @@ VAEs provide a probabilistic framework for learning joint distributions and samp
 
 Trip-level synthesis remains less mature. Some studies use generative models for stop sequences, origin--destination patterns, or mobility traces \cite{chiesa2022gps,long2023dual,lestyan2022dp,badu-marfo_composite_2022}, but many approaches still separate demographic synthesis from trip generation. For agent-based transport simulation, this separation can reduce coherence between household attributes, person attributes, vehicle ownership, activity purpose, departure time, and origin--destination fields.
 
-MATSim has been applied to many city and regional transport scenarios, including policy evaluation, emissions analysis, and synthetic-population validation \cite{w2016multi,horl2021synthetic,horl2025towards,felbermair2020generating,ziemke2019matsim}. In the present study, MATSim is used as an external validation environment: if VAE-synthesized trip records carry realistic spatial and temporal road demand, then their assigned traffic volumes should preserve meaningful relationships with observed traffic count data.
+MATSim has been applied to many city and regional transport scenarios, including policy evaluation, emissions analysis, and synthetic-population validation \cite{w2016multi,horl2021synthetic,horl2025towards,felbermair2020generating,ziemke2019matsim}. In the present study, MATSim is used as an external validation environment: if VAE-synthesized trip records carry realistic spatial and temporal road demand, then their assigned link traversal speeds should preserve meaningful relationships with observed roadway speed data.
 
 \section{Methods and Data}
 \subsection{Survey Sources and Problem Definition}
@@ -116,7 +116,7 @@ Figure~\ref{fig:pipeline} summarizes the implemented pipeline. The input surveys
 \node (sample) [below=of vae] {Population-scale sampling from $z\sim\mathcal{N}(0,I)$};
 \node (valid) [left=of sample] {Distribution and cross-marginal validation};
 \node (matsim) [left=of valid] {MATSim car-only road assignment};
-\node (counts) [below=of matsim] {MDOT SHA AADT count comparison};
+\node (counts) [below=of matsim] {VDOT 511 observed-speed comparison};
 \draw[->] (survey) -- (prep);
 \draw[->] (prep) -- (vae);
 \draw[->] (vae) -- (sample);
@@ -155,32 +155,28 @@ The VAE follows the general tabular-VAE idea of learning a compressed latent rep
 \[
 e_j=\min(32,\max(2,\lceil\sqrt{K_j}\rceil)).
 \]
-The numeric vector and all categorical embeddings are concatenated and passed through fully connected encoder layers of sizes 2048 and 1920 with layer normalization, ReLU activations, and dropout of 0.05. The encoder outputs a latent mean vector $\mu$ and log-variance vector $\log\sigma^2$ in an 1800-dimensional latent space. The decoder mirrors the hidden layers and produces one numeric head plus one categorical softmax head per categorical column.
+The numeric vector and all categorical embeddings are concatenated and passed through fully connected encoder layers of sizes 2048, 1920, 1536, and 1024 with layer normalization, ReLU activations, and dropout of 0.05. The encoder outputs a latent mean vector $\mu$ and log-variance vector $\log\sigma^2$ in an 1800-dimensional latent space. The decoder mirrors this depth in reverse order and produces one numeric head plus one categorical softmax head per categorical column.
 
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
-    node distance=.35cm,
-    every node/.style={draw, rectangle, font=\small, text width=4.2cm, align=center, inner sep=4pt},
+    node distance=.45cm,
+    every node/.style={draw, rectangle, font=\small, text width=5.8cm, align=center, inner sep=4pt},
     >=Stealth
 ]
 \node (input) {Numeric fields + categorical fields};
 \node (embed) [below=of input] {Standardize numeric fields; embed each categorical field};
-\node (enc1) [below=of embed] {Encoder: Linear(2048) + LayerNorm + ReLU + Dropout};
-\node (enc2) [below=of enc1] {Encoder: Linear(1920) + LayerNorm + ReLU + Dropout};
-\node (latent) [below=of enc2] {Latent $\mu$ (1800), $\log\sigma^2$ (1800)};
+\node (enc) [below=of embed] {Encoder MLP: 2048 $\rightarrow$ 1920 $\rightarrow$ 1536 $\rightarrow$ 1024, each with LayerNorm + ReLU + Dropout};
+\node (latent) [below=of enc] {Latent $\mu$ (1800), $\log\sigma^2$ (1800)};
 \node (sample) [below=of latent] {$z=\mu+\sigma\epsilon$, $\epsilon\sim\mathcal{N}(0,I)$};
-\node (dec1) [below=of sample] {Decoder: Linear(1920) + LayerNorm + ReLU + Dropout};
-\node (dec2) [below=of dec1] {Decoder: Linear(2048) + LayerNorm + ReLU + Dropout};
-\node (out) [below=of dec2] {Numeric reconstruction + categorical softmax heads};
+\node (dec) [below=of sample] {Decoder MLP: 1024 $\rightarrow$ 1536 $\rightarrow$ 1920 $\rightarrow$ 2048, each with LayerNorm + ReLU + Dropout};
+\node (out) [below=of dec] {Numeric reconstruction + categorical softmax heads};
 \draw[->] (input) -- (embed);
-\draw[->] (embed) -- (enc1);
-\draw[->] (enc1) -- (enc2);
-\draw[->] (enc2) -- (latent);
+\draw[->] (embed) -- (enc);
+\draw[->] (enc) -- (latent);
 \draw[->] (latent) -- (sample);
-\draw[->] (sample) -- (dec1);
-\draw[->] (dec1) -- (dec2);
-\draw[->] (dec2) -- (out);
+\draw[->] (sample) -- (dec);
+\draw[->] (dec) -- (out);
 \end{tikzpicture}
 \caption{\textbf{Mixed-type VAE architecture used in the revised implementation.}}
 \label{fig:architecture}
@@ -202,7 +198,7 @@ Here, $\mathcal{L}_{num}$ is mean squared error over standardized numeric fields
 \]
 The standard-normal prior is used because it is the conventional VAE sampling prior and provides a smooth, directly sampleable latent space. The relatively high latent dimension and low $\beta$ were selected for this high-cardinality tabular setting to prioritize reconstruction of rare spatial and behavioral combinations while retaining stochastic sampling. They should be interpreted as the reported configuration rather than a universally optimal hyperparameter set.
 
-The reported training run uses 5040 epochs, batch size 1024, learning rate $10^{-3}$, AdamW optimization, and random seed 2026. Figure~\ref{fig:training-loss} shows that the total loss, numeric loss, categorical loss, and KL term stabilize over training.
+The reported training configuration uses a maximum of 5040 epochs, batch size 512, sampling batch size 2048, initial learning rate $10^{-3}$, AdamW optimization, gradient clipping at norm 5, and random seed 2026. The trainer reduces the learning rate on loss plateaus down to a floor of $10^{-5}$ and applies early stopping after sustained non-improvement, so short within-epoch fluctuations are not interpreted as convergence failure. Figure~\ref{fig:training-loss} shows that the total loss, numeric loss, categorical loss, and KL term stabilize over training.
 
 \begin{figure}[H]
 \centering
@@ -221,19 +217,19 @@ The MATSim validation is designed as a Stage 1 road-assignment test. It is not a
 \]
 For weighted survey rows, the person-trip weight is \texttt{wthhfin}. For population-scale synthetic rows, each generated trip has person-trip weight one. Fractional vehicle weights are expanded stochastically into ordinary unweighted MATSim car agents.
 
-Each MATSim agent in this Stage 1 setup represents one vehicle trip: an origin activity at the origin TAZ centroid, a car leg, and a destination activity at the destination TAZ centroid. The network is built from OpenStreetMap Maryland road data \cite{openstreetmapOpenStreetMap}. Observed traffic counts are obtained from Maryland State Highway Administration annual average daily traffic (AADT) count points \cite{MDOTSHAA72:online}. Count points are matched to nearest network links within \SI{100}{m}; the statewide OSM build matched \num{8762} of \num{8773} count points.
+Each MATSim agent in this Stage 1 setup represents one vehicle trip: an origin activity at the origin TAZ centroid, a car leg, and a destination activity at the destination TAZ centroid. The network is built from OpenStreetMap PBF data \cite{openstreetmapOpenStreetMap}. The revised implementation can build a full state network or a smaller bounding-box network; the OSM-to-MATSim export now preserves link geometry, road class, length, free speed, capacity, name, reference route, and route-reference tags so that external speed segments can be matched to the simulated network.
 
-Two levels of validation are reported. First, a Maryland-internal comparison scales weighted real and synthetic road demand to the same reduced vehicle-trip total, \num{218004.4}, allowing a direct comparison of assigned volumes. Second, county-level population-scale runs compare weighted real survey demand and VAE synthetic demand separately for Maryland counties with sufficient observed counts and runnable demand. These two scenarios are never mixed: the ``real'' scenario uses weighted survey trips, while the ``synthetic'' scenario uses VAE-generated trips.
+Observed speeds are obtained directly from the public VDOT 511 travel-time feed rather than inferred from volume-based proxies. The implementation fetches \texttt{travel\_time\_response.json}, which contains current travel-time segment values including \texttt{avgSpeed}, and \texttt{travel\_time\_segments\_metadata.json}, which contains route descriptions and segment endpoint metadata. The source endpoints used by the code are \url{https://data.511-atis-ttrip-prod.iteriscloud.com/datasets/travelTime/travel_time_response.json} and \url{https://data.511-atis-ttrip-prod.iteriscloud.com/datasets/travelTime/travel_time_segments_metadata.json}. Because this public feed is a current operational snapshot rather than a licensed historical archive such as NPMRDS or RITIS, the fetched UTC timestamp and source URLs are written to every observed-speed row.
 
-Model performance is evaluated with distributional overlap, total variation distance, mean absolute error (MAE), root mean squared error (RMSE), mean absolute percentage error (MAPE), Pearson correlation, GEH statistics, and spatial pattern metrics. Distributional overlap is defined as
+The speed-matching step first flattens the VDOT feed into segment-direction observations with route, description, start point, end point, observed speed, travel time, length, congestion, and imputation fields. Observed segments are then matched to OSM-derived MATSim links using route tokens from route names and reference tags when available, plus geometric segment-to-segment distance. The default maximum match distance is \SI{500}{m}. Direction is assigned by comparing the observed segment vector with the OSM link vector, producing a directed MATSim link identifier.
+
+After MATSim runs, simulated speeds are extracted from link-entry and link-exit events. For every completed traversal of a directed link, travel time is the difference between the \texttt{entered link} and \texttt{left link} event times, and speed is computed as link length divided by traversal time. For each scenario, link speeds are summarized as traversal-weighted mean speeds and compared with the matched VDOT observed speeds. The primary comparison is between the weighted-survey baseline and the VAE synthetic demand under the same road network, demand geography, and MATSim configuration.
+
+Model performance is evaluated with distributional overlap for input demand and with speed-specific assignment metrics for the MATSim validation: mean bias in mph, MAE, RMSE, MAPE, Pearson correlation, and the share of matched segments within 5~mph and 10~mph of observed VDOT speed. Distributional overlap remains
 \[
 O(P,Q)=\sum_b \min(P_b,Q_b)=1-\mathrm{TVD}(P,Q),
 \]
-where $P_b$ and $Q_b$ are real and synthetic proportions in bin or category $b$. GEH is computed as
-\[
-\mathrm{GEH}=\sqrt{\frac{2(M-C)^2}{M+C}},
-\]
-where $M$ is modeled volume and $C$ is observed count volume.
+where $P_b$ and $Q_b$ are real and synthetic proportions in bin or category $b$.
 
 \section{Results and Discussion}
 \subsection{Population-Scale Synthetic Trip Validation}
@@ -285,83 +281,24 @@ Figure~\ref{fig:tvd-breakdown} ranks all modeled columns by total variation dist
 
 Pairwise cross-marginal validation shows the same limitation. Low-overlap pairs include TAZ-by-survey-day and origin--destination TAZ combinations, reflecting the high dimensionality and sparsity of the spatial fields. Consequently, the current model is best understood as a trip-microdata enrichment tool, not as a replacement for spatial control totals or calibrated origin--destination matrices.
 
-\subsection{Maryland-Internal MATSim Stage 1 Validation}
-The Maryland-internal road-assignment comparison uses the same total scaled vehicle demand for the weighted survey scenario and the synthetic scenario: \num{218004.4} vehicle trips. The input demand distributions are reasonably close. Overlap is 0.966 for travel mode, 0.931 for destination activity, 0.904 for origin activity, 0.902 for departure hour, 0.852 for activity pairs, 0.744 for origin TAZ, and 0.733 for destination TAZ.
+\subsection{Revised MATSim Observed-Speed Validation}
+The revised MATSim validation reports observed-speed errors as the primary road-assignment comparison. The pipeline writes three observed-speed products: the raw VDOT 511 segment snapshot, the OSM/MATSim link-matched observed speeds, and the real-versus-synthetic MATSim speed comparison. The key output files are \texttt{observed\_speeds\_raw.csv}, \texttt{observed\_speeds.csv}, \texttt{speed\_validation.csv}, and \texttt{speed\_validation\_summary.csv}.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=.88\linewidth]{fig-hourly-vehicle-demand.png}
-\caption{\textbf{Weighted real and synthetic vehicle trips by departure hour for the Maryland-internal Stage 1 MATSim validation.}}
-\label{fig:hourly-demand}
-\end{figure}
+The summary table produced by the rerun reports matched and modeled segment counts, observed mean speed, modeled mean speed, mean speed bias, MAE, RMSE, MAPE, Pearson correlation, and shares within 5~mph and 10~mph. The intended decision rule is direct: the VAE synthetic demand more clearly outperforms the weighted-survey sampling baseline only if it improves the main speed-error metrics and correlation under the same observed-speed match set. This focuses the external validation on directly observed operating speeds rather than proxy volume patterns.
 
-Figure~\ref{fig:hourly-demand} shows that the synthetic demand captures the daily rise and evening decline but smooths the morning peak and shifts some demand later in the day. This smoothing is typical of generative models trained to reproduce aggregate distributions while sampling from a continuous latent space.
-
-The count validation uses \num{8745} matched AADT count links. Table~\ref{tab:stage1-counts} reports the main metrics. The synthetic scenario has higher Pearson correlation with observed counts than the weighted real scenario, but the weighted real scenario has lower MAE, RMSE, MAPE, and a slightly higher share of links with GEH below 5. Both scenarios underload total observed AADT because this Stage 1 setup uses a reduced Maryland-internal car-demand subset rather than a fully calibrated regional model.
-
-\begin{table}[H]
-\centering
-\caption{Maryland-internal MATSim count validation against scaled observed AADT counts.}
-\label{tab:stage1-counts}
-\footnotesize
-\begin{tabular}{lrrrrr}
-\toprule
-\textbf{Scenario} & \textbf{MAE} & \textbf{RMSE} & \textbf{MAPE} & \textbf{Correlation} & \textbf{GEH $<5$ share} \\
-\midrule
-Weighted survey & 528.35 & 1209.94 & 0.968 & 0.461 & 0.079 \\
-VAE synthetic & 556.89 & 1326.64 & 1.224 & 0.507 & 0.071 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=.70\linewidth]{fig-assigned-vs-observed.png}
-\caption{\textbf{Assigned and observed count volumes in the Maryland-internal Stage 1 comparison.}}
-\label{fig:assigned-observed}
-\end{figure}
-
-\subsection{County-Level Count and Spatial-Pattern Tests}
-The county-level validation compares weighted real survey demand and population-scale VAE synthetic demand against observed AADT counts in completed county runs. The current completed set includes Anne Arundel, Calvert, Carroll, Charles, Frederick, Howard, Montgomery, Prince George's, and St. Mary's counties. These are not held-out training counties; rather, they provide an external traffic-count validation of the generated demand.
-
-Figure~\ref{fig:county-winners} summarizes which input source performs better by county and metric. Weighted survey inputs outperform synthetic inputs on absolute volume-error metrics in nearly all county comparisons: real wins MAE in 9 of 9 counties, RMSE in 8 of 9, MAPE in 9 of 9, GEH$<5$ share in 8 of 9, and total-volume error in 9 of 9. This is expected because direct weighted survey expansion remains closer to observed aggregate scale where the survey sample is available.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=.92\linewidth]{fig-county-metric-winners.png}
-\caption{\textbf{County-level metric winners for weighted survey and VAE synthetic demand.}}
-\label{fig:county-winners}
-\end{figure}
-
-The synthetic demand is more competitive on spatial pattern metrics. It wins Pearson correlation in 6 of 9 counties and log-Pearson correlation in all 9 completed counties. Paired spatial-pattern tests also show synthetic wins for Spearman rank correlation in 7 of 9 counties, top-count-link capture in 7 counties with 1 tie, and top-count-link Jaccard similarity in 7 counties with 1 tie. Figure~\ref{fig:spearman-diff} illustrates the Spearman differences by county.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=.86\linewidth]{fig-spearman-diff-by-county.png}
-\caption{\textbf{Synthetic-minus-real Spearman differences for county spatial count patterns. Positive values favor the VAE synthetic demand.}}
-\label{fig:spearman-diff}
-\end{figure}
-
-The pooled county scatter in Figure~\ref{fig:pooled-county-scatter} reinforces the same conclusion. Neither input source is yet calibrated to absolute observed AADT magnitudes, but the synthetic input often preserves relative spatial structure as well as, or better than, direct survey expansion. This is a useful property for enriching sparse microdata, but it is not sufficient for final planning forecasts without external volume controls.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=.70\linewidth]{fig-pooled-county-assigned-vs-observed.png}
-\caption{\textbf{Pooled county modeled-versus-observed count volumes across completed county validations.}}
-\label{fig:pooled-county-scatter}
-\end{figure}
+The visualization bundle has also been revised for speed validation. It includes observed VDOT speed distributions, VDOT-to-OSM match-distance diagnostics, modeled-versus-observed speed scatter plots, and absolute speed-error histograms for the weighted-survey and VAE-synthetic scenarios. These figures should be regenerated after each feed pull because the public VDOT 511 data are time-varying operational observations.
 
 \subsection{Scope and Limitations}
-The revised methodology directly addresses several weaknesses of the earlier implementation. First, nominal variables are no longer treated as ordered integers under a global mean squared error loss. Second, population-scale trip counts are fixed by survey weights, avoiding the earlier issue of synthetic population totals drifting from known controls. Third, the MATSim experiment is explicitly scoped as a car-only road-assignment validation, rather than a full multimodal activity-based simulation.
+The revised methodology directly addresses several weaknesses of the earlier implementation. First, nominal variables are no longer treated as ordered integers under a global mean squared error loss. Second, population-scale trip counts are fixed by survey weights, avoiding the earlier issue of synthetic population totals drifting from known controls. Third, the VAE has a deeper encoder and decoder while using smaller training and sampling batches to reduce memory pressure. Fourth, the MATSim validation now uses directly observed travel speeds as the road-performance target.
 
-Important limitations remain. The VAE is trained on the same survey geography used in validation, so the present county experiments do not constitute a strict spatial hold-out transferability test. A stronger future design should train on selected high-quality counties and evaluate on withheld counties with sufficient independent count data. The current MATSim agents are single vehicle-trip agents located at TAZ centroids, not full-day household activity plans with within-zone location sampling. Mode choice is synthesized as an attribute but not modeled endogenously in MATSim. Finally, absolute count performance remains weak without demand calibration, external origin--destination controls, and a complete regional multimodal network.
+Important limitations remain. The VAE is trained on the same broad survey geography used in validation, so the present experiments do not constitute a strict spatial hold-out transferability test. A stronger future design should train on selected geographies and evaluate on withheld areas with sufficient independent speed data. The public VDOT 511 feed is an operational snapshot, not a historical time-matched speed archive; future work should use NPMRDS, RITIS, probe-vehicle archives, or agency detector archives when licensed access is available. The current MATSim agents are single vehicle-trip agents located at TAZ centroids, not full-day household activity plans with within-zone location sampling. Mode choice is synthesized as an attribute but not modeled endogenously in MATSim. Finally, speed performance can still be weak without demand calibration, external origin--destination controls, and a complete regional multimodal network.
 
 \section{Conclusion}
 This paper presents a revised VAE-based trip synthesis pipeline that is better aligned with the statistical structure of household travel survey data. The key methodological change is mixed-type modeling: numeric variables are reconstructed continuously, while nominal categorical variables are embedded and trained with cross-entropy. Survey weights are used both during training and to set the population-scale sample size, so the VAE generates microstructure rather than population totals.
 
-The population-scale synthetic dataset matches the weighted survey trip total by construction and reproduces many major univariate distributions, including travel mode, vehicle occupancy, activity purpose, and reported travel time. Spatial TAZ fields and sparse cross-marginals remain harder, which is expected in high-cardinality origin--destination synthesis. In MATSim road-assignment validation, synthetic demand improves several spatial-pattern metrics and correlations with observed count volumes, while weighted survey inputs still dominate absolute volume-error metrics.
+The population-scale synthetic dataset matches the weighted survey trip total by construction and reproduces many major univariate distributions, including travel mode, vehicle occupancy, activity purpose, and reported travel time. Spatial TAZ fields and sparse cross-marginals remain harder, which is expected in high-cardinality origin--destination synthesis. The revised MATSim validation is designed to test road-assignment realism against direct observed speeds, with the weighted survey expansion serving as the sampling baseline and the VAE synthetic demand as the competing input.
 
-The results support a cautious interpretation: mixed-type VAEs are promising for enriching trip microdata and preserving relative spatial patterns, but they should be combined with known population controls, count calibration, and multimodal choice modeling before use in policy-sensitive forecasting. Future work should add explicit hold-out transferability tests, condition generation on external demographic and OD controls, sample coordinates within TAZ polygons, reconstruct full-day person plans, and include transit and mode-choice validation.
+The results support a cautious interpretation: mixed-type VAEs are promising for enriching trip microdata, but they should be combined with known population controls, speed or volume calibration, external OD controls, and multimodal choice modeling before use in policy-sensitive forecasting. Future work should add explicit hold-out transferability tests, condition generation on external demographic and OD controls, sample coordinates within TAZ polygons, reconstruct full-day person plans, and include transit and mode-choice validation.
 
 \section*{Acknowledgements}
 ChatGPT was used during manuscript and code preparation to refine grammar, improve sentence structure, assist with code drafting, and generate preliminary summary text. All AI-assisted content was reviewed and edited by the authors, who take full responsibility for the final manuscript. The authors acknowledge support from the USDOT Center for Multimodal Mobility in Urban, Rural, and Tribal Areas (CMMM) at the University of Maryland.

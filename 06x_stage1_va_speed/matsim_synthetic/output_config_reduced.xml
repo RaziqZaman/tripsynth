@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
+<config>
+	<module name="controler" >
+		<!-- Sets whether graphs showing some analyses should automatically be generated during the simulation. The generation of graphs usually takes a small amount of time that does not have any weight in big simulations, but add a significant overhead in smaller runs or in test cases where the graphical output is not even requested. -->
+		<param name="createGraphs" value="false" />
+		<!-- Default=1000. Last Iteration of a simulation. -->
+		<param name="lastIteration" value="0" />
+		<param name="outputDirectory" value="/home/raziq/Documents/Code/umd/tripsynth/06x_stage1_va_speed/matsim_synthetic" />
+		<!-- Possible values: failIfDirectoryExists,overwriteExistingFiles,deleteDirectoryIfExists -->
+		<param name="overwriteFiles" value="deleteDirectoryIfExists" />
+		<!-- iterationNumber % writeEventsInterval == 0 defines in which iterations events are written to a file. `0' disables events writing completely. -->
+		<param name="writeEventsInterval" value="1" />
+		<!-- iterationNumber % writePlansInterval == 0 defines (hopefully) in which iterations plans are written to a file. `0' disables plans writing completely.  Some plans in early iterations are always written -->
+		<param name="writePlansInterval" value="1" />
+	</module>
+	<module name="global" >
+		<param name="coordinateSystem" value="EPSG:4326" />
+		<!-- "global" number of threads.  This number is used, e.g., for replanning, but NOT in QSim.  This can typically be set to as many cores as you have available, or possibly even slightly more. -->
+		<param name="numberOfThreads" value="8" />
+		<param name="randomSeed" value="20260519" />
+	</module>
+	<module name="network" >
+		<param name="inputNetworkFile" value="/home/raziq/Documents/Code/umd/tripsynth/06x_stage1_va_speed_osm/network.xml.gz" />
+	</module>
+	<module name="planCalcScore" >
+		<parameterset type="scoringParameters" >
+			<parameterset type="activityParams" >
+				<param name="activityType" value="dummy" />
+				<!-- typical duration of activity.  needs to be defined and non-zero.  in sec. -->
+				<param name="typicalDuration" value="02:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="car interaction" />
+				<param name="typicalDuration" value="undefined" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="pt interaction" />
+				<param name="typicalDuration" value="undefined" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="bike interaction" />
+				<param name="typicalDuration" value="undefined" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="drt interaction" />
+				<param name="typicalDuration" value="undefined" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="taxi interaction" />
+				<param name="typicalDuration" value="undefined" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="other interaction" />
+				<param name="typicalDuration" value="undefined" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="walk interaction" />
+				<param name="typicalDuration" value="undefined" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_1" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_10" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_11" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_12" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_13" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_14" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_15" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_16" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_17" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_18" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_2" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_3" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_4" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_5" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_6" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_7" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_8" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="act_9" />
+				<param name="closingTime" value="30:00:00" />
+				<param name="openingTime" value="00:00:00" />
+				<param name="typicalDuration" value="12:00:00" />
+			</parameterset>
+			<parameterset type="activityParams" >
+				<param name="activityType" value="ride interaction" />
+				<param name="scoringThisActivityAtAll" value="false" />
+				<param name="typicalDuration" value="undefined" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="mode" value="pt" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="mode" value="walk" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="mode" value="bike" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="mode" value="ride" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="mode" value="other" />
+			</parameterset>
+			<parameterset type="modeParams" >
+				<param name="mode" value="car" />
+			</parameterset>
+		</parameterset>
+	</module>
+	<module name="plans" >
+		<param name="inputPlansFile" value="/home/raziq/Documents/Code/umd/tripsynth/06x_stage1_va_speed/synthetic_population.xml.gz" />
+	</module>
+	<module name="planscalcroute" >
+		<parameterset type="teleportedModeParameters" >
+			<param name="mode" value="bike" />
+		</parameterset>
+		<parameterset type="teleportedModeParameters" >
+			<param name="mode" value="walk" />
+		</parameterset>
+		<parameterset type="teleportedModeParameters" >
+			<param name="mode" value="non_network_walk" />
+		</parameterset>
+		<parameterset type="teleportedModeParameters" >
+			<param name="mode" value="ride" />
+		</parameterset>
+		<parameterset type="teleportedModeParameters" >
+			<param name="mode" value="pt" />
+		</parameterset>
+	</module>
+	<module name="qsim" >
+		<param name="endTime" value="30:00:00" />
+		<!-- Number of threads used for the QSim.  Note that this setting is independent from the "global" threads setting.  In contrast to earlier versions, the non-parallel special version is no longer there. -->
+		<param name="numberOfThreads" value="8" />
+		<!-- Boolean. `true': stuck vehicles are removed, aborting the plan; `false': stuck vehicles are forced into the next link. `false' is probably the better choice. -->
+		<param name="removeStuckVehicles" value="true" />
+		<param name="startTime" value="00:00:00" />
+		<!-- time in seconds.  Time after which the frontmost vehicle on a link is called `stuck' if it does not move. -->
+		<param name="stuckTime" value="1800.0" />
+	</module>
+
+</config>

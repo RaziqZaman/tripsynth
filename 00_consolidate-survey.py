@@ -8,6 +8,7 @@ from pathlib import Path
 
 
 INPUT_CSV = Path("combined-flat-survey.csv")
+FALLBACK_INPUT_CSV = Path("00__combined-flat-survey.csv")
 OUTPUT_CSV = Path("00x_consolidated-survey.csv")
 
 REMOVE_COLUMNS = {
@@ -126,7 +127,13 @@ def transform_row(
 
 
 def main() -> int:
-    with INPUT_CSV.open(newline="") as input_file:
+    input_csv = INPUT_CSV if INPUT_CSV.exists() else FALLBACK_INPUT_CSV
+    if not input_csv.exists():
+        raise FileNotFoundError(
+            f"missing input CSV; expected {INPUT_CSV} or {FALLBACK_INPUT_CSV}"
+        )
+
+    with input_csv.open(newline="") as input_file:
         reader = csv.DictReader(input_file)
         if reader.fieldnames is None:
             raise SystemExit(f"{INPUT_CSV} has no header")
@@ -139,6 +146,7 @@ def main() -> int:
             for row in reader:
                 writer.writerow(transform_row(row, output_columns, tract_to_county))
 
+    print(f"read {input_csv}")
     print(f"wrote {OUTPUT_CSV}")
     print(f"columns: {len(output_columns)}")
     return 0

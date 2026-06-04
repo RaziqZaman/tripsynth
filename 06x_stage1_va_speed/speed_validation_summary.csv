@@ -1,0 +1,3 @@
+scenario,matched_segments,modeled_segments,missing_model_segments,observed_mean_speed_mph,model_mean_speed_mph,mean_bias_mph,mae_mph,rmse_mph,mape,correlation,within_5_mph_share,within_10_mph_share
+real,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,nan
+synthetic,0,0,0,nan,nan,nan,nan,nan,nan,nan,nan,nan

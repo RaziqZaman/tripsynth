@@ -1,0 +1,1 @@
+scenario,segment_id,matsim_link_id,observed_speed_mph,model_speed_mph,error_mph,absolute_error_mph,percent_error,model_traversals,match_distance_m,route,description,observed_direction,matched_direction,congestion,imputation,fetched_at_utc

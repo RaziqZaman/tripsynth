@@ -1,0 +1,3 @@
+scenario,status,reason
+real,not_available,MATSim event files are empty or postprocess has not produced count_validation.csv
+synthetic,not_available,MATSim event files are empty or postprocess has not produced count_validation.csv

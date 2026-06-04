@@ -186,13 +186,25 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
     parser.add_argument("--samples", type=int, default=110_880)
     parser.add_argument("--epochs", type=int, default=5040)
-    parser.add_argument("--batch-size", type=int, default=1024)
-    parser.add_argument("--sample-batch-size", type=int, default=4096)
+    parser.add_argument("--batch-size", type=int, default=512)
+    parser.add_argument("--sample-batch-size", type=int, default=2048)
     parser.add_argument("--latent-dim", type=int, default=1800)
-    parser.add_argument("--hidden-dims", type=int, nargs="+", default=[2048, 1920])
+    parser.add_argument(
+        "--hidden-dims",
+        type=int,
+        nargs="+",
+        default=[2048, 1920, 1536, 1024],
+    )
     parser.add_argument("--embedding-cap", type=int, default=32)
     parser.add_argument("--dropout", type=float, default=0.05)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
+    parser.add_argument("--min-learning-rate", type=float, default=1e-5)
+    parser.add_argument("--plateau-patience", type=int, default=80)
+    parser.add_argument("--plateau-factor", type=float, default=0.5)
+    parser.add_argument("--early-stopping-patience", type=int, default=400)
+    parser.add_argument("--min-epochs", type=int, default=400)
+    parser.add_argument("--min-delta", type=float, default=1e-4)
+    parser.add_argument("--grad-clip", type=float, default=5.0)
     parser.add_argument("--beta", type=float, default=0.01)
     parser.add_argument("--num-workers", type=int, default=0)
     parser.add_argument("--seed", type=int, default=2026)
@@ -330,6 +342,15 @@ def train(
         pin_memory=device.type == "cuda",
     )
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer,
+        mode="min",
+        factor=args.plateau_factor,
+        patience=args.plateau_patience,
+        min_lr=args.min_learning_rate,
+    )
+    best_loss = float("inf")
+    epochs_without_improvement = 0
 
     for epoch in range(1, args.epochs + 1):
         model.train()
@@ -352,6 +373,8 @@ def train(
                 args.beta,
             )
             loss.backward()
+            if args.grad_clip and args.grad_clip > 0:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
             optimizer.step()
 
             batches += 1
@@ -367,15 +390,49 @@ def train(
             )
 
         if batches:
+            epoch_loss = totals["loss"] / batches
+            epoch_numeric_loss = totals["num"] / batches
+            epoch_categorical_loss = totals["cat"] / batches
+            epoch_kl_loss = totals["kl"] / batches
+            current_lr = optimizer.param_groups[0]["lr"]
             history.append(
                 {
                     "epoch": float(epoch),
-                    "loss": totals["loss"] / batches,
-                    "numeric_loss": totals["num"] / batches,
-                    "categorical_loss": totals["cat"] / batches,
-                    "kl_loss": totals["kl"] / batches,
+                    "loss": epoch_loss,
+                    "numeric_loss": epoch_numeric_loss,
+                    "categorical_loss": epoch_categorical_loss,
+                    "kl_loss": epoch_kl_loss,
+                    "learning_rate": current_lr,
                 }
             )
+            tqdm.write(
+                "epoch "
+                f"{epoch}/{args.epochs}: "
+                f"loss={epoch_loss:.6f} "
+                f"num={epoch_numeric_loss:.6f} "
+                f"cat={epoch_categorical_loss:.6f} "
+                f"kl={epoch_kl_loss:.6f} "
+                f"lr={current_lr:.2e}"
+            )
+
+            if epoch_loss < best_loss - args.min_delta:
+                best_loss = epoch_loss
+                epochs_without_improvement = 0
+            else:
+                epochs_without_improvement += 1
+
+            scheduler.step(epoch_loss)
+            if (
+                epoch >= args.min_epochs
+                and args.early_stopping_patience > 0
+                and epochs_without_improvement >= args.early_stopping_patience
+            ):
+                tqdm.write(
+                    "early stopping: "
+                    f"no loss improvement >= {args.min_delta:g} "
+                    f"for {epochs_without_improvement} epochs"
+                )
+                break
 
     return history
 
@@ -400,7 +457,14 @@ def metadata_from_preprocessor(preprocessor: Preprocessor) -> dict[str, object]:
 def save_training_history(history: list[dict[str, float]], model_dir: Path) -> None:
     model_dir.mkdir(parents=True, exist_ok=True)
     history_csv = model_dir / "training_loss.csv"
-    fieldnames = ["epoch", "loss", "numeric_loss", "categorical_loss", "kl_loss"]
+    fieldnames = [
+        "epoch",
+        "loss",
+        "numeric_loss",
+        "categorical_loss",
+        "kl_loss",
+        "learning_rate",
+    ]
     with history_csv.open("w", newline="") as output_file:
         writer = csv.DictWriter(output_file, fieldnames=fieldnames)
         writer.writeheader()
