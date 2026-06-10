@@ -1,0 +1,23 @@
+include,screenline,state_code,station_id,direction,lane,station_label,notes
+1,dc_pg,11,000050,3,,00000050 New York East 050,"Candidate for DC-Prince George's County; county=District of Columbia; lanes=1,2,3"
+1,dc_pg,11,000050,7,,00000050 New York West 050,"Candidate for DC-Prince George's County; county=District of Columbia; lanes=1,2,3"
+1,dc_pg,11,001295,1,,00000295 Anacostia North ANN,"Candidate for DC-Prince George's County; county=District of Columbia; lanes=1,2,3"
+1,dc_pg,11,002295,5,,00000295 Anacostia South ANS,"Candidate for DC-Prince George's County; county=District of Columbia; lanes=1,2,3"
+1,dc_pg,24,0P0043,1,,95 IS 95 - 1.02 Miles South of MD 214 (ATR#43),Candidate for DC-Prince George's County; county=Prince George's County; lanes=0
+1,dc_pg,24,0P0043,5,,95 IS 95 - 1.02 Miles South of MD 214 (ATR#43),Candidate for DC-Prince George's County; county=Prince George's County; lanes=0
+1,dc_pg,24,0P0055,1,,95 IS 95 - .05 Mile North of Good Luck Rd (ATR#55),Candidate for DC-Prince George's County; county=Prince George's County; lanes=0
+1,dc_pg,24,0P0055,5,,95 IS 95 - .05 Mile North of Good Luck Rd (ATR#55),Candidate for DC-Prince George's County; county=Prince George's County; lanes=0
+1,dc_pg,24,0P0061,3,,50 US 50 - .75 Mile West of MD 202 (ATR#61),Candidate for DC-Prince George's County; county=Prince George's County; lanes=0
+1,dc_pg,24,0P0061,7,,50 US 50 - .75 Mile West of MD 202 (ATR#61),Candidate for DC-Prince George's County; county=Prince George's County; lanes=0
+1,montgomery_dc,11,000050,3,,00000050 New York East 050,"Candidate for Montgomery County-DC; county=District of Columbia; lanes=1,2,3"
+1,montgomery_dc,11,000050,7,,00000050 New York West 050,"Candidate for Montgomery County-DC; county=District of Columbia; lanes=1,2,3"
+1,montgomery_dc,24,0P0040,3,,495 IS 495 - 50ft East of Persimmon Tree Rd Overpass (,Candidate for Montgomery County-DC; county=Montgomery County; lanes=0
+1,montgomery_dc,24,0P0040,7,,495 IS 495 - 50ft East of Persimmon Tree Rd Overpass (,Candidate for Montgomery County-DC; county=Montgomery County; lanes=0
+1,montgomery_dc,24,0P0041,3,,495 IS 495 - .82 Mile West of MD 650 (ATR#41),Candidate for Montgomery County-DC; county=Montgomery County; lanes=0
+1,montgomery_dc,24,0P0041,7,,495 IS 495 - .82 Mile West of MD 650 (ATR#41),Candidate for Montgomery County-DC; county=Montgomery County; lanes=0
+1,pg_montgomery,24,0P0041,3,,495 IS 495 - .82 Mile West of MD 650 (ATR#41),Candidate for Prince George's-Montgomery County; county=Montgomery County; lanes=0
+1,pg_montgomery,24,0P0041,7,,495 IS 495 - .82 Mile West of MD 650 (ATR#41),Candidate for Prince George's-Montgomery County; county=Montgomery County; lanes=0
+1,pg_montgomery,24,0P0055,1,,95 IS 95 - .05 Mile North of Good Luck Rd (ATR#55),Candidate for Prince George's-Montgomery County; county=Prince George's County; lanes=0
+1,pg_montgomery,24,0P0055,5,,95 IS 95 - .05 Mile North of Good Luck Rd (ATR#55),Candidate for Prince George's-Montgomery County; county=Prince George's County; lanes=0
+1,pg_montgomery,24,0P0061,3,,50 US 50 - .75 Mile West of MD 202 (ATR#61),Candidate for Prince George's-Montgomery County; county=Prince George's County; lanes=0
+1,pg_montgomery,24,0P0061,7,,50 US 50 - .75 Mile West of MD 202 (ATR#61),Candidate for Prince George's-Montgomery County; county=Prince George's County; lanes=0

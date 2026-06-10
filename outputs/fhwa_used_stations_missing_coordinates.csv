@@ -1,0 +1,25 @@
+state_code,station_id,direction,lanes,n_lane_hour_records,total_volume,max_hourly_lane_volume,direction_label,county_code,latitude,longitude,route,location_text,source_file,state_name,county_name,has_coordinates
+24,0P0028,1,0,24,988500,93600,northbound,,,,,,,,Maryland county nan,False
+24,0P0028,5,0,24,1020300,94700,southbound,,,,,,,,Maryland county nan,False
+51,010009,3,0,24,1968,181,eastbound,,,,,,,,,False
+51,010009,7,0,24,1957,189,westbound,,,,,,,,,False
+51,010281,3,0,24,4160,400,eastbound,,,,,,,,,False
+51,010281,7,0,24,4180,355,westbound,,,,,,,,,False
+51,010383,1,0,24,2913,312,northbound,,,,,,,,,False
+51,010383,5,0,24,2599,323,southbound,,,,,,,,,False
+51,010397,1,0,24,22756,2016,northbound,,,,,,,,,False
+51,010398,1,0,24,24585,2199,northbound,,,,,,,,,False
+51,010399,1,0,24,24140,2145,northbound,,,,,,,,,False
+51,010406,1,0,720,238004,787,northbound,,,,,,,,,False
+51,010524,1,0,24,8157,779,northbound,,,,,,,,,False
+51,010524,5,0,24,8084,738,southbound,,,,,,,,,False
+51,010595,1,0,24,27351,2464,northbound,,,,,,,,,False
+51,110025,5,0,24,19017,1725,southbound,,,,,,,,,False
+51,110027,5,0,24,20066,1856,southbound,,,,,,,,,False
+51,110028,5,0,24,20410,1858,southbound,,,,,,,,,False
+51,110029,5,0,24,22314,2028,southbound,,,,,,,,,False
+51,110031,5,0,24,18722,1789,southbound,,,,,,,,,False
+51,110032,5,0,24,18994,1813,southbound,,,,,,,,,False
+51,110045,5,0,24,4948,440,southbound,,,,,,,,,False
+51,786964,1,0,24,925,98,northbound,,,,,,,,,False
+51,787069,5,0,24,3664,434,southbound,,,,,,,,,False

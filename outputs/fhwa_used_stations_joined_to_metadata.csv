@@ -1,0 +1,980 @@
+state_code,station_id,direction,lanes,n_lane_hour_records,total_volume,max_hourly_lane_volume,direction_label,county_code,latitude,longitude,route,location_text,source_file,state_name,county_name,has_coordinates
+11,000050,3,"1,2,3",72,58018,1678,eastbound,001,38.91806,-76.94491,00000050,New York East 050,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,District of Columbia,District of Columbia,True
+11,000050,7,"1,2,3",72,60721,1978,westbound,001,38.91806,-76.94491,00000050,New York West 050,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,District of Columbia,District of Columbia,True
+11,001295,1,"1,2,3",72,38592,1342,northbound,001,38.8142,-77.01963,00000295,Anacostia North ANN,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,District of Columbia,District of Columbia,True
+11,002295,5,"1,2,3",72,42568,1203,southbound,001,38.81726,-77.01858,00000295,Anacostia South ANS,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,District of Columbia,District of Columbia,True
+24,0P0001,1,0,24,269800,22400,northbound,001,39.579464,-78.96723,36,MD 36 - 100ft South of George's Creek Bridge (ATR#,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 001,True
+24,0P0001,5,0,24,262100,22500,southbound,001,39.579464,-78.96723,36,MD 36 - 100ft South of George's Creek Bridge (ATR#,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 001,True
+24,0P0002,3,0,24,456300,49300,eastbound,043,39.650902,-77.78933,40,US 40 - .58 Mile East of MD 63 (ATR#02),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 043,True
+24,0P0002,7,0,24,455100,41400,westbound,043,39.650902,-77.78933,40,US 40 - .58 Mile East of MD 63 (ATR#02),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 043,True
+24,0P0003,1,0,24,138100,12600,northbound,021,39.45614,-77.53622,17,MD 17 - 1.05 Miles North of US 40AL (ATR#03),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 021,True
+24,0P0003,5,0,24,144600,16100,southbound,021,39.45614,-77.53622,17,MD 17 - 1.05 Miles North of US 40AL (ATR#03),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 021,True
+24,0P0004,1,0,24,1065039,91000,northbound,031,39.205029,-77.271186,270,IS 270 - 2.0 Miles South of MD 121 (ATR#04),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Montgomery County,True
+24,0P0004,5,0,24,948943,95301,southbound,031,39.205029,-77.271186,270,IS 270 - 2.0 Miles South of MD 121 (ATR#04),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Montgomery County,True
+24,0P0005,1,0,24,736910,93000,northbound,017,38.577901,-76.962688,301,US 301 - .74 Mile South of MD 227 (ATR#05),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 017,True
+24,0P0005,5,0,24,783306,97101,southbound,017,38.577901,-76.962688,301,US 301 - .74 Mile South of MD 227 (ATR#05),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 017,True
+24,0P0006,1,0,720,29630708,99900,northbound,033,38.812795,-76.721947,4,MD 4 - .54 Mile North of Patuxent River Bridge (AT,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0006,5,0,24,877607,98500,southbound,033,38.812795,-76.721947,4,MD 4 - .54 Mile North of Patuxent River Bridge (AT,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0008,1,0,24,574600,77400,northbound,035,38.929207,-75.964182,309,MD 309 - .50 Mile North of MD 404 (ATR#08),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 035,True
+24,0P0008,5,0,24,156200,14400,southbound,035,38.929207,-75.964182,309,MD 309 - .50 Mile North of MD 404 (ATR#08),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 035,True
+24,0P0009,1,0,24,795909,88400,northbound,045,38.423943,-75.564374,13,US 13 - 100ft North of Leonards Mill Pond Bridge (,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 045,True
+24,0P0009,5,0,24,743508,96600,southbound,045,38.423943,-75.564374,13,US 13 - 100ft North of Leonards Mill Pond Bridge (,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 045,True
+24,0P0010,1,0,24,283100,30900,northbound,039,38.029567,-75.786257,413,MD 413 - .39 Mile South of MD 667 (ATR#10),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 039,True
+24,0P0010,5,0,24,265800,29000,southbound,039,38.029567,-75.786257,413,MD 413 - .39 Mile South of MD 667 (ATR#10),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 039,True
+24,0P0011,1,0,24,770700,87700,northbound,025,39.511472,-76.374544,1,US 1BU - .06 Mile South of Old Joppa Rd (ATR#11),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 025,True
+24,0P0011,5,0,24,703900,73000,southbound,025,39.511472,-76.374544,1,US 1BU - .06 Mile South of Old Joppa Rd (ATR#11),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 025,True
+24,0P0013,1,0,24,884600,88900,northbound,005,39.472993,-76.640244,45,MD 45 - .14 Mile South of Warren Rd (ATR#13),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0013,5,0,24,893600,89100,southbound,005,39.472993,-76.640244,45,MD 45 - .14 Mile South of Warren Rd (ATR#13),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0015,1,0,24,288500,27200,northbound,029,39.357165,-75.877741,213,MD 213 - .12 Mile South of Georgetown Cemetery Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 029,True
+24,0P0015,5,0,24,233500,20000,southbound,029,39.357165,-75.877741,213,MD 213 - .12 Mile South of Georgetown Cemetery Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 029,True
+24,0P0017,3,0,24,1161500,99800,eastbound,045,38.385617,-75.358354,50,US 50 - .25 Mile West of MD 354 (ATR#17),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 045,True
+24,0P0017,7,0,24,1026108,99000,westbound,045,38.385617,-75.358354,50,US 50 - .25 Mile West of MD 354 (ATR#17),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 045,True
+24,0P0019,3,0,24,1181100,94700,eastbound,043,39.326407,-77.706219,340,US 340 - 50ft East of Potomac River Bridge (ATR#19,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 043,True
+24,0P0019,7,0,24,1018500,87100,westbound,043,39.326407,-77.706219,340,US 340 - 50ft East of Potomac River Bridge (ATR#19,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 043,True
+24,0P0021,3,0,24,1098826,96802,eastbound,021,39.47172,-77.528251,70,IS 70 - 2.79 Miles East of MD 17 (ATR#21),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 021,True
+24,0P0021,7,0,24,1179521,94601,westbound,021,39.47172,-77.528251,70,IS 70 - 2.79 Miles East of MD 17 (ATR#21),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 021,True
+24,0P0022,3,0,24,831506,99900,eastbound,041,38.871176,-76.061251,50,US 50 - .06 Mile East of Longwoods Rd (ATR#22),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 041,True
+24,0P0022,7,0,24,775415,90900,westbound,041,38.871176,-76.061251,50,US 50 - .06 Mile East of Longwoods Rd (ATR#22),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 041,True
+24,0P0024,3,0,24,937125,98701,eastbound,003,38.955895,-76.678984,595,US 50/IS 595 - 1.34 Miles West of MD 424 (ATR#24),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 003,True
+24,0P0024,7,0,24,1057630,95302,westbound,003,38.955895,-76.678984,595,US 50/IS 595 - 1.34 Miles West of MD 424 (ATR#24),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 003,True
+24,0P0025,1,0,24,1376735,99902,northbound,003,39.161077,-76.73981,295,MD 295(NB) - .81 South of MD 100 (ATR#25 Includes,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 003,True
+24,0P0025,5,0,24,1283632,96202,southbound,003,39.161077,-76.73981,295,MD 295(NB) - .81 South of MD 100 (ATR#25 Includes,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 003,True
+24,0P0026,3,0,24,456300,43700,eastbound,001,39.642697,-78.876868,40,US 40AL - .62 Mile East of MD 55 (ATR#26),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 001,True
+24,0P0026,7,0,24,466500,45800,westbound,001,39.642697,-78.876868,40,US 40AL - .62 Mile East of MD 55 (ATR#26),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 001,True
+24,0P0027,1,0,24,1063616,99802,northbound,005,39.540815,-76.666332,83,IS 83 - .50 mile South of Belfast Rd (ATR#27),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0027,5,0,24,1008918,98701,southbound,005,39.540815,-76.666332,83,IS 83 - .50 mile South of Belfast Rd (ATR#27),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0028,1,0,24,988500,93600,northbound,,,,,,,,Maryland county nan,False
+24,0P0028,5,0,24,1020300,94700,southbound,,,,,,,,Maryland county nan,False
+24,0P0036,3,0,24,950400,89800,eastbound,011,38.921862,-75.944515,404,MD 404 - .065 Mile West of Cemetery Rd(ATR#36),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 011,True
+24,0P0036,7,0,24,966209,99400,westbound,011,38.921862,-75.944515,404,MD 404 - .065 Mile West of Cemetery Rd(ATR#36),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 011,True
+24,0P0037,1,0,24,806004,97800,northbound,047,38.013839,-75.543754,13,US 13 - .10 Mile North of Bunting Rd (ATR#37),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 047,True
+24,0P0037,5,0,24,1085400,88900,southbound,047,38.013839,-75.543754,13,US 13 - .10 Mile North of Bunting Rd (ATR#37),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 047,True
+24,0P0038,3,0,24,1136319,97701,eastbound,003,39.140735,-76.626754,100,.45 MI W OF OAKWOOD RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 003,True
+24,0P0038,7,0,24,1052424,94401,westbound,003,39.140735,-76.626754,100,.45 MI W OF OAKWOOD RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 003,True
+24,0P0039,1,0,24,1308078,99704,northbound,027,39.190536,-76.773374,95,IS 95 - .08 Mile South of MD 103 (ATR#39),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 027,True
+24,0P0039,5,0,24,1075782,98801,southbound,027,39.190536,-76.773374,95,IS 95 - .08 Mile South of MD 103 (ATR#39),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 027,True
+24,0P0040,3,0,24,991403,94702,eastbound,031,38.981418,-77.172357,495,IS 495 - 50ft East of Persimmon Tree Rd Overpass (,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Montgomery County,True
+24,0P0040,7,0,24,1154400,87205,westbound,031,38.981418,-77.172357,495,IS 495 - 50ft East of Persimmon Tree Rd Overpass (,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Montgomery County,True
+24,0P0041,3,0,24,1341488,95906,eastbound,031,39.018199,-76.991452,495,IS 495 - .82 Mile West of MD 650 (ATR#41),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Montgomery County,True
+24,0P0041,7,0,24,1284189,99300,westbound,031,39.018199,-76.991452,495,IS 495 - .82 Mile West of MD 650 (ATR#41),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Montgomery County,True
+24,0P0043,1,0,24,1297389,90806,northbound,033,38.87784,-76.843628,95,IS 95 - 1.02 Miles South of MD 214 (ATR#43),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0043,5,0,24,1307487,97505,southbound,033,38.87784,-76.843628,95,IS 95 - 1.02 Miles South of MD 214 (ATR#43),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0044,3,0,24,685008,94600,eastbound,023,39.67763,-78.965161,68,IS 68(EB) - .50 Mile East of MD 546(ATR#44 Include,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 023,True
+24,0P0044,7,0,24,755905,96400,westbound,023,39.67763,-78.965161,68,IS 68(EB) - .50 Mile East of MD 546(ATR#44 Include,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 023,True
+24,0P0052,1,0,24,1135443,96600,northbound,005,39.428381,-76.63565,83,IS 83 - .64 Mile North of IS 695 (ATR#52),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0052,5,0,24,995444,82903,southbound,005,39.428381,-76.63565,83,IS 83 - .64 Mile North of IS 695 (ATR#52),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0053,3,0,24,1019532,91301,eastbound,005,39.307077,-76.766692,70,1.64 MI E OF HOWARD COUNTY LINE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0053,7,0,24,974237,90001,westbound,005,39.307077,-76.766692,70,1.64 MI E OF HOWARD COUNTY LINE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0054,1,0,24,1279453,96901,northbound,005,39.405909,-76.574641,695,IS 695 - .41 Mile North of Cromwell Bridge Rd (ATR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0054,5,0,24,1211754,98703,southbound,005,39.405909,-76.574641,695,IS 695 - .41 Mile North of Cromwell Bridge Rd (ATR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0055,1,0,24,1244288,94002,northbound,033,38.978863,-76.87407,95,IS 95 - .05 Mile North of Good Luck Rd (ATR#55),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0055,5,0,24,1119179,94200,southbound,033,38.978863,-76.87407,95,IS 95 - .05 Mile North of Good Luck Rd (ATR#55),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0058,1,0,24,595100,60400,northbound,015,39.492502,-75.84316,213,MD 213 - .49 Mile North of MD 310 (ATR#58),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 015,True
+24,0P0058,5,0,24,403300,34800,southbound,015,39.492502,-75.84316,213,MD 213 - .49 Mile North of MD 310 (ATR#58),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 015,True
+24,0P0059,1,0,24,848404,99700,northbound,039,38.266363,-75.661662,13,US 13 - .45 Mile North of Peggyneck Rd (ATR#59),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 039,True
+24,0P0059,5,0,24,1077900,87000,southbound,039,38.266363,-75.661662,13,US 13 - .45 Mile North of Peggyneck Rd (ATR#59),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 039,True
+24,0P0060,1,0,24,1135370,99804,northbound,031,39.168932,-77.242771,270,IS 270 - .47 Mile South of Middlebrook Rd (ATR#60),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Montgomery County,True
+24,0P0060,5,0,24,1172570,98705,southbound,031,39.168932,-77.242771,270,IS 270 - .47 Mile South of Middlebrook Rd (ATR#60),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Montgomery County,True
+24,0P0061,3,0,24,1238224,99601,eastbound,033,38.921799,-76.905895,50,US 50 - .75 Mile West of MD 202 (ATR#61),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0061,7,0,24,964226,95401,westbound,033,38.921799,-76.905895,50,US 50 - .75 Mile West of MD 202 (ATR#61),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0062,3,0,24,742900,61900,eastbound,047,38.347881,-75.231491,50,US 50 - .73 Mile West of MD 818 (ATR#62),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 047,True
+24,0P0062,7,0,24,1096600,96900,westbound,047,38.347881,-75.231491,50,US 50 - .73 Mile West of MD 818 (ATR#62),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 047,True
+24,0P0063,3,0,24,406300,35400,eastbound,047,38.373521,-75.252829,90,MD 90 - 100ft West of MD 346 (ATR#63),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 047,True
+24,0P0063,7,0,24,679800,66000,westbound,047,38.373521,-75.252829,90,MD 90 - 100ft West of MD 346 (ATR#63),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 047,True
+24,0P0066,1,0,24,1056107,92001,northbound,003,39.209056,-76.694849,195,IS 195 - .59 Mile North of MD 295 (ATR#66),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 003,True
+24,0P0066,5,0,24,890810,85401,southbound,003,39.209056,-76.694849,195,IS 195 - .59 Mile North of MD 295 (ATR#66),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 003,True
+24,0P0068,1,0,24,842300,70700,northbound,021,39.329381,-77.510505,15,US 15 - 1.16 Miles North of Basford Rd (ATR#68),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 021,True
+24,0P0068,5,0,24,870500,80700,southbound,021,39.329381,-77.510505,15,US 15 - 1.16 Miles North of Basford Rd (ATR#68),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 021,True
+24,0P0069,1,0,24,1190023,99002,northbound,027,39.166032,-76.837719,32,MD 32 - .78 Mile North of IS 95 (ATR#69),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 027,True
+24,0P0069,5,0,24,1126124,96001,southbound,027,39.166032,-76.837719,32,MD 32 - .78 Mile North of IS 95 (ATR#69),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 027,True
+24,0P0070,3,0,24,910709,94801,eastbound,001,39.66847,-78.734718,68,IS 68 - .15 Mile East of Structure #1081 Hillcrest,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 001,True
+24,0P0070,7,0,24,761209,90900,westbound,001,39.66847,-78.734718,68,IS 68 - .15 Mile East of Structure #1081 Hillcrest,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 001,True
+24,0P0071,1,0,24,1313564,90305,northbound,005,39.239529,-76.699033,95,IS 95 - .65 Mile North of IS 1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0071,5,0,48,2228456,96301,southbound,005,39.239529,-76.699033,95,IS 95 - .65 Mile North of IS 1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0074,1,0,24,864900,79300,northbound,005,39.281807,-76.483816,695,MD 695 - 50ft South of Trappe Rd (ATR#74),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0074,5,0,24,974200,84700,southbound,005,39.281807,-76.483816,695,MD 695 - 50ft South of Trappe Rd (ATR#74),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0076,1,0,24,976028,98201,northbound,005,39.385355,-76.662409,83,IS 83 - .04 Mile North of Old Pimlico Rd (ATR#76),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0076,5,0,24,1009726,90800,southbound,005,39.385355,-76.662409,83,IS 83 - .04 Mile North of Old Pimlico Rd (ATR#76),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0077,1,0,24,1096545,93300,northbound,005,39.238874,-76.668331,695,IS 695 - .15 Mile North of Hollins Ferry Rd (ATR#7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0077,5,0,24,1274039,97003,southbound,005,39.238874,-76.668331,695,IS 695 - .15 Mile North of Hollins Ferry Rd (ATR#7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0080,1,0,24,1121201,95801,northbound,017,38.606685,-76.874602,5,MD 5 - .10 Mile South of Renner Rd (ATR#80),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 017,True
+24,0P0080,5,0,24,1093800,90200,southbound,017,38.606685,-76.874602,5,MD 5 - .10 Mile South of Renner Rd (ATR#80),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 017,True
+24,0P0083,3,0,24,167100,13300,eastbound,047,38.396505,-75.30684,610,MD 610 - .30 Mile North of MD 346 (ATR#83),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 047,True
+24,0P0083,7,0,24,185300,16200,westbound,047,38.396505,-75.30684,610,MD 610 - .30 Mile North of MD 346 (ATR#83),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 047,True
+24,0P0084,1,0,24,136800,11900,northbound,011,39.065442,-75.850699,313,MD 313 - .22 Mile South of Queen Anne's County Lin,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 011,True
+24,0P0084,5,0,24,117300,10100,southbound,011,39.065442,-75.850699,313,MD 313 - .22 Mile South of Queen Anne's County Lin,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 011,True
+24,0P0085,3,0,24,352500,33800,eastbound,005,39.703194,-76.635416,439,MD 439 - .44 Mile East of IS 83 (ATR#85),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0085,7,0,24,343800,28600,westbound,005,39.703194,-76.635416,439,MD 439 - .44 Mile East of IS 83 (ATR#85),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0086,1,0,24,194100,17400,northbound,017,38.349416,-76.931677,257,MD 257 - .40 Mile South of Morgantown Rd (ATR#86),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 017,True
+24,0P0086,5,0,24,203900,17100,southbound,017,38.349416,-76.931677,257,MD 257 - .40 Mile South of Morgantown Rd (ATR#86),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 017,True
+24,0P0087,1,0,24,148000,15400,northbound,037,38.101803,-76.365215,5,MD 5 - .20 Mile North of Fresh Pond Neck Rd (ATR#8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 037,True
+24,0P0087,5,0,24,134200,11000,southbound,037,38.101803,-76.365215,5,MD 5 - .20 Mile North of Fresh Pond Neck Rd (ATR#8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 037,True
+24,0P0088,3,0,24,254500,21900,eastbound,015,39.655625,-75.809562,277,MD 277 - .10 Mile East of Oakridge Ct (ATR#88),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 015,True
+24,0P0088,7,0,24,255400,24500,westbound,015,39.655625,-75.809562,277,MD 277 - .10 Mile East of Oakridge Ct (ATR#88),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 015,True
+24,0P0089,1,0,24,287400,20600,northbound,033,38.952448,-76.812699,953,MD 953 - .10 Mile North of Atwell Ave (ATR#89),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0089,5,0,24,290000,23500,southbound,033,38.952448,-76.812699,953,MD 953 - .10 Mile North of Atwell Ave (ATR#89),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Prince George's County,True
+24,0P0090,1,0,24,274200,26300,northbound,005,39.408619,-76.729504,129,MD 129 - .18 Mile South of MD 130 (ATR#90),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+24,0P0090,5,0,24,288900,28000,southbound,005,39.408619,-76.729504,129,MD 129 - .18 Mile South of MD 130 (ATR#90),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Maryland,Maryland county 005,True
+51,010009,3,0,24,1968,181,eastbound,,,,,,,,,False
+51,010009,7,0,24,1957,189,westbound,,,,,,,,,False
+51,010071,1,0,24,795,84,northbound,077,36.66764,-81.19685,00000021,0.1 N Rte I-81,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,077,True
+51,010071,5,0,24,860,77,southbound,077,36.66764,-81.19685,00000021,0.1 N Rte I-81,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,077,True
+51,010157,1,0,24,4014,385,northbound,167,36.96707,-81.91519,00000019,Between SR 80 and Tazewell County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,167,True
+51,010157,5,0,24,3377,315,southbound,167,36.96707,-81.91519,00000019,Between SR 80 and Tazewell County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,167,True
+51,010181,1,0,24,23028,2019,northbound,191,36.69825,-81.98507,00000081,1.45 Mi N RAMP TO SR 140,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,191,True
+51,010187,1,0,24,24416,2209,northbound,197,36.94626,-80.91012,00000081,I-81 South Shoulder @ MM 82.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010189,1,0,48,60235,2774,northbound,197,36.9545,-81.0555,00000081,I-81/77 North Shoulder @ MM 73.50,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010281,3,0,24,4160,400,eastbound,,,,,,,,,False
+51,010281,7,0,24,4180,355,westbound,,,,,,,,,False
+51,010332,1,0,24,18743,1652,northbound,173,36.8227,-81.5337,00000081,@ beginning of Exit 44 ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,173,True
+51,010346,1,0,24,4776,484,northbound,185,37.22543,-81.33002,00000019,.30 N RT 1520,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,185,True
+51,010346,5,0,24,4185,362,southbound,185,37.22543,-81.33002,00000019,.30 N RT 1520,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,185,True
+51,010383,1,0,24,2913,312,northbound,,,,,,,,,False
+51,010383,5,0,24,2599,323,southbound,,,,,,,,,False
+51,010397,1,0,24,22756,2016,northbound,,,,,,,,,False
+51,010398,1,0,24,24585,2199,northbound,,,,,,,,,False
+51,010399,1,0,24,24140,2145,northbound,,,,,,,,,False
+51,010401,1,0,24,21686,1853,northbound,191,36.7165,-81.9265,00000081,I-81 South Shoulder @ MM 20.10,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,191,True
+51,010406,1,0,720,238004,787,northbound,,,,,,,,,False
+51,010441,1,0,24,17550,1526,northbound,197,36.9662,-81.0659,00000077,I-77 South Shoulder @ MM 40.9,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010442,1,0,24,17882,1549,northbound,197,36.98675,-81.07432,00000077,I-77 North Shoulder @ MM 43.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010443,1,0,24,18950,1629,northbound,197,36.91917,-81.24781,00000081,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010445,1,0,24,19339,1638,northbound,197,36.96298,-81.0704,00000081,I-81 North Shoulder @ MM 72.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010446,1,0,24,34624,2907,northbound,197,36.94591,-81.04066,00000081,0.66 Mi N Ramp Fr US 11,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010447,1,0,24,33017,2762,northbound,197,36.94633,-80.93953,00000081,I-81/77 North Shoulder @ MM 80.75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010524,1,0,24,8157,779,northbound,,,,,,,,,False
+51,010524,5,0,24,8084,738,southbound,,,,,,,,,False
+51,010562,1,0,24,19306,1684,northbound,173,36.8227,-81.5337,00000081,I-81 South Shoulder @ MM 44.32,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,173,True
+51,010566,1,0,24,33166,2755,northbound,197,36.94092,-80.97305,00000081,I-81 North Shoulder @ MM 80.75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,010567,1,0,24,18289,1583,northbound,173,36.86348,-81.42713,00000081,I-81 North Shoulder @ MM 51.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,173,True
+51,010595,1,0,24,27351,2464,northbound,,,,,,,,,False
+51,020092,1,0,24,1439,171,northbound,063,36.87082,-80.44907,00000221,.1 S RTE 750,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,063,True
+51,020092,5,0,24,1163,118,southbound,063,36.87082,-80.44907,00000221,.1 S RTE 750,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,063,True
+51,020121,1,0,24,4648,432,northbound,023,37.47256,-79.88148,00000220,.25 S RTE 640,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,020121,5,0,24,4913,570,southbound,023,37.47256,-79.88148,00000220,.25 S RTE 640,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,020141,1,0,24,25166,2366,northbound,035,36.76912,-80.80359,00000077,2.20 N RAMP FR RT 58,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,020145,1,0,24,24935,2252,northbound,035,36.64314,-80.71343,00000077,5.34 Mi North of 17-620 Old Pipers Gap Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,020153,3,0,24,7750,687,eastbound,023,37.3698,-79.81322,00000460,0.10 E RT 652,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,020153,7,0,24,7653,597,westbound,023,37.3698,-79.81322,00000460,0.10 E RT 652,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,020172,1,0,24,24572,2115,northbound,023,37.60133,-79.62085,00000081,I-81 North Shoulder @ MM 172.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,020176,1,0,24,22392,2163,northbound,155,37.04297,-80.71796,00000081,I-81 North Shoulder @ MM 95.7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,020178,1,0,24,27396,2365,northbound,121,37.24204,-80.2142,00000081,I-81 North Shoulder @ MM 129.7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,121,True
+51,020180,1,0,24,28223,2493,northbound,121,37.14571,-80.34282,00000081,0.25 Mile North NCL Christiansburg,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,121,True
+51,020181,1,0,24,32982,2802,northbound,161,37.35659,-79.97584,00000081,1.45 N RAMP FR I-581,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020192,1,0,24,18429,1764,northbound,161,37.22465,-79.9923,00000419,.1 N RTE 800,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020196,1,0,24,21262,1714,northbound,770,37.3154,-79.98109,00000581,I-581 South Shoulder @ MM 4.35,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,020220,3,0,24,7907,667,eastbound,019,37.30125,-79.37984,00000460,.28 Mile West Pisgah Road,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,019,True
+51,020220,7,0,24,7205,636,westbound,019,37.30125,-79.37984,00000460,.28 Mile West Pisgah Road,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,019,True
+51,020233,1,0,24,25171,2107,northbound,023,37.4677,-79.81267,00000081,I-81 North Shoulder @ MM 158,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,020234,1,0,24,25525,2116,northbound,023,37.5195,-79.72054,00000081,1.90 N RAMP FR RT 11,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,020250,3,0,24,5368,493,eastbound,035,36.72374,-80.81582,00000058,BETWEEN RT 872 & I-77 (OLD WIM SITE),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,020250,7,0,24,5014,466,westbound,035,36.72374,-80.81582,00000058,BETWEEN RT 872 & I-77 (OLD WIM SITE),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,020267,1,0,24,2192,221,northbound,063,36.97008,-80.39072,00000008,BETWEEN RT 730 & MONTGOMERY CL ( OLD WIM SITE),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,063,True
+51,020267,5,0,24,2051,199,southbound,063,36.97008,-80.39072,00000008,BETWEEN RT 730 & MONTGOMERY CL ( OLD WIM SITE),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,063,True
+51,020282,1,0,24,4048,443,northbound,067,37.12425,-79.73972,00000122,0.24 mi West of Lost Mountain Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,067,True
+51,020282,5,0,24,4726,496,southbound,067,37.12425,-79.73972,00000122,0.24 mi West of Lost Mountain Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,067,True
+51,020287,1,0,24,8007,696,northbound,067,36.98764,-79.87045,00000220,1.45 N RT 674,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,067,True
+51,020287,5,0,24,8281,701,southbound,067,36.98764,-79.87045,00000220,1.45 N RT 674,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,067,True
+51,020300,3,0,24,4833,437,eastbound,071,37.30806,-80.57667,00000460,0.4 E RTE 625,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,071,True
+51,020300,7,0,24,5189,486,westbound,071,37.30806,-80.57667,00000460,0.4 E RTE 625,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,071,True
+51,020350,1,0,24,25372,2299,northbound,121,37.11275,-80.44153,00000081,3.70 Mi N of Ramp Fr SR 177,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,121,True
+51,020377,1,0,24,5697,598,northbound,155,37.12089,-80.6576,00000011,0.10 N RT 1085,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,020377,5,0,24,5659,551,southbound,155,37.12089,-80.6576,00000011,0.10 N RT 1085,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,020383,1,0,24,24462,2164,northbound,155,37.09122,-80.57711,00000081,I-81 South Shoulder @ MM 105.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,020385,1,0,24,9170,790,northbound,155,37.08767,-80.68875,00000100,0.25 N RAMP TO I-81,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,020385,5,0,24,7449,708,southbound,155,37.08767,-80.68875,00000100,0.25 N RAMP TO I-81,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,020391,1,0,24,4165,492,northbound,161,37.34205,-79.95631,00000011,0.1 S WILLIAMSON RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020391,5,0,24,4002,395,southbound,161,37.34205,-79.95631,00000011,0.1 S WILLIAMSON RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020393,1,0,24,31464,2627,northbound,161,37.29794,-80.08291,00000081,I-81 North Shoulder @ MM 138.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020396,1,0,24,34571,3002,northbound,161,37.33057,-80.02533,00000081,0.32 Mile North SR 419 Electric Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020417,1,0,24,4416,425,northbound,161,37.31766,-80.02966,00000419,0.35 S RAMP FR I-81,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020417,5,0,24,4409,370,southbound,161,37.31766,-80.02966,00000419,0.35 S RAMP FR I-81,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020473,1,0,24,23059,2143,northbound,121,37.09936,-80.53952,00000081,2.5 mi from SR 232,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,121,True
+51,020503,1,0,24,22738,2220,northbound,155,36.99634,-80.7839,00000081,I-81 North Shoulder @ MM 90.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,020509,3,0,24,13746,1274,eastbound,161,37.31917,-79.87515,00000460,0.3 E RTE 603,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,020509,7,0,24,13761,1258,westbound,161,37.31917,-79.87515,00000460,0.3 E RTE 603,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,030147,1,0,24,6494,628,northbound,143,36.933332,-79.37578,00000029,0.5 MI N RTE 29 BUS (SOUTHERN INTERSECTION),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,143,True
+51,030147,5,0,24,5993,533,southbound,143,36.933332,-79.37578,00000029,0.5 MI N RTE 29 BUS (SOUTHERN INTERSECTION),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,143,True
+51,030166,3,0,24,1997,184,eastbound,049,37.52744,-78.17569,00000060,2.14 mi from SR 45,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,049,True
+51,030166,7,0,24,1784,150,westbound,049,37.52744,-78.17569,00000060,2.14 mi from SR 45,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,049,True
+51,030180,3,0,24,2561,242,eastbound,147,37.27436,-78.249,00000307,1.40 E RT 745,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,147,True
+51,030180,7,0,24,2566,208,westbound,147,37.27436,-78.249,00000307,1.40 E RT 745,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,147,True
+51,030182,3,0,24,2629,244,eastbound,147,37.1691,-78.25079,00000360,0.05 MI E RTE 621,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,147,True
+51,030182,7,0,24,2116,180,westbound,147,37.1691,-78.25079,00000360,0.05 MI E RTE 621,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,147,True
+51,030194,3,0,24,3668,339,eastbound,083,36.64829,-78.99734,00000058,1.05 MI E RTE 836,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,083,True
+51,030194,7,0,24,3787,353,westbound,083,36.64829,-78.99734,00000058,1.05 MI E RTE 836,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,083,True
+51,030200,1,0,24,8654,773,northbound,125,37.76505,-78.87102,00000029,0.01 MI N RTE 29 BUS S (NORTHSIDE LANE),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,125,True
+51,030200,5,0,24,7838,697,southbound,125,37.76505,-78.87102,00000029,0.01 MI N RTE 29 BUS S (NORTHSIDE LANE),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,125,True
+51,030214,3,0,24,4461,405,eastbound,011,37.27818,-78.69533,00000460,0.1 MI EAST OF RTE 628,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,011,True
+51,030214,7,0,24,4485,408,westbound,011,37.27818,-78.69533,00000460,0.1 MI EAST OF RTE 628,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,011,True
+51,030232,3,0,24,3568,320,eastbound,143,36.58054,-79.24324,00000058,1.05 MI E RTE 62,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,143,True
+51,030232,7,0,24,3590,383,westbound,143,36.58054,-79.24324,00000058,1.05 MI E RTE 62,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,143,True
+51,030234,3,0,24,5257,468,eastbound,143,36.62417,-79.62861,00000058,0.20 E RT 622,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,143,True
+51,030234,7,0,24,5128,444,westbound,143,36.62417,-79.62861,00000058,0.20 E RT 622,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,143,True
+51,030242,1,0,24,3006,262,northbound,031,37.28556,-79.10583,00000501,0.70 N RT 24,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,031,True
+51,030242,5,0,24,3023,266,southbound,031,37.28556,-79.10583,00000501,0.70 N RT 24,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,031,True
+51,030265,1,0,24,13938,1236,northbound,031,37.31374,-79.18586,00000029,0.13 mi from English Tavern Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,031,True
+51,030265,5,0,24,12982,1101,southbound,031,37.31374,-79.18586,00000029,0.13 mi from English Tavern Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,031,True
+51,030277,3,0,24,7431,746,eastbound,031,37.32467,-79.25226,00000460,0.30 E RT 789,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,031,True
+51,030277,7,0,24,7244,669,westbound,031,37.32467,-79.25226,00000460,0.30 E RT 789,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,031,True
+51,030410,1,0,24,5216,503,northbound,147,37.27556,-78.42028,00000015,0.45 MI S RTE 628,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,147,True
+51,030410,5,0,24,4982,438,southbound,147,37.27556,-78.42028,00000015,0.45 MI S RTE 628,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,147,True
+51,030412,1,0,24,1956,182,northbound,147,37.3162,-78.45674,00000015,0.4 MI N RTE 695,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,147,True
+51,030412,5,0,24,2268,194,southbound,147,37.3162,-78.45674,00000015,0.4 MI N RTE 695,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,147,True
+51,040001,1,0,24,15159,1145,northbound,025,36.86197,-77.84124,00000085,I-85 North Shoulder @ MM 32.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,040003,1,0,24,15799,1213,northbound,053,37.03005,-77.63765,00000085,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,040005,3,0,24,18574,1677,eastbound,075,37.84155,-77.97878,00000064,I-64 West Shoulder @ Exit 152,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,040007,3,0,24,25732,2176,eastbound,087,37.67218,-77.49408,00000295,2.4 MI E RAMP FR RTE 33,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040011,3,0,24,7465,653,eastbound,007,37.35904,-77.9575,00000360,0.35 miles from ramp from US 360,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,007,True
+51,040011,7,0,24,6291,537,westbound,007,37.35904,-77.9575,00000360,0.35 miles from ramp from US 360,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,007,True
+51,040040,1,0,48,65377,2752,northbound,730,37.19881,-77.42324,00000085,I-85 North @ Exit 65,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,040044,3,0,48,49138,2064,eastbound,075,37.69943,-77.73971,00000064,I-64 West Shoulder @ MM 169.65,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,040046,3,0,24,50538,3887,eastbound,085,37.616574,-77.36514,00000295,0.50 E RAMP FR RT 627,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,040048,3,0,24,32468,2701,eastbound,087,37.6451,-77.59001,00000064,I-64 West Shoulder @ MM 179,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040052,3,0,24,11399,880,eastbound,087,37.51864,-77.271,00000295,I-295 Median between US 60 and I-64 Interchanges,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040101,1,0,24,69136,5163,northbound,085,37.75417,-77.45853,00000095,I-95 South Shoulder South of SR 54 Interchange,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,040105,1,0,24,67137,5014,northbound,085,37.82411,-77.45616,00000095,I-95 North Median @ MM 96.6,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,040106,3,0,24,26501,2327,eastbound,087,37.65239,-77.59769,00000064,0.14 mi from US 250 Broad St Ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040108,3,0,24,42821,3399,eastbound,087,37.59827,-77.49718,00000064,Central TMC Camera Pole @ Exit 185 B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040110,3,0,24,41329,3207,eastbound,127,37.50905,-77.13926,00000064,2.65 Mi E of Ramp Fr SR 33/SR 249,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,127,True
+51,040112,3,0,24,40861,3169,eastbound,127,37.49753,-77.04622,00000064,New Kent Rest Area Entrance Ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,127,True
+51,040114,3,0,24,40791,3161,eastbound,127,37.48821,-76.96935,00000064,1.1 MI FR SR 155,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,127,True
+51,040185,3,0,24,566,49,eastbound,053,36.95654,-77.67718,00000040,.50 E RT 654 (RAINEY CREEK ROAD),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,040185,7,0,24,608,67,westbound,053,36.95654,-77.67718,00000040,.50 E RT 654 (RAINEY CREEK ROAD),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,040269,1,0,24,19312,1691,northbound,145,37.56824,-77.68436,00000288,North of Chesterfield County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,145,True
+51,040269,5,0,24,18999,1753,southbound,145,37.56824,-77.68436,00000288,North of Chesterfield County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,145,True
+51,040270,3,0,24,5723,546,eastbound,087,37.59369,-77.54653,00000006,0.1 MI E FOREST ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040270,7,0,24,6123,544,westbound,087,37.59369,-77.54653,00000006,0.1 MI E FOREST ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040273,7,0,24,6128,564,westbound,075,37.676,-77.65586,00000288,I-64 WB at SR-288 NB ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,040274,3,0,24,5354,462,eastbound,075,37.676,-77.65586,00000064,0.9 mi from 37-623 Ashland Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,040278,3,0,24,18239,1820,eastbound,041,37.50689,-77.59064,00000060,0.2 Mi E Johnston Willis Drive,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040278,7,0,24,18805,2046,westbound,041,37.50689,-77.59064,00000060,0.2 Mi E Johnston Willis Drive,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040282,3,0,24,41936,3134,eastbound,760,37.55489,-77.42566,00000064,I-64 West Shoulder @ MM 191,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040284,3,0,24,16280,1376,eastbound,087,37.52822,-77.30174,00000064,I-64 West shoulder @ MM 199,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040285,1,0,24,47899,3605,northbound,087,37.62409,-77.4449,00000095,0.75 MI N RAMP FROM RTE. 301,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040287,1,0,24,45955,3490,northbound,087,37.63991,-77.45267,00000095,I-95 SOUTH @ SCOTT RD OVERPASS,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040291,1,0,24,16861,1498,northbound,041,37.52958,-77.6963,00000288,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040291,5,0,24,16419,1462,southbound,041,37.52958,-77.6963,00000288,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040292,1,0,24,32116,2981,northbound,760,37.57039,-77.47737,00000195,0.10 Mile North of US 33; US 250 overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040294,1,0,24,55618,4450,northbound,570,37.24141,-77.39496,00000095,I-95 North Shoulder @ Exit 53,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,570,True
+51,040295,1,0,24,48917,3807,northbound,570,37.24735,-77.3933,00000095,@ Exit 53,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,570,True
+51,040296,1,0,24,52302,4101,northbound,041,37.29414,-77.3907,00000095,2.60 Mi N of Ramp Fr SR 144,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040298,1,0,24,56159,4293,northbound,041,37.37444,-77.40591,00000095,Central TMC Camera Pole @ Coxendale Rd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040300,1,0,24,46306,3240,northbound,760,37.4939,-77.4311,00000095,0.25 Mi N Deepwater Terminal Underpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040304,1,0,24,54694,3644,northbound,760,37.57942,-77.46822,00000095,I-95 SOUTH SHOULDER AT MM78,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040305,1,0,24,56205,4206,northbound,760,37.59366,-77.46772,00000095,I-95 South Shoulder @ MM 80,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040316,1,0,24,51800,3872,northbound,087,37.59729,-77.46603,00000095,I-95 South Shoulder @ MM 80,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040329,3,0,24,4740,425,eastbound,025,36.70238,-78.01384,00000058,0.1 MI E RTE 696 (GHOLSON RD.),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,040329,7,0,24,4327,378,westbound,025,36.70238,-78.01384,00000058,0.1 MI E RTE 696 (GHOLSON RD.),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,040333,1,0,24,15164,1153,northbound,025,36.82585,-77.94987,00000085,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,040334,1,0,24,14854,1133,northbound,025,36.84497,-77.91486,00000085,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,040335,1,0,24,15386,1172,northbound,025,36.89725,-77.79826,00000085,I-85 N north of 12-630 Sturgeon Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,040349,3,0,24,10942,891,eastbound,041,37.33613,-77.32863,00000010,0.1 E RAMP FR I-295,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040349,7,0,24,11175,940,westbound,041,37.33613,-77.32863,00000010,0.1 E RAMP FR I-295,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040359,1,0,24,49809,3756,northbound,041,37.3255,-77.39961,00000095,0.69 mi from Ramp from Woods Edge Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040360,1,0,24,48730,3582,northbound,041,37.39957,-77.42463,00000095,@ Ramp from Willis Rd to I-95 South,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040361,1,0,24,46416,3327,northbound,041,37.46332,-77.42555,00000095,I-95 South Shoulder @ Exit 69,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040377,1,0,24,21352,1807,northbound,041,37.408562,-77.553524,00000288,2.53 mi from SR 10 Iron Bridge Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040377,5,0,24,19975,1609,southbound,041,37.408562,-77.553524,00000288,2.53 mi from SR 10 Iron Bridge Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040386,3,0,24,24987,1796,eastbound,041,37.44031,-77.45779,00000150,0.2 MI E RTE 1601 (DALEBROOK DR),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040386,7,0,24,26974,2108,westbound,041,37.44031,-77.45779,00000150,0.2 MI E RTE 1601 (DALEBROOK DR),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040387,1,0,24,11854,1072,northbound,041,37.37444,-77.40591,00000288,Central TMC Camera Pole @ Coxendale Rd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,040394,3,0,24,394,43,eastbound,053,37.01511,-77.80052,00000040,4.20 E RT 644,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,040394,7,0,24,403,34,westbound,053,37.01511,-77.80052,00000040,4.20 E RT 644,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,040397,1,0,24,16115,1230,northbound,053,37.05692,-77.60022,00000085,I-85 North Shoulder @ MM 50.9,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,040400,1,0,24,23846,1835,northbound,730,37.21804,-77.38757,00000095,I-95 North Collector Road Shoulder @ Exit 50D,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,040410,3,0,24,3430,306,eastbound,053,37.15534,-77.71552,00000460,1.00 MI E RT 622,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,040410,7,0,24,3298,300,westbound,053,37.15534,-77.71552,00000460,1.00 MI E RT 622,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,040413,1,0,24,30079,2690,northbound,730,37.20105,-77.43943,00000085,1.04 mi from US 1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,040418,3,0,24,18602,1657,eastbound,075,37.8807,-78.02633,00000064,I-64 West Shoulder @ Exit 148 East of 37-605,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,040426,3,0,24,25389,2210,eastbound,075,37.676,-77.65586,00000064,I-64 WB at SR-288 NB ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,040436,1,0,24,48188,3643,northbound,087,37.60818,-77.45254,00000095,Just South of overhead VMS south of US 301,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040444,3,0,24,51471,3992,eastbound,085,37.63403,-77.3873,00000295,I-295 North Shoulder @ MM 39,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,040445,3,0,24,44420,3476,eastbound,085,37.59606,-77.35037,00000295,I-295 South @ MM 36,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,040481,3,0,24,53057,4077,eastbound,087,37.59012,-77.48007,00000064,I-64 East Shoulder @ MM 185.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040482,3,0,24,34202,2582,eastbound,760,37.55383,-77.40276,00000064,0.43 mi West of the Creighton Road Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040483,3,0,24,22791,1785,eastbound,087,37.53088,-77.34335,00000064,0.76 Mi E of Ramp Fr Laburnum Ave,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040488,1,0,24,56473,3918,northbound,760,37.53744,-77.42823,00000095,I-95 North Shoulder @ MM 74,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040489,1,0,24,59913,4101,northbound,760,37.56379,-77.454,00000095,1.10 Mi N of Ramp Fr SR 301,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040492,1,0,24,53597,3677,northbound,760,37.55257,-77.44299,00000095,I-95 North Shoulder @ Belvidere St,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040493,1,0,24,63335,4356,northbound,760,37.5504,-77.43559,00000095,I-95 NORTH SHOULDER @ MM75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040499,1,0,24,9653,1051,northbound,760,37.55264,-77.48515,00000195,I-195 North Shoulder @ Cary St Exit,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040500,1,0,24,28923,2635,northbound,760,37.5652,-77.48284,00000195,0.78 N RT 76,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040502,1,0,24,34967,3216,northbound,760,37.58289,-77.47395,00000195,Right side of I-195 NB North of Laburnum Ave Exit,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040506,1,0,720,869239,2502,northbound,760,37.59366,-77.46772,00000195,I-95 South Shoulder @ MM 80,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,040509,3,0,24,23742,2084,eastbound,087,37.66639,-77.59215,00000295,@ MM 52,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040510,3,0,24,25503,2236,eastbound,087,37.6786,-77.55325,00000295,I-295 E in Median 1.18 Miles East of ramp from Nuc,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040511,3,0,24,39226,3082,eastbound,087,37.54136,-77.28116,00000295,I-295 EAST @ EXIT 28,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040512,3,0,24,16777,1214,eastbound,087,37.46367,-77.31251,00000295,I-295 EAST;SOUTH OF SR 895,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040513,5,0,24,19359,1423,southbound,087,37.47734,-77.30461,00000295,I-295 East Shoulder @ Exit 25,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040514,3,0,24,13551,1155,eastbound,087,37.6575,-77.61069,00000295,I-64 West Shoulder @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040545,3,0,24,2507,201,eastbound,117,36.67017,-78.39345,00000058,0.25 MI E RTE 688 (SKIPWITH RD.),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,040545,7,0,24,2330,229,westbound,117,36.67017,-78.39345,00000058,0.25 MI E RTE 688 (SKIPWITH RD.),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,040552,1,0,24,17154,1328,northbound,117,36.60413,-78.15134,00000085,I-85 South @ Exit 4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,040609,3,0,24,6392,493,eastbound,149,37.24594,-77.34827,00000036,0.20 E MAIN ENT TO FORT LEE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,040609,7,0,24,6583,477,westbound,149,37.24594,-77.34827,00000036,0.20 E MAIN ENT TO FORT LEE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,040612,1,0,24,29396,2389,northbound,149,37.14504,-77.35596,00000095,I-95 South Shoulder @ Exit 45,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,040613,1,0,24,21320,1625,northbound,730,37.18613,-77.35605,00000095,I-95 North @ Exit 48 A,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,040614,1,0,24,26104,1969,northbound,730,37.21804,-77.38757,00000095,I-95 South Shoulder @ Exit 48,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,040678,3,0,24,27730,2237,eastbound,087,37.5364,-77.38294,00000064,I-64 West Shoulder - 0.43 mi west of  Masonic Lane,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040713,1,0,24,13560,1360,northbound,149,37.25235,-77.37387,00000144,2.40 N RT 36,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,040713,5,0,24,13628,1285,southbound,149,37.25235,-77.37387,00000144,2.40 N RT 36,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,040725,1,0,24,15745,1195,northbound,117,36.7165,-78.11156,00000085,I-85 North Shoulder @ Exit 12,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,040761,3,0,24,17027,1209,eastbound,087,37.40282,-77.3425,00000295,4.34 mi from SR 10,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040764,3,0,24,11238,934,eastbound,149,37.19604,-77.32223,00000295,I-295 South Shoulder @ Exit 3B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,040765,3,0,24,9265,805,eastbound,149,37.1763,-77.3401,00000295,1.00 E RAMP FR RT 460,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,040766,3,0,24,39416,3160,eastbound,087,37.60861,-77.52959,00000064,I-64 West Shoulder @ MM 182,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040777,3,0,24,38184,3099,eastbound,087,37.62825,-77.5629,00000064,0.40 Mi E of Ramp Fr Gaskins Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,040793,1,0,24,25044,2319,northbound,053,37.19898,-77.47198,00000085,I-85 South shoulder @ MM 59,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,050031,3,0,24,1328,147,eastbound,181,37.1275,-76.86833,00000010,0.15 MI W RTE 660,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,181,True
+51,050031,7,0,24,1525,146,westbound,181,37.1275,-76.86833,00000010,0.15 MI W RTE 660,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,181,True
+51,050048,3,0,24,3483,322,eastbound,001,37.9412,-75.52664,00000175,0.75 E RT 13,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,001,True
+51,050048,7,0,24,4223,394,westbound,001,37.9412,-75.52664,00000175,0.75 E RT 13,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,001,True
+51,050078,3,0,24,12406,1079,eastbound,175,36.6835,-77.015476,00000058,0.1 MI E RTE 650 (SOUTH INTERSECTION),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,175,True
+51,050078,7,0,24,11518,945,westbound,175,36.6835,-77.015476,00000058,0.1 MI E RTE 650 (SOUTH INTERSECTION),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,175,True
+51,050117,1,0,24,16295,1548,northbound,183,36.80921,-77.45818,00000095,I-95 South Shoulder @ Exit 20,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,050119,1,0,24,30394,2581,northbound,081,36.58128,-77.56463,00000095,2.55 Mi N of North Carolina State Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,050163,3,0,24,67013,5371,eastbound,700,37.09632,-76.46562,00000064,0.7 Mi E Ramp Fr Rte 171,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,700,True
+51,050169,3,0,24,59460,4503,eastbound,710,36.83266,-76.19622,00000064,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,050205,3,0,24,60602,4749,eastbound,810,36.83681,-76.07406,00000264,I-264 Eastbound,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,050206,1,0,720,331377,1518,northbound,001,37.9612,-75.53302,00000013,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,001,True
+51,050206,5,0,24,10322,862,southbound,001,37.9612,-75.53302,00000013,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,001,True
+51,050216,7,0,24,67127,5427,westbound,810,36.83861,-76.08499,00000264,I-264 Westbound Approx 0.88 miles west of Lynnhave,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,050237,1,0,24,28107,2261,northbound,081,36.64955,-77.55922,00000095,I-95 South Shoulder @ MM 7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,050238,1,0,24,30207,2472,northbound,081,36.68315,-77.55706,00000095,I-95 North Shoulder @ MM 9,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,050239,1,0,24,25123,2039,northbound,081,36.76572,-77.48215,00000095,I-95 South Shoulder @ Exit 17 Close to Railroad Un,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,050267,3,0,24,39837,3235,eastbound,095,37.39081,-76.76951,00000064,I-64 East Shoulder @ MM 231,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,095,True
+51,050300,3,0,24,9877,991,eastbound,800,36.75253,-76.58363,00000460,0.35 MI E RTE 638,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,800,True
+51,050300,7,0,24,10619,1014,westbound,800,36.75253,-76.58363,00000460,0.35 MI E RTE 638,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,800,True
+51,050306,3,0,24,56731,4559,eastbound,710,36.899678,-76.235233,00000064,0.38 mi from SR 194 Chesapeake Blvd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,050308,3,0,24,69886,5159,eastbound,710,36.857522,-76.195268,00000064,0.14 mi from Virginia Beach Blvd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,050312,5,0,24,563,66,southbound,001,37.98893,-75.53354,00000000,New Church Welcome Center Exit Ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,001,True
+51,050356,3,0,24,6562,645,eastbound,175,36.93622,-76.93839,00000460,0.47 mi west of Drews Avenue,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,175,True
+51,050356,7,0,24,7442,678,westbound,175,36.93622,-76.93839,00000460,0.47 mi west of Drews Avenue,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,175,True
+51,050373,1,0,24,24964,2032,northbound,183,36.76922,-77.46738,00000095,I-95 South Shoulder @ Exit 17,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,050374,1,0,24,25233,2070,northbound,183,36.85566,-77.4208,00000095,I-95 North Shoulder @ Exit 24,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,050375,1,0,24,25485,2099,northbound,183,36.94653,-77.39173,00000095,I-95 North Shoulder @ Exit 31,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,050390,3,0,24,35552,2961,eastbound,199,37.3263,-76.70211,00000064,2.35 Mi E Ramp Fr SR 199,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,050405,3,0,24,5699,534,eastbound,199,37.17025,-76.47883,00000173,0.25 MI W RTE 17,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,050405,7,0,24,5490,536,westbound,199,37.17025,-76.47883,00000173,0.25 MI W RTE 17,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,050428,3,0,24,10009,928,eastbound,175,36.707679,-77.151803,00000058,2.8 MI W BUS 58 MEHERRIN RD.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,175,True
+51,050428,7,0,24,8980,753,westbound,175,36.707679,-77.151803,00000058,2.8 MI W BUS 58 MEHERRIN RD.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,175,True
+51,050587,1,0,24,25316,2032,northbound,081,36.72378,-77.53025,00000095,0.47 mi from Otterdam Rd on ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,050589,1,0,24,24614,2013,northbound,081,36.72378,-77.53025,00000095,0.47 mi from Otterdam Rd on ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,050596,3,0,24,27475,2342,eastbound,800,36.95964,-76.41092,00000664,Hampton Roads Tunnel Equipment,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,800,True
+51,050617,3,0,24,19645,1531,eastbound,740,36.86904,-76.40765,00000164,0.82 mi from SR 135 Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,740,True
+51,050617,7,0,24,20677,1659,westbound,740,36.86904,-76.40765,00000164,0.82 mi from SR 135 Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,740,True
+51,060130,3,0,24,4963,439,eastbound,159,37.96556,-76.78891,00000360,0.16 W RTE 646,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,159,True
+51,060130,7,0,24,6258,647,westbound,159,37.96556,-76.78891,00000360,0.16 W RTE 646,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,159,True
+51,060148,1,0,24,9420,824,northbound,179,38.47456,-77.39426,00000001,0.75 MS 89-637; Sunnyside Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,060148,5,0,24,11421,1016,southbound,179,38.47456,-77.39426,00000001,0.75 MS 89-637; Sunnyside Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,060156,1,0,24,13219,1140,northbound,073,37.26619,-76.49374,00000017,0.15 S TIDEMILL ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,073,True
+51,060156,5,0,24,13184,1156,southbound,073,37.26619,-76.49374,00000017,0.15 S TIDEMILL ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,073,True
+51,060162,1,0,24,59040,4314,northbound,033,37.98311,-77.49229,00000095,I-95 North Shoulder @ MM 108.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,033,True
+51,060164,1,0,24,58274,4565,northbound,177,38.14136,-77.50652,00000095,1.10 N RAMP FR RT 606,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,177,True
+51,060168,1,0,24,76391,5493,northbound,630,38.3134,-77.50282,00000095,I-95 North Shoulder @ MM 131.53,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,630,True
+51,060170,1,0,24,59636,4457,northbound,033,38.12208,-77.51653,00000095,I-95 South Shoulder @ MM 117,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,033,True
+51,060180,1,0,24,6803,947,northbound,033,37.961,-77.43613,00000207,.05 S RTE 716 (MONCURE DR),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,033,True
+51,060180,5,0,24,4744,423,southbound,033,37.961,-77.43613,00000207,.05 S RTE 716 (MONCURE DR),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,033,True
+51,060300,1,0,24,61378,5002,northbound,177,38.24732,-77.50721,00000095,I-95 SOUTH SHOULDER @ MM 126.8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,177,True
+51,060314,1,0,24,72976,5054,northbound,179,38.39754,-77.43581,00000095,I-95 South Shoulder @ MM 138.7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,060315,1,0,24,70906,4992,northbound,153,38.46813,-77.40527,00000095,I-95 North Shoulder @ MM 143.8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,060326,1,0,24,65228,4588,northbound,179,38.35157,-77.47992,00000095,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,070014,3,0,24,14561,1300,eastbound,540,38.0524,-78.48145,00000250,0.2 MI E ST ANNES ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,540,True
+51,070014,7,0,24,14133,1512,westbound,540,38.0524,-78.48145,00000250,0.2 MI E ST ANNES ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,540,True
+51,070016,1,0,24,4460,532,northbound,061,38.69076,-77.78949,00000015,0.5 MI S FALMOUTH STREET,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070016,5,0,24,4826,478,southbound,061,38.69076,-77.78949,00000015,0.5 MI S FALMOUTH STREET,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070076,1,0,24,5094,447,northbound,137,38.31822,-77.75202,00000020,1.28 S Rte. 3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,137,True
+51,070076,5,0,24,4471,393,southbound,137,38.31822,-77.75202,00000020,1.28 S Rte. 3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,137,True
+51,070118,1,0,24,10730,1003,northbound,113,38.31414,-78.3157,00000029,1.8 N Rte. 621,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,113,True
+51,070118,5,0,24,8695,727,southbound,113,38.31414,-78.3157,00000029,1.8 N Rte. 621,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,113,True
+51,070120,3,0,24,22916,2005,eastbound,061,38.8574,-77.8197,00000066,1.1 E Ramp Fr Rte 17,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070122,3,0,24,29542,2569,eastbound,061,38.85756,-77.85124,00000066,I-66 @ Exit 27A to SR 55,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070124,3,0,24,23671,1997,eastbound,061,38.90304,-77.94121,00000066,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070156,1,0,24,17671,1687,northbound,003,38.13486,-78.43316,00000029,0.2 Mi. N Rte. 649,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,070156,5,0,24,15631,1281,southbound,003,38.13486,-78.43316,00000029,0.2 Mi. N Rte. 649,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,070170,3,0,24,22684,2030,eastbound,003,38.0084,-78.48514,00000064,I-64 East Shoulder @ MM 121.3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,070172,3,0,24,25054,2227,eastbound,003,38.01946,-78.53398,00000064,I-64 West Shoulder @ MM 118.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,070223,3,0,24,22143,1948,eastbound,003,38.02898,-78.59075,00000064,I-64 West Shoulder @ MM 115,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,070224,3,0,24,20793,1849,eastbound,003,38.01977,-78.43538,00000064,I-64 West Shoulder @ MM 124.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,070225,3,0,24,20960,1889,eastbound,003,38.021517,-78.42593,00000064,I-64 W at ramp to US 250 to Charlottesville MP 124,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,070258,1,0,24,25250,2072,northbound,061,38.64658,-77.80402,00000015,0.3 MI N LEES MILL RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070258,5,0,24,22156,1864,southbound,061,38.64658,-77.80402,00000015,0.3 MI N LEES MILL RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070265,1,0,24,10001,907,northbound,061,38.80142,-77.81525,00000017,0.25 MI S 30-698 OBANNON RD.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070265,5,0,24,10432,916,southbound,061,38.80142,-77.81525,00000017,0.25 MI S 30-698 OBANNON RD.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070268,1,0,24,8760,726,northbound,061,38.479874,-77.68075,00000017,2.78 miles from 30-615 Goldvein,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070268,5,0,24,9196,762,southbound,061,38.479874,-77.68075,00000017,2.78 miles from 30-615 Goldvein,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070275,1,0,24,24481,2035,northbound,061,38.77401,-77.69057,00000029,0.4 S Rte. 215/Vint Hill Rd.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070275,5,0,24,20786,1664,southbound,061,38.77401,-77.69057,00000029,0.4 S Rte. 215/Vint Hill Rd.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070281,3,0,24,28616,2445,eastbound,061,38.86911,-77.88986,00000066,I-66 West Shoulder @ MM 26.3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,070309,3,0,24,20840,1818,eastbound,109,37.96299,-78.17979,00000064,1.8 Mi E of Ramp Fr Rte 15,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,109,True
+51,080058,3,0,24,2192,215,eastbound,069,39.0961,-78.48701,00000055,.25 W RTE 609,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080058,7,0,24,1139,123,westbound,069,39.0961,-78.48701,00000055,.25 W RTE 609,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080122,3,0,24,6029,566,eastbound,163,37.87229,-79.52084,00000064,4.90 Mi E of Ramp Fr Rte 780,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,080190,3,0,24,20555,1721,eastbound,187,38.94524,-78.14746,00000066,2.6 E RAMP FR RT 522,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,187,True
+51,080191,3,0,24,22433,1877,eastbound,061,38.907,-77.9974,00000000,I-66 East Shoulder @ Leeds Manor Rd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,080192,3,0,24,20739,1694,eastbound,187,38.99323,-78.24963,00000066,I-66 West Shoulder @ MM 3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,187,True
+51,080226,1,0,24,26035,2166,northbound,069,39.13725,-78.17668,00000081,I-81 South Shoulder @ MM 311.21,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080228,1,0,24,30005,2449,northbound,069,39.09391,-78.20724,00000081,I-81 South Shoulder @ MM 308.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080230,1,0,24,27956,2308,northbound,069,39.02195,-78.2803,00000081,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080232,1,0,24,30110,2465,northbound,163,37.80492,-79.38925,00000081,I-81 North Shoulder @ MM 192.3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,080234,1,0,24,30234,2611,northbound,660,38.42199,-78.881,00000081,2.20 N RAMP FR RT 11,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,660,True
+51,080236,1,0,24,29878,2593,northbound,660,38.43153,-78.87289,00000081,I-81 North Shoulder @ MM 246.15,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,660,True
+51,080238,1,0,24,27237,2569,northbound,171,38.72398,-78.65942,00000081,I-81 South Shoulder@ MM 270.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,080244,3,0,24,21962,1865,eastbound,820,38.05733,-78.93003,00000064,0.40 Mi E of Ramp Fr Rte 340,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,820,True
+51,080250,1,0,24,31692,2632,northbound,015,38.12416,-79.04324,00000081,I-81 North Shoulder @ MM 221.15,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080252,1,0,24,30596,2466,northbound,015,38.04178,-79.1234,00000081,1.28 mi from US 11,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080254,1,0,24,31394,2576,northbound,163,37.9544,-79.20757,00000081,1.75 N RAMP FR RT 606,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,080264,1,0,24,5011,471,northbound,165,38.42803,-78.91968,00000042,0.2 MI S RTE 732,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,080264,5,0,24,4957,527,southbound,165,38.42803,-78.91968,00000042,0.2 MI S RTE 732,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,080292,3,0,24,21407,1806,eastbound,015,38.11998,-79.04444,00000064,I-64 East Median @ MM 87,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080293,3,0,24,20337,1754,eastbound,015,38.04039,-78.88261,00000064,I-64 West Shoulder @ MM 98,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080297,1,0,24,33108,2704,northbound,015,38.08129,-79.08534,00000081,2.28 mi from SR 262,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080298,1,0,24,30342,2573,northbound,015,38.14874,-79.01782,00000081,I-81 South Shoulder @ MM 224.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080299,1,0,24,29854,2511,northbound,015,38.23373,-78.97136,00000081,I-81 SOUTH SHOULDER @ MM230.80,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080303,3,0,24,6112,682,eastbound,015,38.08487,-78.93599,00000250,0.1 E AERO DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080303,7,0,24,6141,609,westbound,015,38.08487,-78.93599,00000250,0.1 E AERO DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,080336,3,0,24,11443,984,eastbound,043,39.17571,-78.05315,00000007,0.3 E RTE 635,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,043,True
+51,080336,7,0,24,10309,836,westbound,043,39.17571,-78.05315,00000007,0.3 E RTE 635,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,043,True
+51,080343,1,0,24,6379,594,northbound,043,39.18809,-77.92562,00000340,0.8 N RTE 610,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,043,True
+51,080343,5,0,24,5926,463,southbound,043,39.18809,-77.92562,00000340,0.8 N RTE 610,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,043,True
+51,080354,1,0,24,5140,497,northbound,069,39.13124,-78.19213,00000011,0.63 mi from SR 37 Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080354,5,0,24,5015,550,southbound,069,39.13124,-78.19213,00000011,0.63 mi from SR 37 Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080360,1,0,24,11348,999,northbound,069,39.17748,-78.20591,00000037,1.3 mi North of Rt 622,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080360,5,0,24,12740,1163,southbound,069,39.17748,-78.20591,00000037,1.3 mi North of Rt 622,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080370,1,0,24,24126,1916,northbound,069,39.29298,-78.08273,00000081,I-81 North Shoulder @ MM 324,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080372,1,0,24,29068,2366,northbound,069,39.06224,-78.23444,00000081,I-81 South Shoulder @ MM 305.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080373,1,0,24,33202,2784,northbound,069,39.17685,-78.1458,00000081,1.00 N RAMP FR RT 50,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080375,1,0,24,25554,2024,northbound,069,39.24367,-78.11344,00000081,0.05 mi from I-81 South,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080376,1,0,24,25539,2034,northbound,069,39.26905,-78.09473,00000081,0.15 mi North of Rt 671 Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,080422,1,0,24,26278,2183,northbound,163,37.76073,-79.40722,00000081,I-81 North Shoulder @ MM 189,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,080424,1,0,24,25891,2200,northbound,163,37.73784,-79.42578,00000081,I-81 SOUTH SHOULDER @ MM 187,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,080427,1,0,24,30783,2574,northbound,163,37.90602,-79.26263,00000081,1.63 mi from Sterret Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,080458,1,0,48,60890,2613,northbound,165,38.39555,-78.9117,00000081,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,080460,1,0,24,29615,2590,northbound,660,38.44353,-78.84451,00000081,I-81 South Shoulder @ MM 247.95,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,660,True
+51,080461,1,0,24,29413,2586,northbound,165,38.53656,-78.76734,00000081,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,080463,1,0,24,27042,2315,northbound,165,38.63756,-78.68449,00000081,I-81 SOUTH SHOULDER @ MM264,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,080497,1,0,24,27688,2618,northbound,171,38.80764,-78.59971,00000081,I-81 North Shoulder @ MM 277.25,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,080499,1,0,24,27957,2652,northbound,171,38.86914,-78.5285,00000081,I-81 North Shoulder @ MM 283,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,080501,1,0,24,30121,2391,northbound,171,39.00098,-78.38805,00000081,1.53 mi from SR 55,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,080502,1,0,24,32771,2606,northbound,171,39.01052,-78.33992,00000081,I-81 South Shoulder @ MM 297.9,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,080563,3,0,24,12082,1092,eastbound,015,38.11998,-79.04444,00000064,I-64 East Median @ MM 87,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,090021,1,0,24,12272,1091,northbound,107,39.15608,-77.53899,00000015,0.20 N Whites Ferry Rd (RT655),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,107,True
+51,090021,5,0,24,12448,1147,southbound,107,39.16621,-77.53591,00000015,0.94 Mi N 53-655 Whites Ferry Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,107,True
+51,090027,1,0,24,7724,679,northbound,153,38.89024,-77.63203,00000015,1.40 N RT 234,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,090027,5,0,24,7193,714,southbound,153,38.89024,-77.63203,00000015,1.40 N RT 234,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,090049,3,0,24,9500,849,eastbound,107,39.12861,-77.7812,00000007,0.40 E OF STONE LEIGH ROAD  (.25 M W RT 7 BUS E),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,107,True
+51,090049,7,0,24,8736,755,westbound,107,39.12861,-77.7812,00000007,0.40 E OF STONE LEIGH ROAD  (.25 M W RT 7 BUS E),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,107,True
+51,090106,3,0,24,46753,3240,eastbound,013,38.88974,-77.10675,00000066,0.50 E RAMP FR RT 120,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,013,True
+51,090132,1,0,24,68995,4722,northbound,153,38.54067,-77.34892,00000095,I-95 South Shoulder @ MM 149.9,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,090138,1,0,24,98145,6963,northbound,059,38.80113,-77.20888,00000495,1.1 MI FR I-95; I-395 (Springfield Interchange),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090139,1,0,24,7931,771,northbound,059,38.80113,-77.20888,00000495,1.1 MI FR I-95; I-395 (Springfield Interchange),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090141,5,0,24,6527,686,southbound,059,38.80113,-77.20888,00000495,1.1 MI FR I-95; I-395 (Springfield Interchange),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090170,1,0,24,13446,1070,northbound,059,38.71886,-77.1293,00000001,0.20 N RT 235 (S INT),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090170,5,0,24,14668,1195,southbound,059,38.71886,-77.1293,00000001,0.20 N RT 235 (S INT),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090212,1,0,24,7778,667,northbound,013,38.88899,-77.1593,00000029,0.10 N RT 237,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,013,True
+51,090212,5,0,24,8116,752,southbound,013,38.88899,-77.1593,00000029,0.10 N RT 237,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,013,True
+51,090240,3,0,24,21336,1648,eastbound,059,38.86781,-77.18519,00000050,0.1 E MARSHALL ST,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090240,7,0,24,20784,1566,westbound,059,38.86781,-77.18519,00000050,0.1 E MARSHALL ST,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090278,1,0,24,15282,1097,northbound,059,38.7688,-77.31629,00000123,0.18 mi from Burke Lake Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090278,5,0,24,16106,1324,southbound,059,38.7688,-77.31629,00000123,0.18 mi from Burke Lake Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,090305,1,0,24,73608,5224,northbound,153,38.58742,-77.3184,00000095,.6 Miles N Dumfries Rd / RTE 234 Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,110003,5,0,24,18602,1630,southbound,197,36.94626,-80.91012,00000081,I-81 South Shoulder @ MM 82.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110004,5,0,24,28342,2447,southbound,197,36.94092,-80.97305,00000081,I-81 North Shoulder @ MM 80.75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110006,5,0,24,27236,2309,southbound,197,36.9545,-81.0555,00000081,I-81/77 North Shoulder @ MM 73.50,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110007,5,0,24,15843,1369,southbound,197,36.96298,-81.0704,00000081,I-81 North Shoulder @ MM 72.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110009,5,0,24,14486,1308,southbound,197,36.91917,-81.24781,00000081,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110011,5,0,24,14271,1279,southbound,173,36.86348,-81.42713,00000081,0.2 mi from 86-622 Nicks Creek Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,173,True
+51,110014,5,0,24,15126,1365,southbound,173,36.8227,-81.5337,00000081,I-81 South Shoulder @ MM 44.32,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,173,True
+51,110015,5,0,24,14485,1317,southbound,173,36.8227,-81.5337,00000081,I-81 South Shoulder @ MM 44.32,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,173,True
+51,110023,5,0,48,42743,2061,southbound,191,36.7165,-81.9265,00000081,I-81 South Shoulder @ MM 20.10,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,191,True
+51,110025,5,0,24,19017,1725,southbound,,,,,,,,,False
+51,110027,5,0,24,20066,1856,southbound,,,,,,,,,False
+51,110028,5,0,24,20410,1858,southbound,,,,,,,,,False
+51,110029,5,0,24,22314,2028,southbound,,,,,,,,,False
+51,110031,5,0,24,18722,1789,southbound,,,,,,,,,False
+51,110032,5,0,24,18994,1813,southbound,,,,,,,,,False
+51,110033,5,0,24,27893,2393,southbound,197,36.94633,-80.93953,00000081,I-81/77 North Shoulder @ MM 80.75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110040,5,0,24,18424,1539,southbound,197,36.98675,-81.07432,00000077,I-77 North Shoulder @ MM 43.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110041,5,0,24,18320,1525,southbound,197,36.9662,-81.0659,00000077,I-77 South Shoulder @ MM 40.9,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110043,5,0,24,24194,2018,southbound,197,36.87008,-80.87253,00000077,I-77 South Shoulder @ MM 26,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,110045,5,0,24,4948,440,southbound,,,,,,,,,False
+51,110048,3,0,24,363,31,eastbound,191,36.75551,-81.88171,00000609,0.40 E RT 694,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,191,True
+51,110048,7,0,24,371,45,westbound,191,36.75551,-81.88171,00000609,0.40 E RT 694,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,191,True
+51,120001,5,0,24,20044,1668,southbound,023,37.50375,-79.74623,00000081,5.35 S RAMP FR RT 11,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,120002,5,0,24,20497,1679,southbound,023,37.4677,-79.81267,00000081,I-81 North Shoulder @ MM 158,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,120007,5,0,24,27151,2280,southbound,161,37.34795,-79.98861,00000081,1.85 S RAMP FR RT 115,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,120008,5,0,24,29500,2415,southbound,161,37.33065,-80.02674,00000081,1.5 Mile South I-581,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,120009,5,0,24,27685,2228,southbound,161,37.31887,-80.04499,00000081,0.5 Mile South SR 419 Electric Road,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,120010,5,0,24,26825,2136,southbound,161,37.30178,-80.07755,00000081,2.2 Mile South SR 311 Thompson Memorial Dr,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,161,True
+51,120012,5,0,24,22733,1779,southbound,121,37.24204,-80.2142,00000081,I-81 North Shoulder @ MM 129.7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,121,True
+51,120015,5,0,24,19807,1679,southbound,121,37.112,-80.44435,00000081,1.15 S RAMP FR RT 8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,121,True
+51,120016,5,0,24,17924,1581,southbound,121,37.09936,-80.53952,00000081,2.5 mi from SR 232,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,121,True
+51,120019,5,0,24,11942,1630,southbound,155,37.04297,-80.71796,00000081,I-81 North Shoulder @ MM 95.7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,120021,5,0,24,16463,1624,southbound,155,36.99634,-80.7839,00000081,I-81 North Shoulder @ MM 90.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,120022,5,0,24,17531,1551,southbound,155,36.98671,-80.82086,00000081,1.0 mi from 98-618,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,120023,1,0,24,24339,2229,northbound,035,36.56772,-80.74418,00000077,0.08 mi from merge of parking lots,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,120025,5,0,24,24747,2055,southbound,035,36.76406,-80.79807,00000077,2.00 RAMP FR RT 620,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,120027,5,0,24,24223,1946,southbound,035,36.620714,-80.738333,00000077,I-77 SB 4.76 Mi South of 17-775 Chance Creek Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,120028,5,0,24,24029,1995,southbound,035,36.56772,-80.74418,00000077,0.08 mi from merge of parking lots,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,120032,5,0,24,20475,1810,southbound,770,37.3154,-79.98109,00000581,I-581 South Shoulder @ MM 4.35,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,120056,1,0,24,1252,125,northbound,155,37.162,-80.58515,00000600,0.80 N RT 114,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,120056,5,0,24,1287,139,southbound,155,37.162,-80.58515,00000600,0.80 N RT 114,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,120058,1,0,24,4083,313,northbound,770,37.26724,-79.96977,00000011,0.01 S ROANOKE AVE SW,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,120058,5,0,24,4164,349,southbound,770,37.26724,-79.96977,00000011,0.01 S ROANOKE AVE SW,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,120060,3,0,24,6080,626,eastbound,770,37.3314,-79.98046,00000117,.4 Mile North of Ramp to Route 581,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,120060,7,0,24,6172,564,westbound,770,37.3314,-79.98046,00000117,.4 Mile North of Ramp to Route 581,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,120062,1,0,24,229,25,northbound,089,36.67216,-79.96719,00000683,2.35 N RT 687,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,089,True
+51,120062,5,0,24,225,22,southbound,089,36.67216,-79.96719,00000683,2.35 N RT 687,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,089,True
+51,120063,1,0,24,3750,393,northbound,770,37.3258,-79.96494,00000118,0.10 N MUNICIPAL DRIVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,120063,5,0,24,3694,560,southbound,770,37.3258,-79.96494,00000118,0.10 N MUNICIPAL DRIVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,120065,3,0,24,5116,530,eastbound,089,36.69157,-79.83411,00000058,0.1 E HIDDEN FOREST DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,089,True
+51,120065,7,0,24,5068,439,westbound,089,36.69157,-79.83411,00000058,0.1 E HIDDEN FOREST DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,089,True
+51,130018,3,0,24,1105,134,eastbound,125,37.87417,-78.93056,00000664,0.20 E RT 767,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,125,True
+51,130018,7,0,24,829,75,westbound,125,37.87417,-78.93056,00000664,0.20 E RT 767,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,125,True
+51,140001,1,0,24,26463,2171,northbound,149,37.03856,-77.3892,00000095,I-95 South Shoulder @ Exit 37,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,140002,1,0,24,18683,1410,northbound,149,37.17267,-77.35082,00000095,I-95 North @ Exit 47,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,140003,1,0,24,49463,3601,northbound,041,37.43155,-77.43168,00000095,I-95 South Shoulder @ MM 67,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,140004,5,0,24,65999,4607,southbound,085,37.82411,-77.45616,00000095,I-95 North Median @ MM 96.6,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,140005,5,0,24,67126,4696,southbound,085,37.75417,-77.45853,00000095,I-95 South Shoulder South of SR 54 Interchange,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,140006,5,0,24,69438,4819,southbound,085,37.70922,-77.44836,00000095,0.9 S RAMP FR RT 802,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,140008,5,0,24,44075,3061,southbound,087,37.63991,-77.45267,00000095,I-95 SOUTH @ SCOTT RD OVERPASS,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140009,5,0,24,45568,3159,southbound,087,37.6254,-77.44693,00000095,0.45 MI S RMP FR RTE 73 (PARHAM RD.),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140010,5,0,24,48258,3354,southbound,087,37.60818,-77.45254,00000095,Just South of overhead VMS south of US 301,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140011,5,0,24,59097,4147,southbound,760,37.59366,-77.46772,00000095,I-95 South Shoulder @ MM 80,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140012,5,0,24,70106,4974,southbound,760,37.57942,-77.46822,00000095,I-95 SOUTH SHOULDER AT MM78,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140013,5,0,24,68031,4897,southbound,760,37.56365,-77.45443,00000095,0.75 S ROBIN HOOD RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140014,5,0,24,69300,4838,southbound,760,37.53744,-77.42823,00000095,I-95 North Shoulder @ MM 74,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140016,5,0,24,46883,3157,southbound,760,37.49645,-77.42994,00000095,1.53 MI S RAMP TO EXIT 73,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140018,5,0,24,48093,3299,southbound,041,37.43155,-77.43168,00000095,I-95 South Shoulder @ MM 67,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,140019,5,0,24,46210,3239,southbound,041,37.39957,-77.42463,00000095,@ Ramp from Willis Rd to I-95 South,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,140020,5,0,24,53579,3752,southbound,041,37.37444,-77.40591,00000095,Central TMC Camera Pole @ Coxendale Rd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,140021,5,0,24,47276,3328,southbound,041,37.3255,-77.39961,00000095,0.69 mi from Ramp from Woods Edge Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,140022,5,0,24,48365,3455,southbound,041,37.30287,-77.39252,00000095,0.55 S RAMP FR RT 746/620,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,140023,5,0,24,45362,3277,southbound,570,37.24735,-77.3933,00000095,@ Exit 53,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,570,True
+51,140025,5,0,24,49066,3570,southbound,570,37.24141,-77.39496,00000095,I-95 North Shoulder @ Exit 53,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,570,True
+51,140026,5,0,24,21344,1609,southbound,730,37.21804,-77.38757,00000095,I-95 North Collector Road Shoulder @ Exit 50D,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140027,5,0,24,25128,1949,southbound,730,37.19471,-77.36063,00000095,I-95 South Shoulder @ Exit 48,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140028,5,0,24,20675,1551,southbound,730,37.18613,-77.35605,00000095,I-95 North @ Exit 48 A,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140030,5,0,24,25004,1953,southbound,149,37.14504,-77.35596,00000095,I-95 South Shoulder @ Exit 45,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,140032,5,0,24,22005,1772,southbound,149,37.03856,-77.3892,00000095,I-95 South Shoulder @ Exit 37,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,140034,5,0,24,29167,2145,southbound,730,37.19881,-77.42324,00000085,I-85 North @ Exit 65,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140035,5,0,24,27366,2076,southbound,053,37.19926,-77.45529,00000085,I-85 South Shoulder @ Exit 63 B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,140036,5,0,24,22618,1698,southbound,053,37.19898,-77.47198,00000085,I-85 South shoulder @ MM 59,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,140037,5,0,24,14930,1232,southbound,053,37.16666,-77.50069,00000085,1.35 S Ramp Fr Rte 460,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,140038,5,0,24,14677,1131,southbound,053,37.0578,-77.60052,00000085,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,140039,5,0,24,14280,1101,southbound,053,37.03065,-77.63795,00000085,I-85 South Shoulder @ MM 48.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,140040,5,0,24,13871,1063,southbound,053,36.94313,-77.72929,00000085,I-85 South Shoulder norht of Exit 39,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,140042,5,0,24,13741,1054,southbound,025,36.86406,-77.83932,00000085,I-85 South Shoulder @ MM 32,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,140043,5,0,24,13496,1049,southbound,025,36.84592,-77.9155,00000085,I-81 SB Right Shoulder at VA 46 Bridge,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,140044,5,0,24,13768,1079,southbound,025,36.82672,-77.95133,00000085,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,140046,5,0,24,14236,1099,southbound,117,36.7165,-78.11156,00000085,I-85 North Shoulder @ Exit 12,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,140047,5,0,24,15697,1245,southbound,117,36.60413,-78.15134,00000085,I-85 South @ Exit 4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,140049,5,0,24,7600,634,southbound,760,37.55264,-77.48515,00000195,I-195 North Shoulder @ Cary St Exit,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140052,5,0,24,27603,2167,southbound,760,37.58289,-77.47395,00000195,Right side of I-195 NB North of Laburnum Ave Exit,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140055,5,0,48,71404,4364,southbound,760,37.57039,-77.47737,00000195,0.10 Mile North of US 33; US 250 overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140056,3,0,24,28694,2483,eastbound,087,37.65915,-77.46402,00000295,Left side of I-295 E 0.22 Miles from I-295 CD ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140057,3,0,24,16100,1360,eastbound,087,37.658189,-77.45469,00000295,I-295 Median midway between US 1 and I-95 sharing,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140059,7,0,24,14433,1377,westbound,149,37.19604,-77.32223,00000295,I-295 South Shoulder @ Exit 3B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,140063,7,0,24,19920,1811,westbound,087,37.46367,-77.31251,00000295,I-295 EAST;SOUTH OF SR 895,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140064,7,0,24,15282,1438,westbound,087,37.51864,-77.271,00000295,I-295 Median between US 60 and I-64 Interchanges,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140065,7,0,24,45948,3901,westbound,087,37.54136,-77.28116,00000295,I-295 EAST @ EXIT 28,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140067,7,0,24,52732,4638,westbound,085,37.59877,-77.35187,00000295,I-295 West Shoulder @ MM 36,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,140068,7,0,24,58368,5196,westbound,085,37.61826,-77.3652,00000295,0.40 W RAMP FR RT 360,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,140069,7,0,24,60232,5386,westbound,085,37.63403,-77.3873,00000295,I-295 North Shoulder @ MM 39,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,140070,7,0,24,56495,4983,westbound,085,37.65401,-77.43426,00000295,I-295 West @ ramp split to I-95 North,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,140071,7,0,24,19042,1782,westbound,087,37.658189,-77.45469,00000295,I-295 Median centered between US 1 and I-95 sharin,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140072,7,0,24,31821,2881,westbound,087,37.66022,-77.46641,00000295,I-295 W CD Road; 0.18 Mile West of ramp from US 1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140073,7,0,24,29061,2635,westbound,087,37.67274,-77.49331,00000295,0.35 W RAMP FR WOODMAN,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140074,7,0,24,28297,2531,westbound,087,37.6786,-77.55325,00000295,I-295 W Median  0.27 Mile West of ramp from US 33,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140075,7,0,24,25257,2251,westbound,087,37.66639,-77.59215,00000295,@ MM 52,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140076,7,0,24,22522,1958,westbound,075,37.69943,-77.73971,00000064,I-64 West Shoulder @ MM 169.65,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,140077,7,0,24,28591,2467,westbound,087,37.6575,-77.61069,00000064,I-64 West Shoulder @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140078,7,0,24,24026,2145,westbound,087,37.65239,-77.59769,00000064,0.14 mi from US 250 Broad St Ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140079,7,0,24,28698,2555,westbound,087,37.6451,-77.59001,00000064,I-64 West Shoulder @ MM 179,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140080,7,0,24,34309,2888,westbound,087,37.62902,-77.56316,00000064,0.48 Mi W Ramp Fr Parham Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140081,7,0,24,35858,2969,westbound,087,37.60861,-77.52959,00000064,I-64 West Shoulder @ MM 182,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140082,7,0,24,38706,3015,westbound,087,37.59827,-77.49718,00000064,Central TMC Camera Pole @ Exit 185 B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140085,7,0,24,41598,2998,westbound,760,37.55489,-77.42566,00000064,I-64 West Shoulder @ MM 191,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140087,7,0,24,27414,2112,westbound,087,37.5364,-77.38294,00000064,I-64 West Shoulder - 0.43 mi west of  Masonic Lane,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140088,7,0,24,22863,1764,westbound,087,37.53148,-77.34275,00000064,0.65 Mi W of Ram Fr SR 156,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140089,7,0,24,16205,1259,westbound,087,37.52822,-77.30174,00000064,I-64 West shoulder @ MM 199,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140091,7,0,24,43582,3145,westbound,127,37.51023,-77.14001,00000064,3.09 Mile W SR 106 On Ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,127,True
+51,140092,7,0,24,43808,3228,westbound,127,37.49805,-77.04004,00000064,New Kent Rest Area Entrance Ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,127,True
+51,140093,7,0,24,44072,3267,westbound,127,37.4948,-77.01608,00000064,I-64 WEST @ EXIT 214,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,127,True
+51,140104,3,0,24,4349,413,eastbound,730,37.20149,-77.33519,00000460,0.1 Mi West of SR 106 Courthouse Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140104,7,0,24,4658,412,westbound,730,37.20149,-77.33519,00000460,0.1 Mi West of SR 106 Courthouse Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140113,1,0,24,7667,660,northbound,570,37.25265,-77.41111,00000001,0.01 MI S BRANDERS BRIDGE RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,570,True
+51,140113,5,0,24,7998,638,southbound,570,37.25265,-77.41111,00000001,0.01 MI S BRANDERS BRIDGE RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,570,True
+51,140116,3,0,24,11685,962,eastbound,087,37.62581,-77.50462,00000033,0.2 MI W WISTAR ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140116,7,0,24,11583,997,westbound,087,37.62581,-77.50462,00000033,0.2 MI W WISTAR ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140119,1,0,24,813,78,northbound,007,37.39499,-77.97341,00000609,2.7 MI N RTE 360,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,007,True
+51,140119,5,0,24,782,82,southbound,007,37.39499,-77.97341,00000609,2.7 MI N RTE 360,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,007,True
+51,140120,1,0,24,4926,380,northbound,760,37.50007,-77.44649,00000001,0.20 S HOPKINS ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140120,5,0,24,4472,400,southbound,760,37.50007,-77.44649,00000001,0.20 S HOPKINS ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140121,1,0,24,8198,725,northbound,087,37.63706,-77.49516,00007518,0.30 Mi N Ackley Ave,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140121,5,0,24,8693,818,southbound,087,37.63706,-77.49516,00007518,0.30 Mi N Ackley Ave,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140123,1,0,24,4204,346,northbound,053,37.21637,-77.44895,00000001,0.35 N RT 226,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,140123,5,0,24,4803,456,southbound,053,37.21637,-77.44895,00000001,0.35 N RT 226,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,140180,5,0,24,52682,3647,southbound,087,37.59729,-77.46603,00000095,I-95 South Shoulder @ MM 80,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140195,5,0,24,28598,2171,southbound,730,37.21804,-77.38757,00000095,I-95 North Collector Road Shoulder @ Exit 50D,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140216,1,0,24,22322,1995,northbound,087,37.47734,-77.30461,00000295,I-295 East Shoulder @ Exit 25,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140219,5,0,24,3856,342,southbound,760,37.55264,-77.48515,00000195,I-195 North Shoulder @ Cary St Exit,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140220,7,0,24,44521,3105,westbound,087,37.51673,-77.2536,00000064,I-64 West Shoulder @ Exit 200,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140236,5,0,24,64495,4444,southbound,760,37.54641,-77.42883,00000095,I-95 North Shoulder @ Exit 75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140238,7,0,24,11653,1189,westbound,149,37.15988,-77.35075,00000295,I-295 West Shoulder @ Petersburg I-95 Split,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,140242,5,0,24,59434,4229,southbound,760,37.55257,-77.44299,00000095,I-95 North Shoulder @ Belvidere St,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140243,5,0,48,157284,6106,southbound,760,37.5504,-77.43559,00000095,I-95 NORTH SHOULDER @ MM75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140259,1,0,24,11834,1246,northbound,760,37.55264,-77.48515,00000195,I-195 North Shoulder @ Cary St Exit,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140300,5,0,24,73917,5206,southbound,087,37.66967,-77.44803,00000095,I-95 South Median @ Exit 84 to I-295 East,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140302,3,0,24,38030,3118,eastbound,095,37.42421,-76.83246,00000064,I-64 Median @ Exit 227,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,095,True
+51,140303,5,0,24,17625,1302,southbound,149,37.17267,-77.35082,00000095,I-95 North @ Exit 47,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,140304,5,0,24,21245,1728,southbound,149,36.98234,-77.39223,00000095,I-95 North Shoulder @ MM 33,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,140305,7,0,24,18326,1633,westbound,670,37.30002,-77.3351,00000295,I-295 South Shoulder @ MM 10,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,670,True
+51,140307,7,0,24,34406,2538,westbound,087,37.55383,-77.40276,00000064,0.43 mi West of the Creighton Road Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140310,7,0,24,40108,2973,westbound,095,37.42298,-76.82874,00000064,I-64 West @ Ramp from SR 30,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,095,True
+51,140313,1,0,24,65048,4745,northbound,033,37.89196,-77.45865,00000095,I-95 North Median @ MM 101.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,033,True
+51,140314,1,0,24,50376,3920,northbound,730,37.2265,-77.39398,00000095,I-85 North Exit 68B Ramp Shoulder,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140314,5,0,24,10351,877,southbound,730,37.2265,-77.39398,00000095,I-85 North Exit 68B Ramp Shoulder,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,140315,1,0,24,51134,3564,northbound,760,37.52117,-77.4268,00000095,I-95 North Shoulder @ Exit 73,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,140316,1,0,24,66359,5219,northbound,087,37.67214,-77.44815,00000095,I-95 North Median @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,140318,1,0,24,25806,2124,northbound,183,36.99002,-77.3919,00000095,0.47 mi from Route 602 on ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,140331,3,0,24,42386,3294,eastbound,087,37.51673,-77.2536,00000064,I-64 West Shoulder @ Exit 200,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,150001,5,0,24,21301,1697,southbound,183,36.94653,-77.39173,00000095,I-95 North Shoulder @ Exit 31,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,150002,5,0,24,21133,1643,southbound,183,36.85566,-77.4208,00000095,I-95 North Shoulder @ Exit 24,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,150003,5,0,24,18653,1478,southbound,183,36.80921,-77.45818,00000095,I-95 South Shoulder @ Exit 20,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,150004,5,0,24,20772,1569,southbound,183,36.76922,-77.46738,00000095,I-95 South Shoulder @ Exit 17,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,150005,5,0,24,20954,1618,southbound,081,36.76572,-77.48215,00000095,I-95 South Shoulder @ Exit 17 Close to Railroad Un,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,150007,5,0,24,25720,1940,southbound,081,36.68315,-77.55706,00000095,I-95 North Shoulder @ MM 9,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,150008,5,0,24,25456,1933,southbound,081,36.64955,-77.55922,00000095,I-95 South Shoulder @ MM 7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,150009,5,0,24,25778,1974,southbound,081,36.58177,-77.56498,00000095,1.7 MI S RTE 629,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,150010,3,0,24,20891,1557,eastbound,740,36.81192,-76.35001,00000264,0.4 MI E RMP FR RTE 239 / VICTORY BLVD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,740,True
+51,150012,3,0,24,28372,2433,eastbound,800,36.87584,-76.43356,00000664,0.6 MI E RMP FR RTE 135/COLLEGE DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,800,True
+51,150022,7,0,24,29773,2411,westbound,800,36.87601,-76.43306,00000664,0.25 MI W RMP FR RTE 164,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,800,True
+51,150028,1,0,24,17411,1363,northbound,550,36.79253,-76.28268,00000464,0.4 mi North of Freeman Avenue,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150033,5,0,24,17360,1340,southbound,550,36.7932,-76.28278,00000464,1.2 mi South of Ramp for SR 337,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150039,3,0,24,39593,3190,eastbound,550,36.77702,-76.37681,00000064,0.80 Mi East of Ramp Fr US 13,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150043,7,0,24,41021,2948,westbound,199,37.33022,-76.70577,00000064,1.9 MI W RAMP FR CAMP PEARY,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,150051,7,0,24,68907,5086,westbound,700,37.10355,-76.46988,00000064,0.9 mi W Rmp Fr Rte. 17,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,700,True
+51,150059,7,0,24,44097,2845,westbound,650,37.00296,-76.31917,00000064,Exit of WB tunnel before end of island,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,650,True
+51,150065,7,0,24,49565,3727,westbound,710,36.90358,-76.2468,00000064,0.4 mi from SR 194,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150066,7,0,24,56590,4106,westbound,710,36.899678,-76.235233,00000064,0.38 mi from SR 194 Chesapeake Blvd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150069,7,0,24,76181,5151,westbound,710,36.857522,-76.195268,00000064,0.14 mi from Virginia Beach Blvd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150070,7,0,24,59396,4640,westbound,810,36.82321,-76.19479,00000064,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,150076,7,0,24,39793,3250,westbound,550,36.7782,-76.38548,00000064,1.2 Mi East of US 13,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150079,7,0,24,21959,1773,westbound,740,36.811934,-76.3505,00000264,0.4 MI W RMP FR RTE 337/PORTSMOUTH BLVD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,740,True
+51,150089,5,0,24,20721,1568,southbound,081,36.72378,-77.53025,00000095,0.47 mi from Otterdam Rd on ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,150091,1,0,24,9055,746,northbound,650,37.05695,-76.38344,00007033,0.30 N TIDEMILL LANE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,650,True
+51,150091,5,0,24,7983,633,southbound,650,37.05695,-76.38344,00007033,0.30 N TIDEMILL LANE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,650,True
+51,150093,3,0,24,2322,221,eastbound,199,37.2782,-76.63174,00000641,0.4 MI E SPRINGFIELD ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,150093,7,0,24,2232,226,westbound,199,37.2782,-76.63174,00000641,0.4 MI E SPRINGFIELD ROAD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,150094,1,0,24,2584,215,northbound,800,36.56972,-76.74206,00000013,0.20 N RT 668,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,800,True
+51,150094,5,0,24,2679,212,southbound,800,36.56972,-76.74206,00000013,0.20 N RT 668,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,800,True
+51,150095,3,0,24,33504,2771,eastbound,550,36.77576,-76.44812,00000058,0.1 MI W. HAMPTON ROADS AIRPORT ENTRANCE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150095,7,0,24,34072,2678,westbound,550,36.77576,-76.44812,00000058,0.1 MI W. HAMPTON ROADS AIRPORT ENTRANCE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150096,1,0,24,5839,471,northbound,550,36.59724,-76.37872,00000017,.08 mi South of Ballahack Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150096,5,0,24,5373,435,southbound,550,36.59724,-76.37872,00000017,.08 mi South of Ballahack Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150098,1,0,24,8752,780,northbound,550,36.86556,-76.41868,00000017,0.30 N FOREST HAVEN LANE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150098,5,0,24,7824,655,southbound,550,36.86556,-76.41868,00000017,0.30 N FOREST HAVEN LANE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150100,1,0,24,11281,958,northbound,093,36.95985,-76.5215,00000017,0.3 MI N RTE 662/WHIPPINGHAM PKWY,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,093,True
+51,150100,5,0,24,11258,1095,southbound,093,36.95985,-76.5215,00000017,0.3 MI N RTE 662/WHIPPINGHAM PKWY,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,093,True
+51,150103,3,0,24,13259,1150,eastbound,810,36.84868,-76.03204,00000058,0.3 MI W REPUBLIC DRIVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,150103,7,0,24,11733,983,westbound,810,36.84868,-76.03204,00000058,0.3 MI W REPUBLIC DRIVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,150104,3,0,24,17589,1506,eastbound,810,36.90701,-76.11123,00000060,0.1 MI W SHADY OAKS DRIVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,150104,7,0,24,16720,1316,westbound,810,36.90701,-76.11123,00000060,0.1 MI W SHADY OAKS DRIVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,150105,1,0,24,11847,938,northbound,810,36.82369,-76.00925,00008729,0.20 N CREDLE RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,150105,5,0,24,11171,963,southbound,810,36.82369,-76.00925,00008729,0.20 N CREDLE RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,150107,3,0,24,6349,542,eastbound,700,37.18102,-76.50919,00000105,0.47 MI EAST OF RICHNECK RD (RTE 636),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,700,True
+51,150107,7,0,24,6822,628,westbound,700,37.18102,-76.50919,00000105,0.47 MI EAST OF RICHNECK RD (RTE 636),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,700,True
+51,150108,1,0,24,13542,1156,northbound,700,37.146143,-76.525751,00000143,0.61 mi from SR 173 Denbigh Blvd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,700,True
+51,150108,5,0,24,11312,963,southbound,700,37.146143,-76.525751,00000143,0.61 mi from SR 173 Denbigh Blvd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,700,True
+51,150110,3,0,24,7208,551,eastbound,710,36.86491,-76.23985,00000166,0.20 W INGLESIDE DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150110,7,0,24,8182,721,westbound,710,36.86491,-76.23985,00000166,0.20 W INGLESIDE DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150111,1,0,24,17538,1624,northbound,550,36.55121,-76.1931,00000168,0.1 MI N NC STATE LINE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150111,5,0,24,16330,1717,southbound,550,36.55121,-76.1931,00000168,0.1 MI N NC STATE LINE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150113,3,0,24,8780,729,eastbound,710,36.857522,-76.195268,00000064,0.14 mi from Virginia Beach Blvd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150114,1,0,24,16668,1194,northbound,710,36.88954,-76.25926,00000168,0.10 N WILLOW WOOD DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150114,5,0,24,15848,1195,southbound,710,36.88954,-76.25926,00000168,0.10 N WILLOW WOOD DR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150115,3,0,24,13532,1331,eastbound,199,37.25507,-76.6534,00000199,0.40 E RT 143,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,150115,7,0,24,10358,905,westbound,199,37.25507,-76.6534,00000199,0.40 E RT 143,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,150117,3,0,24,3419,276,eastbound,199,37.22573,-76.56102,00000238,0.85 MI E RTE 637/Crawford Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,150117,7,0,24,3402,279,westbound,199,37.22573,-76.56102,00000238,0.85 MI E RTE 637/Crawford Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,199,True
+51,150118,3,0,24,19752,1623,eastbound,650,37.02894,-76.42478,00000258,0.25 E CHESTNUT AVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,650,True
+51,150118,7,0,24,20334,1680,westbound,650,37.02894,-76.42478,00000258,0.25 E CHESTNUT AVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,650,True
+51,150120,3,0,24,9395,732,eastbound,710,36.9189,-76.30322,00000406,VA 406 Terminal Blvd 0.39 Mi E of VA 337 Hampton B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150120,7,0,24,7933,612,westbound,710,36.9189,-76.30322,00000406,VA 406 Terminal Blvd 0.39 Mi E of VA 337 Hampton B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,710,True
+51,150123,1,0,24,12178,1036,northbound,550,36.77286,-76.32171,00000013,0.15 mi from SR 196 Canal Dr,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150123,5,0,24,12986,975,southbound,550,36.77286,-76.32171,00000013,0.15 mi from SR 196 Canal Dr,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,150124,1,0,24,16695,1673,northbound,630,38.2879,-77.48656,00000001,1.10 N SCL FREDERICKSBURG,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,630,True
+51,150124,5,0,24,11380,1029,southbound,630,38.2879,-77.48656,00000001,1.10 N SCL FREDERICKSBURG,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,630,True
+51,150126,7,0,24,44048,3154,westbound,095,37.3762,-76.75461,00000064,I-64 West Shoulder @ MM 232,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,095,True
+51,150127,7,0,24,41831,3042,westbound,095,37.39081,-76.76951,00000064,I-64 East Shoulder @ MM 231,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,095,True
+51,150302,7,0,24,28375,2196,westbound,800,36.947475,-76.40491,00000664,Hampton Roads Tunnel Equipment,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,800,True
+51,150316,3,0,24,41549,3342,eastbound,095,37.3762,-76.75461,00000064,I-64 West Shoulder @ MM 232,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,095,True
+51,150319,3,0,24,41591,2968,eastbound,650,36.98215,-76.30166,00000064,Exit of EB tunnel before end of island,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,650,True
+51,150326,3,0,24,1045,118,eastbound,175,36.68449,-76.9697,00000058,0.3 MI E RTE 687,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,175,True
+51,150326,7,0,24,940,91,westbound,175,36.68449,-76.9697,00000058,0.3 MI E RTE 687,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,175,True
+51,160001,5,0,24,70446,4621,southbound,179,38.45658,-77.40936,00000095,0.45 S RAMP FR RT 610,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,160002,5,0,24,70422,4862,southbound,179,38.35157,-77.47992,00000095,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,160004,5,0,24,68132,4712,southbound,177,38.24732,-77.50721,00000095,I-95 SOUTH SHOULDER @ MM 126.8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,177,True
+51,160005,5,0,24,61710,4314,southbound,177,38.13873,-77.50837,00000095,5.85 S RAMP FR RT 1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,177,True
+51,160006,5,0,24,59433,4174,southbound,033,38.12208,-77.51653,00000095,I-95 South Shoulder @ MM 117,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,033,True
+51,160009,1,0,24,11028,1247,northbound,099,38.32395,-77.09471,00000301,1 S RTE 218,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,099,True
+51,160009,5,0,24,6541,614,southbound,099,38.32395,-77.09471,00000301,1 S RTE 218,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,099,True
+51,160098,5,0,24,70086,4738,southbound,179,38.39754,-77.43581,00000095,I-95 South Shoulder @ MM 138.7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,160306,5,0,24,78018,5494,southbound,630,38.31479,-77.50429,00000095,FREDERICKSBURG WELCOME CENTER EXIT RAMP,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,630,True
+51,160308,5,0,24,63837,4476,southbound,033,37.89196,-77.45865,00000095,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,033,True
+51,170002,7,0,24,20104,1737,westbound,003,38.02898,-78.59075,00000064,I-64 West Shoulder @ MM 115,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,170003,7,0,24,23848,2035,westbound,003,38.01946,-78.53398,00000064,I-64 West Shoulder @ MM 118.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,170004,7,0,24,21276,1807,westbound,003,38.0084,-78.48514,00000064,I-64 East Shoulder @ MM 121.3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,170005,7,0,24,20040,1658,westbound,003,38.01977,-78.43538,00000064,I-64 West Shoulder @ MM 124.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,170006,7,0,24,20445,1658,westbound,003,38.021517,-78.42593,00000064,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,170008,7,0,24,19579,1619,westbound,109,37.9641,-78.18083,00000064,4.8 Mi W of Ramp Fr SR 208,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,109,True
+51,170009,7,0,24,17405,1479,westbound,075,37.89972,-78.04787,00000064,I-64 WB 1.33 Miles West of Ramp from 37-605 Shanno,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,170010,7,0,24,17272,1466,westbound,075,37.8807,-78.02633,00000064,I-64 West Shoulder @ Exit 148 East of 37-605,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,170011,7,0,24,17624,1499,westbound,075,37.84155,-77.97878,00000064,I-64 West Shoulder @ Exit 152,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,170012,7,0,24,19233,1714,westbound,075,37.7756,-77.88109,00000064,I-64 West Shoulder @ MM 160,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,170015,1,0,24,1073,105,northbound,061,38.69563,-77.89911,00000688,0.40 N US 211,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,170015,5,0,24,1052,116,southbound,061,38.69563,-77.89911,00000688,0.40 N US 211,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,170017,1,0,24,4519,381,northbound,047,38.48712,-77.94724,00000015,0.25 S Rte. 665,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,047,True
+51,170017,5,0,24,4437,405,southbound,047,38.48712,-77.94724,00000015,0.25 S Rte. 665,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,047,True
+51,180001,5,0,24,21123,1914,southbound,069,39.29298,-78.08273,00000081,I-81 North Shoulder @ MM 324,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180002,5,0,24,22172,1976,southbound,069,39.28382,-78.08865,00000081,0.35 mi from Rt 34-669 on ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180003,5,0,24,21982,1922,southbound,069,39.24367,-78.11344,00000081,0.05 mi from I-81 South,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180005,5,0,24,27059,2547,southbound,069,39.17827,-78.1446,00000081,0.65 S RAMP FR RT 7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180006,5,0,24,21335,1780,southbound,069,39.13725,-78.17668,00000081,I-81 South Shoulder @ MM 311.21,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180007,5,0,24,25670,2139,southbound,069,39.09391,-78.20724,00000081,I-81 South Shoulder @ MM 308.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180008,5,0,24,24154,2013,southbound,069,39.06224,-78.23444,00000081,I-81 South Shoulder @ MM 305.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180009,5,0,24,24354,2037,southbound,069,39.02195,-78.2803,00000081,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180010,5,0,24,27161,2220,southbound,069,39.00645,-78.32938,00000081,I-81 south @ Exit 298,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,180011,5,0,24,25123,2158,southbound,015,37.9544,-79.20757,00000081,6.25 S RAMP FR RT 11,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180013,5,0,24,25074,2079,southbound,171,39.01052,-78.33992,00000081,I-81 South Shoulder @ MM 297.9,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,180014,5,0,24,23814,1964,southbound,171,39.00098,-78.38805,00000081,1.53 mi from SR 55,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,180016,5,0,24,22558,1909,southbound,171,38.86914,-78.5285,00000081,I-81 North Shoulder @ MM 283,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,180018,5,0,24,22376,1892,southbound,171,38.80772,-78.60134,00000081,I-81 South Shoulder @ MM 277.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,180019,5,0,24,21997,1882,southbound,171,38.72398,-78.65942,00000081,I-81 South Shoulder@ MM 270.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,180021,5,0,24,21758,1882,southbound,171,38.63756,-78.68449,00000081,I-81 SOUTH SHOULDER @ MM264,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,180022,5,0,24,25295,2174,southbound,660,38.42029,-78.88277,00000081,0.65 S RAMP FR REPUBLIC RD/ RT 659,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,660,True
+51,180023,5,0,24,23925,2049,southbound,165,38.53656,-78.76734,00000081,I-81 south shoulder south of 806 Martz Rd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,180024,5,0,24,24434,2154,southbound,165,38.39555,-78.9117,00000081,I-81 SB right side south of exit 243; US 11 Harris,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,180025,5,0,24,23309,2008,southbound,165,38.35377,-78.92884,00000081,I-81 North Shoulder @ MM 239.8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,180027,5,0,24,23883,2027,southbound,015,38.23373,-78.97136,00000081,I-81 SOUTH SHOULDER @ MM230.80,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180028,5,0,24,25139,2037,southbound,015,38.17032,-79.00695,00000081,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180029,5,0,24,25493,2101,southbound,015,38.14874,-79.01782,00000081,I-81 South Shoulder @ MM 224.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180031,5,0,24,27036,2174,southbound,015,38.12416,-79.04324,00000081,I-81 North Shoulder @ MM 221.15,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180032,5,0,24,26421,2126,southbound,015,38.08129,-79.08534,00000081,2.28 mi from SR 262,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180033,5,0,24,25222,2076,southbound,015,38.04178,-79.1234,00000081,1.28 mi from US 11,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180036,5,0,24,24486,2057,southbound,163,37.7975,-79.39581,00000081,I-81 South Shoulder @ MM 191.7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,180037,5,0,24,21541,1886,southbound,163,37.76073,-79.40722,00000081,I-81 North Shoulder @ MM 189,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,180038,5,0,24,20175,1785,southbound,163,37.73784,-79.42578,00000081,I-81 SOUTH SHOULDER @ MM 187,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,180040,5,0,24,25300,2105,southbound,660,38.43153,-78.87289,00000081,I-81 North Shoulder @ MM 246.15,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,660,True
+51,180041,5,0,24,24389,2084,southbound,660,38.44353,-78.84451,00000081,I-81 South Shoulder @ MM 247.95,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,660,True
+51,180053,7,0,24,5713,514,westbound,163,37.87246,-79.51894,00000064,2.75 Mi W of Ramp Fr US 60,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,180057,1,0,24,8778,735,northbound,015,38.12416,-79.04324,00000064,I-64 West Median @ MM 87,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180057,7,0,24,11481,987,westbound,015,38.11998,-79.04444,00000064,I-64 West Median @ MM 87,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180059,7,0,24,18969,1639,westbound,015,38.04039,-78.88261,00000064,I-64 West Shoulder @ MM 98,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180061,7,0,24,17744,1491,westbound,003,38.04274,-78.82166,00000064,I-64 East Shoulder @ MM 99,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,180064,1,0,24,955,106,northbound,015,38.15894,-78.92435,00000608,0.40 N RT 254,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180064,5,0,24,1006,86,southbound,015,38.15894,-78.92435,00000608,0.40 N RT 254,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180065,3,0,24,1071,149,eastbound,171,38.76981,-78.73936,00000263,0.25 E RT 42,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,180065,7,0,24,799,73,westbound,171,38.76981,-78.73936,00000263,0.25 E RT 42,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,180066,1,0,24,4328,377,northbound,165,38.39106,-78.70585,00000644,0.41 mi from US 33,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,180066,5,0,24,4372,411,southbound,165,38.39106,-78.70585,00000644,0.41 mi from US 33,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,180067,1,0,24,31029,2596,northbound,015,38.17032,-79.00695,00000081,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,180102,5,0,24,4955,464,southbound,163,37.7975,-79.39581,00000064,0.6 mi from US 11,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,180103,7,0,24,11481,987,westbound,015,38.11998,-79.04444,00000064,I-64 West Median @ MM 87,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,190001,1,0,24,87197,6947,northbound,059,38.79537,-77.14372,00000095,1.2 mi from I-495,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190005,5,0,24,87061,6281,southbound,059,38.79537,-77.14372,00000095,1.2 mi from I-495,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190013,5,0,24,79257,5036,southbound,153,38.60378,-77.31163,00000095,.7 MI S Cardinal DR Overpass (ADR from 19974101 is,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,190015,5,0,24,73401,4870,southbound,153,38.54067,-77.34892,00000095,I-95 South Shoulder @ MM 149.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,190029,7,0,24,44843,3203,westbound,013,38.89008,-77.10712,00000066,0.50 W RAMP FR RT 29,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,013,True
+51,190046,7,0,24,17577,1351,westbound,061,38.85795,-77.81974,00000066,1.55 MI W RAMP FR RTE 245,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,190047,7,0,24,24516,1956,westbound,061,38.85854,-77.86437,00000066,@ Exit 27A to SR 55,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,190048,7,0,24,23644,1874,westbound,061,38.86911,-77.88986,00000066,I-66 West Shoulder @ MM 26.3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,190049,7,0,24,19219,1524,westbound,061,38.90304,-77.94121,00000066,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,190051,7,0,24,16811,1333,westbound,187,38.94606,-78.14698,00000066,3.8 W RAMP FR RT 79,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,187,True
+51,190052,7,0,24,16902,1363,westbound,187,38.99323,-78.24963,00000066,I-66 West Shoulder @ MM 3,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,187,True
+51,190057,5,0,24,98749,7290,southbound,059,38.80167,-77.20979,00000495,3/4 mile south Braddock Road interchange,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190086,3,0,24,16618,1508,eastbound,059,38.76457,-77.19997,00007900,0.82 E RAMP FR RT 7100,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190086,7,0,24,17063,1544,westbound,059,38.76457,-77.19997,00007900,0.82 E RAMP FR RT 7100,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190092,1,0,24,7890,662,northbound,059,38.71673,-77.165341,00000286,0.6 N RTE 1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190092,5,0,24,8262,805,southbound,059,38.71673,-77.165341,00000286,0.6 N RTE 1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190093,3,0,24,901,92,eastbound,153,38.62965,-77.43684,00000619,0.5 S RTE 234,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,190093,7,0,24,754,79,westbound,153,38.62965,-77.43684,00000619,0.5 S RTE 234,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,190096,3,0,24,13385,1054,eastbound,059,38.81963,-77.15114,00000236,0.05 E CHOWAN AVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190096,7,0,24,13341,1000,westbound,059,38.81963,-77.15114,00000236,0.05 E CHOWAN AVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,190184,7,0,24,17974,1419,westbound,061,38.8504,-77.7895,00000000,I-66 West Shoulder @ Old Tavern Rd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,190302,3,0,24,18760,1594,eastbound,003,38.04684,-78.78812,00000064,I-64 East Shoulder @ MM 102,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,190303,3,0,24,23538,2034,eastbound,061,38.84786,-77.7661,00000066,0.79 mi from Prince William County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,190316,5,0,24,74134,4903,southbound,153,38.4693,-77.40579,00000095,I-95 South Shoulder @ MM 143.95,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,199741,1,0,24,12961,1107,northbound,153,38.60378,-77.31163,00000095,.7 MI S Cardinal DR Overpass (shared cabinet with,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,199741,5,0,24,0,0,southbound,153,38.60378,-77.31163,00000095,.7 MI S Cardinal DR Overpass (shared cabinet with,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,199760,1,0,24,16228,1488,northbound,059,38.673785,-77.241146,00000095,0.27 mi from Prince William County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,199760,5,0,24,0,0,southbound,059,38.673785,-77.241146,00000095,0.27 mi from Prince William County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,199770,1,0,24,11909,993,northbound,153,38.53212,-77.35887,00000095,I-95 South Shoulder @ MM 149.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,240500,5,0,24,26535,2095,southbound,760,37.55927,-77.48938,00000195,0.15 S RAMP TO GROVE AVE,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,401624,1,0,24,15345,1280,northbound,059,38.91335,-77.40161,00000286,0.50 mi From 29-6819 Franklin Farm Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,401624,5,0,24,16583,1452,southbound,059,38.91335,-77.40161,00000286,0.50 mi From 29-6819 Franklin Farm Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,405235,3,0,24,14829,1211,eastbound,153,38.73375,-77.43729,00000294,0.9 mi from Wellington Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,405235,7,0,24,14484,1211,westbound,153,38.73375,-77.43729,00000294,0.9 mi from Wellington Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,615003,1,0,24,6850,561,northbound,550,36.80218,-76.26295,00000168,0.09 mi South of Narrow Street,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,615003,5,0,24,7299,644,southbound,550,36.80218,-76.26295,00000168,0.09 mi South of Narrow Street,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,550,True
+51,623104,1,0,24,8911,760,northbound,590,36.5468,-79.43102,00000029,0.5mi North of Holland Rd.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,590,True
+51,623104,5,0,24,8520,748,southbound,590,36.5468,-79.43102,00000029,0.5mi North of Holland Rd.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,590,True
+51,636129,3,0,24,8876,759,eastbound,650,37.06196,-76.43596,00007026,0.15 MI W OF ENTRANCE TO SANDY BOTTOM NATURE PARK,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,650,True
+51,636129,7,0,24,9090,756,westbound,650,37.06196,-76.43596,00007026,0.15 MI W OF ENTRANCE TO SANDY BOTTOM NATURE PARK,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,650,True
+51,665144,3,0,24,10708,985,eastbound,087,37.58963,-77.38683,00000360,US 360 at western end of Chickahominy River Bridge,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,665144,7,0,24,10578,896,westbound,087,37.58963,-77.38683,00000360,US 360 at western end of Chickahominy River Bridge,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,665590,3,0,24,1958,164,eastbound,760,37.54896,-77.41947,00000360,0.26 mi from 17th Street,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,665590,7,0,24,2037,157,westbound,760,37.54896,-77.41947,00000360,0.26 mi from 17th Street,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,665631,1,0,24,10812,968,northbound,087,37.5688,-77.38027,00007555,0.04 mi from Hunters Mill Drive,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,665631,5,0,24,10657,926,southbound,087,37.5688,-77.38027,00007555,0.04 mi from Hunters Mill Drive,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,665783,3,0,24,5821,599,eastbound,087,37.50973,-77.24526,00000060,.99 Mi fr  I-295,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,665783,7,0,24,8812,1101,westbound,087,37.50973,-77.24526,00000060,.99 Mi fr  I-295,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,666443,3,0,24,7243,617,eastbound,770,37.28308,-79.94445,00000460,0.05 W 3 AND 1/2 STREET,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,666443,7,0,24,8165,597,westbound,770,37.28308,-79.94445,00000460,0.05 W 3 AND 1/2 STREET,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,770,True
+51,677721,1,0,24,9383,792,northbound,810,36.81914,-75.98439,00008669,0.64 mi north of Birdneck Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677721,5,0,24,9520,819,southbound,810,36.81914,-75.98439,00008669,0.64 mi north of Birdneck Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677732,1,0,24,18759,1652,northbound,810,36.85081,-76.13631,00000225,.05 N JEANNE ST,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677732,5,0,24,19173,1675,southbound,810,36.85081,-76.13631,00000225,.05 N JEANNE ST,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677768,1,0,24,18614,1640,northbound,810,36.89499,-76.15639,00000013,0.10 N SHELL RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677768,5,0,24,18385,1404,southbound,810,36.89499,-76.15639,00000013,0.10 N SHELL RD,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677782,1,0,24,16926,1438,northbound,810,36.781848,-76.100705,00000165,0.30 mi north of Concert Drive,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677782,5,0,24,16502,1608,southbound,810,36.781848,-76.100705,00000165,0.30 mi north of Concert Drive,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677805,3,0,24,13031,1257,eastbound,810,36.843326,-76.140188,00000058,0.09 mi east of Kellam Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,677805,7,0,24,12526,1112,westbound,810,36.843326,-76.140188,00000058,0.09 mi east of Kellam Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,810,True
+51,707680,1,0,24,394,33,northbound,025,36.89725,-77.79826,00000630,I-85 N north of 12-630 Sturgeon Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,741466,3,0,24,790,73,eastbound,075,37.84155,-77.97878,00000629,I-64 West Shoulder @ Exit 152,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,753448,1,0,24,1990,185,northbound,117,36.60413,-78.15134,00000903,I-85 South @ Exit 4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,780983,3,0,24,5050,477,eastbound,003,38.01977,-78.43538,00000064,I-64 West Shoulder @ MM 124.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,781001,3,0,24,6488,556,eastbound,087,37.60861,-77.52959,00000064,I-64 West Shoulder @ MM 182,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,781003,3,0,24,668,70,eastbound,087,37.59827,-77.49718,00000064,Central TMC Camera Pole @ Exit 185 B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,781021,3,0,24,3345,283,eastbound,127,37.49753,-77.04622,00000064,New Kent Rest Area Entrance Ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,127,True
+51,781091,1,0,24,8778,735,northbound,015,38.12416,-79.04324,00000064,I-81 North Shoulder @ MM 221.15,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,781100,7,0,24,6835,627,westbound,003,38.01946,-78.53398,00000064,I-64 West Shoulder @ MM 118.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,781103,7,0,24,2011,227,westbound,003,38.021517,-78.42593,00000064,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,781108,7,0,24,714,86,westbound,075,37.84155,-77.97878,00000064,I-64 West Shoulder @ Exit 152,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,781138,7,0,24,2734,280,westbound,127,37.49805,-77.04004,00000064,New Kent Rest Area Entrance Ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,127,True
+51,781199,3,0,24,9325,778,eastbound,015,38.11998,-79.04444,00000081,I-64 East Median @ MM 87,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,015,True
+51,781220,5,0,24,6515,600,southbound,730,37.21804,-77.38757,00000085,I-95 North Collector Road Shoulder @ Exit 50D,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,781222,1,0,24,2731,193,northbound,730,37.2265,-77.39398,00000085,I-85 North Exit 68B Ramp Shoulder,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,781223,5,0,24,1428,130,southbound,117,36.60413,-78.15134,00000085,I-85 South @ Exit 4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,781225,5,0,24,1821,167,southbound,117,36.7165,-78.11156,00000085,I-85 North Shoulder @ Exit 12,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,781229,5,0,24,775,84,southbound,025,36.86406,-77.83932,00000085,I-85 South Shoulder @ MM 32,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,781230,5,0,24,305,28,southbound,025,36.89711,-77.80013,00000085,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,781242,5,0,24,3389,259,southbound,730,37.19881,-77.42324,00000085,I-85 North @ Exit 65,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,781246,1,0,24,18735,1371,northbound,760,37.54641,-77.42883,00000095,I-95 North @ Exit 75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,781249,5,0,24,7254,562,southbound,730,37.21804,-77.38757,00000095,I-95 North Collector Road Shoulder @ Exit 50D,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,781280,7,0,24,14658,1331,westbound,087,37.6575,-77.61069,00000295,I-64 West Shoulder @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,781301,7,0,24,1398,132,westbound,095,37.42298,-76.82874,00000030,I-64 West @ Ramp from SR 30,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,095,True
+51,781520,3,0,24,2756,261,eastbound,003,38.01946,-78.53398,00000029,I-64 West Shoulder @ MM 118.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,781527,7,0,24,1278,113,westbound,087,37.59827,-77.49718,00000033,Central TMC Camera Pole @ Exit 185 B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,781562,7,0,24,5177,465,westbound,003,38.01977,-78.43538,00000250,I-64 West Shoulder @ MM 124.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,781563,3,0,24,4012,370,eastbound,003,38.021517,-78.42593,00000250,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,003,True
+51,781721,1,0,24,3624,282,northbound,730,37.19881,-77.42324,00009011,I-85 North @ Exit 65,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,781737,5,0,24,1760,179,southbound,760,37.54641,-77.42883,00000044,I-95 North Shoulder @ Exit 75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,781984,1,0,24,1678,154,northbound,117,36.55452,-78.1799,00000085,0.03 mi from Rest Area Parking Lot,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,781985,1,0,24,848,73,northbound,025,36.86197,-77.84124,00000085,I-85 North Shoulder @ MM 32.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,782837,7,0,24,1597,141,westbound,061,38.8588,-77.8401,00000066,I-66 West Shoulder @ Exit 28,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,782989,3,0,24,133,12,eastbound,061,38.8588,-77.8401,00000017,I-66 West Shoulder @ Exit 28,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,786299,1,0,24,2260,189,northbound,069,39.29298,-78.08273,00000669,I-81 North Shoulder @ MM 324,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,786792,5,0,24,152,17,southbound,171,38.80772,-78.60134,00000614,I-81 South Shoulder @ MM 277.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,786806,1,0,720,23449,94,northbound,173,36.8227,-81.5337,00000730,I-81 South Shoulder @ MM 44.32,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,173,True
+51,786964,1,0,24,925,98,northbound,,,,,,,,,False
+51,787038,1,0,24,2056,177,northbound,165,38.35377,-78.92884,00000081,I-81 North Shoulder @ MM 239.8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,787049,1,0,24,228,30,northbound,171,38.80764,-78.59971,00000081,I-81 North Shoulder @ MM 277.25,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,787051,1,0,24,2427,223,northbound,171,38.86914,-78.5285,00000081,I-81 North Shoulder @ MM 283,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,787069,5,0,24,3664,434,southbound,,,,,,,,,False
+51,787082,5,0,24,641,59,southbound,173,36.8227,-81.5337,00000081,I-81 South Shoulder @ MM 44.32,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,173,True
+51,787120,5,0,24,1785,161,southbound,023,37.4677,-79.81267,00000081,I-81 North Shoulder @ MM 158,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,787147,5,0,24,3216,250,southbound,660,38.43153,-78.87289,00000081,I-81 North Shoulder @ MM 246.15,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,660,True
+51,787160,5,0,24,3167,263,southbound,171,39.00645,-78.32938,00000081,I-81 south @ Exit 298,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,787169,5,0,24,1213,159,southbound,069,39.24367,-78.11344,00000081,0.05 mi from I-81 South,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,787171,5,0,24,2169,177,southbound,069,39.29298,-78.08273,00000081,I-81 North Shoulder @ MM 324,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,069,True
+51,787190,5,0,24,2628,211,southbound,171,38.86914,-78.5285,00000042,I-81 North Shoulder @ MM 283,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,171,True
+51,787228,5,0,24,1694,146,southbound,165,38.35377,-78.92884,00000257,I-81 North Shoulder @ MM 239.8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,787340,1,0,24,3617,334,northbound,660,38.43153,-78.87289,00004105,I-81 North Shoulder @ MM 246.15,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,660,True
+51,788313,5,0,24,2573,200,southbound,041,37.39957,-77.42463,00000613,@ Ramp from Willis Rd to I-95 South,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,788859,1,0,24,556,52,northbound,149,37.03856,-77.3892,00000623,I-95 South Shoulder @ Exit 37,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,789182,1,0,24,1832,180,northbound,183,36.98234,-77.39223,00000602,I-95 North Shoulder @ MM 33,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,789184,1,0,24,1025,243,northbound,183,36.80921,-77.45818,00000631,I-95 South Shoulder @ Exit 20,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,789185,1,0,24,363,80,northbound,183,36.85566,-77.4208,00000645,I-95 North Shoulder @ Exit 24,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,789253,5,0,24,10200,755,southbound,760,37.52058,-77.42908,00000095,At gore between Maury St. ramps to I-95 South and,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789263,1,0,24,702,249,northbound,081,36.72378,-77.53025,00000095,0.47 mi from Otterdam Rd on ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,789275,1,0,24,957,82,northbound,730,37.17267,-77.35082,00000095,I-95 North @ Exit 47,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,789276,1,0,24,283,25,northbound,730,37.18613,-77.35605,00000095,I-95 North @ Exit 48 A,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,789282,1,0,24,8888,928,northbound,570,37.24141,-77.39496,00000095,I-95 North Shoulder @ Exit 53,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,570,True
+51,789288,1,0,24,2217,157,northbound,041,37.39957,-77.42463,00000095,@ Ramp from Willis Rd to I-95 South,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,789289,1,0,24,1953,151,northbound,041,37.43155,-77.43168,00000095,I-95 South Shoulder @ MM 67,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,041,True
+51,789292,5,0,24,1716,284,southbound,760,37.52058,-77.42908,00000095,At gore between Maury St. ramps to I-95 South and,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789299,1,0,24,5763,426,northbound,760,37.59729,-77.46603,00000095,I-95 South Shoulder @ MM 80,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789301,1,0,24,4229,334,northbound,087,37.60818,-77.45254,00000095,Just South of overhead VMS south of US 301,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,789335,1,0,24,2231,194,northbound,153,38.617729,-77.297606,00000095,I-95 NB at accell Lane from Prince William County,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,789347,1,0,24,10895,918,northbound,059,38.79537,-77.14372,00000095,I-95 South @ Exit 173,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,059,True
+51,789359,5,0,24,476,46,southbound,183,36.80921,-77.45818,00000095,I-95 South Shoulder @ Exit 20,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,789360,5,0,24,153,13,southbound,183,36.85566,-77.4208,00000095,I-95 North Shoulder @ Exit 24,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,789361,5,0,24,780,66,southbound,183,36.94653,-77.39173,00000095,I-95 North Shoulder @ Exit 31,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,789362,5,0,24,1419,134,southbound,183,36.98234,-77.39223,00000095,I-95 North Shoulder @ MM 33,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,789363,5,0,24,618,49,southbound,149,37.03856,-77.3892,00000095,I-95 South Shoulder @ Exit 37,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,789367,5,0,24,1859,151,southbound,149,37.14504,-77.35596,00000095,I-95 South Shoulder @ Exit 45,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,789371,5,0,24,3913,330,southbound,730,37.19471,-77.36063,00000095,I-95 South Shoulder @ Exit 48,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,789384,5,0,24,8484,631,southbound,760,37.52058,-77.42908,00000095,At gore between Maury St. ramps to I-95 South and,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789409,5,0,24,2701,197,southbound,177,38.31479,-77.50429,00000095,FREDERICKSBURG WELCOME CENTER EXIT RAMP,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,177,True
+51,789414,5,0,24,11112,846,southbound,179,38.4693,-77.40579,00000095,I-95 South Shoulder @ MM 143.95,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,789420,5,0,24,470,38,southbound,153,38.591478,-77.317701,00000095,I-95 SB at accell lane from Prince William County,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,789443,1,0,24,2181,196,northbound,760,37.55264,-77.48515,00000195,I-195 North Shoulder @ Cary St Exit,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789446,5,0,24,3744,304,southbound,760,37.55264,-77.48515,00000195,I-195 North Shoulder @ Cary St Exit,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789484,3,0,24,920,84,eastbound,087,37.65915,-77.46402,00000295,Left side of I-295 E 0.22 Miles from I-295 CD ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,789485,3,0,24,12589,1119,eastbound,087,37.65915,-77.46402,00000295,Left side of I-295 E 0.22 Miles from I-295 CD ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,789503,1,0,24,31297,2603,northbound,087,37.67214,-77.44815,00000295,I-295 West @ ramp split to I-95 North,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,789567,1,0,24,943,82,northbound,183,36.94653,-77.39173,00000040,I-95 North Shoulder @ Exit 31,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,183,True
+51,789579,1,0,24,742,61,northbound,087,37.63991,-77.45267,00000073,I-95 SOUTH @ SCOTT RD OVERPASS,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,789597,5,0,24,2719,195,southbound,760,37.46332,-77.42555,00000161,I-95 South Shoulder @ Exit 69,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789648,1,0,24,5382,402,northbound,179,38.46813,-77.40527,00000001,I-95 North Shoulder @ MM 143.8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,179,True
+51,789651,1,0,24,5192,379,northbound,760,37.55257,-77.44299,00000001,I-95 North Shoulder @ Belvidere St,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789657,5,0,24,3631,246,southbound,760,37.55257,-77.44299,00000001,I-95 North Shoulder @ Belvidere St,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789725,5,0,24,775,65,southbound,730,37.17267,-77.35082,00009008,I-95 North @ Exit 47,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,789737,1,0,24,7057,514,northbound,760,37.52117,-77.4268,00007567,1.53 MI S RAMP TO EXIT 73,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789738,1,0,24,7057,514,northbound,760,37.52117,-77.4268,00007567,At gore between Maury St. ramps to I-95 South and,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,789811,1,0,24,2536,274,northbound,035,36.56772,-80.74418,00000077,0.08 mi from merge of parking lots,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,035,True
+51,789822,5,0,24,1503,134,southbound,021,37.20409,-81.10639,00000077,0.05 mi from Merge of Both Parking Lot Exits,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,021,True
+51,790816,3,0,24,1008,70,eastbound,149,37.19604,-77.32223,00000295,I-295 South Shoulder @ Exit 3B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,790876,7,0,24,2605,219,westbound,149,37.19604,-77.32223,00000460,I-295 South Shoulder @ Exit 3B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,149,True
+51,791012,1,0,24,1680,142,northbound,117,36.7165,-78.11156,00000058,I-85 North Shoulder @ Exit 12,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,117,True
+51,791023,1,0,24,2418,219,northbound,081,36.54805,-77.57502,00000095,0.04 mi from Exit Rest Area Parking Lot,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,081,True
+51,792621,7,0,24,792,70,westbound,153,38.8084,-77.49548,00000066,0.05 mi from Merge of Both Parking Lots,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,153,True
+51,792625,1,0,24,3580,306,northbound,033,37.98311,-77.49229,00000095,I-95 North Shoulder @ MM 108.1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,033,True
+51,795305,5,0,24,2736,218,southbound,087,37.47734,-77.30461,00000895,I-295 East Shoulder @ Exit 25,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,795326,1,0,24,2598,217,northbound,087,37.47734,-77.30461,00000895,I-295 East Shoulder @ Exit 25,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,795369,1,0,24,11961,981,northbound,730,37.21804,-77.38757,00000095,I-95 North Collector Road Shoulder @ Exit 50D,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,795371,1,0,24,4573,338,northbound,730,37.2265,-77.39398,00000085,I-85 North Exit 68B Ramp Shoulder,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,795372,1,0,24,1842,157,northbound,730,37.2265,-77.39398,00000085,I-85 North Exit 68B Ramp Shoulder,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,730,True
+51,795394,5,0,24,17877,1354,southbound,760,37.54641,-77.42883,00000064,I-95 North Shoulder @ Exit 75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,795395,5,0,24,19637,1468,southbound,760,37.54641,-77.42883,00000064,I-95 North Shoulder @ Exit 75,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,760,True
+51,795415,3,0,24,9625,736,eastbound,087,37.51523,-77.27316,00000295,I-295 East Collector Road Shoulder Between I-64 an,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,795420,3,0,24,11669,1035,eastbound,087,37.65915,-77.46402,00000295,Left side of I-295 E 0.22 Miles from I-295 CD ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,795423,3,0,24,15473,1215,eastbound,087,37.658189,-77.45469,00000295,I-295 Median midway between US 1 and I-95 sharing,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,795429,7,0,24,17520,1818,westbound,087,37.658189,-77.45469,00000295,I-295 Median centered between US 1 and I-95 sharin,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,795433,7,0,24,12937,1116,westbound,087,37.66022,-77.46641,00000295,I-295 W CD Road; 0.18 Mile West of ramp from US 1,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,820017,5,0,24,18208,1640,southbound,155,37.09122,-80.57711,00000081,I-81 South Shoulder @ MM 105.2,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,840040,5,0,24,13882,1063,southbound,025,36.89711,-77.80013,00000085,.,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,840045,5,0,24,13673,1075,southbound,025,36.78783,-78.00657,00000085,I-85 S 3.54 Miles South of 12-644 Brunswick Dr,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,840062,7,0,24,20286,1788,westbound,087,37.40282,-77.3425,00000295,4.34 mi from SR 10,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,840066,7,0,24,50853,4313,westbound,085,37.55915,-77.29447,00000295,I-295 Median @ MM 31,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,840078,7,0,24,24876,2146,westbound,075,37.676,-77.65586,00000064,I-64 WB at SR-288 NB ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,840083,7,0,24,47546,3551,westbound,087,37.59012,-77.48007,00000064,I-64 East Shoulder @ MM 185.5,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,880012,5,0,24,19908,1661,southbound,023,37.60133,-79.62085,00000081,I-81 North Shoulder @ MM 172.4,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,023,True
+51,880032,5,0,24,24870,2100,southbound,163,37.90602,-79.26263,00000081,1.63 mi from Sterret Rd,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,163,True
+51,880060,7,0,24,20827,1741,westbound,820,38.05866,-78.93185,00000064,1.40 Mi W Ramp Fr 07-624,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,820,True
+51,890045,7,0,24,19033,1513,westbound,061,38.84786,-77.7661,00000066,0.79 mi from Prince William County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,061,True
+51,910440,1,0,24,25017,2298,northbound,197,36.87008,-80.87253,00000077,I-77 South Shoulder @ MM 26,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,197,True
+51,920380,1,0,24,6916,1324,northbound,155,36.98671,-80.82086,00000081,1.0 mi from 98-618,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,155,True
+51,940396,1,0,24,15824,1219,northbound,053,36.94313,-77.72929,00000085,I-85 South Shoulder norht of Exit 39,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,053,True
+51,940419,3,0,24,20357,1774,eastbound,075,37.7756,-77.88109,00000064,I-64 West Shoulder @ MM 160,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,940420,3,0,24,29125,2494,eastbound,087,37.6575,-77.61069,00000064,I-64 West Shoulder @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,087,True
+51,940447,3,0,24,43899,3439,eastbound,085,37.55915,-77.29447,00000295,I-295 Median @ MM 31,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,085,True
+51,940726,1,0,24,15123,1159,northbound,025,36.78746,-78.00539,00000085,I-85 N 1.32 Miles north of Mecklenburg County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,025,True
+51,940762,3,0,24,15243,1176,eastbound,670,37.30002,-77.3351,00000295,I-295 South Shoulder @ MM 10,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,670,True
+51,970311,3,0,24,18282,1649,eastbound,075,37.89972,-78.04787,00000064,I-64 WB 1.33 Miles West of Ramp from 37-605 Shanno,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,075,True
+51,980300,1,0,24,28214,2446,northbound,165,38.35377,-78.92884,00000081,I-81 North Shoulder @ MM 239.8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,165,True
+51,980503,1,0,24,34968,2806,northbound,187,39.00645,-78.32938,00000081,I-81 south @ Exit 298,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt,Virginia,187,True
