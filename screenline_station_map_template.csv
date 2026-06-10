@@ -1,0 +1,7 @@
+include,screenline,state_code,station_id,direction,lane,station_label,notes
+,dc_cordon,,,,,,Fill state_code/station_id after reviewing outputs/fhwa_2018_06_10_station_daily_audit.csv
+,dc_md,,,,,,Maryland/DC crossings or boundary counters
+,dc_va_potomac,,,,,,Potomac River crossings between VA and DC
+,montgomery_dc,,,,,,Montgomery County/DC crossings
+,pg_dc,,,,,,Prince George's County/DC crossings
+,nova_dc,,,,,,Northern Virginia/DC crossings

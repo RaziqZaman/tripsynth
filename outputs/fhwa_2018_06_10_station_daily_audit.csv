@@ -1,0 +1,988 @@
+state_code,station_id,direction,lane,daily_count,hours_observed,latitude,longitude,route,location_text,source_file
+11,000050,7,1,27697,24,38918060,76944910,2,New York West 050                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,000050,3,2,23210,24,38918060,76944910,2,New York East 050                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,000050,3,1,22693,24,38918060,76944910,2,New York East 050                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,002295,5,2,19047,24,38817260,77018580,1,Anacostia South ANS                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,000050,7,2,18735,24,38918060,76944910,2,New York West 050                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,002295,5,3,17035,24,38817260,77018580,1,Anacostia South ANS                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,001295,1,2,16613,24,38814200,77019630,1,Anacostia North ANN                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,000050,7,3,14289,24,38918060,76944910,2,New York West 050                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,001295,1,1,12393,24,38814200,77019630,1,Anacostia North ANN                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,000050,3,3,12115,24,38918060,76944910,2,New York East 050                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,001295,1,3,9586,24,38814200,77019630,1,Anacostia North ANN                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+11,002295,5,1,6486,24,38817260,77018580,1,Anacostia South ANS                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0006,1,0,29630708,24,38812795,76721947,3,MD 4 - .54 Mile North of Patuxent River Bridge (AT,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0071,5,0,2228456,24,39239529,76699033,1,IS 95 - .65 Mile North of IS 1                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0025,1,0,1376735,24,39161077,76739810,3,MD 295(NB) - .81 South of MD 100 (ATR#25 Includes ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0041,3,0,1341488,24,39018199,76991452,1,IS 495 - .82 Mile West of MD 650 (ATR#41)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0071,1,0,1313564,24,39239529,76699033,1,IS 95 - .65 Mile North of IS 1                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0039,1,0,1308078,24,39190536,76773374,1,IS 95 - .08 Mile South of MD 103 (ATR#39)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0043,5,0,1307487,24,38877840,76843628,1,IS 95 - 1.02 Miles South of MD 214 (ATR#43)       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0043,1,0,1297389,24,38877840,76843628,1,IS 95 - 1.02 Miles South of MD 214 (ATR#43)       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0041,7,0,1284189,24,39018199,76991452,1,IS 495 - .82 Mile West of MD 650 (ATR#41)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0025,5,0,1283632,24,39161077,76739810,3,MD 295(NB) - .81 South of MD 100 (ATR#25 Includes ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0054,1,0,1279453,24,39405909,76574641,1,IS 695 - .41 Mile North of Cromwell Bridge Rd (ATR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0077,5,0,1274039,24,39238874,76668331,1,IS 695 - .15 Mile North of Hollins Ferry Rd (ATR#7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0055,1,0,1244288,24,38978863,76874070,1,IS 95 - .05 Mile North of Good Luck Rd (ATR#55)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0061,3,0,1238224,24,38921799,76905895,2,US 50 - .75 Mile West of MD 202 (ATR#61)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0054,5,0,1211754,24,39405909,76574641,1,IS 695 - .41 Mile North of Cromwell Bridge Rd (ATR,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0069,1,0,1190023,24,39166032,76837719,3,MD 32 - .78 Mile North of IS 95 (ATR#69)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0019,3,0,1181100,24,39326407,77706219,2,US 340 - 50ft East of Potomac River Bridge (ATR#19,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0021,7,0,1179521,24,39471720,77528251,1,IS 70 - 2.79 Miles East of MD 17 (ATR#21)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0060,5,0,1172570,24,39168932,77242771,1,IS 270 - .47 Mile South of Middlebrook Rd (ATR#60),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0017,3,0,1161500,24,38385617,75358354,2,US 50 - .25 Mile West of MD 354 (ATR#17)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0040,7,0,1154400,24,38981418,77172357,1,IS 495 - 50ft East of Persimmon Tree Rd Overpass (,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0038,3,0,1136319,24,0,0,3,MD 100 - .45 Mile West of Oakwood Rd (ATR#38)     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0052,1,0,1135443,24,39428381,76635650,1,IS 83 - .64 Mile North of IS 695 (ATR#52)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0060,1,0,1135370,24,39168932,77242771,1,IS 270 - .47 Mile South of Middlebrook Rd (ATR#60),Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0069,5,0,1126124,24,39166032,76837719,3,MD 32 - .78 Mile North of IS 95 (ATR#69)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0080,1,0,1121201,24,38606685,76874602,3,MD 5 - .10 Mile South of Renner Rd (ATR#80)       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0055,5,0,1119179,24,38978863,76874070,1,IS 95 - .05 Mile North of Good Luck Rd (ATR#55)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0021,3,0,1098826,24,39471720,77528251,1,IS 70 - 2.79 Miles East of MD 17 (ATR#21)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0062,7,0,1096600,24,38347881,75231491,2,US 50 - .73 Mile West of MD 818 (ATR#62)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0077,1,0,1096545,24,39238874,76668331,1,IS 695 - .15 Mile North of Hollins Ferry Rd (ATR#7,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0080,5,0,1093800,24,38606685,76874602,3,MD 5 - .10 Mile South of Renner Rd (ATR#80)       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0037,5,0,1085400,24,38013839,75543754,2,US 13 - .10 Mile North of Bunting Rd (ATR#37)     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0059,5,0,1077900,24,38266363,75661662,2,US 13 - .45 Mile North of Peggyneck Rd (ATR#59)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0039,5,0,1075782,24,39190536,76773374,1,IS 95 - .08 Mile South of MD 103 (ATR#39)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0004,1,0,1065039,24,39205029,77271186,1,IS 270 - 2.0 Miles South of MD 121 (ATR#04)       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0027,1,0,1063616,24,39540815,76666332,1,IS 83 - .50 mile South of Belfast Rd (ATR#27)     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0024,7,0,1057630,24,38955895,76678984,1,US 50/IS 595 - 1.34 Miles West of MD 424 (ATR#24) ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0066,1,0,1056107,24,39209056,76694849,1,IS 195 - .59 Mile North of MD 295 (ATR#66)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0038,7,0,1052424,24,0,0,3,MD 100 - .45 Mile West of Oakwood Rd (ATR#38)     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0017,7,0,1026108,24,38385617,75358354,2,US 50 - .25 Mile West of MD 354 (ATR#17)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0028,5,0,1020300,24,0,0,2,US 301 - .11 Mile South of MD 304 (ATR#28)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0053,3,0,1019532,24,0,0,1,IS 70 - 1.25 Miles West of IS 695 (ATR#53)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0019,7,0,1018500,24,39326407,77706219,2,US 340 - 50ft East of Potomac River Bridge (ATR#19,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0076,5,0,1009726,24,39385355,76662409,1,IS 83 - .04 Mile North of Old Pimlico Rd (ATR#76) ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0027,5,0,1008918,24,39540815,76666332,1,IS 83 - .50 mile South of Belfast Rd (ATR#27)     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0052,5,0,995444,24,39428381,76635650,1,IS 83 - .64 Mile North of IS 695 (ATR#52)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0040,3,0,991403,24,38981418,77172357,1,IS 495 - 50ft East of Persimmon Tree Rd Overpass (,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0028,1,0,988500,24,0,0,2,US 301 - .11 Mile South of MD 304 (ATR#28)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0076,1,0,976028,24,39385355,76662409,1,IS 83 - .04 Mile North of Old Pimlico Rd (ATR#76) ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0053,7,0,974237,24,0,0,1,IS 70 - 1.25 Miles West of IS 695 (ATR#53)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0074,5,0,974200,24,39281807,76483816,3,MD 695 - 50ft South of Trappe Rd (ATR#74)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0036,7,0,966209,24,38921862,75944515,3,MD 404 - .065 Mile West of Cemetery Rd(ATR#36)    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0061,7,0,964226,24,38921799,76905895,2,US 50 - .75 Mile West of MD 202 (ATR#61)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0036,3,0,950400,24,38921862,75944515,3,MD 404 - .065 Mile West of Cemetery Rd(ATR#36)    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0004,5,0,948943,24,39205029,77271186,1,IS 270 - 2.0 Miles South of MD 121 (ATR#04)       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0024,3,0,937125,24,38955895,76678984,1,US 50/IS 595 - 1.34 Miles West of MD 424 (ATR#24) ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0070,3,0,910709,24,39668470,78734718,1,IS 68 - .15 Mile East of Structure #1081 Hillcrest,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0013,5,0,893600,24,39472993,76640244,3,MD 45 - .14 Mile South of Warren Rd (ATR#13)      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0066,5,0,890810,24,39209056,76694849,1,IS 195 - .59 Mile North of MD 295 (ATR#66)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0013,1,0,884600,24,39472993,76640244,3,MD 45 - .14 Mile South of Warren Rd (ATR#13)      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0006,5,0,877607,24,38812795,76721947,3,MD 4 - .54 Mile North of Patuxent River Bridge (AT,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0068,5,0,870500,24,39329381,77510505,2,US 15 - 1.16 Miles North of Basford Rd (ATR#68)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0074,1,0,864900,24,39281807,76483816,3,MD 695 - 50ft South of Trappe Rd (ATR#74)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0059,1,0,848404,24,38266363,75661662,2,US 13 - .45 Mile North of Peggyneck Rd (ATR#59)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0068,1,0,842300,24,39329381,77510505,2,US 15 - 1.16 Miles North of Basford Rd (ATR#68)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0022,3,0,831506,24,38871176,76061251,2,US 50 - .06 Mile East of Longwoods Rd (ATR#22)    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0037,1,0,806004,24,38013839,75543754,2,US 13 - .10 Mile North of Bunting Rd (ATR#37)     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0009,1,0,795909,24,38423943,75564374,2,US 13 - 100ft North of Leonards Mill Pond Bridge (,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0005,5,0,783306,24,38577901,76962688,2,US 301 - .74 Mile South of MD 227 (ATR#05)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0022,7,0,775415,24,38871176,76061251,2,US 50 - .06 Mile East of Longwoods Rd (ATR#22)    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0011,1,0,770700,24,39511472,76374544,2,US 1BU - .06 Mile South of Old Joppa Rd (ATR#11)  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0070,7,0,761209,24,39668470,78734718,1,IS 68 - .15 Mile East of Structure #1081 Hillcrest,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0044,7,0,755905,24,39677630,78965161,1,IS 68(EB) - .50 Mile East of MD 546(ATR#44 Include,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0009,5,0,743508,24,38423943,75564374,2,US 13 - 100ft North of Leonards Mill Pond Bridge (,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0062,3,0,742900,24,38347881,75231491,2,US 50 - .73 Mile West of MD 818 (ATR#62)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0005,1,0,736910,24,38577901,76962688,2,US 301 - .74 Mile South of MD 227 (ATR#05)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0011,5,0,703900,24,39511472,76374544,2,US 1BU - .06 Mile South of Old Joppa Rd (ATR#11)  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0044,3,0,685008,24,39677630,78965161,1,IS 68(EB) - .50 Mile East of MD 546(ATR#44 Include,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0063,7,0,679800,24,38373521,75252829,3,MD 90 - 100ft West of MD 346 (ATR#63)             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0058,1,0,595100,24,39492502,75843160,3,MD 213 - .49 Mile North of MD 310 (ATR#58)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0008,1,0,574600,24,38929207,75964182,3,MD 309 - .50 Mile North of MD 404 (ATR#08)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0026,7,0,466500,24,39642697,78876868,2,US 40AL - .62 Mile East of MD 55 (ATR#26)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0002,3,0,456300,24,39650902,77789330,2,US 40 - .58 Mile East of MD 63 (ATR#02)           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0026,3,0,456300,24,39642697,78876868,2,US 40AL - .62 Mile East of MD 55 (ATR#26)         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0002,7,0,455100,24,39650902,77789330,2,US 40 - .58 Mile East of MD 63 (ATR#02)           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0063,3,0,406300,24,38373521,75252829,3,MD 90 - 100ft West of MD 346 (ATR#63)             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0058,5,0,403300,24,39492502,75843160,3,MD 213 - .49 Mile North of MD 310 (ATR#58)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0085,3,0,352500,24,39703194,76635416,3,MD 439 - .44 Mile East of IS 83 (ATR#85)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0085,7,0,343800,24,39703194,76635416,3,MD 439 - .44 Mile East of IS 83 (ATR#85)          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0089,5,0,290000,24,38952448,76812699,3,MD 953 - .10 Mile North of Atwell Ave (ATR#89)    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0090,5,0,288900,24,39408619,76729504,3,MD 129 - .18 Mile South of MD 130 (ATR#90)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0015,1,0,288500,24,39357165,75877741,3,MD 213 - .12 Mile South of Georgetown Cemetery Rd ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0089,1,0,287400,24,38952448,76812699,3,MD 953 - .10 Mile North of Atwell Ave (ATR#89)    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0010,1,0,283100,24,38029567,75786257,3,MD 413 - .39 Mile South of MD 667 (ATR#10)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0090,1,0,274200,24,39408619,76729504,3,MD 129 - .18 Mile South of MD 130 (ATR#90)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0001,1,0,269800,24,39579464,78967230,3,MD 36 - 100ft South of George's Creek Bridge (ATR#,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0010,5,0,265800,24,38029567,75786257,3,MD 413 - .39 Mile South of MD 667 (ATR#10)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0001,5,0,262100,24,39579464,78967230,3,MD 36 - 100ft South of George's Creek Bridge (ATR#,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0088,7,0,255400,24,39655625,75809562,3,MD 277 - .10 Mile East of Oakridge Ct (ATR#88)    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0088,3,0,254500,24,39655625,75809562,3,MD 277 - .10 Mile East of Oakridge Ct (ATR#88)    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0015,5,0,233500,24,39357165,75877741,3,MD 213 - .12 Mile South of Georgetown Cemetery Rd ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0086,5,0,203900,24,38349416,76931677,3,MD 257 - .40 Mile South of Morgantown Rd (ATR#86) ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0086,1,0,194100,24,38349416,76931677,3,MD 257 - .40 Mile South of Morgantown Rd (ATR#86) ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0083,7,0,185300,24,38396505,75306840,3,MD 610 - .30 Mile North of MD 346 (ATR#83)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0083,3,0,167100,24,38396505,75306840,3,MD 610 - .30 Mile North of MD 346 (ATR#83)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0008,5,0,156200,24,38929207,75964182,3,MD 309 - .50 Mile North of MD 404 (ATR#08)        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0087,1,0,148000,24,38101803,76365215,3,MD 5 - .20 Mile North of Fresh Pond Neck Rd (ATR#8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0003,5,0,144600,24,39456140,77536220,3,MD 17 - 1.05 Miles North of US 40AL (ATR#03)      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0003,1,0,138100,24,39456140,77536220,3,MD 17 - 1.05 Miles North of US 40AL (ATR#03)      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0084,1,0,136800,24,39065442,75850699,3,MD 313 - .22 Mile South of Queen Anne's County Lin,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0087,5,0,134200,24,38101803,76365215,3,MD 5 - .20 Mile North of Fresh Pond Neck Rd (ATR#8,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0084,5,0,117300,24,39065442,75850699,3,MD 313 - .22 Mile South of Queen Anne's County Lin,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040506,1,0,869239,24,37593660,77467720,1,I-95 South Shoulder @ MM 80                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050206,1,0,331377,24,37961200,75533020,2,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010406,1,0,238004,24,36616000,82187210,1,0.50 N KEY ST                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140243,5,0,157284,24,37550400,77435590,1,I-95 NORTH SHOULDER @ MM75                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190057,5,0,98749,24,38801670,77209790,1,3/4 mile south Braddock Road interchange          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090138,1,0,98145,24,38801130,77208880,1,1.1 MI FR I-95; I-395 (Springfield Interchange)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190001,1,0,87197,24,38795370,77143720,1,1.2 mi from I-495                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190005,5,0,87061,24,38795370,77143720,1,1.2 mi from I-495                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190013,5,0,79257,24,38603780,77311630,1,.7 MI S Cardinal DR Overpass (ADR from 19974101 is,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160306,5,0,78018,24,38314790,77504290,1,FREDERICKSBURG WELCOME CENTER EXIT RAMP           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060168,1,0,76391,24,38313400,77502820,1,I-95 North Shoulder @ MM 131.53                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150069,7,0,76181,24,36857522,76195268,1,0.14 mi from Virginia Beach Blvd Overpass         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190316,5,0,74134,24,38469300,77405790,1,I-95 South Shoulder @ MM 143.95                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140300,5,0,73917,24,37669670,77448030,1,I-95 South Median @ Exit 84 to I-295 East         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090305,1,0,73608,24,38587420,77318400,1,.6 Miles N Dumfries Rd / RTE 234 Overpass         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190015,5,0,73401,24,38540670,77348920,1,I-95 South Shoulder @ MM 149.1                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060314,1,0,72976,24,38397540,77435810,1,I-95 South Shoulder @ MM 138.7                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140055,5,0,71404,24,37570390,77477370,1,0.10 Mile North of US 33; US 250 overpass         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060315,1,0,70906,24,38468130,77405270,1,I-95 North Shoulder @ MM 143.8                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160001,5,0,70446,24,38456580,77409360,1,0.45 S RAMP FR RT 610                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160002,5,0,70422,24,38351570,77479920,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140012,5,0,70106,24,37579420,77468220,1,I-95 SOUTH SHOULDER AT MM78                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160098,5,0,70086,24,38397540,77435810,1,I-95 South Shoulder @ MM 138.7                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050308,3,0,69886,24,36857522,76195268,1,0.14 mi from Virginia Beach Blvd Overpass         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140006,5,0,69438,24,37709220,77448360,1,0.9 S RAMP FR RT 802                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140014,5,0,69300,24,37537440,77428230,1,I-95 North Shoulder @ MM 74                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040101,1,0,69136,24,37754170,77458530,1,I-95 South Shoulder South of SR 54 Interchange    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090132,1,0,68995,24,38540670,77348920,1,I-95 South Shoulder @ MM 149.9                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150051,7,0,68907,24,37103550,76469880,1,0.9 mi W Rmp Fr Rte. 17                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160004,5,0,68132,24,38247320,77507210,1,I-95 SOUTH SHOULDER @ MM 126.8                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140013,5,0,68031,24,37563650,77454430,1,0.75 S ROBIN HOOD RD                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040105,1,0,67137,24,37824110,77456160,1,I-95 North Median @ MM 96.6                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050216,7,0,67127,24,36838610,76084990,1,I-264 Westbound Approx 0.88 miles west of Lynnhave,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140005,5,0,67126,24,37754170,77458530,1,I-95 South Shoulder South of SR 54 Interchange    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050163,3,0,67013,24,37096320,76465620,1,0.7 Mi E Ramp Fr Rte 171                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140316,1,0,66359,24,37672140,77448150,1,I-95 North Median @ Merge of Ramp from I-295 West ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140004,5,0,65999,24,37824110,77456160,1,I-95 North Median @ MM 96.6                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040040,1,0,65377,24,37198810,77423240,1,I-85 North @ Exit 65                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060326,1,0,65228,24,38351570,77479920,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140313,1,0,65048,24,37891960,77458650,1,I-95 North Median @ MM 101.4                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140236,5,0,64495,24,37546410,77428830,1,I-95 North Shoulder @ Exit 75                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160308,5,0,63837,24,37891960,77458650,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040493,1,0,63335,24,37550400,77435590,1,I-95 NORTH SHOULDER @ MM75                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160005,5,0,61710,24,38138730,77508370,1,5.85 S RAMP FR RT 1                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060300,1,0,61378,24,38247320,77507210,1,I-95 SOUTH SHOULDER @ MM 126.8                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080458,1,0,60890,24,38395550,78911700,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050205,3,0,60602,24,36836810,76074060,1,I-264 Eastbound                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010189,1,0,60235,24,36954500,81055500,1,I-81/77 North Shoulder @ MM 73.50                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140069,7,0,60232,24,37634030,77387300,1,I-295 North Shoulder @ MM 39                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040489,1,0,59913,24,37563790,77454000,1,1.10 Mi N of Ramp Fr SR 301                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060170,1,0,59636,24,38122080,77516530,1,I-95 South Shoulder @ MM 117                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050169,3,0,59460,24,36832660,76196220,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140242,5,0,59434,24,37552570,77442990,1,I-95 North Shoulder @ Belvidere St                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160006,5,0,59433,24,38122080,77516530,1,I-95 South Shoulder @ MM 117                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150070,7,0,59396,24,36823210,76194790,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140011,5,0,59097,24,37593660,77467720,1,I-95 South Shoulder @ MM 80                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060162,1,0,59040,24,37983110,77492290,1,I-95 North Shoulder @ MM 108.1                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140068,7,0,58368,24,37618260,77365200,1,0.40 W RAMP FR RT 360                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060164,1,0,58274,24,38141360,77506520,1,1.10 N RAMP FR RT 606                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050306,3,0,56731,24,36899678,76235233,1,0.38 mi from SR 194 Chesapeake Blvd               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150066,7,0,56590,24,36899678,76235233,1,0.38 mi from SR 194 Chesapeake Blvd               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140070,7,0,56495,24,37654010,77434260,1,I-295 West @ ramp split to I-95 North             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040488,1,0,56473,24,37537440,77428230,1,I-95 North Shoulder @ MM 74                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040305,1,0,56205,24,37593660,77467720,1,I-95 South Shoulder @ MM 80                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040298,1,0,56159,24,37374440,77405910,1,Central TMC Camera Pole @ Coxendale Rd Overpass   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040294,1,0,55618,24,37241410,77394960,1,I-95 North Shoulder @ Exit 53                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040304,1,0,54694,24,37579420,77468220,1,I-95 SOUTH SHOULDER AT MM78                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040492,1,0,53597,24,37552570,77442990,1,I-95 North Shoulder @ Belvidere St                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140020,5,0,53579,24,37374440,77405910,1,Central TMC Camera Pole @ Coxendale Rd Overpass   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040481,3,0,53057,24,37590120,77480070,1,I-64 East Shoulder @ MM 185.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140067,7,0,52732,24,37598770,77351870,1,I-295 West Shoulder @ MM 36                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140180,5,0,52682,24,37597290,77466030,1,I-95 South Shoulder @ MM 80                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040296,1,0,52302,24,37294140,77390700,1,2.60 Mi N of Ramp Fr SR 144                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040316,1,0,51800,24,37597290,77466030,1,I-95 South Shoulder @ MM 80                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040444,3,0,51471,24,37634030,77387300,1,I-295 North Shoulder @ MM 39                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140315,1,0,51134,24,37521170,77426800,1,I-95 North Shoulder @ Exit 73                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,840066,7,0,50853,24,37559150,77294470,1,I-295 Median @ MM 31                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040046,3,0,50538,24,37616574,77365140,1,0.50 E RAMP FR RT 627                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140314,1,0,50376,24,37226500,77393980,1,I-85 North Exit 68B Ramp Shoulder                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040359,1,0,49809,24,37325500,77399610,1,0.69 mi from Ramp from Woods Edge Rd              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150065,7,0,49565,24,36903580,76246800,1,0.4 mi from SR 194                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140003,1,0,49463,24,37431550,77431680,1,I-95 South Shoulder @ MM 67                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040044,3,0,49138,24,37699430,77739710,1,I-64 West Shoulder @ MM 169.65                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140025,5,0,49066,24,37241410,77394960,1,I-95 North Shoulder @ Exit 53                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040295,1,0,48917,24,37247350,77393300,1,@ Exit 53                                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040360,1,0,48730,24,37399570,77424630,1,@ Ramp from Willis Rd to I-95 South               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140022,5,0,48365,24,37302870,77392520,1,0.55 S RAMP FR RT 746/620                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140010,5,0,48258,24,37608180,77452540,1,Just South of overhead VMS south of US 301        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040436,1,0,48188,24,37608180,77452540,1,Just South of overhead VMS south of US 301        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140018,5,0,48093,24,37431550,77431680,1,I-95 South Shoulder @ MM 67                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040285,1,0,47899,24,37624090,77444900,1,0.75 MI N RAMP FROM RTE. 301                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,840083,7,0,47546,24,37590120,77480070,1,I-64 East Shoulder @ MM 185.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140021,5,0,47276,24,37325500,77399610,1,0.69 mi from Ramp from Woods Edge Rd              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140016,5,0,46883,24,37496450,77429940,1, 1.53 MI S RAMP TO EXIT 73                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090106,3,0,46753,24,38889740,77106750,1,0.50 E RAMP FR RT 120                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040361,1,0,46416,24,37463320,77425550,1,I-95 South Shoulder @ Exit 69                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040300,1,0,46306,24,37493900,77431100,1,0.25 Mi N Deepwater Terminal Underpass            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140019,5,0,46210,24,37399570,77424630,1,@ Ramp from Willis Rd to I-95 South               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040287,1,0,45955,24,37639910,77452670,1,I-95 SOUTH @ SCOTT RD OVERPASS                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140065,7,0,45948,24,37541360,77281160,1,I-295 EAST @ EXIT 28                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140009,5,0,45568,24,37625400,77446930,1,0.45 MI S RMP FR RTE 73 (PARHAM RD.)              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140023,5,0,45362,24,37247350,77393300,1,@ Exit 53                                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190029,7,0,44843,24,38890080,77107120,1,0.50 W RAMP FR RT 29                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140220,7,0,44521,24,37516730,77253600,1,I-64 West Shoulder @ Exit 200                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040445,3,0,44420,24,37596060,77350370,1,I-295 South @ MM 36                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150059,7,0,44097,24,37002960,76319170,1,Exit of WB tunnel before end of island            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140008,5,0,44075,24,37639910,77452670,1,I-95 SOUTH @ SCOTT RD OVERPASS                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140093,7,0,44072,24,37494800,77016080,1,I-64 WEST @ EXIT 214                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150126,7,0,44048,24,37376200,76754610,1,I-64 West Shoulder @ MM 232                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,940447,3,0,43899,24,37559150,77294470,1,I-295 Median @ MM 31                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140092,7,0,43808,24,37498050,77040040,1,New Kent Rest Area Entrance Ramp                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140091,7,0,43582,24,37510230,77140010,1,3.09 Mile W SR 106 On Ramp                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040108,3,0,42821,24,37598270,77497180,1,Central TMC Camera Pole @ Exit 185 B              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110023,5,0,42743,24,36716500,81926500,1,I-81 South Shoulder @ MM 20.10                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140331,3,0,42386,24,37516730,77253600,1,I-64 West Shoulder @ Exit 200                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040282,3,0,41936,24,37554890,77425660,1,I-64 West Shoulder @ MM 191                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150127,7,0,41831,24,37390810,76769510,1,I-64 East Shoulder @ MM 231                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140085,7,0,41598,24,37554890,77425660,1,I-64 West Shoulder @ MM 191                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150319,3,0,41591,24,36982150,76301660,1,Exit of EB tunnel before end of island            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150316,3,0,41549,24,37376200,76754610,1,I-64 West Shoulder @ MM 232                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040110,3,0,41329,24,37509050,77139260,1,2.65 Mi E of Ramp Fr SR 33/SR 249                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150043,7,0,41021,24,37330220,76705770,1, 1.9 MI W RAMP FR CAMP PEARY                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040112,3,0,40861,24,37497530,77046220,1,New Kent Rest Area Entrance Ramp                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040114,3,0,40791,24,37488210,76969350,1,1.1 MI FR SR 155                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140310,7,0,40108,24,37422980,76828740,1,I-64 West @ Ramp from SR 30                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050267,3,0,39837,24,37390810,76769510,1,I-64 East Shoulder @ MM 231                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150076,7,0,39793,24,36778200,76385480,1,1.2 Mi East of US 13                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150039,3,0,39593,24,36777020,76376810,1,0.80 Mi East of Ramp Fr US 13                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040766,3,0,39416,24,37608610,77529590,1,I-64 West Shoulder @ MM 182                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040511,3,0,39226,24,37541360,77281160,1,I-295 EAST @ EXIT 28                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140082,7,0,38706,24,37598270,77497180,1,Central TMC Camera Pole @ Exit 185 B              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040777,3,0,38184,24,37628250,77562900,1,0.40 Mi E of Ramp Fr Gaskins Rd                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140302,3,0,38030,24,37424210,76832460,1,I-64 Median @ Exit 227                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140081,7,0,35858,24,37608610,77529590,1,I-64 West Shoulder @ MM 182                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050390,3,0,35552,24,37326300,76702110,1,2.35 Mi E Ramp Fr SR 199                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,980503,1,0,34968,24,39006450,78329380,1,I-81 south @ Exit 298                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040502,1,0,34967,24,37582890,77473950,1,Right side of I-195 NB North of Laburnum Ave Exit ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010446,1,0,34624,24,36945910,81040660,1,0.66 Mi N Ramp Fr US 11                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020396,1,0,34571,24,37330570,80025330,1,0.32 Mile North SR 419 Electric Rd                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140307,7,0,34406,24,37553830,77402760,1,0.43 mi West of the Creighton Road Overpass       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140080,7,0,34309,24,37629020,77563160,1,0.48 Mi W Ramp Fr Parham Rd                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040482,3,0,34202,24,37553830,77402760,1,0.43 mi West of the Creighton Road Overpass       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150095,7,0,34072,24,36775760,76448120,2,0.1 MI W. HAMPTON ROADS AIRPORT ENTRANCE          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150095,3,0,33504,24,36775760,76448120,2,0.1 MI W. HAMPTON ROADS AIRPORT ENTRANCE          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080373,1,0,33202,24,39176850,78145800,1,1.00 N RAMP FR RT 50                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010566,1,0,33166,24,36940920,80973050,1,I-81 North Shoulder @ MM 80.75                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080297,1,0,33108,24,38081290,79085340,1,2.28 mi from SR 262                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010447,1,0,33017,24,36946330,80939530,1,I-81/77 North Shoulder @ MM 80.75                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020181,1,0,32982,24,37356590,79975840,1,1.45 N RAMP FR I-581                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080502,1,0,32771,24,39010520,78339920,1,I-81 South Shoulder @ MM 297.9                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040048,3,0,32468,24,37645100,77590010,1,I-64 West Shoulder @ MM 179                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040292,1,0,32116,24,37570390,77477370,1,0.10 Mile North of US 33; US 250 overpass         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140072,7,0,31821,24,37660220,77466410,1,I-295 W CD Road; 0.18 Mile West of ramp from US 1 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080250,1,0,31692,24,38124160,79043240,1,I-81 North Shoulder @ MM 221.15                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020393,1,0,31464,24,37297940,80082910,1,I-81 North Shoulder @ MM 138.2                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080254,1,0,31394,24,37954400,79207570,1,1.75 N RAMP FR RT 606                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789503,1,0,31297,24,37672140,77448150,1,I-295 West @ ramp split to I-95 North             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180067,1,0,31029,24,38170320,79006950,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080427,1,0,30783,24,37906020,79262630,1,1.63 mi from Sterret Rd                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080252,1,0,30596,24,38041780,79123400,1,1.28 mi from US 11                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050119,1,0,30394,24,36581280,77564630,1,2.55 Mi N of North Carolina State Line            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080298,1,0,30342,24,38148740,79017820,1,I-81 South Shoulder @ MM 224.4                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080234,1,0,30234,24,38421990,78881000,1,2.20 N RAMP FR RT 11                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050238,1,0,30207,24,36683150,77557060,1,I-95 North Shoulder @ MM 9                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080501,1,0,30121,24,39000980,78388050,1,1.53 mi from SR 55                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080232,1,0,30110,24,37804920,79389250,1,I-81 North Shoulder @ MM 192.3                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040413,1,0,30079,24,37201050,77439430,1,1.04 mi from US 1                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080228,1,0,30005,24,39093910,78207240,1,I-81 South Shoulder @ MM 308.1                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080236,1,0,29878,24,38431530,78872890,1,I-81 North Shoulder @ MM 246.15                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080299,1,0,29854,24,38233730,78971360,1,I-81 SOUTH SHOULDER @ MM230.80                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150022,7,0,29773,24,36876010,76433060,1,0.25 MI W RMP FR RTE 164                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080460,1,0,29615,24,38443530,78844510,1,I-81 South Shoulder @ MM 247.95                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070122,3,0,29542,24,38857560,77851240,1,I-66 @ Exit 27A to SR 55                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120008,5,0,29500,24,37330650,80026740,1,1.5 Mile South I-581                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080461,1,0,29413,24,38536560,78767340,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040612,1,0,29396,24,37145040,77355960,1,I-95 South Shoulder @ Exit 45                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140034,5,0,29167,24,37198810,77423240,1,I-85 North @ Exit 65                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,940420,3,0,29125,24,37657500,77610690,1,I-64 West Shoulder @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080372,1,0,29068,24,39062240,78234440,1,I-81 South Shoulder @ MM 305.4                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140073,7,0,29061,24,37672740,77493310,1,0.35 W RAMP FR WOODMAN                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040500,1,0,28923,24,37565200,77482840,1,0.78 N RT 76                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140079,7,0,28698,24,37645100,77590010,1,I-64 West Shoulder @ MM 179                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140056,3,0,28694,24,37659150,77464020,1,Left side of I-295 E 0.22 Miles from I-295 CD ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070281,3,0,28616,24,38869110,77889860,1,I-66 West Shoulder @ MM 26.3                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140195,5,0,28598,24,37218040,77387570,1,I-95 North Collector Road Shoulder @ Exit 50D     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140077,7,0,28591,24,37657500,77610690,1,I-64 West Shoulder @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150302,7,0,28375,24,36947475,76404910,1,Hampton Roads Tunnel Equipment                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150012,3,0,28372,24,36875840,76433560,1,0.6 MI E RMP FR RTE 135/COLLEGE DR                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110004,5,0,28342,24,36940920,80973050,1,I-81 North Shoulder @ MM 80.75                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140074,7,0,28297,24,37678600,77553250,1,I-295 W Median  0.27 Mile West of ramp from US 33 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020180,1,0,28223,24,37145710,80342820,1,0.25 Mile North NCL Christiansburg                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,980300,1,0,28214,24,38353770,78928840,1,I-81 North Shoulder @ MM 239.8                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050237,1,0,28107,24,36649550,77559220,1,I-95 South Shoulder @ MM 7                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080499,1,0,27957,24,38869140,78528500,1,I-81 North Shoulder @ MM 283                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080230,1,0,27956,24,39021950,78280300,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110033,5,0,27893,24,36946330,80939530,1,I-81/77 North Shoulder @ MM 80.75                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040678,3,0,27730,24,37536400,77382940,1,I-64 West Shoulder - 0.43 mi west of  Masonic Lane,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080497,1,0,27688,24,38807640,78599710,1,I-81 North Shoulder @ MM 277.25                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120009,5,0,27685,24,37318870,80044990,1,0.5 Mile South SR 419 Electric Road               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140052,5,0,27603,24,37582890,77473950,1,Right side of I-195 NB North of Laburnum Ave Exit ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050596,3,0,27475,24,36959640,76410920,1,Hampton Roads Tunnel Equipment                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140087,7,0,27414,24,37536400,77382940,1,I-64 West Shoulder - 0.43 mi west of  Masonic Lane,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020178,1,0,27396,24,37242040,80214200,1,I-81 North Shoulder @ MM 129.7                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140035,5,0,27366,24,37199260,77455290,1,I-85 South Shoulder @ Exit 63 B                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010595,1,0,27351,24,36626370,82130870,1,I-81 North Shoulder @ MM 6.9                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080238,1,0,27237,24,38723980,78659420,1,I-81 South Shoulder@ MM 270.4                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110006,5,0,27236,24,36954500,81055500,1,I-81/77 North Shoulder @ MM 73.50                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180010,5,0,27161,24,39006450,78329380,1,I-81 south @ Exit 298                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120007,5,0,27151,24,37347950,79988610,1,1.85 S RAMP FR RT 115                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180005,5,0,27059,24,39178270,78144600,1,0.65 S RAMP FR RT 7                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080463,1,0,27042,24,38637560,78684490,1,I-81 SOUTH SHOULDER @ MM264                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180031,5,0,27036,24,38124160,79043240,1,I-81 North Shoulder @ MM 221.15                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040386,7,0,26974,24,37440310,77457790,3, 0.2 MI E RTE 1601 (DALEBROOK DR)                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120010,5,0,26825,24,37301780,80077550,1,2.2 Mile South SR 311 Thompson Memorial Dr        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,240500,5,0,26535,24,37559270,77489380,1,0.15 S RAMP TO GROVE AVE                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040106,3,0,26501,24,37652390,77597690,1,0.14 mi from US 250 Broad St Ramp                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140001,1,0,26463,24,37038560,77389200,1,I-95 South Shoulder @ Exit 37                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180032,5,0,26421,24,38081290,79085340,1,2.28 mi from SR 262                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080422,1,0,26278,24,37760730,79407220,1,I-81 North Shoulder @ MM 189                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040614,1,0,26104,24,37218040,77387570,1,I-95 South Shoulder @ Exit 48                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080226,1,0,26035,24,39137250,78176680,1,I-81 South Shoulder @ MM 311.21                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080424,1,0,25891,24,37737840,79425780,1,I-81 SOUTH SHOULDER @ MM 187                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140318,1,0,25806,24,36990020,77391900,1,0.47 mi from Route 602 on ramp                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150009,5,0,25778,24,36581770,77564980,1,1.7 MI S RTE 629                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040007,3,0,25732,24,37672180,77494080,1,2.4 MI E RAMP FR RTE 33                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150007,5,0,25720,24,36683150,77557060,1,I-95 North Shoulder @ MM 9                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180007,5,0,25670,24,39093910,78207240,1,I-81 South Shoulder @ MM 308.1                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080375,1,0,25554,24,39243670,78113440,1,0.05 mi from I-81 South                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080376,1,0,25539,24,39269050,78094730,1,0.15 mi North of Rt 671 Overpass                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020234,1,0,25525,24,37519500,79720540,1,1.90 N RAMP FR RT 11                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040510,3,0,25503,24,37678600,77553250,1,I-295 E in Median 1.18 Miles East of ramp from Nuc,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180029,5,0,25493,24,38148740,79017820,1,I-81 South Shoulder @ MM 224.4                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050375,1,0,25485,24,36946530,77391730,1,I-95 North Shoulder @ Exit 31                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150008,5,0,25456,24,36649550,77559220,1,I-95 South Shoulder @ MM 7                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040426,3,0,25389,24,37676000,77655860,1,I-64 WB at SR-288 NB ramp                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020350,1,0,25372,24,37112750,80441530,1,3.70 Mi N of Ramp Fr SR 177                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050587,1,0,25316,24,36723780,77530250,1,0.47 mi from Otterdam Rd on ramp                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180040,5,0,25300,24,38431530,78872890,1,I-81 North Shoulder @ MM 246.15                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180022,5,0,25295,24,38420290,78882770,1,0.65 S RAMP FR REPUBLIC RD/ RT 659                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140075,7,0,25257,24,37666390,77592150,1,@ MM 52                                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070258,1,0,25250,24,38646580,77804020,2,0.3 MI N LEES MILL RD                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050374,1,0,25233,24,36855660,77420800,1,I-95 North Shoulder @ Exit 24                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180033,5,0,25222,24,38041780,79123400,1,1.28 mi from US 11                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020233,1,0,25171,24,37467700,79812670,1,I-81 North Shoulder @ MM 158                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020141,1,0,25166,24,36769120,80803590,1,2.20 N RAMP FR RT 58                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180028,5,0,25139,24,38170320,79006950,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140027,5,0,25128,24,37194710,77360630,1,I-95 South Shoulder @ Exit 48                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050239,1,0,25123,24,36765720,77482150,1,I-95 South Shoulder @ Exit 17 Close to Railroad Un,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180011,5,0,25123,24,37954400,79207570,1,6.25 S RAMP FR RT 11                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180013,5,0,25074,24,39010520,78339920,1,I-81 South Shoulder @ MM 297.9                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070172,3,0,25054,24,38019460,78533980,1,I-64 West Shoulder @ MM 118.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040793,1,0,25044,24,37198980,77471980,1,I-85 South shoulder @ MM 59                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,910440,1,0,25017,24,36870080,80872530,1,I-77 South Shoulder @ MM 26                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140030,5,0,25004,24,37145040,77355960,1,I-95 South Shoulder @ Exit 45                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040386,3,0,24987,24,37440310,77457790,3, 0.2 MI E RTE 1601 (DALEBROOK DR)                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050373,1,0,24964,24,36769220,77467380,1,I-95 South Shoulder @ Exit 17                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020145,1,0,24935,24,36643140,80713430,1,5.34 Mi North of 17-620 Old Pipers Gap Rd         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,840078,7,0,24876,24,37676000,77655860,1,I-64 WB at SR-288 NB ramp                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,880032,5,0,24870,24,37906020,79262630,1,1.63 mi from Sterret Rd                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120025,5,0,24747,24,36764060,80798070,1,2.00 RAMP FR RT 620                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050589,1,0,24614,24,36723780,77530250,1,0.47 mi from Otterdam Rd on ramp                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010398,1,0,24585,24,36632450,82116900,1,I-81 South Shoulder @ MM 7.7                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020172,1,0,24572,24,37601330,79620850,1,I-81 North Shoulder @ MM 172.4                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190047,7,0,24516,24,38858540,77864370,1,@ Exit 27A to SR 55                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180036,5,0,24486,24,37797500,79395810,1,I-81 South Shoulder @ MM 191.7                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070275,1,0,24481,24,38774010,77690570,2,0.4 S Rte. 215/Vint Hill Rd.                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020383,1,0,24462,24,37091220,80577110,1,I-81 South Shoulder @ MM 105.2                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180024,5,0,24434,24,38395550,78911700,1,I-81 SB right side south of exit 243; US 11 Harris,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010187,1,0,24416,24,36946260,80910120,1,I-81 South Shoulder @ MM 82.4                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180041,5,0,24389,24,38443530,78844510,1,I-81 South Shoulder @ MM 247.95                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180009,5,0,24354,24,39021950,78280300,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120023,1,0,24339,24,36567720,80744180,1,0.08 mi from merge of parking lots                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120027,5,0,24223,24,36620714,80738333,1,I-77 SB 4.76 Mi South of 17-775 Chance Creek Rd   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110043,5,0,24194,24,36870080,80872530,1,I-77 South Shoulder @ MM 26                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180008,5,0,24154,24,39062240,78234440,1,I-81 South Shoulder @ MM 305.4                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010399,1,0,24140,24,36665890,82059720,1,1.17 mi from Spring Creek Rd                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080370,1,0,24126,24,39292980,78082730,1,I-81 North Shoulder @ MM 324                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120028,5,0,24029,24,36567720,80744180,1,0.08 mi from merge of parking lots                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140078,7,0,24026,24,37652390,77597690,1,0.14 mi from US 250 Broad St Ramp                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180023,5,0,23925,24,38536560,78767340,1,I-81 south shoulder south of 806 Martz Rd Overpass,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180027,5,0,23883,24,38233730,78971360,1,I-81 SOUTH SHOULDER @ MM230.80                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170003,7,0,23848,24,38019460,78533980,1,I-64 West Shoulder @ MM 118.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040400,1,0,23846,24,37218040,77387570,1,I-95 North Collector Road Shoulder @ Exit 50D     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180014,5,0,23814,24,39000980,78388050,1,1.53 mi from SR 55                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040509,3,0,23742,24,37666390,77592150,1,@ MM 52                                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070124,3,0,23671,24,38903040,77941210,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190048,7,0,23644,24,38869110,77889860,1,I-66 West Shoulder @ MM 26.3                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190303,3,0,23538,24,38847860,77766100,1,0.79 mi from Prince William County Line           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,786806,1,0,23449,24,36822700,81533700,5,I-81 South Shoulder @ MM 44.32                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180025,5,0,23309,24,38353770,78928840,1,I-81 North Shoulder @ MM 239.8                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020473,1,0,23059,24,37099360,80539520,1,2.5 mi from SR 232                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010181,1,0,23028,24,36698250,81985070,1,1.45 Mi N RAMP TO SR 140                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070120,3,0,22916,24,38857400,77819700,1,1.1 E Ramp Fr Rte 17                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140088,7,0,22863,24,37531480,77342750,1,0.65 Mi W of Ram Fr SR 156                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040483,3,0,22791,24,37530880,77343350,1,0.76 Mi E of Ramp Fr Laburnum Ave                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010397,1,0,22756,24,36620310,82192030,1,0.37 mi from I-381 North Ramp                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020503,1,0,22738,24,36996340,80783900,1,I-81 North Shoulder @ MM 90.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120012,5,0,22733,24,37242040,80214200,1,I-81 North Shoulder @ MM 129.7                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070170,3,0,22684,24,38008400,78485140,1,I-64 East Shoulder @ MM 121.3                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140036,5,0,22618,24,37198980,77471980,1,I-85 South shoulder @ MM 59                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180016,5,0,22558,24,38869140,78528500,1,I-81 North Shoulder @ MM 283                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140076,7,0,22522,24,37699430,77739710,1,I-64 West Shoulder @ MM 169.65                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080191,3,0,22433,24,38907000,77997400,5,I-66 East Shoulder @ Leeds Manor Rd Overpass      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020176,1,0,22392,24,37042970,80717960,1,I-81 North Shoulder @ MM 95.7                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180018,5,0,22376,24,38807720,78601340,1,I-81 South Shoulder @ MM 277.2                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140216,1,0,22322,24,37477340,77304610,1,I-295 East Shoulder @ Exit 25                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110029,5,0,22314,24,36626370,82130870,1,I-81 North Shoulder @ MM 6.9                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180002,5,0,22172,24,39283820,78088650,1,0.35 mi from Rt 34-669 on ramp                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070258,5,0,22156,24,38646580,77804020,2,0.3 MI N LEES MILL RD                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070223,3,0,22143,24,38028980,78590750,1,I-64 West Shoulder @ MM 115                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140032,5,0,22005,24,37038560,77389200,1,I-95 South Shoulder @ Exit 37                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180019,5,0,21997,24,38723980,78659420,1,I-81 South Shoulder@ MM 270.4                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180003,5,0,21982,24,39243670,78113440,1,0.05 mi from I-81 South                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080244,3,0,21962,24,38057330,78930030,1,0.40 Mi E of Ramp Fr Rte 340                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150079,7,0,21959,24,36811934,76350500,1,0.4 MI W RMP FR RTE 337/PORTSMOUTH BLVD           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180021,5,0,21758,24,38637560,78684490,1,I-81 SOUTH SHOULDER @ MM264                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010401,1,0,21686,24,36716500,81926500,1,I-81 South Shoulder @ MM 20.10                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180037,5,0,21541,24,37760730,79407220,1,I-81 North Shoulder @ MM 189                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080292,3,0,21407,24,38119980,79044440,1,I-64 East Median @ MM 87                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040377,1,0,21352,24,37408562,77553524,3,2.53 mi from SR 10 Iron Bridge Rd                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140026,5,0,21344,24,37218040,77387570,1,I-95 North Collector Road Shoulder @ Exit 50D     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090240,3,0,21336,24,38867810,77185190,2,0.1 E MARSHALL ST                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180006,5,0,21335,24,39137250,78176680,1,I-81 South Shoulder @ MM 311.21                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040613,1,0,21320,24,37186130,77356050,1,I-95 North @ Exit 48 A                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150001,5,0,21301,24,36946530,77391730,1,I-95 North Shoulder @ Exit 31                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170004,7,0,21276,24,38008400,78485140,1,I-64 East Shoulder @ MM 121.3                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020196,1,0,21262,24,37315400,79981090,1,I-581 South Shoulder @ MM 4.35                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140304,5,0,21245,24,36982340,77392230,1,I-95 North Shoulder @ MM 33                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150002,5,0,21133,24,36855660,77420800,1,I-95 North Shoulder @ Exit 24                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180001,5,0,21123,24,39292980,78082730,1,I-81 North Shoulder @ MM 324                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070225,3,0,20960,24,38021517,78425930,1,I-64 W at ramp to US 250 to Charlottesville MP 124,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150005,5,0,20954,24,36765720,77482150,1,I-95 South Shoulder @ Exit 17 Close to Railroad Un,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150010,3,0,20891,24,36811920,76350010,1,0.4 MI E RMP FR RTE 239 / VICTORY BLVD            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070309,3,0,20840,24,37962990,78179790,1,1.8 Mi E of Ramp Fr Rte 15                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,880060,7,0,20827,24,38058660,78931850,1,1.40 Mi W Ramp Fr 07-624                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070224,3,0,20793,24,38019770,78435380,1,I-64 West Shoulder @ MM 124.2                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070275,5,0,20786,24,38774010,77690570,2,0.4 S Rte. 215/Vint Hill Rd.                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090240,7,0,20784,24,38867810,77185190,2,0.1 E MARSHALL ST                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150004,5,0,20772,24,36769220,77467380,1,I-95 South Shoulder @ Exit 17                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080192,3,0,20739,24,38993230,78249630,1,I-66 West Shoulder @ MM 3                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150089,5,0,20721,24,36723780,77530250,1,0.47 mi from Otterdam Rd on ramp                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050617,7,0,20677,24,36869040,76407650,3,0.82 mi from SR 135 Overpass                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140028,5,0,20675,24,37186130,77356050,1,I-95 North @ Exit 48 A                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080190,3,0,20555,24,38945240,78147460,1,2.6 E RAMP FR RT 522                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120002,5,0,20497,24,37467700,79812670,1,I-81 North Shoulder @ MM 158                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120032,5,0,20475,24,37315400,79981090,1,I-581 South Shoulder @ MM 4.35                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170006,7,0,20445,24,38021517,78425930,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110028,5,0,20410,24,36632450,82116900,1,I-81 South Shoulder @ MM 7.7                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,940419,3,0,20357,24,37775600,77881090,1,I-64 West Shoulder @ MM 160                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080293,3,0,20337,24,38040390,78882610,1,I-64 West Shoulder @ MM 98                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150118,7,0,20334,24,37028940,76424780,2,0.25 E CHESTNUT AVE                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,840062,7,0,20286,24,37402820,77342500,1,4.34 mi from SR 10                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180038,5,0,20175,24,37737840,79425780,1,I-81 SOUTH SHOULDER @ MM 187                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170002,7,0,20104,24,38028980,78590750,1,I-64 West Shoulder @ MM 115                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110027,5,0,20066,24,36665890,82059720,1,1.17 mi from Spring Creek Rd                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120001,5,0,20044,24,37503750,79746230,1,5.35 S RAMP FR RT 11                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170005,7,0,20040,24,38019770,78435380,1,I-64 West Shoulder @ MM 124.2                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040377,5,0,19975,24,37408562,77553524,3,2.53 mi from SR 10 Iron Bridge Rd                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140063,7,0,19920,24,37463670,77312510,1,I-295 EAST;SOUTH OF SR 895                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,880012,5,0,19908,24,37601330,79620850,1,I-81 North Shoulder @ MM 172.4                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120015,5,0,19807,24,37112000,80444350,1,1.15 S RAMP FR RT 8                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150118,3,0,19752,24,37028940,76424780,2,0.25 E CHESTNUT AVE                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050617,3,0,19645,24,36869040,76407650,3,0.82 mi from SR 135 Overpass                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795395,5,0,19637,24,37546410,77428830,1,I-95 North Shoulder @ Exit 75                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170008,7,0,19579,24,37964100,78180830,1,4.8 Mi W of Ramp Fr SR 208                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040513,5,0,19359,24,37477340,77304610,1,I-295 East Shoulder @ Exit 25                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010445,1,0,19339,24,36962980,81070400,1,I-81 North Shoulder @ MM 72.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040269,1,0,19312,24,37568240,77684360,3, North of Chesterfield County Line                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010562,1,0,19306,24,36822700,81533700,1,I-81 South Shoulder @ MM 44.32                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170012,7,0,19233,24,37775600,77881090,1,I-64 West Shoulder @ MM 160                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190049,7,0,19219,24,38903040,77941210,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677732,5,0,19173,24,36850810,76136310,3,.05 N JEANNE ST                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140071,7,0,19042,24,37658189,77454690,1,I-295 Median centered between US 1 and I-95 sharin,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,890045,7,0,19033,24,38847860,77766100,1,0.79 mi from Prince William County Line           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110025,5,0,19017,24,36695440,82000120,1,1.40 S RAMP FR RT 75                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040269,5,0,18999,24,37568240,77684360,3, North of Chesterfield County Line                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110032,5,0,18994,24,36596360,82242910,1,0.45 mi from ramp from US-58  & US 421            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180059,7,0,18969,24,38040390,78882610,1,I-64 West Shoulder @ MM 98                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010443,1,0,18950,24,36919170,81247810,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040278,7,0,18805,24,37506890,77590640,2,0.2 Mi E Johnston Willis Drive                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190302,3,0,18760,24,38046840,78788120,1,I-64 East Shoulder @ MM 102                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677732,1,0,18759,24,36850810,76136310,3,.05 N JEANNE ST                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010332,1,0,18743,24,36822700,81533700,1,@ beginning of Exit 44 ramp                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781246,1,0,18735,24,37546410,77428830,1,I-95 North @ Exit 75                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110031,5,0,18722,24,36620310,82192030,1,0.37 mi from I-381 North Ramp                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140002,1,0,18683,24,37172670,77350820,1,I-95 North @ Exit 47                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150003,5,0,18653,24,36809210,77458180,1,I-95 South Shoulder @ Exit 20                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677768,1,0,18614,24,36894990,76156390,2,0.10 N SHELL RD                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040418,3,0,18602,24,37880700,78026330,1,I-64 West Shoulder @ Exit 148 East of 37-605      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110003,5,0,18602,24,36946260,80910120,1,I-81 South Shoulder @ MM 82.4                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040005,3,0,18574,24,37841550,77978780,1,I-64 West Shoulder @ Exit 152                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020192,1,0,18429,24,37224650,79992300,3,.1 N RTE 800                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110040,5,0,18424,24,36986750,81074320,1,I-77 North Shoulder @ MM 43.2                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677768,5,0,18385,24,36894990,76156390,2,0.10 N SHELL RD                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140305,7,0,18326,24,37300020,77335100,1,I-295 South Shoulder @ MM 10                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110041,5,0,18320,24,36966200,81065900,1,I-77 South Shoulder @ MM 40.9                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010567,1,0,18289,24,36863480,81427130,1,I-81 North Shoulder @ MM 51.2                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,970311,3,0,18282,24,37899720,78047870,1,I-64 WB 1.33 Miles West of Ramp from 37-605 Shanno,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040278,3,0,18239,24,37506890,77590640,2,0.2 Mi E Johnston Willis Drive                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,820017,5,0,18208,24,37091220,80577110,1,I-81 South Shoulder @ MM 105.2                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190184,7,0,17974,24,38850400,77789500,5,I-66 West Shoulder @ Old Tavern Rd Overpass       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120016,5,0,17924,24,37099360,80539520,1,2.5 mi from SR 232                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010442,1,0,17882,24,36986750,81074320,1,I-77 North Shoulder @ MM 43.2                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795394,5,0,17877,24,37546410,77428830,1,I-95 North Shoulder @ Exit 75                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180061,7,0,17744,24,38042740,78821660,1,I-64 East Shoulder @ MM 99                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070156,1,0,17671,24,38134860,78433160,2,0.2 Mi. N Rte. 649                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140303,5,0,17625,24,37172670,77350820,1,I-95 North @ Exit 47                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170011,7,0,17624,24,37841550,77978780,1,I-64 West Shoulder @ Exit 152                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150104,3,0,17589,24,36907010,76111230,2,0.1 MI W SHADY OAKS DRIVE                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190046,7,0,17577,24,38857950,77819740,1,1.55 MI W RAMP FR RTE 245                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010441,1,0,17550,24,36966200,81065900,1,I-77 South Shoulder @ MM 40.9                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150111,1,0,17538,24,36551210,76193100,3, 0.1 MI N NC STATE LINE                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120022,5,0,17531,24,36986710,80820860,1,1.0 mi from 98-618                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795429,7,0,17520,24,37658189,77454690,1,I-295 Median centered between US 1 and I-95 sharin,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150028,1,0,17411,24,36792530,76282680,1,0.4 mi North of Freeman Avenue                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170009,7,0,17405,24,37899720,78047870,1,I-64 WB 1.33 Miles West of Ramp from 37-605 Shanno,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150033,5,0,17360,24,36793200,76282780,1, 1.2 mi South of Ramp for SR 337                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170010,7,0,17272,24,37880700,78026330,1,I-64 West Shoulder @ Exit 148 East of 37-605      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040552,1,0,17154,24,36604130,78151340,1,I-85 South @ Exit 4                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190086,7,0,17063,24,38764570,77199970,5,0.82 E RAMP FR RT 7100                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040761,3,0,17027,24,37402820,77342500,1,4.34 mi from SR 10                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677782,1,0,16926,24,36781848,76100705,3,0.30 mi north of Concert Drive                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190052,7,0,16902,24,38993230,78249630,1,I-66 West Shoulder @ MM 3                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040291,1,0,16861,24,37529580,77696300,3,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190051,7,0,16811,24,38946060,78146980,1,3.8 W RAMP FR RT 79                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040512,3,0,16777,24,37463670,77312510,1,I-295 EAST;SOUTH OF SR 895                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150104,7,0,16720,24,36907010,76111230,2,0.1 MI W SHADY OAKS DRIVE                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150124,1,0,16695,24,38287900,77486560,2,1.10 N SCL FREDERICKSBURG                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150114,1,0,16668,24,36889540,76259260,3,0.10 N WILLOW WOOD DR                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190086,3,0,16618,24,38764570,77199970,5,0.82 E RAMP FR RT 7100                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,401624,5,0,16583,24,38913350,77401610,3,0.50 mi From 29-6819 Franklin Farm Rd             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677782,5,0,16502,24,36781848,76100705,3,0.30 mi north of Concert Drive                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120021,5,0,16463,24,36996340,80783900,1,I-81 North Shoulder @ MM 90.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040291,5,0,16419,24,37529580,77696300,3,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150111,5,0,16330,24,36551210,76193100,3, 0.1 MI N NC STATE LINE                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050117,1,0,16295,24,36809210,77458180,1,I-95 South Shoulder @ Exit 20                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040284,3,0,16280,24,37528220,77301740,1,I-64 West shoulder @ MM 199                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,199760,1,0,16228,24,38673785,77241146,1,0.27 mi from Prince William County Line           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140089,7,0,16205,24,37528220,77301740,1,I-64 West shoulder @ MM 199                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040397,1,0,16115,24,37056920,77600220,1,I-85 North Shoulder @ MM 50.9                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090278,5,0,16106,24,38768800,77316290,3,0.18 mi from Burke Lake Rd                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140057,3,0,16100,24,37658189,77454690,1,I-295 Median midway between US 1 and I-95 sharing ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150114,5,0,15848,24,36889540,76259260,3,0.10 N WILLOW WOOD DR                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110007,5,0,15843,24,36962980,81070400,1,I-81 North Shoulder @ MM 72.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,940396,1,0,15824,24,36943130,77729290,1,I-85 South Shoulder norht of Exit 39              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040003,1,0,15799,24,37030050,77637650,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040725,1,0,15745,24,36716500,78111560,1,I-85 North Shoulder @ Exit 12                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140047,5,0,15697,24,36604130,78151340,1,I-85 South @ Exit 4                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070156,5,0,15631,24,38134860,78433160,2,0.2 Mi. N Rte. 649                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795423,3,0,15473,24,37658189,77454690,1,I-295 Median midway between US 1 and I-95 sharing ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040335,1,0,15386,24,36897250,77798260,1,I-85 N north of 12-630 Sturgeon Rd                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,401624,1,0,15345,24,38913350,77401610,3,0.50 mi From 29-6819 Franklin Farm Rd             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090278,1,0,15282,24,38768800,77316290,3,0.18 mi from Burke Lake Rd                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140064,7,0,15282,24,37518640,77271000,1,I-295 Median between US 60 and I-64 Interchanges  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,940762,3,0,15243,24,37300020,77335100,1,I-295 South Shoulder @ MM 10                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040333,1,0,15164,24,36825850,77949870,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040001,1,0,15159,24,36861970,77841240,1,I-85 North Shoulder @ MM 32.1                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110014,5,0,15126,24,36822700,81533700,1,I-81 South Shoulder @ MM 44.32                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,940726,1,0,15123,24,36787460,78005390,1,I-85 N 1.32 Miles north of Mecklenburg County Line,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140037,5,0,14930,24,37166660,77500690,1,1.35 S Ramp Fr Rte 460                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040334,1,0,14854,24,36844970,77914860,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,405235,3,0,14829,24,38733750,77437290,3,0.9 mi from Wellington Rd                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140038,5,0,14677,24,37057800,77600520,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090170,5,0,14668,24,38718860,77129300,2,0.20 N RT 235 (S INT)                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781280,7,0,14658,24,37657500,77610690,1,I-64 West Shoulder @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070014,3,0,14561,24,38052400,78481450,2,0.2 MI E ST ANNES ROAD                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110009,5,0,14486,24,36919170,81247810,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110015,5,0,14485,24,36822700,81533700,1,I-81 South Shoulder @ MM 44.32                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,405235,7,0,14484,24,38733750,77437290,3,0.9 mi from Wellington Rd                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140059,7,0,14433,24,37196040,77322230,1,I-295 South Shoulder @ Exit 3B                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140039,5,0,14280,24,37030650,77637950,1,I-85 South Shoulder @ MM 48.1                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110011,5,0,14271,24,36863480,81427130,1,0.2 mi from 86-622 Nicks Creek Rd                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140046,5,0,14236,24,36716500,78111560,1,I-85 North Shoulder @ Exit 12                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070014,7,0,14133,24,38052400,78481450,2,0.2 MI E ST ANNES ROAD                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030265,1,0,13938,24,37313740,79185860,2,0.13 mi from English Tavern Rd                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,840040,5,0,13882,24,36897110,77800130,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140040,5,0,13871,24,36943130,77729290,1,I-85 South Shoulder norht of Exit 39              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140044,5,0,13768,24,36826720,77951330,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020509,7,0,13761,24,37319170,79875150,2,0.3 E RTE 603                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020509,3,0,13746,24,37319170,79875150,2,0.3 E RTE 603                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140042,5,0,13741,24,36864060,77839320,1,I-85 South Shoulder @ MM 32                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,840045,5,0,13673,24,36787830,78006570,1,I-85 S 3.54 Miles South of 12-644 Brunswick Dr    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040713,5,0,13628,24,37252350,77373870,3,2.40 N RT 36                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040713,1,0,13560,24,37252350,77373870,3,2.40 N RT 36                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040514,3,0,13551,24,37657500,77610690,1,I-64 West Shoulder @ Merge of Ramp from I-295 West,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150108,1,0,13542,24,37146143,76525751,3,0.61 mi from SR 173 Denbigh Blvd                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150115,3,0,13532,24,37255070,76653400,3,0.40 E RT 143                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140043,5,0,13496,24,36845920,77915500,1,I-81 SB Right Shoulder at VA 46 Bridge            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090170,1,0,13446,24,38718860,77129300,2,0.20 N RT 235 (S INT)                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190096,3,0,13385,24,38819630,77151140,3,0.05 E CHOWAN AVE                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190096,7,0,13341,24,38819630,77151140,3,0.05 E CHOWAN AVE                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150103,3,0,13259,24,36848680,76032040,2,0.3 MI W REPUBLIC DRIVE                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060156,1,0,13219,24,37266190,76493740,2,0.15 S TIDEMILL ROAD                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060156,5,0,13184,24,37266190,76493740,2,0.15 S TIDEMILL ROAD                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677805,3,0,13031,24,36843326,76140188,2,0.09 mi east of Kellam Rd                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150123,5,0,12986,24,36772860,76321710,2,0.15 mi from SR 196 Canal Dr                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030265,5,0,12982,24,37313740,79185860,2,0.13 mi from English Tavern Rd                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,199741,1,0,12961,24,38603780,77311630,1,.7 MI S Cardinal DR Overpass (shared cabinet with ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795433,7,0,12937,24,37660220,77466410,1,I-295 W CD Road; 0.18 Mile West of ramp from US 1 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080360,5,0,12740,24,39177480,78205910,3,1.3 mi North of Rt 622                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789485,3,0,12589,24,37659150,77464020,1,Left side of I-295 E 0.22 Miles from I-295 CD ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677805,7,0,12526,24,36843326,76140188,2,0.09 mi east of Kellam Rd                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090021,5,0,12448,24,39166210,77535910,2,0.94 Mi N 53-655 Whites Ferry Rd                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050078,3,0,12406,24,36683500,77015476,2,0.1 MI E RTE 650 (SOUTH INTERSECTION)             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090021,1,0,12272,24,39156080,77538990,2,0.20 N Whites Ferry Rd (RT655)                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150123,1,0,12178,24,36772860,76321710,2,0.15 mi from SR 196 Canal Dr                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080563,3,0,12082,24,38119980,79044440,1,I-64 East Median @ MM 87                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795369,1,0,11961,24,37218040,77387570,1,I-95 North Collector Road Shoulder @ Exit 50D     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120019,5,0,11942,24,37042970,80717960,1,I-81 North Shoulder @ MM 95.7                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,199770,1,0,11909,24,38532120,77358870,1,I-95 South Shoulder @ MM 149.1                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040387,1,0,11854,24,37374440,77405910,3,Central TMC Camera Pole @ Coxendale Rd Overpass   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150105,1,0,11847,24,36823690,76009250,0,0.20 N CREDLE RD                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140259,1,0,11834,24,37552640,77485150,3,I-195 North Shoulder @ Cary St Exit               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150103,7,0,11733,24,36848680,76032040,2,0.3 MI W REPUBLIC DRIVE                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140116,3,0,11685,24,37625810,77504620,2,0.2 MI W WISTAR ROAD                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795420,3,0,11669,24,37659150,77464020,1,Left side of I-295 E 0.22 Miles from I-295 CD ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140238,7,0,11653,24,37159880,77350750,1,I-295 West Shoulder @ Petersburg I-95 Split       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140116,7,0,11583,24,37625810,77504620,2,0.2 MI W WISTAR ROAD                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050078,7,0,11518,24,36683500,77015476,2,0.1 MI E RTE 650 (SOUTH INTERSECTION)             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180057,7,0,11481,24,38119980,79044440,1,I-64 West Median @ MM 87                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180103,7,0,11481,24,38119980,79044440,1,I-64 West Median @ MM 87                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080336,3,0,11443,24,39175710,78053150,3,0.3 E RTE 635                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060148,5,0,11421,24,38474560,77394260,2,0.75 MS 89-637; Sunnyside Rd                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040052,3,0,11399,24,37518640,77271000,1,I-295 Median between US 60 and I-64 Interchanges  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150124,5,0,11380,24,38287900,77486560,2,1.10 N SCL FREDERICKSBURG                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080360,1,0,11348,24,39177480,78205910,3,1.3 mi North of Rt 622                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150108,5,0,11312,24,37146143,76525751,3,0.61 mi from SR 173 Denbigh Blvd                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150100,1,0,11281,24,36959850,76521500,2,0.3 MI N RTE 662/WHIPPINGHAM PKWY                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150100,5,0,11258,24,36959850,76521500,2,0.3 MI N RTE 662/WHIPPINGHAM PKWY                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040764,3,0,11238,24,37196040,77322230,1,I-295 South Shoulder @ Exit 3B                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040349,7,0,11175,24,37336130,77328630,3,0.1 E RAMP FR I-295                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150105,5,0,11171,24,36823690,76009250,0,0.20 N CREDLE RD                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789414,5,0,11112,24,38469300,77405790,1,I-95 South Shoulder @ MM 143.95                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160009,1,0,11028,24,38323950,77094710,2,1 S RTE 218                                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040349,3,0,10942,24,37336130,77328630,3,0.1 E RAMP FR I-295                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789347,1,0,10895,24,38795370,77143720,1,I-95 South @ Exit 173                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,665631,1,0,10812,24,37568800,77380270,5,0.04 mi from Hunters Mill Drive                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070118,1,0,10730,24,38314140,78315700,2,1.8 N Rte. 621                                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,665144,3,0,10708,24,37589630,77386830,2,US 360 at western end of Chickahominy River Bridge,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,665631,5,0,10657,24,37568800,77380270,5,0.04 mi from Hunters Mill Drive                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050300,7,0,10619,24,36752530,76583630,2,0.35 MI E RTE 638                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,665144,7,0,10578,24,37589630,77386830,2,US 360 at western end of Chickahominy River Bridge,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070265,5,0,10432,24,38801420,77815250,2,0.25 MI S 30-698 OBANNON RD.                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150115,7,0,10358,24,37255070,76653400,3,0.40 E RT 143                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140314,5,0,10351,24,37226500,77393980,1,I-85 North Exit 68B Ramp Shoulder                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050206,5,0,10322,24,37961200,75533020,2,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080336,7,0,10309,24,39175710,78053150,3,0.3 E RTE 635                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789253,5,0,10200,24,37520580,77429080,1,At gore between Maury St. ramps to I-95 South and ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050428,3,0,10009,24,36707679,77151803,2,2.8 MI W BUS 58 MEHERRIN RD.                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070265,1,0,10001,24,38801420,77815250,2,0.25 MI S 30-698 OBANNON RD.                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050300,3,0,9877,24,36752530,76583630,2,0.35 MI E RTE 638                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040499,1,0,9653,24,37552640,77485150,1,I-195 North Shoulder @ Cary St Exit               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795415,3,0,9625,24,37515230,77273160,1,I-295 East Collector Road Shoulder Between I-64 an,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677721,5,0,9520,24,36819140,75984390,0,0.64 mi north of Birdneck Rd                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090049,3,0,9500,24,39128610,77781200,3,0.40 E OF STONE LEIGH ROAD  (.25 M W RT 7 BUS E)  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060148,1,0,9420,24,38474560,77394260,2,0.75 MS 89-637; Sunnyside Rd                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150120,3,0,9395,24,36918900,76303220,3,VA 406 Terminal Blvd 0.39 Mi E of VA 337 Hampton B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,677721,1,0,9383,24,36819140,75984390,0,0.64 mi north of Birdneck Rd                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781199,3,0,9325,24,38119980,79044440,1,I-64 East Median @ MM 87                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040765,3,0,9265,24,37176300,77340100,1,1.00 E RAMP FR RT 460                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070268,5,0,9196,24,38479874,77680750,2,2.78 miles from 30-615 Goldvein                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020385,1,0,9170,24,37087670,80688750,3,0.25 N RAMP TO I-81                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,636129,7,0,9090,24,37061960,76435960,0,0.15 MI W OF ENTRANCE TO SANDY BOTTOM NATURE PARK ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150091,1,0,9055,24,37056950,76383440,0,0.30 N TIDEMILL LANE                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050428,7,0,8980,24,36707679,77151803,2,2.8 MI W BUS 58 MEHERRIN RD.                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,623104,1,0,8911,24,36546800,79431020,2,0.5mi North of Holland Rd.                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789282,1,0,8888,24,37241410,77394960,1,I-95 North Shoulder @ Exit 53                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,636129,3,0,8876,24,37061960,76435960,0,0.15 MI W OF ENTRANCE TO SANDY BOTTOM NATURE PARK ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,665783,7,0,8812,24,37509730,77245260,2, .99 Mi fr  I-295                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150113,3,0,8780,24,36857522,76195268,1,0.14 mi from Virginia Beach Blvd Overpass         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180057,1,0,8778,24,38124160,79043240,1,I-64 West Median @ MM 87                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781091,1,0,8778,24,38124160,79043240,1,I-81 North Shoulder @ MM 221.15                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070268,1,0,8760,24,38479874,77680750,2,2.78 miles from 30-615 Goldvein                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150098,1,0,8752,24,36865560,76418680,2,0.30 N FOREST HAVEN LANE                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090049,7,0,8736,24,39128610,77781200,3,0.40 E OF STONE LEIGH ROAD  (.25 M W RT 7 BUS E)  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070118,5,0,8695,24,38314140,78315700,2,1.8 N Rte. 621                                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140121,5,0,8693,24,37637060,77495160,5,0.30 Mi N Ackley Ave                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030200,1,0,8654,24,37765050,78871020,2,0.01 MI N RTE 29 BUS S (NORTHSIDE LANE)           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,623104,5,0,8520,24,36546800,79431020,2,0.5mi North of Holland Rd.                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789384,5,0,8484,24,37520580,77429080,1,At gore between Maury St. ramps to I-95 South and ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020287,5,0,8281,24,36987640,79870450,2,1.45 N RT 674                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190092,5,0,8262,24,38716730,77165341,3,0.6 N RTE 1                                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140121,1,0,8198,24,37637060,77495160,5,0.30 Mi N Ackley Ave                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150110,7,0,8182,24,36864910,76239850,3,0.20 W INGLESIDE DR                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,666443,7,0,8165,24,37283080,79944450,2,0.05 W 3 AND 1/2 STREET                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010524,1,0,8157,24,36963740,82600510,2,0.45 N RT 23 BUS/ RT 757                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090212,5,0,8116,24,38888990,77159300,2,0.10 N RT 237                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010524,5,0,8084,24,36963740,82600510,2,0.45 N RT 23 BUS/ RT 757                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020287,1,0,8007,24,36987640,79870450,2,1.45 N RT 674                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140113,5,0,7998,24,37252650,77411110,2,0.01 MI S BRANDERS BRIDGE RD                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150091,5,0,7983,24,37056950,76383440,0,0.30 N TIDEMILL LANE                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150120,7,0,7933,24,36918900,76303220,3,VA 406 Terminal Blvd 0.39 Mi E of VA 337 Hampton B,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090139,1,0,7931,24,38801130,77208880,1,1.1 MI FR I-95; I-395 (Springfield Interchange)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020220,3,0,7907,24,37301250,79379840,2,.28 Mile West Pisgah Road                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190092,1,0,7890,24,38716730,77165341,3,0.6 N RTE 1                                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030200,5,0,7838,24,37765050,78871020,2,0.01 MI N RTE 29 BUS S (NORTHSIDE LANE)           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150098,5,0,7824,24,36865560,76418680,2,0.30 N FOREST HAVEN LANE                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090212,1,0,7778,24,38888990,77159300,2,0.10 N RT 237                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020153,3,0,7750,24,37369800,79813220,2,0.10 E RT 652                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090027,1,0,7724,24,38890240,77632030,2,1.40 N RT 234                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140113,1,0,7667,24,37252650,77411110,2,0.01 MI S BRANDERS BRIDGE RD                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020153,7,0,7653,24,37369800,79813220,2,0.10 E RT 652                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140049,5,0,7600,24,37552640,77485150,1,I-195 North Shoulder @ Cary St Exit               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040011,3,0,7465,24,37359040,77957500,2,0.35 miles from ramp from US 360                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020385,5,0,7449,24,37087670,80688750,3,0.25 N RAMP TO I-81                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050356,7,0,7442,24,36936220,76938390,2,0.47 mi west of Drews Avenue                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030277,3,0,7431,24,37324670,79252260,2,0.30 E RT 789                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,615003,5,0,7299,24,36802180,76262950,3,0.09 mi South of Narrow Street                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781249,5,0,7254,24,37218040,77387570,1,I-95 North Collector Road Shoulder @ Exit 50D     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030277,7,0,7244,24,37324670,79252260,2,0.30 E RT 789                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,666443,3,0,7243,24,37283080,79944450,2,0.05 W 3 AND 1/2 STREET                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150110,3,0,7208,24,36864910,76239850,3,0.20 W INGLESIDE DR                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020220,7,0,7205,24,37301250,79379840,2,.28 Mile West Pisgah Road                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090027,5,0,7193,24,38890240,77632030,2,1.40 N RT 234                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789737,1,0,7057,24,37521170,77426800,0, 1.53 MI S RAMP TO EXIT 73                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789738,1,0,7057,24,37521170,77426800,0,At gore between Maury St. ramps to I-95 South and ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,920380,1,0,6916,24,36986710,80820860,1,1.0 mi from 98-618                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,615003,1,0,6850,24,36802180,76262950,3,0.09 mi South of Narrow Street                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781100,7,0,6835,24,38019460,78533980,1,I-64 West Shoulder @ MM 118.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150107,7,0,6822,24,37181020,76509190,3,0.47 MI EAST OF RICHNECK RD (RTE 636)             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060180,1,0,6803,24,37961000,77436130,3,.05 S RTE 716 (MONCURE DR)                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040609,7,0,6583,24,37245940,77348270,3,0.20 E MAIN ENT TO FORT LEE                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050356,3,0,6562,24,36936220,76938390,2,0.47 mi west of Drews Avenue                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,160009,5,0,6541,24,38323950,77094710,2,1 S RTE 218                                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,090141,5,0,6527,24,38801130,77208880,1,1.1 MI FR I-95; I-395 (Springfield Interchange)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781220,5,0,6515,24,37218040,77387570,1,I-95 North Collector Road Shoulder @ Exit 50D     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030147,1,0,6494,24,36933332,79375780,2,0.5 MI N RTE 29 BUS (SOUTHERN INTERSECTION)       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781001,3,0,6488,24,37608610,77529590,1,I-64 West Shoulder @ MM 182                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040609,3,0,6392,24,37245940,77348270,3,0.20 E MAIN ENT TO FORT LEE                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080343,1,0,6379,24,39188090,77925620,2,0.8 N RTE 610                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150107,3,0,6349,24,37181020,76509190,3,0.47 MI EAST OF RICHNECK RD (RTE 636)             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040011,7,0,6291,24,37359040,77957500,2,0.35 miles from ramp from US 360                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060130,7,0,6258,24,37965560,76788910,2,0.16 W RTE 646                                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120060,7,0,6172,24,37331400,79980460,3,.4 Mile North of Ramp to Route 581                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080303,7,0,6141,24,38084870,78935990,2,0.1 E AERO DR                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040273,7,0,6128,24,37676000,77655860,3,I-64 WB at SR-288 NB ramp                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040270,7,0,6123,24,37593690,77546530,3,0.1 MI E FOREST ROAD                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080303,3,0,6112,24,38084870,78935990,2,0.1 E AERO DR                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120060,3,0,6080,24,37331400,79980460,3,.4 Mile North of Ramp to Route 581                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080122,3,0,6029,24,37872290,79520840,1,4.90 Mi E of Ramp Fr Rte 780                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030147,5,0,5993,24,36933332,79375780,2,0.5 MI N RTE 29 BUS (SOUTHERN INTERSECTION)       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080343,5,0,5926,24,39188090,77925620,2,0.8 N RTE 610                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150096,1,0,5839,24,36597240,76378720,2, .08 mi South of Ballahack Rd                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,665783,3,0,5821,24,37509730,77245260,2, .99 Mi fr  I-295                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789299,1,0,5763,24,37597290,77466030,1,I-95 South Shoulder @ MM 80                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040270,3,0,5723,24,37593690,77546530,3,0.1 MI E FOREST ROAD                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180053,7,0,5713,24,37872460,79518940,1,2.75 Mi W of Ramp Fr US 60                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050405,3,0,5699,24,37170250,76478830,3,0.25 MI W RTE 17                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020377,1,0,5697,24,37120890,80657600,2,0.10 N RT 1085                                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020377,5,0,5659,24,37120890,80657600,2,0.10 N RT 1085                                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050405,7,0,5490,24,37170250,76478830,3,0.25 MI W RTE 17                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789648,1,0,5382,24,38468130,77405270,2,I-95 North Shoulder @ MM 143.8                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150096,5,0,5373,24,36597240,76378720,2, .08 mi South of Ballahack Rd                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020250,3,0,5368,24,36723740,80815820,2, BETWEEN RT 872 & I-77 (OLD WIM SITE)             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040274,3,0,5354,24,37676000,77655860,1,0.9 mi from 37-623 Ashland Rd                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030234,3,0,5257,24,36624170,79628610,2,0.20 E RT 622                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030410,1,0,5216,24,37275560,78420280,2,0.45 MI S RTE 628                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789651,1,0,5192,24,37552570,77442990,2,I-95 North Shoulder @ Belvidere St                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020300,7,0,5189,24,37308060,80576670,2,0.4 E RTE 625                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781562,7,0,5177,24,38019770,78435380,2,I-64 West Shoulder @ MM 124.2                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080354,1,0,5140,24,39131240,78192130,2,0.63 mi from SR 37 Overpass                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030234,7,0,5128,24,36624170,79628610,2,0.20 E RT 622                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120065,3,0,5116,24,36691570,79834110,2,0.1 E HIDDEN FOREST DR                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070076,1,0,5094,24,38318220,77752020,3,1.28 S Rte. 3                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120065,7,0,5068,24,36691570,79834110,2,0.1 E HIDDEN FOREST DR                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,780983,3,0,5050,24,38019770,78435380,1,I-64 West Shoulder @ MM 124.2                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080354,5,0,5015,24,39131240,78192130,2,0.63 mi from SR 37 Overpass                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020250,7,0,5014,24,36723740,80815820,2, BETWEEN RT 872 & I-77 (OLD WIM SITE)             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080264,1,0,5011,24,38428030,78919680,3,0.2 MI S RTE 732                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030410,5,0,4982,24,37275560,78420280,2,0.45 MI S RTE 628                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060130,3,0,4963,24,37965560,76788910,2,0.16 W RTE 646                                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080264,5,0,4957,24,38428030,78919680,3,0.2 MI S RTE 732                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180102,5,0,4955,24,37797500,79395810,1,0.6 mi from US 11                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110045,5,0,4948,24,36615900,82187160,1,0.50 mi from Key St                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140120,1,0,4926,24,37500070,77446490,2,0.20 S HOPKINS ROAD                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020121,5,0,4913,24,37472560,79881480,2,.25 S RTE 640                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020300,3,0,4833,24,37308060,80576670,2,0.4 E RTE 625                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070016,5,0,4826,24,38690760,77789490,2,0.5 MI S FALMOUTH STREET                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140123,5,0,4803,24,37216370,77448950,2,0.35 N RT 226                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010346,1,0,4776,24,37225430,81330020,2,.30 N RT 1520                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,060180,5,0,4744,24,37961000,77436130,3,.05 S RTE 716 (MONCURE DR)                        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040329,3,0,4740,24,36702380,78013840,2,0.1 MI E RTE 696 (GHOLSON RD.)                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020282,5,0,4726,24,37124250,79739720,3,0.24 mi West of Lost Mountain Rd                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140104,7,0,4658,24,37201490,77335190,2,0.1 Mi West of SR 106 Courthouse Rd               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020121,1,0,4648,24,37472560,79881480,2,.25 S RTE 640                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795371,1,0,4573,24,37226500,77393980,1,I-85 North Exit 68B Ramp Shoulder                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170017,1,0,4519,24,38487120,77947240,2,0.25 S Rte. 665                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030214,7,0,4485,24,37278180,78695330,2,0.1 MI EAST OF RTE 628                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140120,5,0,4472,24,37500070,77446490,2,0.20 S HOPKINS ROAD                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070076,5,0,4471,24,38318220,77752020,3,1.28 S Rte. 3                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030214,3,0,4461,24,37278180,78695330,2,0.1 MI EAST OF RTE 628                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,070016,1,0,4460,24,38690760,77789490,2,0.5 MI S FALMOUTH STREET                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170017,5,0,4437,24,38487120,77947240,2,0.25 S Rte. 665                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020417,1,0,4416,24,37317660,80029660,3,0.35 S RAMP FR I-81                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020417,5,0,4409,24,37317660,80029660,3,0.35 S RAMP FR I-81                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180066,5,0,4372,24,38391060,78705850,5,0.41 mi from US 33                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140104,3,0,4349,24,37201490,77335190,2,0.1 Mi West of SR 106 Courthouse Rd               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180066,1,0,4328,24,38391060,78705850,5,0.41 mi from US 33                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040329,7,0,4327,24,36702380,78013840,2,0.1 MI E RTE 696 (GHOLSON RD.)                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789301,1,0,4229,24,37608180,77452540,1,Just South of overhead VMS south of US 301        ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050048,7,0,4223,24,37941200,75526640,3,0.75 E RT 13                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140123,1,0,4204,24,37216370,77448950,2,0.35 N RT 226                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010346,5,0,4185,24,37225430,81330020,2,.30 N RT 1520                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010281,7,0,4180,24,36885140,82304700,2,.95 Mile West Route 65                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020391,1,0,4165,24,37342050,79956310,2,0.1 S WILLIAMSON RD                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120058,5,0,4164,24,37267240,79969770,2, 0.01 S ROANOKE AVE SW                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010281,3,0,4160,24,36885140,82304700,2,.95 Mile West Route 65                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120058,1,0,4083,24,37267240,79969770,2, 0.01 S ROANOKE AVE SW                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020282,1,0,4048,24,37124250,79739720,3,0.24 mi West of Lost Mountain Rd                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010157,1,0,4014,24,36967070,81915190,2,Between SR 80 and Tazewell County Line            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781563,3,0,4012,24,38021517,78425930,2,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020391,5,0,4002,24,37342050,79956310,2,0.1 S WILLIAMSON RD                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789371,5,0,3913,24,37194710,77360630,1,I-95 South Shoulder @ Exit 48                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140219,5,0,3856,24,37552640,77485150,3,I-195 North Shoulder @ Cary St Exit               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030194,7,0,3787,24,36648290,78997340,2,1.05 MI E RTE 836                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120063,1,0,3750,24,37325800,79964940,3,0.10 N MUNICIPAL DRIVE                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789446,5,0,3744,24,37552640,77485150,1,I-195 North Shoulder @ Cary St Exit               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120063,5,0,3694,24,37325800,79964940,3,0.10 N MUNICIPAL DRIVE                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030194,3,0,3668,24,36648290,78997340,2,1.05 MI E RTE 836                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787069,5,0,3664,24,36632450,82116900,1,I-81 South Shoulder @ MM 7.7                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789657,5,0,3631,24,37552570,77442990,2,I-95 North Shoulder @ Belvidere St                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781721,1,0,3624,24,37198810,77423240,0,I-85 North @ Exit 65                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787340,1,0,3617,24,38431530,78872890,0,I-81 North Shoulder @ MM 246.15                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030232,7,0,3590,24,36580540,79243240,2,1.05 MI E RTE 62                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,792625,1,0,3580,24,37983110,77492290,1,I-95 North Shoulder @ MM 108.1                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030232,3,0,3568,24,36580540,79243240,2,1.05 MI E RTE 62                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050048,3,0,3483,24,37941200,75526640,3,0.75 E RT 13                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040410,3,0,3430,24,37155340,77715520,2,1.00 MI E RT 622                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150117,3,0,3419,24,37225730,76561020,3,0.85 MI E RTE 637/Crawford Rd                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150117,7,0,3402,24,37225730,76561020,3,0.85 MI E RTE 637/Crawford Rd                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781242,5,0,3389,24,37198810,77423240,1,I-85 North @ Exit 65                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010157,5,0,3377,24,36967070,81915190,2,Between SR 80 and Tazewell County Line            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781021,3,0,3345,24,37497530,77046220,1,New Kent Rest Area Entrance Ramp                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040410,7,0,3298,24,37155340,77715520,2,1.00 MI E RT 622                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787147,5,0,3216,24,38431530,78872890,1,I-81 North Shoulder @ MM 246.15                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787160,5,0,3167,24,39006450,78329380,1,I-81 south @ Exit 298                             ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030242,5,0,3023,24,37285560,79105830,2,0.70 N RT 24                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030242,1,0,3006,24,37285560,79105830,2,0.70 N RT 24                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010383,1,0,2913,24,36648060,82094180,2,0.10 N RTE 1725                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781520,3,0,2756,24,38019460,78533980,2,I-64 West Shoulder @ MM 118.5                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795305,5,0,2736,24,37477340,77304610,3,I-295 East Shoulder @ Exit 25                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781138,7,0,2734,24,37498050,77040040,1,New Kent Rest Area Entrance Ramp                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781222,1,0,2731,24,37226500,77393980,1,I-85 North Exit 68B Ramp Shoulder                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789597,5,0,2719,24,37463320,77425550,3,I-95 South Shoulder @ Exit 69                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789409,5,0,2701,24,38314790,77504290,1,FREDERICKSBURG WELCOME CENTER EXIT RAMP           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150094,5,0,2679,24,36569720,76742060,2,0.20 N RT 668                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030182,3,0,2629,24,37169100,78250790,2,0.05 MI E RTE 621                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787190,5,0,2628,24,38869140,78528500,3,I-81 North Shoulder @ MM 283                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,790876,7,0,2605,24,37196040,77322230,2,I-295 South Shoulder @ Exit 3B                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010383,5,0,2599,24,36648060,82094180,2,0.10 N RTE 1725                                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795326,1,0,2598,24,37477340,77304610,3,I-295 East Shoulder @ Exit 25                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150094,1,0,2584,24,36569720,76742060,2,0.20 N RT 668                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,788313,5,0,2573,24,37399570,77424630,5,@ Ramp from Willis Rd to I-95 South               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030180,7,0,2566,24,37274360,78249000,3,1.40 E RT 745                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030180,3,0,2561,24,37274360,78249000,3,1.40 E RT 745                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789811,1,0,2536,24,36567720,80744180,1,0.08 mi from merge of parking lots                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040545,3,0,2507,24,36670170,78393450,2,0.25 MI E RTE 688 (SKIPWITH RD.)                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787051,1,0,2427,24,38869140,78528500,1,I-81 North Shoulder @ MM 283                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,791023,1,0,2418,24,36548050,77575020,1,0.04 mi from Exit Rest Area Parking Lot           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040545,7,0,2330,24,36670170,78393450,2,0.25 MI E RTE 688 (SKIPWITH RD.)                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150093,3,0,2322,24,37278200,76631740,5,0.4 MI E SPRINGFIELD ROAD                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030412,5,0,2268,24,37316200,78456740,2,0.4 MI N RTE 695                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,786299,1,0,2260,24,39292980,78082730,5,I-81 North Shoulder @ MM 324                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150093,7,0,2232,24,37278200,76631740,5,0.4 MI E SPRINGFIELD ROAD                         ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789335,1,0,2231,24,38617729,77297606,1,I-95 NB at accell Lane from Prince William County ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789288,1,0,2217,24,37399570,77424630,1,@ Ramp from Willis Rd to I-95 South               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020267,1,0,2192,24,36970080,80390720,3, BETWEEN RT 730 & MONTGOMERY CL ( OLD WIM SITE)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080058,3,0,2192,24,39096100,78487010,3,.25 W RTE 609                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789443,1,0,2181,24,37552640,77485150,1,I-195 North Shoulder @ Cary St Exit               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787171,5,0,2169,24,39292980,78082730,1,I-81 North Shoulder @ MM 324                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030182,7,0,2116,24,37169100,78250790,2,0.05 MI E RTE 621                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787038,1,0,2056,24,38353770,78928840,1,I-81 North Shoulder @ MM 239.8                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020267,5,0,2051,24,36970080,80390720,3, BETWEEN RT 730 & MONTGOMERY CL ( OLD WIM SITE)   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,665590,7,0,2037,24,37548960,77419470,2,0.26 mi from 17th Street                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781103,7,0,2011,24,38021517,78425930,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030166,3,0,1997,24,37527440,78175690,2,2.14 mi from SR 45                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,753448,1,0,1990,24,36604130,78151340,5,I-85 South @ Exit 4                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010009,3,0,1968,24,36631670,83481390,2,0.13 mi from 52-684                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,665590,3,0,1958,24,37548960,77419470,2,0.26 mi from 17th Street                          ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010009,7,0,1957,24,36631670,83481390,2,0.13 mi from 52-684                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030412,1,0,1956,24,37316200,78456740,2,0.4 MI N RTE 695                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789289,1,0,1953,24,37431550,77431680,1,I-95 South Shoulder @ MM 67                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789367,5,0,1859,24,37145040,77355960,1,I-95 South Shoulder @ Exit 45                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,795372,1,0,1842,24,37226500,77393980,1,I-85 North Exit 68B Ramp Shoulder                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789182,1,0,1832,24,36982340,77392230,5,I-95 North Shoulder @ MM 33                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781225,5,0,1821,24,36716500,78111560,1,I-85 North Shoulder @ Exit 12                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787120,5,0,1785,24,37467700,79812670,1,I-81 North Shoulder @ MM 158                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,030166,7,0,1784,24,37527440,78175690,2,2.14 mi from SR 45                                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781737,5,0,1760,24,37546410,77428830,0,I-95 North Shoulder @ Exit 75                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789292,5,0,1716,24,37520580,77429080,1,At gore between Maury St. ramps to I-95 South and ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787228,5,0,1694,24,38353770,78928840,3,I-81 North Shoulder @ MM 239.8                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,791012,1,0,1680,24,36716500,78111560,2,I-85 North Shoulder @ Exit 12                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781984,1,0,1678,24,36554520,78179900,1,0.03 mi from Rest Area Parking Lot                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,782837,7,0,1597,24,38858800,77840100,1,I-66 West Shoulder @ Exit 28                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050031,7,0,1525,24,37127500,76868330,3,0.15 MI W RTE 660                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789822,5,0,1503,24,37204090,81106390,1,0.05 mi from Merge of Both Parking Lot Exits      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020092,1,0,1439,24,36870820,80449070,2,.1 S RTE 750                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781223,5,0,1428,24,36604130,78151340,1,I-85 South @ Exit 4                               ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789362,5,0,1419,24,36982340,77392230,1,I-95 North Shoulder @ MM 33                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781301,7,0,1398,24,37422980,76828740,3,I-64 West @ Ramp from SR 30                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050031,3,0,1328,24,37127500,76868330,3,0.15 MI W RTE 660                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120056,5,0,1287,24,37162000,80585150,5,0.80 N RT 114                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781527,7,0,1278,24,37598270,77497180,2,Central TMC Camera Pole @ Exit 185 B              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120056,1,0,1252,24,37162000,80585150,5,0.80 N RT 114                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787169,5,0,1213,24,39243670,78113440,1,0.05 mi from I-81 South                           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,020092,5,0,1163,24,36870820,80449070,2,.1 S RTE 750                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,080058,7,0,1139,24,39096100,78487010,3,.25 W RTE 609                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,130018,3,0,1105,24,37874170,78930560,5,0.20 E RT 767                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170015,1,0,1073,24,38695630,77899110,5,0.40 N US 211                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180065,3,0,1071,24,38769810,78739360,3,0.25 E RT 42                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,170015,5,0,1052,24,38695630,77899110,5,0.40 N US 211                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150326,3,0,1045,24,36684490,76969700,2,0.3 MI E RTE 687                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789184,1,0,1025,24,36809210,77458180,5,I-95 South Shoulder @ Exit 20                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,790816,3,0,1008,24,37196040,77322230,1,I-295 South Shoulder @ Exit 3B                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180064,5,0,1006,24,38158940,78924350,5,0.40 N RT 254                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789275,1,0,957,24,37172670,77350820,1,I-95 North @ Exit 47                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180064,1,0,955,24,38158940,78924350,5,0.40 N RT 254                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789567,1,0,943,24,36946530,77391730,3,I-95 North Shoulder @ Exit 31                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,150326,7,0,940,24,36684490,76969700,2,0.3 MI E RTE 687                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,786964,1,0,925,24,36597860,82237800,1,0.05 mi from Rest Area Parking Lot                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789484,3,0,920,24,37659150,77464020,1,Left side of I-295 E 0.22 Miles from I-295 CD ramp,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190093,3,0,901,24,38629650,77436840,5,0.5 S RTE 234                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010071,5,0,860,24,36667640,81196850,2,0.1 N Rte I-81                                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781985,1,0,848,24,36861970,77841240,1,I-85 North Shoulder @ MM 32.1                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,130018,7,0,829,24,37874170,78930560,5,0.20 E RT 767                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140119,1,0,813,24,37394990,77973410,5,2.7 MI N RTE 360                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,180065,7,0,799,24,38769810,78739360,3,0.25 E RT 42                                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,010071,1,0,795,24,36667640,81196850,2,0.1 N Rte I-81                                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,792621,7,0,792,24,38808400,77495480,1,0.05 mi from Merge of Both Parking Lots           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,741466,3,0,790,24,37841550,77978780,5,I-64 West Shoulder @ Exit 152                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,140119,5,0,782,24,37394990,77973410,5,2.7 MI N RTE 360                                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789361,5,0,780,24,36946530,77391730,1,I-95 North Shoulder @ Exit 31                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781229,5,0,775,24,36864060,77839320,1,I-85 South Shoulder @ MM 32                       ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789725,5,0,775,24,37172670,77350820,0,I-95 North @ Exit 47                              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,190093,7,0,754,24,38629650,77436840,5,0.5 S RTE 234                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789579,1,0,742,24,37639910,77452670,3,I-95 SOUTH @ SCOTT RD OVERPASS                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781108,7,0,714,24,37841550,77978780,1,I-64 West Shoulder @ Exit 152                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789263,1,0,702,24,36723780,77530250,1,0.47 mi from Otterdam Rd on ramp                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781003,3,0,668,24,37598270,77497180,1,Central TMC Camera Pole @ Exit 185 B              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787082,5,0,641,24,36822700,81533700,1,I-81 South Shoulder @ MM 44.32                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789363,5,0,618,24,37038560,77389200,1,I-95 South Shoulder @ Exit 37                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040185,7,0,608,24,36956540,77677180,3,.50 E RT 654 (RAINEY CREEK ROAD)                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040185,3,0,566,24,36956540,77677180,3,.50 E RT 654 (RAINEY CREEK ROAD)                  ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,050312,5,0,563,24,37988930,75533540,5, New Church Welcome Center Exit Ramp              ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,788859,1,0,556,24,37038560,77389200,5,I-95 South Shoulder @ Exit 37                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789359,5,0,476,24,36809210,77458180,1,I-95 South Shoulder @ Exit 20                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789420,5,0,470,24,38591478,77317701,1,I-95 SB at accell lane from Prince William County ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040394,7,0,403,24,37015110,77800520,3,4.20 E RT 644                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,040394,3,0,394,24,37015110,77800520,3,4.20 E RT 644                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,707680,1,0,394,24,36897250,77798260,5,I-85 N north of 12-630 Sturgeon Rd                ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110048,7,0,371,24,36755510,81881710,5,0.40 E RT 694                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,110048,3,0,363,24,36755510,81881710,5,0.40 E RT 694                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789185,1,0,363,24,36855660,77420800,5,I-95 North Shoulder @ Exit 24                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,781230,5,0,305,24,36897110,77800130,1,.                                                 ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789276,1,0,283,24,37186130,77356050,1,I-95 North @ Exit 48 A                            ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120062,1,0,229,24,36672160,79967190,5,2.35 N RT 687                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,787049,1,0,228,24,38807640,78599710,1,I-81 North Shoulder @ MM 277.25                   ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,120062,5,0,225,24,36672160,79967190,5,2.35 N RT 687                                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,789360,5,0,153,24,36855660,77420800,1,I-95 North Shoulder @ Exit 24                     ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,786792,5,0,152,24,38807720,78601340,5,I-81 South Shoulder @ MM 277.2                    ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,782989,3,0,133,24,38858800,77840100,2,I-66 West Shoulder @ Exit 28                      ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,199741,5,0,0,24,38603780,77311630,1,.7 MI S Cardinal DR Overpass (shared cabinet with ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+51,199760,5,0,0,24,38673785,77241146,1,0.27 mi from Prince William County Line           ,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
