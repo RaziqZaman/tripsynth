@@ -1,0 +1,5 @@
+screenline,from_area,to_area,notes
+pg_dc,Prince George's County,DC,Validate using counters near PG/DC boundary corridors only; avoid I-95/495 unless explicitly labeled as approach/corridor proxy.
+montgomery_dc,Montgomery County,DC,Validate using counters on/near Wisconsin/Connecticut/Georgia/16th/New Hampshire/River/MacArthur corridors only.
+pg_montgomery,Prince George's County,Montgomery County,Validate county-boundary crossings such as I-495/US29/MD650/MD193/MD212 where counters are physically near boundary.
+md_dc,Maryland,DC,Aggregate PG-DC + Montgomery-DC only after confirming each component coverage.

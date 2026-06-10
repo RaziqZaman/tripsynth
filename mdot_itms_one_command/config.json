@@ -1,0 +1,14 @@
+{
+  "target_date": "2018-06-10",
+  "itms_url": "https://maps.roads.maryland.gov/itms_public/",
+  "aadt_locator_item_id": "223148a698214294a7b43ed612a4e67d",
+  "arcgis_item_data_url": "https://www.arcgis.com/sharing/rest/content/items/223148a698214294a7b43ed612a4e67d/data?f=json",
+  "default_bbox": {
+    "xmin": -77.35,
+    "ymin": 38.75,
+    "xmax": -76.65,
+    "ymax": 39.15,
+    "spatialReference": {"wkid": 4326}
+  },
+  "notes": "Default bbox roughly covers DC-Maryland border, Montgomery-DC, PG-DC, and PG-Montgomery validation area. Edit before running for a statewide scrape."
+}

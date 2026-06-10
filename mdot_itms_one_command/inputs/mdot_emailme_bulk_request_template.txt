@@ -1,0 +1,15 @@
+Subject: Prince George's County, Montgomery County, DC-Maryland boundary hourly volume data 06/10/2018 xls
+
+Hello MDOT SHA Traffic Monitoring System Team,
+
+I am conducting academic transportation-model validation and would like to request Excel output for hourly volume traffic count data for June 10, 2018, and, if available, the full period October 2017 through July 2019, for count locations relevant to the following screenlines/corridors:
+
+1. Prince George's County - District of Columbia boundary crossings
+2. Montgomery County - District of Columbia boundary crossings
+3. Prince George's County - Montgomery County boundary crossings
+4. Maryland - District of Columbia boundary crossings overall
+
+For each count location, please include location ID, route, road name, location description, county, coordinates if available, direction, date, hour, and hourly volume. If a location is AADT-only or portable-only and does not have hourly data for June 10, 2018, please identify it as such.
+
+Thank you,
+Raziq Zaman
