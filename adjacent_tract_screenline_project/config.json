@@ -1,0 +1,27 @@
+{
+  "analysis_crs": "EPSG:26918",
+  "census_tiger_year": 2019,
+  "states": ["11", "24"],
+  "tract_download_urls": {
+    "11": "https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_11_tract.zip",
+    "24": "https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_24_tract.zip"
+  },
+  "station_input_csv": "inputs/mdot_aadt_candidate_station_seeds.csv",
+  "full_station_input_csv": "inputs/mdot_aadt_locator_full_export.csv",
+  "max_boundary_distance_m": 175,
+  "nearby_tract_buffer_m": 225,
+  "min_shared_boundary_length_m": 15,
+  "include_only_seed_candidates": true,
+  "include_ramps": false,
+  "include_non_mainline": false,
+  "screenline_pairs": {
+    "pg_dc": ["24033", "11001"],
+    "montgomery_dc": ["24031", "11001"],
+    "pg_montgomery": ["24033", "24031"],
+    "md_dc": ["24", "11001"]
+  },
+  "survey_csv_default": "../00__combined-flat-survey.csv",
+  "auto_mode_codes": [],
+  "vehicle_weight_mode": "auto_driver_or_occupancy_adjusted",
+  "notes": "Leave auto_mode_codes empty to compute all-mode weighted trip counts; set e.g. [4] or [4,5] once mode coding is confirmed."
+}

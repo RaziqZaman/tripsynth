@@ -1,0 +1,11 @@
+screenline_family,assignment_quality,n_station_screenlines
+montgomery_dc,high,2
+montgomery_dc,low_review,6
+montgomery_dc,medium,1
+other_adjacent_tract_pair,high,485
+other_adjacent_tract_pair,low_review,144
+other_adjacent_tract_pair,medium,121
+pg_dc,low_review,4
+pg_montgomery,high,4
+pg_montgomery,low_review,2
+pg_montgomery,medium,2

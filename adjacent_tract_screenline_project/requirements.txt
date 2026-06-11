@@ -1,0 +1,10 @@
+pandas>=2.0
+geopandas>=0.14
+shapely>=2.0
+pyproj>=3.6
+requests>=2.31
+folium>=0.15
+rtree>=1.2
+numpy>=1.24
+tqdm>=4.66
+tabulate>=0.9
