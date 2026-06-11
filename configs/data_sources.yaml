@@ -1,0 +1,36 @@
+external_data_dir: data/external
+
+census_tiger:
+  year: 2020
+  states:
+    maryland:
+      state_fips: "24"
+      tract_zip_url: "https://www2.census.gov/geo/tiger/TIGER2020/TRACT/tl_2020_24_tract.zip"
+      output_dir: "data/external/tiger_tracts/md"
+    district_of_columbia:
+      state_fips: "11"
+      tract_zip_url: "https://www2.census.gov/geo/tiger/TIGER2020/TRACT/tl_2020_11_tract.zip"
+      output_dir: "data/external/tiger_tracts/dc"
+
+mdot_aadt:
+  service_root: "https://mdgeodata.md.gov/imap/rest/services/Transportation/MD_AnnualAverageDailyTraffic/FeatureServer"
+  points_layer_id: 0
+  candidate_lines_layer_ids: [1]
+  output_dir: "data/external/mdot_aadt"
+  query_format: geojson
+  out_sr: 4326
+  page_size: 20000
+  where: "1=1"
+  prefer_fields:
+    observed_count_priority:
+      - AAWDT
+      - AADT
+    id_priority:
+      - LOCATION_ID
+      - OBJECTID
+    route_fields:
+      - ROADNAME
+      - ROUTEID
+      - ID_RTE_NO
+      - BEGIN_SECTION
+      - END_SECTION

@@ -1,0 +1,68 @@
+run_name: quick_test
+input_csv: 05sample_transformed_survey.csv
+sample_n: 1000
+seed: 20260611
+methods:
+  - weighted_bootstrap
+  - noncontrastive_vae
+  - contrastive_vae
+  - gibbs
+  - bayesian_network
+
+vae:
+  epochs: 3
+  batch_size: 64
+  latent_dim: 16
+  depth: 2
+  width_decay: 0.90
+  lambda_contrastive: 0.25
+  beta_kl: 0.05
+  lr: 0.001
+  dropout: 0.05
+  activation: relu
+  normalization: layernorm
+  contrastive_temperature: 0.10
+  positive_aug: light
+  negative_mode: marginal
+  checkpoint_every: 1
+  early_stopping_patience: 10
+  sample_temperature: 0.8
+  deterministic_sample: false
+  weighting:
+    use_weight_for_training_loss: true
+    transform: capped_normalized
+    cap_quantile: 0.99
+    normalize_mean_to_one: true
+
+gibbs:
+  sweeps: 3
+  conditioning_columns:
+    - o_activity
+    - d_activity
+    - tdate_dow
+    - departure_time_minutes
+
+bayesian_network:
+  max_bins: 8
+  smoothing: 1.0
+
+validation:
+  run_marginals: true
+  run_cross_marginals: true
+  run_privacy: true
+  run_aadt: false
+
+data:
+  auto_download_external: false
+
+geo:
+  tract_files:
+    - data/external/tiger_tracts/md/tl_2020_24_tract.shp
+    - data/external/tiger_tracts/dc/tl_2020_11_tract.shp
+  aadt_points_file: data/external/mdot_aadt/aadt_points.geojson
+  aadt_segments_file: data/external/mdot_aadt/aadt_segments.geojson
+  crs_projected: EPSG:26985
+
+aadt_validation:
+  path_method: centroid_line
+  max_od_pairs: 250000

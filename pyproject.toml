@@ -1,0 +1,30 @@
+[project]
+name = "trip-synth"
+version = "0.1.0"
+description = "Reproducible trip synthesis experiment with contrastive VAE baselines and AADT validation."
+requires-python = ">=3.11"
+dependencies = [
+  "numpy",
+  "pandas",
+  "torch",
+  "matplotlib",
+  "requests",
+  "PyYAML",
+  "scikit-learn",
+]
+
+[project.optional-dependencies]
+geo = ["geopandas", "shapely", "pyproj", "fiona", "pyogrio", "rtree"]
+bn = ["pgmpy"]
+dev = ["pytest"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

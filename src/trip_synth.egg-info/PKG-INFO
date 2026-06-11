@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: trip-synth
+Version: 0.1.0
+Summary: Reproducible trip synthesis experiment with contrastive VAE baselines and AADT validation.
+Requires-Python: >=3.11
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: torch
+Requires-Dist: matplotlib
+Requires-Dist: requests
+Requires-Dist: PyYAML
+Requires-Dist: scikit-learn
+Provides-Extra: geo
+Requires-Dist: geopandas; extra == "geo"
+Requires-Dist: shapely; extra == "geo"
+Requires-Dist: pyproj; extra == "geo"
+Requires-Dist: fiona; extra == "geo"
+Requires-Dist: pyogrio; extra == "geo"
+Requires-Dist: rtree; extra == "geo"
+Provides-Extra: bn
+Requires-Dist: pgmpy; extra == "bn"
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"

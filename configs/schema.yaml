@@ -1,0 +1,66 @@
+id_columns: []
+weight_column: weight
+
+exclude_from_synthesis:
+  - weight
+
+categorical_columns:
+  - o_activity
+  - o_tract_fips
+  - d_activity
+  - d_tract_fips
+  - travel_mode
+  - park_loc
+  - park_pay
+  - hov_used
+  - toll_road_used
+  - vehicle
+  - tolltransponder
+  - home_tract_fips
+  - home_type
+  - home_ownership
+  - tdate_week
+  - tdate_dow
+  - gender
+  - race_ethnicity
+  - race_ethnicity_hispanic
+  - license
+  - disability
+  - smartphone
+  - employment_status
+  - work_tract_fips
+  - student_status
+  - volunteer_status
+
+ordinal_integer_columns:
+  - departure_time_minutes
+  - reported_travel_time
+  - travelers_hh
+  - travelers_nonhh
+  - vehicle_occupancy
+  - year
+  - hhsize
+  - numstudents
+  - numdrivers
+  - numworkers
+  - numdisabilities
+  - numvehicle
+  - numvehicle_transponder
+  - numbicycle
+  - hh_income_detailed
+  - age
+  - jobs_count
+
+continuous_columns:
+  - distance
+
+fips_columns:
+  - o_tract_fips
+  - d_tract_fips
+  - home_tract_fips
+  - work_tract_fips
+
+integer_cast_columns:
+  year:
+    mode: safe_round
+    nullable: true
