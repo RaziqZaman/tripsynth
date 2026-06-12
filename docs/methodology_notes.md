@@ -11,6 +11,7 @@
 9. Contrastive loss is a representation regularizer and must be ablated against an otherwise identical non-contrastive VAE.
 10. Privacy and copying diagnostics are necessary because marginal fit alone can reward memorization.
 11. Medium and paper-scale runs cap generated rows and scale synthetic traffic counts back to the population target with a recorded sample-expansion factor.
+12. Date-stratified AADT validation counts are expanded by reconstructed synthetic date count because survey weights are treated as average-day population expansion weights.
 
 ## AADT Temporal Alignment
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import time
 from pathlib import Path
 from typing import Any
@@ -17,7 +18,7 @@ from trip_synth.data.schema import FeatureSchema
 from trip_synth.models.sample import sample_vae_method
 from trip_synth.models.train import fit_vae_method
 from trip_synth.utils.checkpoints import mark_stage_done, stage_done
-from trip_synth.utils.io import copy_if_exists, ensure_dir, load_yaml, write_json
+from trip_synth.utils.io import copy_if_exists, dump_yaml, ensure_dir, load_yaml, write_json
 from trip_synth.utils.logging import setup_logger
 from trip_synth.utils.progress import progress_iter
 from trip_synth.utils.seed import set_seed
@@ -33,6 +34,19 @@ METHOD_MODULES = {
     "weighted_bootstrap": weighted_bootstrap,
     "bayesian_network": bayesian_network,
 }
+
+METHOD_RUN_ORDER = {
+    "weighted_bootstrap": 0,
+    "bayesian_network": 1,
+    "noncontrastive_vae": 2,
+    "contrastive_vae": 3,
+}
+
+
+def _ordered_methods(methods: list[str]) -> list[str]:
+    indexed = list(enumerate(methods))
+    ordered = sorted(indexed, key=lambda item: (METHOD_RUN_ORDER.get(item[1], 100), item[0]))
+    return [method for _, method in ordered]
 
 
 def _output_dirs(run_dir: Path) -> None:
@@ -115,22 +129,37 @@ def _fit_and_sample(
 
     logger.info("Fitting method: %s", method)
     method_dir = ensure_dir(run_dir / "checkpoints" / method)
+    method_config = config
+    if method == "bayesian_network":
+        max_runtime = config.get("bayesian_network", {}).get("max_runtime_seconds")
+        if max_runtime is not None:
+            method_config = copy.deepcopy(config)
+            method_config["_method_deadline_monotonic"] = time.monotonic() + float(max_runtime)
+            logger.info("Capping bayesian_network fit+sample at %.1fs.", float(max_runtime))
     if method in {"contrastive_vae", "noncontrastive_vae"}:
-        artifact = fit_vae_method(real_df, schema, config, method_dir, method=method)
+        artifact = fit_vae_method(real_df, schema, method_config, method_dir, method=method)
         synthetic = sample_vae_method(
             artifact,
             method_rows,
             schema,
-            config,
+            method_config,
             run_dir / "samples",
             run_id=str(config.get("run_name", "run")),
         )
     else:
         module = METHOD_MODULES[method]
-        artifact = module.fit(real_df, schema, config, method_dir)
-        synthetic = module.sample(artifact, method_rows, schema, config, run_dir / "samples")
+        artifact = module.fit(real_df, schema, method_config, method_dir)
+        synthetic = module.sample(artifact, method_rows, schema, method_config, run_dir / "samples")
 
     assert_synthetic_contract(synthetic, schema)
+    if method_rows and len(synthetic) < method_rows:
+        logger.warning(
+            "%s generated %s rows instead of requested %s rows, likely due to wall-time budgeting; count validations will scale by %.6f.",
+            method,
+            len(synthetic),
+            method_rows,
+            n_rows / max(1, len(synthetic)),
+        )
     synthetic.to_csv(sample_path, index=False)
     _write_sample_scaling(run_dir, method, n_rows, len(synthetic), sample_path)
     logger.info("Saved %s synthetic rows for %s to %s", len(synthetic), method, sample_path)
@@ -208,6 +237,7 @@ def run_pipeline(args: argparse.Namespace) -> Path:
     config = load_yaml(args.config)
     if args.skip_aadt:
         config.setdefault("validation", {})["run_aadt"] = False
+    config["methods"] = _ordered_methods([str(m) for m in config.get("methods", [])])
     run_name = str(config.get("run_name", "run"))
     run_dir = root / "outputs" / "runs" / run_name
     _output_dirs(run_dir)
@@ -219,6 +249,7 @@ def run_pipeline(args: argparse.Namespace) -> Path:
     logger.info("Starting run %s", run_name)
     copy_if_exists(args.config, run_dir / "logs" / "config_snapshot.yaml")
     copy_if_exists("configs/schema.yaml", run_dir / "logs" / "schema_snapshot.yaml")
+    dump_yaml(config, run_dir / "logs" / "effective_config.yaml")
     write_json(config, run_dir / "logs" / "config_snapshot.json")
 
     schema = FeatureSchema.from_yaml("configs/schema.yaml")
@@ -236,17 +267,47 @@ def run_pipeline(args: argparse.Namespace) -> Path:
     methods = [str(m) for m in config.get("methods", [])]
     synthetic_by_method: dict[str, pd.DataFrame] = {}
     sample_rows: dict[str, int] = {}
+    method_runtimes: dict[str, float] = {}
+    vae_cfg = config.get("vae", {})
+    budget_source = str(
+        vae_cfg.get("training_time_budget_from_method")
+        or vae_cfg.get("time_budget_from_method", "")
+        or ""
+    )
     for method in progress_iter(methods, desc="Pipeline synthesis methods", total=len(methods), unit="method"):
+        method_config = config
+        if method in {"contrastive_vae", "noncontrastive_vae"} and budget_source:
+            if budget_source not in method_runtimes:
+                logger.warning(
+                    "VAE time budget source %s has not run yet; %s will use the configured epoch limit.",
+                    budget_source,
+                    method,
+                )
+            else:
+                budget_seconds = float(method_runtimes[budget_source])
+                method_config = copy.deepcopy(config)
+                method_config["_training_time_budget_source"] = budget_source
+                method_config["_training_time_budget_seconds"] = budget_seconds
+                logger.info(
+                    "Budgeting %s VAE training to %.1fs based on %s runtime; sampling will run to completion.",
+                    method,
+                    budget_seconds,
+                    budget_source,
+                )
+        method_start = time.monotonic()
         synthetic = _fit_and_sample(
             method,
             real_df,
             schema,
-            config,
+            method_config,
             run_dir,
             n_rows,
             resume=bool(args.resume),
             logger=logger,
         )
+        elapsed = time.monotonic() - method_start
+        method_runtimes[method] = elapsed
+        write_json(method_runtimes, run_dir / "metrics" / "method_runtime_seconds.json")
         synthetic_by_method[method] = synthetic
         sample_rows[method] = len(synthetic)
     mark_stage_done(run_dir, "synthesis")

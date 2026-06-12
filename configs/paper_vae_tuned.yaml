@@ -1,34 +1,34 @@
-run_name: paper_wctr_1m_vae_sweep
+run_name: paper_wctr_vae_tuned
 input_csv: 05_transformed_survey.csv
 sample_n: population_from_weight_sum
 seed: 20260611
 methods:
 - weighted_bootstrap
-- bayesian_network
 - noncontrastive_vae
 - contrastive_vae
 vae:
   epochs: 720
   batch_size: 2048
   latent_dim: 512
-  depth: 4
-  width_decay: 0.975
+  depth: 6
+  hidden_width: 1024
+  width_decay: 0.85
   lambda_contrastive: 0.25
-  beta_kl: 0.03
+  beta_kl: 0.01
   lr: 0.0005
   dropout: 0.02
   activation: relu
   normalization: layernorm
   contrastive_temperature: 0.1
   positive_aug: light
-  negative_mode: marginal
+  negative_mode: shuffled
+  positive_categorical_mask_prob: 0.01
+  positive_numeric_jitter: 0.01
   checkpoint_every: 10
   early_stopping_patience: 30
-  sample_temperature: 0.75
+  sample_temperature: 0.65
   sample_chunk_size: 25000
   max_single_file_rows: 1000000
-  training_time_budget_from_method: bayesian_network
-  training_time_budget_max_epochs: 100000
   weighting:
     use_weight_for_training_loss: true
     transform: capped_normalized
@@ -38,12 +38,9 @@ method_sample_caps:
   weighted_bootstrap: 1000000
   noncontrastive_vae: 1000000
   contrastive_vae: 1000000
-  bayesian_network: 1000000
 bayesian_network:
   max_bins: 16
   smoothing: 1.0
-  max_runtime_seconds: 3600
-  sample_chunk_size: 50000
 validation:
   run_marginals: true
   run_cross_marginals: true

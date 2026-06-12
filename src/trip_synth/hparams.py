@@ -26,6 +26,9 @@ from trip_synth.validation.privacy import validate_method_privacy
 
 
 def _trial_grid(grid: dict[str, Any], seed: int, mode: str, max_trials: int) -> list[dict[str, Any]]:
+    if grid.get("trials"):
+        trials = [dict(trial) for trial in grid["trials"]]
+        return trials[:max_trials] if max_trials > 0 else trials
     search = grid.get("search", {})
     keys = list(search)
     combos = [dict(zip(keys, vals)) for vals in itertools.product(*[search[k] for k in keys])]
@@ -107,19 +110,36 @@ def run_hparams(config_path: str, grid_path: str) -> Path:
             cross = validate_method_cross_marginals(real_df, synthetic, schema, reference, f"trial_{i:03d}", run_dir)
             priv = validate_method_privacy(real_df, synthetic, schema, reference, f"trial_{i:03d}", run_dir)
             invalid = priv.get("invalid_category_rate", 0.0)
-            copy = priv.get("exact_row_copy_rate", 0.0)
+            copy_rate = priv.get("exact_row_copy_rate", 0.0)
             score = (
                 marg.get("summary", {}).get("marginal_similarity_score", 0.0)
                 + cross.get("summary", {}).get("cross_marginal_similarity_score", 0.0)
                 + priv.get("privacy_score", 0.0)
                 - invalid
-                - copy
+                - copy_rate
             )
-            row = {"trial": i, "method": method, "status": "ok", "score": float(score), **params}
+            row = {
+                "trial": i,
+                "method": method,
+                "status": "ok",
+                "score": float(score),
+                "best_val_loss": float(artifact.get("best_loss", np.nan)),
+                "marginal_similarity_score": float(
+                    marg.get("summary", {}).get("marginal_similarity_score", np.nan)
+                ),
+                "cross_marginal_similarity_score": float(
+                    cross.get("summary", {}).get("cross_marginal_similarity_score", np.nan)
+                ),
+                "privacy_score": float(priv.get("privacy_score", np.nan)),
+                "invalid_category_rate": float(invalid),
+                "exact_row_copy_rate": float(copy_rate),
+                **params,
+            }
         except Exception as exc:
             row = {"trial": i, "method": method, "status": f"failed: {exc}", "score": np.nan, **params}
         rows.append(row)
         pd.DataFrame(rows).to_csv(run_dir / "tables" / "hparam_results.csv", index=False)
+        print(f"Trial {i}/{len(trials)}: {row['status']} score={row.get('score', np.nan)} params={params}", flush=True)
     results = pd.DataFrame(rows)
     _plot_hparams(results, run_dir)
     return run_dir

@@ -57,6 +57,8 @@ aadt_validation:
   station_membership_rule: boundary_closer_than_nearest_tract_centroid
   annual_comparison_basis: average_day
   validation_mode: two_prong
+  synthetic_population_basis: average_day
+  expand_date_strata_to_average_day: true
   trip_week_origin_date: '2017-01-01'
   tdate_dow_encoding: iso_monday_1
   daily_counts:

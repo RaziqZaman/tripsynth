@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import time
 from pathlib import Path
 from typing import Any
 
@@ -160,6 +161,8 @@ def fit_vae_method(
     set_seed(int(config.get("seed", 0)) if config.get("seed") is not None else None)
     output_dir = ensure_dir(output_dir)
     vae_cfg = dict(config.get("vae", {}))
+    method_overrides = config.get("vae_by_method", {}).get(method, {})
+    vae_cfg.update(method_overrides)
     if method == "noncontrastive_vae":
         vae_cfg["lambda_contrastive"] = 0.0
     vae_cfg.setdefault("lambda_contrastive", 0.5)
@@ -199,8 +202,20 @@ def fit_vae_method(
     write_json({"method": method, "vae": vae_cfg, "schema": schema.to_dict()}, output_dir / "model_config.json")
 
     total_epochs = int(vae_cfg["epochs"])
+    training_budget_seconds = config.get("_training_time_budget_seconds")
+    if training_budget_seconds is not None:
+        total_epochs = int(vae_cfg.get("training_time_budget_max_epochs", max(total_epochs, 100000)))
+    training_deadline = (
+        time.monotonic() + float(training_budget_seconds)
+        if training_budget_seconds is not None
+        else None
+    )
+    stopped_by_training_time_budget = False
     with progress_bar(total_epochs, f"{method} training", unit="epoch") as epoch_bar:
         for epoch in range(1, total_epochs + 1):
+            if training_deadline is not None and history and time.monotonic() >= float(training_deadline):
+                stopped_by_training_time_budget = True
+                break
             model.train()
             losses = []
             rec_losses = []
@@ -302,7 +317,10 @@ def fit_vae_method(
                 best=f"{best_loss:.4f}",
             )
             epoch_bar.update(1)
-            if epochs_since_best >= patience:
+            if training_deadline is not None and time.monotonic() >= float(training_deadline):
+                stopped_by_training_time_budget = True
+                break
+            if training_deadline is None and epochs_since_best >= patience:
                 break
 
     if best_state is not None:
@@ -317,6 +335,7 @@ def fit_vae_method(
         "best_loss": best_loss,
         "output_dir": str(output_dir),
         "device": str(device),
+        "stopped_by_training_time_budget": stopped_by_training_time_budget,
     }
 
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+import time
 from pathlib import Path
 from typing import Any
 
@@ -110,8 +111,14 @@ def fit(
     discrete, decoders = _discretize(features, preprocessor, max_bins=max_bins)
     columns = preprocessor.feature_columns
     mi = np.zeros((len(columns), len(columns)), dtype=float)
+    deadline = config.get("_method_deadline_monotonic")
     pairs = [(i, j) for i in range(len(columns)) for j in range(i + 1, len(columns))]
+    stopped_by_runtime_cap = False
     for i, j in progress_iter(pairs, desc="bayesian_network mutual information", total=len(pairs), unit="pair"):
+        if deadline is not None and time.monotonic() >= float(deadline):
+            stopped_by_runtime_cap = True
+            warnings.append("Bayesian network fit stopped early because max_runtime_seconds was reached.")
+            break
         a = columns[i]
         b = columns[j]
         val = _mutual_information(discrete[a], discrete[b], weights)
@@ -139,6 +146,7 @@ def fit(
             "structure": parents,
             "max_bins": max_bins,
             "warnings": warnings,
+            "stopped_by_runtime_cap": stopped_by_runtime_cap,
         },
         output_dir / "bayesian_network_artifact.json",
     )
@@ -152,18 +160,11 @@ def fit(
         "parents": parents,
         "cpts": cpts,
         "root": root,
+        "stopped_by_runtime_cap": stopped_by_runtime_cap,
     }
 
 
-def sample(
-    model_or_artifacts: dict[str, Any],
-    n_rows: int,
-    schema: FeatureSchema,
-    config: dict[str, Any],
-    output_dir: str | Path,
-) -> pd.DataFrame:
-    rng = np.random.default_rng(int(config.get("seed", 0)) + 31)
-    art = model_or_artifacts
+def _sample_discrete_rows(art: dict[str, Any], n_rows: int, rng: np.random.Generator) -> pd.DataFrame:
     preprocessor: FittedPreprocessor = art["preprocessor"]
     sampled_disc = pd.DataFrame(index=np.arange(int(n_rows)))
     root = art["root"]
@@ -176,51 +177,90 @@ def sample(
         for col in progress_iter(pending_columns, desc="bayesian_network sampling columns", total=len(pending_columns), unit="column", leave=False):
             parent = art["parents"][col]
             if parent is None or parent in sampled_disc.columns:
-                values = []
-                for parent_value in sampled_disc[parent].astype(str) if parent is not None else ["root"] * int(n_rows):
-                    if parent is None:
-                        vals, probs = art["cpts"][col]["root"]
-                    else:
-                        table = art["cpts"].get(col, {})
-                        vals, probs = table.get(str(parent_value), next(iter(table.values())))
-                    values.append(rng.choice(vals, p=probs))
-                sampled_disc[col] = values
+                if parent is None:
+                    vals, probs = art["cpts"][col]["root"]
+                    sampled_disc[col] = rng.choice(vals, size=int(n_rows), p=probs)
+                else:
+                    table = art["cpts"].get(col, {})
+                    fallback = next(iter(table.values()))
+                    parent_values = sampled_disc[parent].astype(str).to_numpy()
+                    sampled = np.empty(int(n_rows), dtype=object)
+                    unique_values, inverse = np.unique(parent_values, return_inverse=True)
+                    for idx_value, parent_value in enumerate(unique_values):
+                        idx = np.flatnonzero(inverse == idx_value)
+                        vals, probs = table.get(str(parent_value), fallback)
+                        sampled[idx] = rng.choice(vals, size=len(idx), p=probs)
+                    sampled_disc[col] = sampled
                 pending.remove(col)
                 progressed = True
         if not progressed:
             for col in pending:
-                sampled_disc[col] = art["discrete"][col].sample(int(n_rows), replace=True, random_state=int(config.get("seed", 0))).to_numpy()
+                observed = art["discrete"][col].to_numpy()
+                sampled_disc[col] = rng.choice(observed, size=int(n_rows), replace=True)
             break
+    return sampled_disc
 
+
+def _decode_discrete_rows(art: dict[str, Any], sampled_disc: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
+    preprocessor: FittedPreprocessor = art["preprocessor"]
+    n_rows = len(sampled_disc)
     decoded: dict[str, Any] = {}
     feature_columns = list(preprocessor.feature_columns)
     for col in progress_iter(feature_columns, desc="bayesian_network decoding", total=len(feature_columns), unit="column"):
         if col in preprocessor.numeric_columns:
             dec = art["decoders"].get(col, {})
-            vals = []
             observed = pd.to_numeric(art["features"][col], errors="coerce").dropna().to_numpy()
             fallback = float(np.nanmean(observed)) if observed.size else 0.0
-            for b in sampled_disc[col].astype(str):
-                choices = dec.get(str(b), [])
+            bins = sampled_disc[col].astype(str).to_numpy()
+            vals_out = np.empty(n_rows, dtype=object)
+            unique_bins, inverse = np.unique(bins, return_inverse=True)
+            for idx_value, bin_value in enumerate(unique_bins):
+                idx = np.flatnonzero(inverse == idx_value)
+                choices = dec.get(str(bin_value), [])
                 if choices:
-                    vals.append(rng.choice(choices))
+                    vals_out[idx] = rng.choice(np.asarray(choices, dtype=object), size=len(idx))
                 else:
-                    vals.append(fallback)
-            decoded[col] = vals
+                    vals_out[idx] = fallback
+            decoded[col] = vals_out
         else:
             decoded[col] = sampled_disc[col].astype(str).to_numpy()
-    synth = pd.DataFrame(decoded)[preprocessor.feature_columns]
-    final = finalize_synthetic(
-        synth,
-        schema,
-        preprocessor,
-        "bayesian_network",
-        str(config.get("run_name", "run")),
-    )
-    for col in preprocessor.ordinal_integer_columns:
-        if col in final.columns:
-            final[col] = pd.to_numeric(final[col], errors="coerce").round().astype("Int64")
-    for col in preprocessor.continuous_columns:
-        if col in final.columns:
-            final[col] = pd.to_numeric(final[col], errors="coerce")
-    return final
+    return pd.DataFrame(decoded)[preprocessor.feature_columns]
+
+
+def sample(
+    model_or_artifacts: dict[str, Any],
+    n_rows: int,
+    schema: FeatureSchema,
+    config: dict[str, Any],
+    output_dir: str | Path,
+) -> pd.DataFrame:
+    rng = np.random.default_rng(int(config.get("seed", 0)) + 31)
+    art = model_or_artifacts
+    preprocessor: FittedPreprocessor = art["preprocessor"]
+    cfg = config.get("bayesian_network", {})
+    chunk_size = max(1, int(cfg.get("sample_chunk_size", int(n_rows))))
+    deadline = config.get("_method_deadline_monotonic")
+    chunks: list[pd.DataFrame] = []
+    generated = 0
+    while generated < int(n_rows):
+        if chunks and deadline is not None and time.monotonic() >= float(deadline):
+            break
+        take = min(chunk_size, int(n_rows) - generated)
+        sampled_disc = _sample_discrete_rows(art, take, rng)
+        synth = _decode_discrete_rows(art, sampled_disc, rng)
+        final = finalize_synthetic(
+            synth,
+            schema,
+            preprocessor,
+            "bayesian_network",
+            str(config.get("run_name", "run")),
+        )
+        for col in preprocessor.ordinal_integer_columns:
+            if col in final.columns:
+                final[col] = pd.to_numeric(final[col], errors="coerce").round().astype("Int64")
+        for col in preprocessor.continuous_columns:
+            if col in final.columns:
+                final[col] = pd.to_numeric(final[col], errors="coerce")
+        chunks.append(final)
+        generated += take
+    return pd.concat(chunks, ignore_index=True)

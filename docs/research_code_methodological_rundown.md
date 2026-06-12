@@ -345,3 +345,6 @@ produce plausible aggregate roadway-volume patterns. The MDOT layer is especiall
 valuable because it is independent of the survey sample, but its conclusions should
 be stated as two-prong screenline validation under a centroid-line proxy, not as
 fully routed traffic-count calibration.
+
+
+AADT scaling note: survey expansion weights are interpreted as an average-day population expansion, so date-stratified synthetic counts are multiplied by the number of reconstructed synthetic dates before traffic-count comparison.

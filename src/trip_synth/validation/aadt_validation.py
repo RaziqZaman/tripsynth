@@ -258,6 +258,42 @@ def _synthetic_exact_day_screenline_counts(
     return counts[columns]
 
 
+def _date_strata_expansion_enabled(config: dict[str, Any]) -> bool:
+    cfg = config.get("aadt_validation", {})
+    basis = str(cfg.get("synthetic_population_basis", "average_day")).lower()
+    return bool(cfg.get("expand_date_strata_to_average_day", True)) and basis in {"average_day", "average_weekday"}
+
+
+def _date_strata_expansion_from_synthetic(
+    synthetic: pd.DataFrame,
+    config: dict[str, Any],
+    comparison_basis: str = "average_day",
+) -> float:
+    if not _date_strata_expansion_enabled(config) or not {"tdate_week", "tdate_dow"}.issubset(synthetic.columns):
+        return 1.0
+    dates = trip_dates_from_week_dow(synthetic, config).dropna()
+    if comparison_basis == "average_weekday":
+        dates = dates[dates.dt.weekday < 5]
+    n_dates = int(dates.dt.normalize().nunique())
+    return float(max(1, n_dates))
+
+
+def _date_strata_expansion_from_counts(counts: pd.DataFrame, config: dict[str, Any]) -> float:
+    if not _date_strata_expansion_enabled(config) or counts.empty or "trip_date" not in counts.columns:
+        return 1.0
+    dates = pd.to_datetime(counts["trip_date"], errors="coerce").dt.normalize().dropna()
+    n_dates = int(dates.nunique())
+    return float(max(1, n_dates))
+
+
+def _apply_date_strata_expansion(counts: pd.DataFrame, factor: float) -> pd.DataFrame:
+    out = counts.copy()
+    if not out.empty and "synthetic_count" in out.columns:
+        out["synthetic_count"] = pd.to_numeric(out["synthetic_count"], errors="coerce").fillna(0.0) * factor
+        out["temporal_expansion_factor"] = factor
+    return out
+
+
 def _sample_expansion_factor(run_dir: Path, method: str) -> float:
     meta = read_json(run_dir / "metrics" / f"{method}_sample_scaling.json", default={}) or {}
     try:
@@ -534,11 +570,15 @@ def build_virtual_screenline_counts(config: dict[str, Any], run_dir: str | Path)
         synthetic = pd.read_csv(sample_path, low_memory=False)
         if mode == "exact_day":
             counts = _synthetic_exact_day_screenline_counts(synthetic, paths, config)
+            temporal_factor = _date_strata_expansion_from_counts(counts, config)
         else:
             counts = _synthetic_average_screenline_counts(synthetic, paths, comparison_basis)
+            temporal_factor = _date_strata_expansion_from_synthetic(synthetic, config, comparison_basis)
+        counts = _apply_date_strata_expansion(counts, temporal_factor)
         counts, expansion_factor = _apply_sample_expansion(counts, run_dir, str(method))
         counts["method"] = method
         counts["sample_expansion_factor"] = expansion_factor
+        counts["temporal_expansion_factor"] = temporal_factor
         counts["comparison_basis"] = comparison_basis
         out_path = run_dir / "metrics" / f"{method}_virtual_screenline_counts.parquet"
         counts.to_parquet(out_path)
@@ -640,15 +680,18 @@ def _run_annual_average_tier(
             continue
         synthetic = pd.read_csv(sample_path, low_memory=False)
         counts = _synthetic_long_term_average_screenline_counts(synthetic, paths, config, comparison_basis)
+        temporal_factor = _date_strata_expansion_from_synthetic(synthetic, config, comparison_basis)
+        counts = _apply_date_strata_expansion(counts, temporal_factor)
         counts, expansion_factor = _apply_sample_expansion(counts, run_dir, str(method))
         counts["comparison_basis"] = comparison_basis
         merged = usable[["screenline_id", "tract_a", "tract_b", "observed_count", "observed_count_field", "station_count"]].merge(
-            counts[["screenline_id", "synthetic_count", "comparison_basis"]], on="screenline_id", how="left"
+            counts[["screenline_id", "synthetic_count", "comparison_basis", "temporal_expansion_factor"]], on="screenline_id", how="left"
         )
         merged["synthetic_count"] = merged["synthetic_count"].fillna(0.0)
         merged["comparison_basis"] = merged["comparison_basis"].fillna(comparison_basis)
         merged["method"] = method
         merged["sample_expansion_factor"] = expansion_factor
+        merged["temporal_expansion_factor"] = merged["temporal_expansion_factor"].fillna(temporal_factor)
         merged["validation_tier"] = "annual_average"
         merged["residual"] = merged["synthetic_count"] - merged["observed_count"]
         merged["residual_pct_guarded"] = merged["residual"] / merged["observed_count"].clip(lower=1.0)
@@ -664,6 +707,8 @@ def _run_annual_average_tier(
                 "observed_count_temporal_label": temporal_label(config, observed_field),
                 "validation_mode": _validation_mode(config),
                 "sample_expansion_factor": expansion_factor,
+                "temporal_expansion_factor": temporal_factor,
+                "effective_expansion_factor": expansion_factor * temporal_factor,
             }
         )
         summary_rows.append(metrics)
@@ -714,6 +759,8 @@ def _run_hourly_tmas_tier(
             continue
         synthetic = pd.read_csv(sample_path, low_memory=False)
         counts = _synthetic_hourly_screenline_counts(synthetic, paths, config)
+        temporal_factor = _date_strata_expansion_from_counts(counts, config)
+        counts = _apply_date_strata_expansion(counts, temporal_factor)
         counts, expansion_factor = _apply_sample_expansion(counts, run_dir, str(method))
         if counts.empty:
             continue
@@ -731,6 +778,7 @@ def _run_hourly_tmas_tier(
         merged = merged.merge(usable[["screenline_id", "tract_a", "tract_b", "station_count"]], on="screenline_id", how="left")
         merged["method"] = method
         merged["sample_expansion_factor"] = expansion_factor
+        merged["temporal_expansion_factor"] = temporal_factor
         merged["validation_tier"] = "hourly_tmas_scaled"
         merged["comparison_basis"] = "hourly_exact_time_scaled_by_annual_share"
         merged["residual"] = merged["synthetic_count"] - merged["observed_count"]
@@ -751,6 +799,8 @@ def _run_hourly_tmas_tier(
                 "unique_hours": int(merged["hour"].nunique()),
                 "mean_annual_share_observed": float(merged["annual_share_observed"].mean()) if "annual_share_observed" in merged else float("nan"),
                 "sample_expansion_factor": expansion_factor,
+                "temporal_expansion_factor": temporal_factor,
+                "effective_expansion_factor": expansion_factor * temporal_factor,
             }
         )
         summary_rows.append(metrics)
@@ -863,8 +913,10 @@ def run_aadt_validation(config: dict[str, Any], run_dir: str | Path) -> dict[str
             merged["synthetic_count"] = merged["synthetic_count"].fillna(0.0)
             merged["comparison_basis"] = merged["comparison_basis"].fillna("exact_day")
             merged = merged.merge(usable[["screenline_id", "tract_a", "tract_b", "station_count"]], on="screenline_id", how="left")
+            temporal_factor = float(counts["temporal_expansion_factor"].dropna().iloc[0]) if "temporal_expansion_factor" in counts and counts["temporal_expansion_factor"].notna().any() else _date_strata_expansion_from_counts(counts, config)
             merged["method"] = method
             merged["sample_expansion_factor"] = _sample_expansion_factor(run_dir, str(method))
+            merged["temporal_expansion_factor"] = temporal_factor
             merged["validation_tier"] = "exact_day"
             merged["residual"] = merged["synthetic_count"] - merged["observed_count"]
             merged["residual_pct_guarded"] = merged["residual"] / merged["observed_count"].clip(lower=1.0)
@@ -880,6 +932,8 @@ def run_aadt_validation(config: dict[str, Any], run_dir: str | Path) -> dict[str
                     "observed_count_temporal_label": "Exact station-day counts matched to reconstructed synthetic trip dates",
                     "validation_mode": mode,
                     "sample_expansion_factor": _sample_expansion_factor(run_dir, str(method)),
+                    "temporal_expansion_factor": temporal_factor,
+                    "effective_expansion_factor": _sample_expansion_factor(run_dir, str(method)) * temporal_factor,
                     "unique_screenlines": int(merged["screenline_id"].nunique()),
                     "unique_dates": int(pd.to_datetime(merged["trip_date"]).nunique()),
                 }
@@ -923,6 +977,8 @@ def run_aadt_validation(config: dict[str, Any], run_dir: str | Path) -> dict[str
         "daily_counts": _daily_count_config(config) if mode == "exact_day" else None,
         "hourly_counts": _hourly_count_config(config) if mode == "two_prong" else None,
         "survey_period": config.get("aadt_validation", {}).get("survey_period", {}),
+        "synthetic_population_basis": config.get("aadt_validation", {}).get("synthetic_population_basis", "average_day"),
+        "expand_date_strata_to_average_day": config.get("aadt_validation", {}).get("expand_date_strata_to_average_day", True),
         "assignment_note": "OD-to-screenline paths use centroid-line tract crossings as a geometric proxy, not true route assignment.",
     }
     write_json(result, run_dir / "metrics" / "aadt_validation_summary.json")
