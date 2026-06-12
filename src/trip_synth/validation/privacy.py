@@ -13,6 +13,7 @@ import pandas as pd
 from trip_synth.data.preprocessing import FittedPreprocessor
 from trip_synth.data.schema import FeatureSchema
 from trip_synth.utils.io import ensure_dir, write_json
+from trip_synth.utils.progress import progress_iter
 
 
 def _row_keys(df: pd.DataFrame, columns: list[str]) -> pd.Series:
@@ -42,7 +43,8 @@ def nearest_neighbor_distances(
     if train_x.shape[1] == 0 or len(train_x) == 0 or len(synth_x) == 0:
         return np.zeros(len(synth_x), dtype=float)
     mins = []
-    for i in range(0, len(synth_x), chunk_size):
+    starts = list(range(0, len(synth_x), chunk_size))
+    for i in progress_iter(starts, desc="privacy nearest-neighbor chunks", total=len(starts), unit="chunk"):
         chunk = synth_x[i : i + chunk_size]
         d2 = ((chunk[:, None, :] - train_x[None, :, :]) ** 2).mean(axis=2)
         mins.append(np.sqrt(np.min(d2, axis=1)))

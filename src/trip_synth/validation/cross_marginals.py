@@ -13,6 +13,7 @@ import pandas as pd
 from trip_synth.data.preprocessing import FittedPreprocessor
 from trip_synth.data.schema import FeatureSchema
 from trip_synth.utils.io import ensure_dir, write_json
+from trip_synth.utils.progress import progress_iter
 
 from .metrics import jensen_shannon, total_variation
 
@@ -106,7 +107,8 @@ def validate_method_cross_marginals(
     synth = add_derived_columns(synthetic_df)
     weights = real[schema.weight_column] if schema.weight_column in real.columns else None
     metrics: dict[str, Any] = {"method": method, "crosses": {}}
-    for a, b in DEFAULT_CROSSES:
+    crosses = list(DEFAULT_CROSSES)
+    for a, b in progress_iter(crosses, desc=f"{method} cross-marginals", total=len(crosses), unit="cross"):
         if a not in real.columns or b not in real.columns or a not in synth.columns or b not in synth.columns:
             continue
         rp = _weighted_cross(real, a, b, weights)

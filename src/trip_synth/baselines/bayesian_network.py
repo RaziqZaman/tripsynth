@@ -11,6 +11,7 @@ from trip_synth.data.postprocessing import finalize_synthetic
 from trip_synth.data.preprocessing import FittedPreprocessor
 from trip_synth.data.schema import FeatureSchema
 from trip_synth.utils.io import ensure_dir, write_json
+from trip_synth.utils.progress import progress_iter
 
 
 def _weighted_counts(values: pd.Series, weights: np.ndarray, smoothing: float = 0.0) -> tuple[list[str], np.ndarray]:
@@ -109,11 +110,12 @@ def fit(
     discrete, decoders = _discretize(features, preprocessor, max_bins=max_bins)
     columns = preprocessor.feature_columns
     mi = np.zeros((len(columns), len(columns)), dtype=float)
-    for i, a in enumerate(columns):
-        for j in range(i + 1, len(columns)):
-            b = columns[j]
-            val = _mutual_information(discrete[a], discrete[b], weights)
-            mi[i, j] = mi[j, i] = val
+    pairs = [(i, j) for i in range(len(columns)) for j in range(i + 1, len(columns))]
+    for i, j in progress_iter(pairs, desc="bayesian_network mutual information", total=len(pairs), unit="pair"):
+        a = columns[i]
+        b = columns[j]
+        val = _mutual_information(discrete[a], discrete[b], weights)
+        mi[i, j] = mi[j, i] = val
     parents = _maximum_spanning_tree(mi, columns)
 
     root = next(col for col, parent in parents.items() if parent is None)
@@ -170,7 +172,8 @@ def sample(
     pending = set(preprocessor.feature_columns) - {root}
     while pending:
         progressed = False
-        for col in list(pending):
+        pending_columns = list(pending)
+        for col in progress_iter(pending_columns, desc="bayesian_network sampling columns", total=len(pending_columns), unit="column", leave=False):
             parent = art["parents"][col]
             if parent is None or parent in sampled_disc.columns:
                 values = []
@@ -190,7 +193,8 @@ def sample(
             break
 
     decoded: dict[str, Any] = {}
-    for col in preprocessor.feature_columns:
+    feature_columns = list(preprocessor.feature_columns)
+    for col in progress_iter(feature_columns, desc="bayesian_network decoding", total=len(feature_columns), unit="column"):
         if col in preprocessor.numeric_columns:
             dec = art["decoders"].get(col, {})
             vals = []

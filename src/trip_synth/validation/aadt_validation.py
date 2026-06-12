@@ -14,6 +14,7 @@ import pandas as pd
 from trip_synth.data.load import read_survey_csv
 from trip_synth.data.schema import FeatureSchema, clean_fips_value
 from trip_synth.utils.io import ensure_dir, load_yaml, write_json
+from trip_synth.utils.progress import progress_iter
 
 from .aadt_screenlines import build_screenlines, comparison_basis_for_field, load_tracts, temporal_label
 from .metrics import geh, regression_slope_intercept, safe_corr
@@ -137,7 +138,8 @@ def build_od_screenline_paths(config: dict[str, Any], run_dir: str | Path):
     tract_lookup = tracts.set_index("GEOID")
     sindex = tracts.sindex
     path_rows: list[dict[str, Any]] = []
-    for origin, dest in od[["o_tract_fips", "d_tract_fips"]].itertuples(index=False):
+    od_pairs = od[["o_tract_fips", "d_tract_fips"]].itertuples(index=False)
+    for origin, dest in progress_iter(od_pairs, desc="AADT OD screenline paths", total=len(od), unit="pair"):
         if origin == dest or origin not in tract_lookup.index or dest not in tract_lookup.index:
             continue
         a = tract_lookup.loc[origin]
@@ -506,7 +508,8 @@ def build_virtual_screenline_counts(config: dict[str, Any], run_dir: str | Path)
     else:
         comparison_basis = comparison_basis_for_field(config, observed_field)
     outputs: dict[str, pd.DataFrame] = {}
-    for method in config.get("methods", []):
+    methods = list(config.get("methods", []))
+    for method in progress_iter(methods, desc="AADT virtual counts", total=len(methods), unit="method"):
         sample_path = run_dir / "samples" / f"{method}_synthetic.csv"
         if not sample_path.exists():
             continue
@@ -610,7 +613,8 @@ def _run_annual_average_tier(
     comparison_basis = _annual_comparison_basis(config, observed_field)
     comparison_rows: list[pd.DataFrame] = []
     summary_rows: list[dict[str, Any]] = []
-    for method in config.get("methods", []):
+    methods = list(config.get("methods", []))
+    for method in progress_iter(methods, desc="AADT annual tier", total=len(methods), unit="method"):
         sample_path = run_dir / "samples" / f"{method}_synthetic.csv"
         if not sample_path.exists():
             continue
@@ -680,7 +684,8 @@ def _run_hourly_tmas_tier(
     paths = build_od_screenline_paths(config, run_dir)
     comparison_rows: list[pd.DataFrame] = []
     summary_rows: list[dict[str, Any]] = []
-    for method in config.get("methods", []):
+    methods = list(config.get("methods", []))
+    for method in progress_iter(methods, desc="AADT hourly tier", total=len(methods), unit="method"):
         sample_path = run_dir / "samples" / f"{method}_synthetic.csv"
         if not sample_path.exists():
             continue
@@ -814,7 +819,8 @@ def run_aadt_validation(config: dict[str, Any], run_dir: str | Path) -> dict[str
         virtual = build_virtual_screenline_counts(config, run_dir)
         comparison_rows: list[pd.DataFrame] = []
         summary_rows: list[dict[str, Any]] = []
-        for method, counts in virtual.items():
+        virtual_items = list(virtual.items())
+        for method, counts in progress_iter(virtual_items, desc="AADT exact-day tier", total=len(virtual_items), unit="method"):
             if counts.empty or "trip_date" not in counts.columns:
                 continue
             counts = counts.copy()

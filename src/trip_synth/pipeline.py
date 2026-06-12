@@ -19,6 +19,7 @@ from trip_synth.models.train import fit_vae_method
 from trip_synth.utils.checkpoints import mark_stage_done, stage_done
 from trip_synth.utils.io import copy_if_exists, ensure_dir, load_yaml, write_json
 from trip_synth.utils.logging import setup_logger
+from trip_synth.utils.progress import progress_iter
 from trip_synth.utils.seed import set_seed
 from trip_synth.validation.aadt_screenlines import build_screenlines
 from trip_synth.validation.aadt_validation import run_aadt_validation
@@ -191,7 +192,7 @@ def run_pipeline(args: argparse.Namespace) -> Path:
     methods = [str(m) for m in config.get("methods", [])]
     synthetic_by_method: dict[str, pd.DataFrame] = {}
     sample_rows: dict[str, int] = {}
-    for method in methods:
+    for method in progress_iter(methods, desc="Pipeline synthesis methods", total=len(methods), unit="method"):
         synthetic = _fit_and_sample(
             method,
             real_df,
@@ -209,7 +210,8 @@ def run_pipeline(args: argparse.Namespace) -> Path:
     validation_cfg = config.get("validation", {})
     summary_rows: list[dict[str, Any]] = []
     privacy_rows: list[dict[str, Any]] = []
-    for method, synthetic in synthetic_by_method.items():
+    validation_items = list(synthetic_by_method.items())
+    for method, synthetic in progress_iter(validation_items, desc="Internal validation methods", total=len(validation_items), unit="method"):
         row: dict[str, Any] = {"method": method, "synthetic_rows": len(synthetic)}
         if validation_cfg.get("run_marginals", True):
             marg = validate_method_marginals(real_df, synthetic, schema, reference_preprocessor, method, run_dir)
@@ -230,6 +232,7 @@ def run_pipeline(args: argparse.Namespace) -> Path:
 
     aadt_status: dict[str, Any] | None = None
     if validation_cfg.get("run_aadt", False):
+        logger.info("Starting AADT/two-prong traffic validation")
         geo_files = config.get("geo", {})
         missing_geo = [
             p for p in geo_files.get("tract_files", []) if not Path(p).exists()
@@ -241,7 +244,9 @@ def run_pipeline(args: argparse.Namespace) -> Path:
             logger.info("Attempting external data download for AADT validation")
             manifest = download_external_data("configs/data_sources.yaml")
             write_json(manifest, run_dir / "data_cache" / "DATA_MANIFEST.json")
+        logger.info("Building AADT screenlines")
         screenline_status = build_screenlines(config, run_dir)
+        logger.info("Running AADT validation tiers")
         aadt_status = run_aadt_validation(config, run_dir)
         aadt_status["screenlines"] = screenline_status
     else:

@@ -3,12 +3,15 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import math
+
 import numpy as np
 import pandas as pd
 import torch
 
 from trip_synth.data.postprocessing import finalize_synthetic
 from trip_synth.data.schema import FeatureSchema
+from trip_synth.utils.progress import progress_bar
 
 
 def sample_vae_method(
@@ -30,7 +33,8 @@ def sample_vae_method(
     chunks = []
     remaining = int(n_rows)
     chunk_size = int(vae_cfg.get("sample_chunk_size", 50000))
-    with torch.no_grad():
+    total_chunks = math.ceil(remaining / chunk_size) if chunk_size > 0 else 0
+    with torch.no_grad(), progress_bar(total_chunks, f"{artifact['method']} sampling", unit="chunk") as bar:
         while remaining > 0:
             take = min(chunk_size, remaining)
             z = torch.randn(take, model.latent_dim, device=device)
@@ -50,5 +54,7 @@ def sample_vae_method(
             num_arr = num.detach().cpu().numpy() if num.numel() else np.zeros((take, 0), dtype=float)
             chunks.append(preprocessor.inverse_transform(cat_arr, num_arr, vae_cfg))
             remaining -= take
+            bar.set_postfix(rows_done=int(n_rows) - remaining)
+            bar.update(1)
     sample = pd.concat(chunks, ignore_index=True)
     return finalize_synthetic(sample, schema, preprocessor, artifact["method"], run_id)

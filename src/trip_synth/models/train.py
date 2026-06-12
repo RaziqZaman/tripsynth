@@ -18,6 +18,7 @@ from trip_synth.data.preprocessing import FittedPreprocessor, transform_weights
 from trip_synth.data.schema import FeatureSchema
 from trip_synth.data.splits import train_val_split
 from trip_synth.utils.io import ensure_dir, write_json
+from trip_synth.utils.progress import progress_bar, progress_iter
 from trip_synth.utils.seed import set_seed
 
 from .losses import infonce_loss, kl_divergence, reconstruction_loss
@@ -197,97 +198,112 @@ def fit_vae_method(
     write_json(preprocessor.to_dict(), output_dir / "preprocessor.json")
     write_json({"method": method, "vae": vae_cfg, "schema": schema.to_dict()}, output_dir / "model_config.json")
 
-    for epoch in range(1, int(vae_cfg["epochs"]) + 1):
-        model.train()
-        losses = []
-        rec_losses = []
-        kl_losses = []
-        contrastive_losses = []
-        for batch in _batch_indices(len(train_part), int(vae_cfg["batch_size"]), rng):
-            cat = train_t["cat"][batch]
-            num = train_t["num"][batch]
-            weights = train_t["weights"][batch]
-            optimizer.zero_grad(set_to_none=True)
-            with torch.autocast(device_type=device.type, enabled=use_amp):
-                cat_logits, num_pred, mu, logvar, _ = model(cat, num)
-                rec = reconstruction_loss(
-                    cat_logits,
-                    num_pred,
-                    cat,
-                    num,
-                    weights,
-                    numeric_loss=str(vae_cfg.get("numeric_loss", "mse")),
-                )
-                kl = kl_divergence(mu, logvar, weights)
-                contrastive = cat.new_tensor(0.0, dtype=torch.float32)
-                lam = float(vae_cfg.get("lambda_contrastive", 0.0))
-                if lam > 0:
-                    pos_cat, pos_num = _make_positive(cat, num, model, preprocessor, vae_cfg)
-                    neg_cat, neg_num = _make_negative(cat, num, model, vae_cfg)
-                    pos_mu, _ = model.encode(pos_cat, pos_num)
-                    neg_mu, _ = model.encode(neg_cat, neg_num)
-                    contrastive = infonce_loss(
-                        mu,
-                        pos_mu,
-                        neg_mu,
-                        temperature=float(vae_cfg.get("contrastive_temperature", 0.1)),
+    total_epochs = int(vae_cfg["epochs"])
+    with progress_bar(total_epochs, f"{method} training", unit="epoch") as epoch_bar:
+        for epoch in range(1, total_epochs + 1):
+            model.train()
+            losses = []
+            rec_losses = []
+            kl_losses = []
+            contrastive_losses = []
+            batches = _batch_indices(len(train_part), int(vae_cfg["batch_size"]), rng)
+            for batch in progress_iter(
+                batches,
+                desc=f"{method} epoch {epoch}/{total_epochs}",
+                total=len(batches),
+                unit="batch",
+                leave=False,
+            ):
+                cat = train_t["cat"][batch]
+                num = train_t["num"][batch]
+                weights = train_t["weights"][batch]
+                optimizer.zero_grad(set_to_none=True)
+                with torch.autocast(device_type=device.type, enabled=use_amp):
+                    cat_logits, num_pred, mu, logvar, _ = model(cat, num)
+                    rec = reconstruction_loss(
+                        cat_logits,
+                        num_pred,
+                        cat,
+                        num,
+                        weights,
+                        numeric_loss=str(vae_cfg.get("numeric_loss", "mse")),
                     )
-                loss = rec + float(vae_cfg.get("beta_kl", 0.05)) * kl + lam * contrastive
-            scaler.scale(loss).backward()
-            scaler.unscale_(optimizer)
-            torch.nn.utils.clip_grad_norm_(model.parameters(), float(vae_cfg.get("grad_clip", 5.0)))
-            scaler.step(optimizer)
-            scaler.update()
-            losses.append(float(loss.detach().cpu()))
-            rec_losses.append(float(rec.detach().cpu()))
-            kl_losses.append(float(kl.detach().cpu()))
-            contrastive_losses.append(float(contrastive.detach().cpu()))
+                    kl = kl_divergence(mu, logvar, weights)
+                    contrastive = cat.new_tensor(0.0, dtype=torch.float32)
+                    lam = float(vae_cfg.get("lambda_contrastive", 0.0))
+                    if lam > 0:
+                        pos_cat, pos_num = _make_positive(cat, num, model, preprocessor, vae_cfg)
+                        neg_cat, neg_num = _make_negative(cat, num, model, vae_cfg)
+                        pos_mu, _ = model.encode(pos_cat, pos_num)
+                        neg_mu, _ = model.encode(neg_cat, neg_num)
+                        contrastive = infonce_loss(
+                            mu,
+                            pos_mu,
+                            neg_mu,
+                            temperature=float(vae_cfg.get("contrastive_temperature", 0.1)),
+                        )
+                    loss = rec + float(vae_cfg.get("beta_kl", 0.05)) * kl + lam * contrastive
+                scaler.scale(loss).backward()
+                scaler.unscale_(optimizer)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), float(vae_cfg.get("grad_clip", 5.0)))
+                scaler.step(optimizer)
+                scaler.update()
+                losses.append(float(loss.detach().cpu()))
+                rec_losses.append(float(rec.detach().cpu()))
+                kl_losses.append(float(kl.detach().cpu()))
+                contrastive_losses.append(float(contrastive.detach().cpu()))
 
-        val = _evaluate(model, val_t, vae_cfg)
-        row = {
-            "epoch": float(epoch),
-            "train_loss": float(np.mean(losses)),
-            "train_reconstruction": float(np.mean(rec_losses)),
-            "train_kl": float(np.mean(kl_losses)),
-            "train_contrastive": float(np.mean(contrastive_losses)),
-            "val_loss": val["loss"],
-            "val_reconstruction": val["reconstruction"],
-            "val_kl": val["kl"],
-        }
-        history.append(row)
-        if val["loss"] < best_loss:
-            best_loss = val["loss"]
-            best_state = {k: v.detach().cpu() for k, v in model.state_dict().items()}
-            epochs_since_best = 0
-            torch.save(
-                {
-                    "state_dict": best_state,
-                    "config": vae_cfg,
-                    "preprocessor": preprocessor.to_dict(),
-                    "method": method,
-                    "epoch": epoch,
-                    "val_loss": best_loss,
-                },
-                output_dir / "best_checkpoint.pt",
-            )
-        else:
-            epochs_since_best += 1
+            val = _evaluate(model, val_t, vae_cfg)
+            row = {
+                "epoch": float(epoch),
+                "train_loss": float(np.mean(losses)),
+                "train_reconstruction": float(np.mean(rec_losses)),
+                "train_kl": float(np.mean(kl_losses)),
+                "train_contrastive": float(np.mean(contrastive_losses)),
+                "val_loss": val["loss"],
+                "val_reconstruction": val["reconstruction"],
+                "val_kl": val["kl"],
+            }
+            history.append(row)
+            if val["loss"] < best_loss:
+                best_loss = val["loss"]
+                best_state = {k: v.detach().cpu() for k, v in model.state_dict().items()}
+                epochs_since_best = 0
+                torch.save(
+                    {
+                        "state_dict": best_state,
+                        "config": vae_cfg,
+                        "preprocessor": preprocessor.to_dict(),
+                        "method": method,
+                        "epoch": epoch,
+                        "val_loss": best_loss,
+                    },
+                    output_dir / "best_checkpoint.pt",
+                )
+            else:
+                epochs_since_best += 1
 
-        if epoch % int(vae_cfg.get("checkpoint_every", 5)) == 0 or epoch == int(vae_cfg["epochs"]):
-            torch.save(
-                {
-                    "state_dict": {k: v.detach().cpu() for k, v in model.state_dict().items()},
-                    "optimizer": optimizer.state_dict(),
-                    "scaler": scaler.state_dict(),
-                    "config": vae_cfg,
-                    "preprocessor": preprocessor.to_dict(),
-                    "method": method,
-                    "epoch": epoch,
-                },
-                checkpoint_dir / f"epoch_{epoch:04d}.pt",
+            if epoch % int(vae_cfg.get("checkpoint_every", 5)) == 0 or epoch == total_epochs:
+                torch.save(
+                    {
+                        "state_dict": {k: v.detach().cpu() for k, v in model.state_dict().items()},
+                        "optimizer": optimizer.state_dict(),
+                        "scaler": scaler.state_dict(),
+                        "config": vae_cfg,
+                        "preprocessor": preprocessor.to_dict(),
+                        "method": method,
+                        "epoch": epoch,
+                    },
+                    checkpoint_dir / f"epoch_{epoch:04d}.pt",
+                )
+            epoch_bar.set_postfix(
+                train_loss=f"{row['train_loss']:.4f}",
+                val_loss=f"{row['val_loss']:.4f}",
+                best=f"{best_loss:.4f}",
             )
-        if epochs_since_best >= patience:
-            break
+            epoch_bar.update(1)
+            if epochs_since_best >= patience:
+                break
 
     if best_state is not None:
         model.load_state_dict(best_state)

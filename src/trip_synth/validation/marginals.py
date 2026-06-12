@@ -13,6 +13,7 @@ import pandas as pd
 from trip_synth.data.preprocessing import FittedPreprocessor
 from trip_synth.data.schema import FeatureSchema
 from trip_synth.utils.io import ensure_dir, write_json
+from trip_synth.utils.progress import progress_iter
 
 from .metrics import (
     align_distributions,
@@ -71,7 +72,8 @@ def validate_method_marginals(
     metrics: dict[str, Any] = {"method": method, "columns": {}}
     weights = real_df[schema.weight_column] if schema.weight_column in real_df.columns else None
 
-    for col in preprocessor.feature_columns:
+    columns = list(preprocessor.feature_columns)
+    for col in progress_iter(columns, desc=f"{method} marginals", total=len(columns), unit="column"):
         if col not in synthetic_df.columns or col not in real_df.columns:
             continue
         if col in preprocessor.categorical_columns:

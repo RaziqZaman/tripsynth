@@ -10,6 +10,7 @@ from trip_synth.data.postprocessing import finalize_synthetic
 from trip_synth.data.preprocessing import FittedPreprocessor
 from trip_synth.data.schema import FeatureSchema
 from trip_synth.utils.io import ensure_dir, write_json
+from trip_synth.utils.progress import progress_iter
 
 
 def _probabilities(values: pd.Series, weights: np.ndarray) -> tuple[list[Any], np.ndarray]:
@@ -43,7 +44,8 @@ def fit(
 
     marginals: dict[str, tuple[list[Any], np.ndarray]] = {}
     conditionals: dict[str, dict[tuple[str, ...], tuple[list[Any], np.ndarray]]] = {}
-    for target in preprocessor.feature_columns:
+    feature_columns = list(preprocessor.feature_columns)
+    for target in progress_iter(feature_columns, desc="gibbs fit conditionals", total=len(feature_columns), unit="column"):
         marginals[target] = _probabilities(features[target], weights)
         parents = [c for c in context_columns if c != target][:2]
         table: dict[tuple[str, ...], tuple[list[Any], np.ndarray]] = {}
@@ -96,8 +98,9 @@ def sample(
     sweeps = int(config.get("gibbs", {}).get("sweeps", 3))
     context_columns = artifacts["context_columns"]
 
-    for _ in range(sweeps):
-        for target in artifacts["preprocessor"].feature_columns:
+    for sweep in progress_iter(range(sweeps), desc="gibbs sampling sweeps", total=sweeps, unit="sweep"):
+        feature_columns = list(artifacts["preprocessor"].feature_columns)
+        for target in progress_iter(feature_columns, desc=f"gibbs sweep {sweep + 1}/{sweeps}", total=len(feature_columns), unit="column", leave=False):
             parents = [c for c in context_columns if c != target][:2]
             marginal_values, marginal_probs = artifacts["marginals"][target]
             table = artifacts["conditionals"].get(target, {})
