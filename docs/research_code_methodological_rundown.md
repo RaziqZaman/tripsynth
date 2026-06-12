@@ -230,10 +230,11 @@ It is enabled in `medium.yaml` and `full.yaml` with `validation.run_aadt: true` 
 
 ### External Data Used
 
-The geospatial foundation uses the 2019 Census TIGER tract vintage for Maryland and DC:
+The geospatial foundation uses the 2019 Census TIGER tract vintage for Maryland, DC, and Virginia, but the run configs now keep only MD/DC/VA tract GEOIDs that appear in the survey origin, destination, home, or work tract fields. This avoids building screenlines for jurisdictional tracts that cannot be crossed by any synthesized OD pair in the modeled data.
 
 - `https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_24_tract.zip`
 - `https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_11_tract.zip`
+- `https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_51_tract.zip`
 
 The MDOT SHA AADT FeatureServer is used for dense station point geometry, station identifiers, and annual-average count fields:
 
@@ -268,14 +269,16 @@ VDOT and DDOT public traffic-volume layers were also checked. They are useful fo
 
 The screenline proxy remains a tract-boundary method rather than a full network assignment:
 
-1. Load 2019 MD/DC TIGER tracts and project them to the configured CRS.
+1. Load 2019 MD/DC/VA TIGER tracts, filter them to survey-observed tract GEOIDs, and project them to the configured CRS.
 2. Build adjacent tract pairs that share a boundary.
 3. Convert each adjacent pair into a `screenline_id`.
 4. Load MDOT AADT station points.
-5. Search for stations near each tract boundary using configured buffers.
-6. Apply `station_membership_rule: boundary_closer_than_nearest_tract_centroid`: a station is retained only when it is closer to the shared tract boundary than to the nearer adjacent tract centroid.
+5. Search for stations near each tract boundary using configured buffers. With `screenline_candidate_scope: observed_station_buffer`, adjacency evaluation is limited to boundaries near observed AADT stations.
+6. Apply `station_membership_rule: boundary_closer_than_nearest_tract_centroid` with `boundary_distance_ratio_threshold: 0.5`: a station is retained only when its distance to the shared tract boundary is less than half its distance to the nearer adjacent tract centroid.
 7. Sum retained annual-average station counts to form dense observed screenline totals.
-8. Save `geo/screenline_station_map.parquet` with annual station count, boundary distance, centroid distance, and membership-rule metadata.
+8. Save `geo/screenline_station_map.parquet` with annual station count, boundary distance, centroid distance, boundary/centroid distance ratio, and membership-rule metadata.
+
+Geospatial intermediates are cached with metadata signatures. Tract, adjacency, AADT-point, screenline, and OD-path caches are reused only when their source files and relevant config options still match. Screenline caches depend on the tract filter and station-selection settings; OD-path caches additionally depend on the real input file and any synthetic sample files because the candidate OD-pair set can change across runs.
 
 ### Dense Annual-Average Tier
 

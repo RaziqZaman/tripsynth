@@ -2,7 +2,7 @@
 
 ## Census TIGER Tracts
 
-The downloader reads `configs/data_sources.yaml`, downloads the configured 2019 TIGER tract ZIP files for Maryland and the District of Columbia, extracts them under `data/external/tiger_tracts/`, and validates that the shapefiles can be opened when GeoPandas is installed. The run configs point to the 2019 tract vintage for the 2017-2019 survey window.
+The downloader reads `configs/data_sources.yaml`, downloads the configured 2019 TIGER tract ZIP files for Maryland, the District of Columbia, and Virginia, extracts them under `data/external/tiger_tracts/`, and validates that the shapefiles can be opened when GeoPandas is installed. The run configs point to the 2019 tract vintage for the 2017-2019 survey window.
 
 ## MDOT SHA AADT Station Locations
 

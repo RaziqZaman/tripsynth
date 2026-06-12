@@ -10,6 +10,10 @@ census_tiger:
       state_fips: '11'
       tract_zip_url: https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_11_tract.zip
       output_dir: data/external/tiger_tracts/dc_2019
+    virginia:
+      state_fips: '51'
+      tract_zip_url: https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_51_tract.zip
+      output_dir: data/external/tiger_tracts/va_2019
 mdot_aadt:
   service_root: https://mdgeodata.md.gov/imap/rest/services/Transportation/MD_AnnualAverageDailyTraffic/FeatureServer
   points_layer_id: 0

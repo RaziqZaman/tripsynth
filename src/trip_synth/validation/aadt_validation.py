@@ -64,6 +64,35 @@ def _clean_tract_series(series: pd.Series) -> pd.Series:
     return series.map(clean_fips_value).astype(str)
 
 
+def _file_signature(path: str | Path) -> dict[str, Any]:
+    p = Path(path)
+    signature: dict[str, Any] = {"path": str(p)}
+    if p.exists():
+        stat = p.stat()
+        signature.update({"size": stat.st_size, "mtime_ns": stat.st_mtime_ns})
+    else:
+        signature["missing"] = True
+    return signature
+
+
+def _od_paths_signature(config: dict[str, Any], run_dir: Path) -> dict[str, Any]:
+    sample_signatures = []
+    for method in config.get("methods", []):
+        sample_path = run_dir / "samples" / f"{method}_synthetic.csv"
+        if sample_path.exists():
+            sample_signatures.append({"method": str(method), **_file_signature(sample_path)})
+    return {
+        "cache_version": 1,
+        "input_csv": _file_signature(config.get("input_csv", "")),
+        "methods": [str(m) for m in config.get("methods", [])],
+        "sample_files": sample_signatures,
+        "max_od_pairs": int(config.get("aadt_validation", {}).get("max_od_pairs", 250000)),
+        "path_method": str(config.get("aadt_validation", {}).get("path_method", "centroid_line")),
+        "tracts_metadata": read_json(run_dir / "geo" / "tracts_metadata.json", {}),
+        "screenlines_metadata": read_json(run_dir / "geo" / "screenlines_metadata.json", {}),
+    }
+
+
 def _candidate_od_pairs(config: dict[str, Any], run_dir: Path) -> pd.DataFrame:
     schema = FeatureSchema.from_yaml("configs/schema.yaml")
     real_df, _ = read_survey_csv(config["input_csv"], schema)
@@ -120,13 +149,14 @@ def build_od_screenline_paths(config: dict[str, Any], run_dir: str | Path):
 
     run_dir = Path(run_dir)
     out_path = run_dir / "geo" / "od_screenline_paths.parquet"
-    if out_path.exists():
-        return pd.read_parquet(out_path)
+    meta_path = run_dir / "geo" / "od_screenline_paths_metadata.json"
     screenline_path = run_dir / "geo" / "screenlines.parquet"
-    if not screenline_path.exists():
-        status = build_screenlines(config, run_dir)
-        if status.get("status") != "ok":
-            raise FileNotFoundError("screenlines.parquet is unavailable and could not be built")
+    status = build_screenlines(config, run_dir)
+    if not screenline_path.exists() or status.get("status") != "ok":
+        raise FileNotFoundError("screenlines.parquet is unavailable and could not be built")
+    signature = _od_paths_signature(config, run_dir)
+    if out_path.exists() and read_json(meta_path, {}) == signature:
+        return pd.read_parquet(out_path)
     tracts = load_tracts(config, run_dir)
     screenlines = gpd.read_parquet(screenline_path)
     valid_screenlines = set(screenlines["screenline_id"].astype(str))
@@ -134,6 +164,7 @@ def build_od_screenline_paths(config: dict[str, Any], run_dir: str | Path):
     if od.empty:
         empty = pd.DataFrame(columns=["o_tract_fips", "d_tract_fips", "path_position", "screenline_id"])
         empty.to_parquet(out_path)
+        write_json(signature, meta_path)
         return empty
     tract_lookup = tracts.set_index("GEOID")
     sindex = tracts.sindex
@@ -166,6 +197,7 @@ def build_od_screenline_paths(config: dict[str, Any], run_dir: str | Path):
     if paths.empty:
         paths = pd.DataFrame(columns=["o_tract_fips", "d_tract_fips", "path_position", "screenline_id"])
     paths.to_parquet(out_path)
+    write_json(signature, meta_path)
     return paths
 
 

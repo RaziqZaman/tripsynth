@@ -140,13 +140,21 @@ def test_station_boundary_membership_requires_boundary_closer_than_centroid() ->
     tract_a_centroid = Point(-100, 5)
     tract_b_centroid = Point(100, 5)
 
-    near_boundary, boundary_dist, centroid_dist = _station_boundary_membership(
-        Point(5, 5), boundary, tract_a_centroid, tract_b_centroid
+    near_boundary, boundary_dist, centroid_dist, ratio = _station_boundary_membership(
+        Point(5, 5), boundary, tract_a_centroid, tract_b_centroid, ratio_threshold=1.0
     )
-    near_centroid, _, _ = _station_boundary_membership(Point(-90, 5), boundary, tract_a_centroid, tract_b_centroid)
+    strict_boundary, _, _, strict_ratio = _station_boundary_membership(
+        Point(45, 5), boundary, tract_a_centroid, tract_b_centroid, ratio_threshold=0.5
+    )
+    near_centroid, _, _, _ = _station_boundary_membership(
+        Point(-90, 5), boundary, tract_a_centroid, tract_b_centroid, ratio_threshold=1.0
+    )
 
     assert near_boundary is True
     assert boundary_dist < centroid_dist
+    assert ratio < 1.0
+    assert strict_boundary is False
+    assert strict_ratio > 0.5
     assert near_centroid is False
 
 

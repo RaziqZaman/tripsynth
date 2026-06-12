@@ -52,10 +52,22 @@ geo:
   tract_files:
   - data/external/tiger_tracts/md_2019/tl_2019_24_tract.shp
   - data/external/tiger_tracts/dc_2019/tl_2019_11_tract.shp
+  - data/external/tiger_tracts/va_2019/tl_2019_51_tract.shp
   aadt_points_file: data/external/mdot_aadt/aadt_points.geojson
   aadt_segments_file: data/external/mdot_aadt/aadt_segments.geojson
   crs_projected: EPSG:26985
   tract_vintage: 2019
+  tract_filter:
+    enabled: true
+    data_limited_state_fips:
+    - 11
+    - 24
+    - 51
+    columns:
+    - o_tract_fips
+    - d_tract_fips
+    - home_tract_fips
+    - work_tract_fips
 aadt_validation:
   path_method: centroid_line
   max_od_pairs: 250000

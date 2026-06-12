@@ -8,7 +8,7 @@ methods:
 - noncontrastive_vae
 - contrastive_vae
 vae:
-  epochs: 720
+  epochs: 1260
   batch_size: 2048
   latent_dim: 512
   depth: 4
@@ -22,13 +22,11 @@ vae:
   contrastive_temperature: 0.1
   positive_aug: light
   negative_mode: marginal
-  checkpoint_every: 10
-  early_stopping_patience: 30
+  checkpoint_every: 100
+  early_stopping_patience: 1260
   sample_temperature: 0.75
   sample_chunk_size: 25000
   max_single_file_rows: 1000000
-  training_time_budget_from_method: bayesian_network
-  training_time_budget_max_epochs: 100000
   weighting:
     use_weight_for_training_loss: true
     transform: capped_normalized
@@ -55,14 +53,28 @@ geo:
   tract_files:
   - data/external/tiger_tracts/md_2019/tl_2019_24_tract.shp
   - data/external/tiger_tracts/dc_2019/tl_2019_11_tract.shp
+  - data/external/tiger_tracts/va_2019/tl_2019_51_tract.shp
   aadt_points_file: data/external/mdot_aadt/aadt_points.geojson
   aadt_segments_file: data/external/mdot_aadt/aadt_segments.geojson
   crs_projected: EPSG:26985
   tract_vintage: 2019
+  tract_filter:
+    enabled: true
+    data_limited_state_fips:
+    - 11
+    - 24
+    - 51
+    columns:
+    - o_tract_fips
+    - d_tract_fips
+    - home_tract_fips
+    - work_tract_fips
 aadt_validation:
   path_method: centroid_line
   max_od_pairs: 250000
   station_membership_rule: boundary_closer_than_nearest_tract_centroid
+  boundary_distance_ratio_threshold: 0.5
+  screenline_candidate_scope: observed_station_buffer
   annual_comparison_basis: average_day
   validation_mode: two_prong
   synthetic_population_basis: average_day
