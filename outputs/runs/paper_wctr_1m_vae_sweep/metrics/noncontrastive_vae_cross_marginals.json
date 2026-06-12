@@ -1,0 +1,423 @@
+{
+  "method": "noncontrastive_vae",
+  "crosses": {
+    "o_activity__x__d_activity": {
+      "total_variation": 0.1125326882287399,
+      "jensen_shannon": 0.12855301929581298,
+      "top_cell_abs_errors": [
+        {
+          "cell": "1|2",
+          "abs_error": 0.020759757413369634
+        },
+        {
+          "cell": "2|1",
+          "abs_error": 0.017731039291585343
+        },
+        {
+          "cell": "16|1",
+          "abs_error": 0.010628758050654497
+        },
+        {
+          "cell": "16|16",
+          "abs_error": 0.00975779357284882
+        },
+        {
+          "cell": "5|5",
+          "abs_error": 0.007834374631287947
+        },
+        {
+          "cell": "1|16",
+          "abs_error": 0.006659792679134177
+        },
+        {
+          "cell": "1|9",
+          "abs_error": 0.00620084498907956
+        },
+        {
+          "cell": "11|1",
+          "abs_error": 0.005667251559797125
+        },
+        {
+          "cell": "6|1",
+          "abs_error": 0.005095164684498945
+        },
+        {
+          "cell": "1|5",
+          "abs_error": 0.004134016294048026
+        }
+      ]
+    },
+    "travel_mode__x__departure_time_bin": {
+      "total_variation": 0.13828197122390173,
+      "jensen_shannon": 0.14989693322129752,
+      "top_cell_abs_errors": [
+        {
+          "cell": "4|midday",
+          "abs_error": 0.13806915656233248
+        },
+        {
+          "cell": "4|am_peak",
+          "abs_error": 0.06174161033804437
+        },
+        {
+          "cell": "4|evening",
+          "abs_error": 0.027990658236580347
+        },
+        {
+          "cell": "4|night",
+          "abs_error": 0.01653325510207588
+        },
+        {
+          "cell": "5|pm_peak",
+          "abs_error": 0.012183073381473137
+        },
+        {
+          "cell": "5|am_peak",
+          "abs_error": 0.010733478426276831
+        },
+        {
+          "cell": "4|pm_peak",
+          "abs_error": 0.004434756539786533
+        },
+        {
+          "cell": "5|evening",
+          "abs_error": 0.0030645094496023527
+        },
+        {
+          "cell": "5|midday",
+          "abs_error": 0.0015452909545042824
+        },
+        {
+          "cell": "5|night",
+          "abs_error": 8.794541004399081e-05
+        }
+      ]
+    },
+    "o_county_fips__x__d_county_fips": {
+      "total_variation": 0.3851861678720082,
+      "jensen_shannon": 0.4191433789531815,
+      "top_cell_abs_errors": [
+        {
+          "cell": "51059|51059",
+          "abs_error": 0.048630612281869906
+        },
+        {
+          "cell": "24005|24005",
+          "abs_error": 0.046973609205376285
+        },
+        {
+          "cell": "24031|24031",
+          "abs_error": 0.04226783973931948
+        },
+        {
+          "cell": "24033|24033",
+          "abs_error": 0.023794894758552603
+        },
+        {
+          "cell": "24510|24510",
+          "abs_error": 0.0151261853755618
+        },
+        {
+          "cell": "24003|24003",
+          "abs_error": 0.015025797368018054
+        },
+        {
+          "cell": "51153|51153",
+          "abs_error": 0.013932410156359687
+        },
+        {
+          "cell": "51059|24031",
+          "abs_error": 0.013426196106407568
+        },
+        {
+          "cell": "24031|51059",
+          "abs_error": 0.013076766959274481
+        },
+        {
+          "cell": "24025|24025",
+          "abs_error": 0.011666451407187532
+        }
+      ]
+    },
+    "tdate_dow__x__departure_time_bin": {
+      "total_variation": 0.1417699310029182,
+      "jensen_shannon": 0.1515975079284717,
+      "top_cell_abs_errors": [
+        {
+          "cell": "3|midday",
+          "abs_error": 0.040624729677991064
+        },
+        {
+          "cell": "5|midday",
+          "abs_error": 0.027315986104546608
+        },
+        {
+          "cell": "2|midday",
+          "abs_error": 0.026365565892023025
+        },
+        {
+          "cell": "2|am_peak",
+          "abs_error": 0.021191778717979348
+        },
+        {
+          "cell": "4|midday",
+          "abs_error": 0.02115376903605888
+        },
+        {
+          "cell": "1|midday",
+          "abs_error": 0.021130130285165305
+        },
+        {
+          "cell": "4|am_peak",
+          "abs_error": 0.020818465830483468
+        },
+        {
+          "cell": "1|am_peak",
+          "abs_error": 0.014999275621109857
+        },
+        {
+          "cell": "5|am_peak",
+          "abs_error": 0.012275460467213138
+        },
+        {
+          "cell": "5|evening",
+          "abs_error": 0.009257077491254515
+        }
+      ]
+    },
+    "hh_income_detailed__x__vehicle_occupancy": {
+      "total_variation": 0.15005971027400355,
+      "jensen_shannon": 0.16082657678490464,
+      "top_cell_abs_errors": [
+        {
+          "cell": "8|1",
+          "abs_error": 0.07848974781653156
+        },
+        {
+          "cell": "7|2",
+          "abs_error": 0.028261754528593086
+        },
+        {
+          "cell": "7|1",
+          "abs_error": 0.024949496656733183
+        },
+        {
+          "cell": "6|1",
+          "abs_error": 0.02150691254659827
+        },
+        {
+          "cell": "8|2",
+          "abs_error": 0.018695351106350018
+        },
+        {
+          "cell": "5|1",
+          "abs_error": 0.01765410573823742
+        },
+        {
+          "cell": "6|2",
+          "abs_error": 0.01660232269057879
+        },
+        {
+          "cell": "4|1",
+          "abs_error": 0.01027261497533228
+        },
+        {
+          "cell": "8|3",
+          "abs_error": 0.009240393140949021
+        },
+        {
+          "cell": "4|2",
+          "abs_error": 0.007659632486486403
+        }
+      ]
+    },
+    "o_activity__x__travel_mode": {
+      "total_variation": 0.06828664755353771,
+      "jensen_shannon": 0.08242484196488302,
+      "top_cell_abs_errors": [
+        {
+          "cell": "5|4",
+          "abs_error": 0.01713328545727158
+        },
+        {
+          "cell": "2|4",
+          "abs_error": 0.01616178043403224
+        },
+        {
+          "cell": "1|4",
+          "abs_error": 0.013486864749603034
+        },
+        {
+          "cell": "11|4",
+          "abs_error": 0.012535952314010643
+        },
+        {
+          "cell": "1|5",
+          "abs_error": 0.01033431996996375
+        },
+        {
+          "cell": "16|4",
+          "abs_error": 0.009993925721858435
+        },
+        {
+          "cell": "4|4",
+          "abs_error": 0.009646093381944863
+        },
+        {
+          "cell": "7|4",
+          "abs_error": 0.005715644065329303
+        },
+        {
+          "cell": "9|4",
+          "abs_error": 0.005407176998865275
+        },
+        {
+          "cell": "6|4",
+          "abs_error": 0.00502950175599437
+        }
+      ]
+    },
+    "d_activity__x__travel_mode": {
+      "total_variation": 0.07400691283832254,
+      "jensen_shannon": 0.08357811342461617,
+      "top_cell_abs_errors": [
+        {
+          "cell": "1|4",
+          "abs_error": 0.021240120356649184
+        },
+        {
+          "cell": "5|4",
+          "abs_error": 0.017599946318277798
+        },
+        {
+          "cell": "2|4",
+          "abs_error": 0.0157886781454597
+        },
+        {
+          "cell": "9|4",
+          "abs_error": 0.01203772059189263
+        },
+        {
+          "cell": "16|4",
+          "abs_error": 0.011055921214001702
+        },
+        {
+          "cell": "1|5",
+          "abs_error": 0.010906868969150767
+        },
+        {
+          "cell": "7|4",
+          "abs_error": 0.009372596214412748
+        },
+        {
+          "cell": "11|4",
+          "abs_error": 0.009218502512380267
+        },
+        {
+          "cell": "13|4",
+          "abs_error": 0.005171806746476663
+        },
+        {
+          "cell": "4|5",
+          "abs_error": 0.004547131141417049
+        }
+      ]
+    },
+    "distance_bin__x__reported_travel_time_bin": {
+      "total_variation": 0.3674247526208861,
+      "jensen_shannon": 0.4825821869599173,
+      "top_cell_abs_errors": [
+        {
+          "cell": "0_1|10_20",
+          "abs_error": 0.2211369921947916
+        },
+        {
+          "cell": "1_3|0_10",
+          "abs_error": 0.16909524515619687
+        },
+        {
+          "cell": "0_1|0_10",
+          "abs_error": 0.1022310212759257
+        },
+        {
+          "cell": "3_7|0_10",
+          "abs_error": 0.04819267989987442
+        },
+        {
+          "cell": "0_1|20_40",
+          "abs_error": 0.04069715981732441
+        },
+        {
+          "cell": "7_15|10_20",
+          "abs_error": 0.03157229277722816
+        },
+        {
+          "cell": "30_plus|60_120",
+          "abs_error": 0.02541024985479755
+        },
+        {
+          "cell": "3_7|10_20",
+          "abs_error": 0.02132362652231276
+        },
+        {
+          "cell": "15_30|20_40",
+          "abs_error": 0.011108275164771475
+        },
+        {
+          "cell": "1_3|20_40",
+          "abs_error": 0.011012601062564992
+        }
+      ]
+    },
+    "year__x__vehicle": {
+      "total_variation": 0.8627195157422938,
+      "jensen_shannon": 0.8572663163346566,
+      "top_cell_abs_errors": [
+        {
+          "cell": "-1|(-1, -1, -1, -1)",
+          "abs_error": 0.03701258577072585
+        },
+        {
+          "cell": "2019|(Honda, Accord, 1.0, 1.0)",
+          "abs_error": 0.016374994516013913
+        },
+        {
+          "cell": "2019|(Toyota, Camry, 1.0, 1.0)",
+          "abs_error": 0.015682846368845673
+        },
+        {
+          "cell": "2019|(Honda, CR-V, 3.0, 1.0)",
+          "abs_error": 0.011429
+        },
+        {
+          "cell": "2019|(Toyota, Corolla, 1.0, 1.0)",
+          "abs_error": 0.010589
+        },
+        {
+          "cell": "2019|(Honda, Odyssey, 2.0, 1.0)",
+          "abs_error": 0.00917792463473112
+        },
+        {
+          "cell": "2019|(Toyota, Sienna, 2.0, 1.0)",
+          "abs_error": 0.008866
+        },
+        {
+          "cell": "2019|(Honda, Civic, 1.0, 1.0)",
+          "abs_error": 0.008549
+        },
+        {
+          "cell": "2019|(Toyota, Prius, 1.0, 4.0)",
+          "abs_error": 0.007367
+        },
+        {
+          "cell": "2019|(Toyota, RAV4, 3.0, 1.0)",
+          "abs_error": 0.005941281743714162
+        }
+      ]
+    }
+  },
+  "summary": {
+    "mean_cross_tv": 0.25558536637295687,
+    "cross_marginal_similarity_score": 0.7444146336270432
+  }
+}

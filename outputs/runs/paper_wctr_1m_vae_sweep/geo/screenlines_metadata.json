@@ -1,0 +1,90 @@
+{
+  "cache_version": 1,
+  "tracts_metadata": {
+    "tract_files": [
+      "data/external/tiger_tracts/md_2019/tl_2019_24_tract.shp",
+      "data/external/tiger_tracts/dc_2019/tl_2019_11_tract.shp",
+      "data/external/tiger_tracts/va_2019/tl_2019_51_tract.shp"
+    ],
+    "crs_projected": "EPSG:26985",
+    "tract_vintage": 2019,
+    "point_fields": "representative_and_centroid_v2",
+    "tract_filter": {
+      "enabled": true,
+      "data_limited_state_fips": [
+        11,
+        24,
+        51
+      ],
+      "columns": [
+        "o_tract_fips",
+        "d_tract_fips",
+        "home_tract_fips",
+        "work_tract_fips"
+      ]
+    },
+    "input_csv": "05_transformed_survey.csv",
+    "input_csv_size": 20728881,
+    "input_csv_mtime_ns": 1781195774766250855
+  },
+  "tract_adjacency_metadata": {
+    "cache_version": 1,
+    "tracts_metadata": {
+      "tract_files": [
+        "data/external/tiger_tracts/md_2019/tl_2019_24_tract.shp",
+        "data/external/tiger_tracts/dc_2019/tl_2019_11_tract.shp",
+        "data/external/tiger_tracts/va_2019/tl_2019_51_tract.shp"
+      ],
+      "crs_projected": "EPSG:26985",
+      "tract_vintage": 2019,
+      "point_fields": "representative_and_centroid_v2",
+      "tract_filter": {
+        "enabled": true,
+        "data_limited_state_fips": [
+          11,
+          24,
+          51
+        ],
+        "columns": [
+          "o_tract_fips",
+          "d_tract_fips",
+          "home_tract_fips",
+          "work_tract_fips"
+        ]
+      },
+      "input_csv": "05_transformed_survey.csv",
+      "input_csv_size": 20728881,
+      "input_csv_mtime_ns": 1781195774766250855
+    },
+    "min_shared_boundary_m": 1.0
+  },
+  "aadt_points_metadata": {
+    "cache_version": 1,
+    "aadt_points_file": {
+      "path": "data/external/mdot_aadt/aadt_points.geojson",
+      "size": 24051333,
+      "mtime_ns": 1781235741710303465
+    },
+    "crs_projected": "EPSG:26985",
+    "observed_count_field_priority": [
+      "AAWDT_2018",
+      "AADT_2018",
+      "AAWDT",
+      "AADT"
+    ]
+  },
+  "screenline_buffer_m": [
+    100.0,
+    250.0,
+    500.0
+  ],
+  "screenline_candidate_scope": "observed_station_buffer",
+  "station_membership_rule": "boundary_closer_than_nearest_tract_centroid",
+  "boundary_distance_ratio_threshold": 0.5,
+  "observed_count_field_priority": [
+    "AAWDT_2018",
+    "AADT_2018",
+    "AAWDT",
+    "AADT"
+  ]
+}

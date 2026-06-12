@@ -1,0 +1,6 @@
+{
+  "weighted_bootstrap": 6.836815197952092,
+  "bayesian_network": 76.44116250332445,
+  "noncontrastive_vae": 537.8740123193711,
+  "contrastive_vae": 896.3088783444837
+}

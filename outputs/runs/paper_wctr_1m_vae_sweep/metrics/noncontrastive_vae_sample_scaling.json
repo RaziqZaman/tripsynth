@@ -1,0 +1,8 @@
+{
+  "method": "noncontrastive_vae",
+  "target_rows": 19287212,
+  "generated_rows": 1000000,
+  "sample_expansion_factor": 19.287212,
+  "sample_path": "/home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/noncontrastive_vae_synthetic.csv",
+  "note": "Synthetic count validations multiply this method's raw screenline counts by sample_expansion_factor."
+}

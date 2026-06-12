@@ -1,0 +1,1162 @@
+{
+  "method": "bayesian_network",
+  "columns": {
+    "o_activity": {
+      "type": "categorical",
+      "total_variation": 0.001380034853926522,
+      "jensen_shannon": 0.001712242125321047,
+      "top_category_abs_errors": [
+        {
+          "category": "5",
+          "abs_error": 0.0005865670883157259
+        },
+        {
+          "category": "1",
+          "abs_error": 0.000435023855385408
+        },
+        {
+          "category": "2",
+          "abs_error": 0.000317817689429456
+        },
+        {
+          "category": "12",
+          "abs_error": 0.00018965462229001556
+        },
+        {
+          "category": "14",
+          "abs_error": 0.00018292200820629358
+        },
+        {
+          "category": "7",
+          "abs_error": 0.00018026689705295806
+        },
+        {
+          "category": "4",
+          "abs_error": 0.00012038592152704627
+        },
+        {
+          "category": "18",
+          "abs_error": 0.00011405616140854578
+        },
+        {
+          "category": "11",
+          "abs_error": 0.00010676376399068599
+        },
+        {
+          "category": "13",
+          "abs_error": 0.0001023869004351946
+        }
+      ]
+    },
+    "o_tract_fips": {
+      "type": "categorical",
+      "total_variation": 0.018115458383255425,
+      "jensen_shannon": 0.022400927107216854,
+      "top_category_abs_errors": [
+        {
+          "category": "24027606707",
+          "abs_error": 0.00022957570654769544
+        },
+        {
+          "category": "24027605402",
+          "abs_error": 0.00013166503405277882
+        },
+        {
+          "category": "51059480202",
+          "abs_error": 0.00012873101624734287
+        },
+        {
+          "category": "24013507601",
+          "abs_error": 9.785062142187578e-05
+        },
+        {
+          "category": "51610500100",
+          "abs_error": 9.644816252481658e-05
+        },
+        {
+          "category": "24005401503",
+          "abs_error": 8.96765283388847e-05
+        },
+        {
+          "category": "24031700901",
+          "abs_error": 8.762554821206952e-05
+        },
+        {
+          "category": "24043010400",
+          "abs_error": 8.460663619814135e-05
+        },
+        {
+          "category": "24005491900",
+          "abs_error": 8.423703814448879e-05
+        },
+        {
+          "category": "24005400400",
+          "abs_error": 8.239674830412265e-05
+        }
+      ]
+    },
+    "d_activity": {
+      "type": "categorical",
+      "total_variation": 0.0017351586603975566,
+      "jensen_shannon": 0.0018464933876189916,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.0007301464561245141
+        },
+        {
+          "category": "2",
+          "abs_error": 0.000661080492427496
+        },
+        {
+          "category": "5",
+          "abs_error": 0.00041829791819182616
+        },
+        {
+          "category": "6",
+          "abs_error": 0.0004084338943519464
+        },
+        {
+          "category": "10",
+          "abs_error": 0.0001869753992403897
+        },
+        {
+          "category": "9",
+          "abs_error": 0.00014599179923501307
+        },
+        {
+          "category": "11",
+          "abs_error": 0.00012719089230933678
+        },
+        {
+          "category": "4",
+          "abs_error": 0.00012581826306912527
+        },
+        {
+          "category": "18",
+          "abs_error": 0.00012331575095426983
+        },
+        {
+          "category": "13",
+          "abs_error": 0.00011718011910728451
+        }
+      ]
+    },
+    "d_tract_fips": {
+      "type": "categorical",
+      "total_variation": 0.017672832076123156,
+      "jensen_shannon": 0.02223610659290915,
+      "top_category_abs_errors": [
+        {
+          "category": "24005408400",
+          "abs_error": 0.00010985088057191127
+        },
+        {
+          "category": "24005401000",
+          "abs_error": 8.950549761935754e-05
+        },
+        {
+          "category": "24029950300",
+          "abs_error": 8.594831419787147e-05
+        },
+        {
+          "category": "24031701505",
+          "abs_error": 8.354551773147756e-05
+        },
+        {
+          "category": "11001001001",
+          "abs_error": 7.909486625103318e-05
+        },
+        {
+          "category": "24005403702",
+          "abs_error": 7.849265522565834e-05
+        },
+        {
+          "category": "24031700105",
+          "abs_error": 7.815758751589881e-05
+        },
+        {
+          "category": "51107610505",
+          "abs_error": 7.554531914720258e-05
+        },
+        {
+          "category": "24027605505",
+          "abs_error": 7.542121429597289e-05
+        },
+        {
+          "category": "51107611020",
+          "abs_error": 7.501790026108587e-05
+        }
+      ]
+    },
+    "departure_time_minutes": {
+      "type": "numeric",
+      "survey": {
+        "mean": 812.3373701299171,
+        "std": 268.4136520822916,
+        "q05": 402.0,
+        "q50": 833.0,
+        "q95": 1227.0
+      },
+      "synthetic": {
+        "mean": 812.326845,
+        "std": 268.09369214762586,
+        "q05": 405.0,
+        "q50": 836.0,
+        "q95": 1225.0
+      },
+      "mean_abs_error": 0.010525129917027698,
+      "std_abs_error": 0.31995993466574646,
+      "wasserstein": 3.339486486486491,
+      "ks_statistic": 0.01073789553395954
+    },
+    "reported_travel_time": {
+      "type": "numeric",
+      "survey": {
+        "mean": 22.959672523962162,
+        "std": 28.96512451094754,
+        "q05": 5.0,
+        "q50": 15.0,
+        "q95": 60.0
+      },
+      "synthetic": {
+        "mean": 22.842158,
+        "std": 27.985795788275095,
+        "q05": 5.0,
+        "q50": 15.0,
+        "q95": 60.0
+      },
+      "mean_abs_error": 0.11751452396216067,
+      "std_abs_error": 0.9793287226724452,
+      "wasserstein": 0.10142342342341726,
+      "ks_statistic": 0.0032476471701855525
+    },
+    "travel_mode": {
+      "type": "categorical",
+      "total_variation": 0.0002298763458454053,
+      "jensen_shannon": 0.00034528241862635855,
+      "top_category_abs_errors": [
+        {
+          "category": "4",
+          "abs_error": 0.0002298763458453701
+        },
+        {
+          "category": "5",
+          "abs_error": 0.00022840680181260287
+        },
+        {
+          "category": "3",
+          "abs_error": 1.4695440328376416e-06
+        }
+      ]
+    },
+    "travelers_hh": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.4109446128393295,
+        "std": 0.7900960827542228,
+        "q05": 1.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 1.412268,
+        "std": 0.7911188887746265,
+        "q05": 1.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.0013233871606705971,
+      "std_abs_error": 0.0010228060204037215,
+      "wasserstein": 0.089,
+      "ks_statistic": 0.03944637253664607
+    },
+    "travelers_nonhh": {
+      "type": "numeric",
+      "survey": {
+        "mean": 0.11061463245434819,
+        "std": 0.4202889331159516,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 1.0
+      },
+      "synthetic": {
+        "mean": 0.11083,
+        "std": 0.41925971795535044,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 1.0
+      },
+      "mean_abs_error": 0.0002153675456518095,
+      "std_abs_error": 0.0010292151606011712,
+      "wasserstein": 0.006,
+      "ks_statistic": 0.003511471773975372
+    },
+    "vehicle_occupancy": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.521699897430057,
+        "std": 0.9021712469038374,
+        "q05": 1.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 1.522919,
+        "std": 0.9033032267400576,
+        "q05": 1.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.0012191025699428426,
+      "std_abs_error": 0.0011319798362201539,
+      "wasserstein": 0.084,
+      "ks_statistic": 0.033505767520689456
+    },
+    "park_loc": {
+      "type": "categorical",
+      "total_variation": 0.0009416798039168818,
+      "jensen_shannon": 0.0009010374019661538,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.0008403317837246682
+        },
+        {
+          "category": "1",
+          "abs_error": 0.00046252378677116845
+        },
+        {
+          "category": "3",
+          "abs_error": 0.00040969766574072697
+        },
+        {
+          "category": "4",
+          "abs_error": 0.00010134802019213379
+        },
+        {
+          "category": "-1",
+          "abs_error": 6.945835140506618e-05
+        }
+      ]
+    },
+    "park_pay": {
+      "type": "categorical",
+      "total_variation": 0.00012165859652495462,
+      "jensen_shannon": 0.000196935827927387,
+      "top_category_abs_errors": [
+        {
+          "category": "-1",
+          "abs_error": 0.00012165859652490951
+        },
+        {
+          "category": "0",
+          "abs_error": 9.220103176201672e-05
+        },
+        {
+          "category": "1",
+          "abs_error": 2.9457564762983002e-05
+        }
+      ]
+    },
+    "hov_used": {
+      "type": "categorical",
+      "total_variation": 9.722588050797864e-05,
+      "jensen_shannon": 0.0006738639913110501,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 9.722588050797886e-05
+        },
+        {
+          "category": "-1",
+          "abs_error": 9.722588050797842e-05
+        }
+      ]
+    },
+    "toll_road_used": {
+      "type": "categorical",
+      "total_variation": 8.347210562894506e-05,
+      "jensen_shannon": 0.00029214734666228615,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 8.347210562902226e-05
+        },
+        {
+          "category": "-1",
+          "abs_error": 8.347210562886787e-05
+        }
+      ]
+    },
+    "distance": {
+      "type": "numeric",
+      "survey": {
+        "mean": 8.64699444113751,
+        "std": 29.93362578649983,
+        "q05": 0.421003367675,
+        "q50": 4.1023988117000005,
+        "q95": 29.177
+      },
+      "synthetic": {
+        "mean": 8.716617542222608,
+        "std": 35.49390090686797,
+        "q05": 0.442,
+        "q50": 4.187,
+        "q95": 28.934
+      },
+      "mean_abs_error": 0.06962310108509762,
+      "std_abs_error": 5.560275120368139,
+      "wasserstein": 0.0821942501908986,
+      "ks_statistic": 0.008110687052629684
+    },
+    "year": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1916.6641924196965,
+        "std": 425.03388505713286,
+        "q05": 1990.0,
+        "q50": 2012.0,
+        "q95": 2017.0
+      },
+      "synthetic": {
+        "mean": 1918.13758,
+        "std": 421.83904388492016,
+        "q05": 1993.0,
+        "q50": 2012.0,
+        "q95": 2017.0
+      },
+      "mean_abs_error": 1.4733875803035517,
+      "std_abs_error": 3.194841172212705,
+      "wasserstein": 2.110630630630618,
+      "ks_statistic": 0.00600473192939438
+    },
+    "vehicle": {
+      "type": "categorical",
+      "total_variation": 0.00945742294558933,
+      "jensen_shannon": 0.016598619121919598,
+      "top_category_abs_errors": [
+        {
+          "category": "(Toyota, Camry, 1.0, 1.0)",
+          "abs_error": 0.0003832073469817801
+        },
+        {
+          "category": "(Toyota, Sienna, 2.0, 1.0)",
+          "abs_error": 0.0002740015665484534
+        },
+        {
+          "category": "(Honda, Odyssey, 2.0, 1.0)",
+          "abs_error": 0.0002697120640395845
+        },
+        {
+          "category": "(-1, -1, -1, -1)",
+          "abs_error": 0.00020441422927414826
+        },
+        {
+          "category": "(Hyundai, Santa Fe, 3.0, 1.0)",
+          "abs_error": 0.00018217791912777167
+        },
+        {
+          "category": "(Hyundai, Elantra, 1.0, 1.0)",
+          "abs_error": 0.00018185360571056422
+        },
+        {
+          "category": "(Subaru, Forester, 3.0, 1.0)",
+          "abs_error": 0.00017626725607317387
+        },
+        {
+          "category": "(Honda, Fit, 1.0, 1.0)",
+          "abs_error": 0.0001546817554149288
+        },
+        {
+          "category": "(Chrysler, Town & Country, 2.0, 1.0)",
+          "abs_error": 0.0001433473214296462
+        },
+        {
+          "category": "(Chevrolet, Silverado, 4.0, 1.0)",
+          "abs_error": 0.0001414624038452543
+        }
+      ]
+    },
+    "tolltransponder": {
+      "type": "categorical",
+      "total_variation": 0.0003992036149713489,
+      "jensen_shannon": 0.00035025571749230445,
+      "top_category_abs_errors": [
+        {
+          "category": "1.0",
+          "abs_error": 0.00039920361497136625
+        },
+        {
+          "category": "2.0",
+          "abs_error": 0.00039571960629186664
+        },
+        {
+          "category": "-1",
+          "abs_error": 3.4840086794649117e-06
+        }
+      ]
+    },
+    "home_tract_fips": {
+      "type": "categorical",
+      "total_variation": 0.017052294107019545,
+      "jensen_shannon": 0.01955904558313274,
+      "top_category_abs_errors": [
+        {
+          "category": "24025301702",
+          "abs_error": 0.00010004771658580548
+        },
+        {
+          "category": "51059440202",
+          "abs_error": 8.649848761317917e-05
+        },
+        {
+          "category": "24009860600",
+          "abs_error": 8.346401233506862e-05
+        },
+        {
+          "category": "24031701407",
+          "abs_error": 8.274837869836726e-05
+        },
+        {
+          "category": "51683910201",
+          "abs_error": 8.15265317421687e-05
+        },
+        {
+          "category": "24031701420",
+          "abs_error": 7.945292165508367e-05
+        },
+        {
+          "category": "24017851301",
+          "abs_error": 7.784565976124542e-05
+        },
+        {
+          "category": "24031701004",
+          "abs_error": 7.7819557468052e-05
+        },
+        {
+          "category": "24005401000",
+          "abs_error": 7.741728370615187e-05
+        },
+        {
+          "category": "24029950500",
+          "abs_error": 7.729931795649291e-05
+        }
+      ]
+    },
+    "home_type": {
+      "type": "categorical",
+      "total_variation": 0.0005196155538402869,
+      "jensen_shannon": 0.000774074356212095,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.0005196155538403358
+        },
+        {
+          "category": "1",
+          "abs_error": 0.00036787946928007464
+        },
+        {
+          "category": "3",
+          "abs_error": 0.00012472795497345257
+        },
+        {
+          "category": "4",
+          "abs_error": 1.0659269138498483e-05
+        },
+        {
+          "category": "5",
+          "abs_error": 8.795764844137473e-06
+        },
+        {
+          "category": "-1",
+          "abs_error": 7.553095604074706e-06
+        }
+      ]
+    },
+    "home_ownership": {
+      "type": "categorical",
+      "total_variation": 0.00047171692276788376,
+      "jensen_shannon": 0.0005321423199069014,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.00046806831486886913
+        },
+        {
+          "category": "1",
+          "abs_error": 0.0004598820819708971
+        },
+        {
+          "category": "3",
+          "abs_error": 1.1834840796941248e-05
+        },
+        {
+          "category": "-1",
+          "abs_error": 3.6486078990600047e-06
+        }
+      ]
+    },
+    "hhsize": {
+      "type": "numeric",
+      "survey": {
+        "mean": 3.07650157913947,
+        "std": 1.501419711713478,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 5.0
+      },
+      "synthetic": {
+        "mean": 3.079278,
+        "std": 1.5017346632198378,
+        "q05": 1.0,
+        "q50": 3.0,
+        "q95": 6.0
+      },
+      "mean_abs_error": 0.0027764208605298712,
+      "std_abs_error": 0.0003149515063598507,
+      "wasserstein": 0.499,
+      "ks_statistic": 0.16588685866253178
+    },
+    "numstudents": {
+      "type": "numeric",
+      "survey": {
+        "mean": 0.9502645345202739,
+        "std": 1.1825076541222306,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 0.952524,
+        "std": 1.1833435804634258,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.0022594654797261082,
+      "std_abs_error": 0.0008359263411952256,
+      "wasserstein": 0.324,
+      "ks_statistic": 0.13024641308620155
+    },
+    "numdrivers": {
+      "type": "numeric",
+      "survey": {
+        "mean": 2.1169419600393753,
+        "std": 0.8380362749505877,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 2.11787,
+        "std": 0.8378333146276772,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 4.0
+      },
+      "mean_abs_error": 0.000928039960624627,
+      "std_abs_error": 0.00020296032291056143,
+      "wasserstein": 0.156,
+      "ks_statistic": 0.06907181674269325
+    },
+    "numworkers": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.5546708799461701,
+        "std": 0.9789455677534582,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 1.553377,
+        "std": 0.9777263911089851,
+        "q05": 0.0,
+        "q50": 2.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.00129387994617014,
+      "std_abs_error": 0.00121917664447313,
+      "wasserstein": 0.16264864864865375,
+      "ks_statistic": 0.06551338101076393
+    },
+    "numdisabilities": {
+      "type": "numeric",
+      "survey": {
+        "mean": 0.09868283375083083,
+        "std": 0.435231743595494,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 1.0
+      },
+      "synthetic": {
+        "mean": 0.099026,
+        "std": 0.4360411119653742,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 1.0
+      },
+      "mean_abs_error": 0.00034316624916917726,
+      "std_abs_error": 0.0008093683698802145,
+      "wasserstein": 0.016,
+      "ks_statistic": 0.011444890665849302
+    },
+    "numvehicle": {
+      "type": "numeric",
+      "survey": {
+        "mean": 2.2647036001457015,
+        "std": 1.0754234129181648,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 4.0
+      },
+      "synthetic": {
+        "mean": 2.264236,
+        "std": 1.0745693724948613,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 4.0
+      },
+      "mean_abs_error": 0.0004676001457015744,
+      "std_abs_error": 0.0008540404233035037,
+      "wasserstein": 0.13,
+      "ks_statistic": 0.04765663813713644
+    },
+    "numvehicle_transponder": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.2146233393615233,
+        "std": 1.077415346583618,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 1.213381,
+        "std": 1.0765628401719056,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.0012423393615232925,
+      "std_abs_error": 0.000852506411712417,
+      "wasserstein": 0.083,
+      "ks_statistic": 0.03477153551015988
+    },
+    "numbicycle": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.220320397054284,
+        "std": 1.392304238570555,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 4.0
+      },
+      "synthetic": {
+        "mean": 1.21863,
+        "std": 1.3911509346940036,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 4.0
+      },
+      "mean_abs_error": 0.0016903970542838653,
+      "std_abs_error": 0.001153303876551437,
+      "wasserstein": 0.15,
+      "ks_statistic": 0.04379777660782869
+    },
+    "hh_income_detailed": {
+      "type": "numeric",
+      "survey": {
+        "mean": 6.158541799632525,
+        "std": 1.9899357620560287,
+        "q05": 2.0,
+        "q50": 7.0,
+        "q95": 8.0
+      },
+      "synthetic": {
+        "mean": 6.157209,
+        "std": 1.993248687524715,
+        "q05": 2.0,
+        "q50": 7.0,
+        "q95": 8.0
+      },
+      "mean_abs_error": 0.0013327996325251945,
+      "std_abs_error": 0.003312925468686334,
+      "wasserstein": 0.084,
+      "ks_statistic": 0.024894982186322467
+    },
+    "tdate_week": {
+      "type": "categorical",
+      "total_variation": 0.003443799148131283,
+      "jensen_shannon": 0.003909012506207274,
+      "top_category_abs_errors": [
+        {
+          "category": "57",
+          "abs_error": 0.00031716682076170927
+        },
+        {
+          "category": "43",
+          "abs_error": 0.0003087024478788114
+        },
+        {
+          "category": "53",
+          "abs_error": 0.00023951211357380736
+        },
+        {
+          "category": "52",
+          "abs_error": 0.0002391823759347357
+        },
+        {
+          "category": "55",
+          "abs_error": 0.00022384481919396695
+        },
+        {
+          "category": "60",
+          "abs_error": 0.00022202291226266352
+        },
+        {
+          "category": "72",
+          "abs_error": 0.00020348033230989035
+        },
+        {
+          "category": "90",
+          "abs_error": 0.0001997243923199197
+        },
+        {
+          "category": "47",
+          "abs_error": 0.00018783954649629828
+        },
+        {
+          "category": "73",
+          "abs_error": 0.00018586078441377475
+        }
+      ]
+    },
+    "tdate_dow": {
+      "type": "categorical",
+      "total_variation": 0.0012424829356214862,
+      "jensen_shannon": 0.0012220102054444515,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.0009242775028365235
+        },
+        {
+          "category": "4",
+          "abs_error": 0.0007490755894831169
+        },
+        {
+          "category": "1",
+          "abs_error": 0.00034179751371915534
+        },
+        {
+          "category": "5",
+          "abs_error": 0.00031820543278504587
+        },
+        {
+          "category": "3",
+          "abs_error": 0.00015160983241913062
+        }
+      ]
+    },
+    "age": {
+      "type": "numeric",
+      "survey": {
+        "mean": 47.48139725967005,
+        "std": 18.066795657914202,
+        "q05": 19.0,
+        "q50": 52.0,
+        "q95": 76.0
+      },
+      "synthetic": {
+        "mean": 47.521023,
+        "std": 18.01410342019472,
+        "q05": 17.0,
+        "q50": 48.0,
+        "q95": 75.0
+      },
+      "mean_abs_error": 0.03962574032995292,
+      "std_abs_error": 0.052692237719483614,
+      "wasserstein": 2.555540540540541,
+      "ks_statistic": 0.07420965797017831
+    },
+    "gender": {
+      "type": "categorical",
+      "total_variation": 0.000368860967459657,
+      "jensen_shannon": 0.0003260956711320039,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.0003688609674595833
+        },
+        {
+          "category": "2",
+          "abs_error": 0.00036597129168247644
+        },
+        {
+          "category": "-1",
+          "abs_error": 2.8896757772542837e-06
+        }
+      ]
+    },
+    "race_ethnicity": {
+      "type": "categorical",
+      "total_variation": 0.0010329592904572407,
+      "jensen_shannon": 0.001221659753937803,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.0008283327997467005
+        },
+        {
+          "category": "4",
+          "abs_error": 0.0005001436659233804
+        },
+        {
+          "category": "6",
+          "abs_error": 0.00020334234934253452
+        },
+        {
+          "category": "3",
+          "abs_error": 0.00019927897791582883
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.00013019429727553593
+        },
+        {
+          "category": "2",
+          "abs_error": 0.00010750076216339832
+        },
+        {
+          "category": "5",
+          "abs_error": 9.712572854710284e-05
+        }
+      ]
+    },
+    "race_ethnicity_hispanic": {
+      "type": "categorical",
+      "total_variation": 4.925810290439458e-05,
+      "jensen_shannon": 0.0001411661381236996,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 4.9258102904424506e-05
+        },
+        {
+          "category": "2",
+          "abs_error": 3.142270868106145e-05
+        },
+        {
+          "category": "-1",
+          "abs_error": 1.7835394223303207e-05
+        }
+      ]
+    },
+    "license": {
+      "type": "categorical",
+      "total_variation": 0.00012197184284883176,
+      "jensen_shannon": 0.0005308174809013734,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.00012197184284885344
+        },
+        {
+          "category": "-1",
+          "abs_error": 8.154828638531203e-05
+        },
+        {
+          "category": "1",
+          "abs_error": 4.0423556463498045e-05
+        }
+      ]
+    },
+    "disability": {
+      "type": "categorical",
+      "total_variation": 5.363109484883902e-05,
+      "jensen_shannon": 0.00014070227549524127,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 5.3631094848793914e-05
+        },
+        {
+          "category": "-1",
+          "abs_error": 4.0881675966539244e-05
+        },
+        {
+          "category": "1",
+          "abs_error": 1.2749418882344876e-05
+        }
+      ]
+    },
+    "smartphone": {
+      "type": "categorical",
+      "total_variation": 0.00010495078585999115,
+      "jensen_shannon": 0.00024316953480605792,
+      "top_category_abs_errors": [
+        {
+          "category": "-1",
+          "abs_error": 0.00010495078585998768
+        },
+        {
+          "category": "2",
+          "abs_error": 5.2538916653535606e-05
+        },
+        {
+          "category": "1",
+          "abs_error": 5.2411869206459016e-05
+        }
+      ]
+    },
+    "employment_status": {
+      "type": "categorical",
+      "total_variation": 0.0007957806022929779,
+      "jensen_shannon": 0.0012581178669347408,
+      "top_category_abs_errors": [
+        {
+          "category": "0",
+          "abs_error": 0.0004063527549504897
+        },
+        {
+          "category": "1",
+          "abs_error": 0.00038277634057534704
+        },
+        {
+          "category": "3",
+          "abs_error": 0.00024411703458404078
+        },
+        {
+          "category": "6",
+          "abs_error": 0.00017720703758615855
+        },
+        {
+          "category": "2",
+          "abs_error": 0.00012488081269333706
+        },
+        {
+          "category": "7",
+          "abs_error": 0.00012315628191350222
+        },
+        {
+          "category": "-1",
+          "abs_error": 8.906452784278318e-05
+        },
+        {
+          "category": "5",
+          "abs_error": 3.852940583071521e-05
+        },
+        {
+          "category": "4",
+          "abs_error": 5.477008609582057e-06
+        }
+      ]
+    },
+    "jobs_count": {
+      "type": "numeric",
+      "survey": {
+        "mean": 0.757005796163918,
+        "std": 0.6118563994574218,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 2.0
+      },
+      "synthetic": {
+        "mean": 0.75726,
+        "std": 0.6112440530590052,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 2.0
+      },
+      "mean_abs_error": 0.0002542038360819898,
+      "std_abs_error": 0.0006123463984165634,
+      "wasserstein": 0.017,
+      "ks_statistic": 0.014279829093269358
+    },
+    "work_tract_fips": {
+      "type": "categorical",
+      "total_variation": 0.011399464170390677,
+      "jensen_shannon": 0.019205099538465276,
+      "top_category_abs_errors": [
+        {
+          "category": "-1",
+          "abs_error": 0.0009307729521191299
+        },
+        {
+          "category": "11001006202",
+          "abs_error": 0.0002161141229635212
+        },
+        {
+          "category": "24510040200",
+          "abs_error": 0.0001386978941859715
+        },
+        {
+          "category": "24005490605",
+          "abs_error": 0.00013666661817303893
+        },
+        {
+          "category": "51013980100",
+          "abs_error": 0.00013224170712937324
+        },
+        {
+          "category": "24003740603",
+          "abs_error": 0.00010883507104179208
+        },
+        {
+          "category": "24510040100",
+          "abs_error": 0.00010354830263279574
+        },
+        {
+          "category": "51013103402",
+          "abs_error": 0.00010241178224703338
+        },
+        {
+          "category": "51059480202",
+          "abs_error": 0.00010192039729655603
+        },
+        {
+          "category": "24005408400",
+          "abs_error": 0.00010128090722507765
+        }
+      ]
+    },
+    "student_status": {
+      "type": "categorical",
+      "total_variation": 5.276109676127794e-06,
+      "jensen_shannon": 6.995730681268148e-06,
+      "top_category_abs_errors": [
+        {
+          "category": "0",
+          "abs_error": 5.276109676155549e-06
+        },
+        {
+          "category": "1",
+          "abs_error": 5.276109676100038e-06
+        }
+      ]
+    },
+    "volunteer_status": {
+      "type": "categorical",
+      "total_variation": 0.0006848172041710315,
+      "jensen_shannon": 0.0007171696821753207,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.0006848172041710454
+        },
+        {
+          "category": "1",
+          "abs_error": 0.0006848172041710177
+        }
+      ]
+    }
+  },
+  "summary": {
+    "mean_categorical_tv": 0.003368496234806837,
+    "mean_numeric_ks": 0.04368546406613416,
+    "marginal_similarity_score": 0.9801381987432866
+  }
+}

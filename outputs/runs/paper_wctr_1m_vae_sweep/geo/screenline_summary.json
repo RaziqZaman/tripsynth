@@ -1,0 +1,23 @@
+{
+  "status": "ok",
+  "tracts": 2232,
+  "adjacent_pairs": 5927,
+  "candidate_screenlines": 3257,
+  "screenlines": 3257,
+  "screenlines_with_stations": 3107,
+  "stations_mapped": 6725,
+  "observed_count_field": "AAWDT_2018",
+  "observed_count_temporal_label": "Annual-average counts plus FHWA TMAS hourly counts",
+  "comparison_basis": "two_prong",
+  "station_membership_rule": "boundary_closer_than_nearest_tract_centroid",
+  "boundary_distance_ratio_threshold": 0.5,
+  "screenline_candidate_scope": "observed_station_buffer",
+  "survey_period": {
+    "start_date": "2017-10-01",
+    "end_date": "2019-07-31",
+    "trip_year_column": null,
+    "note": "The schema column `year` is vehicle model year, not survey trip year."
+  },
+  "segments_note": "MDOT segment layer was optional; current downloaded layer may be empty.",
+  "method_note": "Screenline assignment is a geometric proxy, not true route assignment."
+}

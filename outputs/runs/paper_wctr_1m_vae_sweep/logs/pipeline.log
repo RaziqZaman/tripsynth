@@ -1,0 +1,40 @@
+2026-06-12 12:57:47,368 INFO Starting run paper_wctr_1m_vae_sweep
+2026-06-12 12:57:48,482 WARNING population_from_weight_sum resolved to 19287212 rows. Full run will be large; consider chunked validation.
+2026-06-12 12:57:50,365 WARNING Capping weighted_bootstrap sample at 1000000 rows from target 19287212 rows; count validations will use expansion factor 19.287212.
+2026-06-12 12:57:50,365 INFO Fitting method: weighted_bootstrap
+2026-06-12 12:57:57,096 INFO Saved 1000000 synthetic rows for weighted_bootstrap to /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/weighted_bootstrap_synthetic.csv
+2026-06-12 12:57:57,097 WARNING Capping bayesian_network sample at 1000000 rows from target 19287212 rows; count validations will use expansion factor 19.287212.
+2026-06-12 12:57:57,097 INFO Fitting method: bayesian_network
+2026-06-12 12:57:57,097 INFO Capping bayesian_network fit+sample at 3600.0s.
+2026-06-12 12:59:14,805 INFO Saved 1000000 synthetic rows for bayesian_network to /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/bayesian_network_synthetic.csv
+2026-06-12 12:59:14,821 INFO Budgeting noncontrastive_vae VAE training to 77.7s based on bayesian_network runtime; sampling will run to completion.
+2026-06-12 12:59:14,821 WARNING Capping noncontrastive_vae sample at 1000000 rows from target 19287212 rows; count validations will use expansion factor 19.287212.
+2026-06-12 12:59:14,821 INFO Fitting method: noncontrastive_vae
+2026-06-12 13:00:43,582 INFO Saved 1000000 synthetic rows for noncontrastive_vae to /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/noncontrastive_vae_synthetic.csv
+2026-06-12 13:00:43,582 INFO Budgeting contrastive_vae VAE training to 77.7s based on bayesian_network runtime; sampling will run to completion.
+2026-06-12 13:00:43,582 WARNING Capping contrastive_vae sample at 1000000 rows from target 19287212 rows; count validations will use expansion factor 19.287212.
+2026-06-12 13:00:43,583 INFO Fitting method: contrastive_vae
+2026-06-12 13:02:12,173 INFO Saved 1000000 synthetic rows for contrastive_vae to /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/contrastive_vae_synthetic.csv
+2026-06-12 13:09:34,374 INFO Starting AADT/two-prong traffic validation
+2026-06-12 13:09:34,374 INFO Building AADT screenlines
+2026-06-12 13:11:06,828 INFO Running AADT validation tiers
+2026-06-12 13:17:24,083 INFO Run complete: /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep
+2026-06-12 14:40:46,864 INFO Starting run paper_wctr_1m_vae_sweep
+2026-06-12 14:40:47,980 WARNING population_from_weight_sum resolved to 19287212 rows. Full run will be large; consider chunked validation.
+2026-06-12 14:40:49,872 WARNING Capping weighted_bootstrap sample at 1000000 rows from target 19287212 rows; count validations will use expansion factor 19.287212.
+2026-06-12 14:40:49,872 INFO Fitting method: weighted_bootstrap
+2026-06-12 14:40:56,708 INFO Saved 1000000 synthetic rows for weighted_bootstrap to /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/weighted_bootstrap_synthetic.csv
+2026-06-12 14:40:56,709 WARNING Capping bayesian_network sample at 1000000 rows from target 19287212 rows; count validations will use expansion factor 19.287212.
+2026-06-12 14:40:56,709 INFO Fitting method: bayesian_network
+2026-06-12 14:40:56,709 INFO Capping bayesian_network fit+sample at 3600.0s.
+2026-06-12 14:42:13,134 INFO Saved 1000000 synthetic rows for bayesian_network to /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/bayesian_network_synthetic.csv
+2026-06-12 14:42:13,150 WARNING Capping noncontrastive_vae sample at 1000000 rows from target 19287212 rows; count validations will use expansion factor 19.287212.
+2026-06-12 14:42:13,150 INFO Fitting method: noncontrastive_vae
+2026-06-12 14:51:11,024 INFO Saved 1000000 synthetic rows for noncontrastive_vae to /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/noncontrastive_vae_synthetic.csv
+2026-06-12 14:51:11,025 WARNING Capping contrastive_vae sample at 1000000 rows from target 19287212 rows; count validations will use expansion factor 19.287212.
+2026-06-12 14:51:11,025 INFO Fitting method: contrastive_vae
+2026-06-12 15:06:07,332 INFO Saved 1000000 synthetic rows for contrastive_vae to /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep/samples/contrastive_vae_synthetic.csv
+2026-06-12 15:13:32,361 INFO Starting AADT/two-prong traffic validation
+2026-06-12 15:13:32,361 INFO Building AADT screenlines
+2026-06-12 15:14:32,056 INFO Running AADT validation tiers
+2026-06-12 15:25:07,241 INFO Run complete: /home/raziq/Documents/Code/umd/tripsynth/outputs/runs/paper_wctr_1m_vae_sweep

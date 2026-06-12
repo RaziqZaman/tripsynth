@@ -1,0 +1,106 @@
+run_name: paper_wctr_1m_vae_sweep
+input_csv: 05_transformed_survey.csv
+sample_n: population_from_weight_sum
+seed: 20260611
+methods:
+- weighted_bootstrap
+- bayesian_network
+- noncontrastive_vae
+- contrastive_vae
+vae:
+  epochs: 1260
+  batch_size: 2048
+  latent_dim: 512
+  depth: 4
+  width_decay: 0.975
+  lambda_contrastive: 0.25
+  beta_kl: 0.03
+  lr: 0.0005
+  dropout: 0.02
+  activation: relu
+  normalization: layernorm
+  contrastive_temperature: 0.1
+  positive_aug: light
+  negative_mode: marginal
+  checkpoint_every: 100
+  early_stopping_patience: 1260
+  sample_temperature: 0.75
+  sample_chunk_size: 25000
+  max_single_file_rows: 1000000
+  weighting:
+    use_weight_for_training_loss: true
+    transform: capped_normalized
+    cap_quantile: 0.99
+    normalize_mean_to_one: true
+method_sample_caps:
+  weighted_bootstrap: 1000000
+  noncontrastive_vae: 1000000
+  contrastive_vae: 1000000
+  bayesian_network: 1000000
+bayesian_network:
+  max_bins: 16
+  smoothing: 1.0
+  max_runtime_seconds: 3600
+  sample_chunk_size: 50000
+validation:
+  run_marginals: true
+  run_cross_marginals: true
+  run_privacy: true
+  run_aadt: true
+data:
+  auto_download_external: true
+geo:
+  tract_files:
+  - data/external/tiger_tracts/md_2019/tl_2019_24_tract.shp
+  - data/external/tiger_tracts/dc_2019/tl_2019_11_tract.shp
+  - data/external/tiger_tracts/va_2019/tl_2019_51_tract.shp
+  aadt_points_file: data/external/mdot_aadt/aadt_points.geojson
+  aadt_segments_file: data/external/mdot_aadt/aadt_segments.geojson
+  crs_projected: EPSG:26985
+  tract_vintage: 2019
+  tract_filter:
+    enabled: true
+    data_limited_state_fips:
+    - 11
+    - 24
+    - 51
+    columns:
+    - o_tract_fips
+    - d_tract_fips
+    - home_tract_fips
+    - work_tract_fips
+aadt_validation:
+  path_method: centroid_line
+  max_od_pairs: 250000
+  station_membership_rule: boundary_closer_than_nearest_tract_centroid
+  boundary_distance_ratio_threshold: 0.5
+  screenline_candidate_scope: observed_station_buffer
+  annual_comparison_basis: average_day
+  validation_mode: two_prong
+  synthetic_population_basis: average_day
+  expand_date_strata_to_average_day: true
+  trip_week_origin_date: '2017-01-01'
+  tdate_dow_encoding: iso_monday_1
+  daily_counts:
+    file: data/external/mdot_daily_counts/station_daily_counts.csv
+    station_id_column: station_id
+    date_column: date
+    count_column: observed_count
+  hourly_counts:
+    file: data/external/mdot_daily_counts/station_hourly_counts.csv
+    station_id_column: station_id
+    date_column: date
+    hour_column: hour
+    count_column: observed_count
+  survey_period:
+    start_date: '2017-10-01'
+    end_date: '2019-07-31'
+    trip_year_column: null
+    note: The schema column `year` is vehicle model year, not survey trip year.
+  observed_count_field_priority:
+  - AAWDT_2018
+  - AADT_2018
+  - AAWDT
+  - AADT
+  observed_count_temporal_label: Annual-average counts plus FHWA TMAS hourly counts
+  comparison_basis: two_prong

@@ -1,0 +1,15 @@
+{
+  "cache_version": 1,
+  "aadt_points_file": {
+    "path": "data/external/mdot_aadt/aadt_points.geojson",
+    "size": 24051333,
+    "mtime_ns": 1781235741710303465
+  },
+  "crs_projected": "EPSG:26985",
+  "observed_count_field_priority": [
+    "AAWDT_2018",
+    "AADT_2018",
+    "AAWDT",
+    "AADT"
+  ]
+}

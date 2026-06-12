@@ -1,0 +1,5 @@
+method,exact_row_copy_rate,duplicate_rate,nearest_neighbor_distance_mean,nearest_neighbor_distance_median,nearest_neighbor_distance_p05,membership_risk_proxy_threshold,membership_risk_proxy_share,novel_od_pair_share,invalid_category_rate,out_of_range_numeric_rate_after_postprocessing,privacy_score,nearest_neighbor_note,note
+weighted_bootstrap,1.0,0.891771,,,,,,0.0,0.0,0.0,0.0,Nearest-neighbor privacy diagnostics are disabled to keep validation linear in sample size.,Weighted bootstrap is expected to copy rows by construction.
+bayesian_network,0.0,0.0,,,,,,0.33304,0.0,0.0,1.0,Nearest-neighbor privacy diagnostics are disabled to keep validation linear in sample size.,
+noncontrastive_vae,0.0,0.0,,,,,,0.68563,0.0,0.0,1.0,Nearest-neighbor privacy diagnostics are disabled to keep validation linear in sample size.,
+contrastive_vae,0.0,0.0,,,,,,0.685171,0.0,0.0,1.0,Nearest-neighbor privacy diagnostics are disabled to keep validation linear in sample size.,

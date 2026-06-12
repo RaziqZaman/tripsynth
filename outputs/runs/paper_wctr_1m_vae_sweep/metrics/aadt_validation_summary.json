@@ -1,0 +1,51 @@
+{
+  "status": "ok",
+  "validation_mode": "two_prong",
+  "tiers": {
+    "annual_average": {
+      "status": "ok",
+      "screenlines_compared": 3107,
+      "comparison_basis": "average_day"
+    },
+    "hourly_tmas_scaled": {
+      "status": "ok",
+      "screenlines_compared": 56,
+      "screenline_hours_compared": 642456,
+      "hourly_counts": {
+        "file": "data/external/mdot_daily_counts/station_hourly_counts.csv",
+        "station_id_column": "station_id",
+        "date_column": "date",
+        "hour_column": "hour",
+        "count_column": "observed_count"
+      },
+      "scaling_method": "FHWA station hourly count divided by covered annual station share of the screenline"
+    }
+  },
+  "screenlines_compared": 3107,
+  "methods": [
+    "bayesian_network",
+    "contrastive_vae",
+    "noncontrastive_vae",
+    "weighted_bootstrap"
+  ],
+  "temporal_framing": "Two-prong annual-average plus FHWA TMAS hourly validation.",
+  "trip_week_origin_date": "2017-01-01",
+  "tdate_dow_encoding": "iso_monday_1",
+  "daily_counts": null,
+  "hourly_counts": {
+    "file": "data/external/mdot_daily_counts/station_hourly_counts.csv",
+    "station_id_column": "station_id",
+    "date_column": "date",
+    "hour_column": "hour",
+    "count_column": "observed_count"
+  },
+  "survey_period": {
+    "start_date": "2017-10-01",
+    "end_date": "2019-07-31",
+    "trip_year_column": null,
+    "note": "The schema column `year` is vehicle model year, not survey trip year."
+  },
+  "synthetic_population_basis": "average_day",
+  "expand_date_strata_to_average_day": true,
+  "assignment_note": "OD-to-screenline paths use centroid-line tract crossings as a geometric proxy, not true route assignment."
+}

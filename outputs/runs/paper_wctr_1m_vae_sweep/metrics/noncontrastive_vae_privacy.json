@@ -1,0 +1,16 @@
+{
+  "method": "noncontrastive_vae",
+  "exact_row_copy_rate": 0.0,
+  "duplicate_rate": 0.0,
+  "nearest_neighbor_distance_mean": NaN,
+  "nearest_neighbor_distance_median": NaN,
+  "nearest_neighbor_distance_p05": NaN,
+  "membership_risk_proxy_threshold": NaN,
+  "membership_risk_proxy_share": NaN,
+  "novel_od_pair_share": 0.68563,
+  "invalid_category_rate": 0.0,
+  "out_of_range_numeric_rate_after_postprocessing": 0.0,
+  "privacy_score": 1.0,
+  "nearest_neighbor_note": "Nearest-neighbor privacy diagnostics are disabled to keep validation linear in sample size.",
+  "note": ""
+}

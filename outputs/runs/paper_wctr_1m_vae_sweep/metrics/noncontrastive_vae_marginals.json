@@ -1,0 +1,1162 @@
+{
+  "method": "noncontrastive_vae",
+  "columns": {
+    "o_activity": {
+      "type": "categorical",
+      "total_variation": 0.05625430155247303,
+      "jensen_shannon": 0.05734363095058618,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.02375197614461455
+        },
+        {
+          "category": "2",
+          "abs_error": 0.015190817689429453
+        },
+        {
+          "category": "5",
+          "abs_error": 0.014347432911684277
+        },
+        {
+          "category": "11",
+          "abs_error": 0.011816236236009314
+        },
+        {
+          "category": "16",
+          "abs_error": 0.009302824471507834
+        },
+        {
+          "category": "6",
+          "abs_error": 0.006574889199838608
+        },
+        {
+          "category": "4",
+          "abs_error": 0.006514385921527043
+        },
+        {
+          "category": "7",
+          "abs_error": 0.0052962668970529606
+        },
+        {
+          "category": "9",
+          "abs_error": 0.004423657931957096
+        },
+        {
+          "category": "14",
+          "abs_error": 0.003514077991793707
+        }
+      ]
+    },
+    "o_tract_fips": {
+      "type": "categorical",
+      "total_variation": 0.18914964964315056,
+      "jensen_shannon": 0.20627262182719028,
+      "top_category_abs_errors": [
+        {
+          "category": "51153900403",
+          "abs_error": 0.0042507921513018285
+        },
+        {
+          "category": "24021751003",
+          "abs_error": 0.0029837567678573113
+        },
+        {
+          "category": "24005408400",
+          "abs_error": 0.002515211605332526
+        },
+        {
+          "category": "11001010700",
+          "abs_error": 0.002169264454870045
+        },
+        {
+          "category": "24003740102",
+          "abs_error": 0.002151185756167119
+        },
+        {
+          "category": "24031700901",
+          "abs_error": 0.0019486255482120693
+        },
+        {
+          "category": "24021772200",
+          "abs_error": 0.0019391581785166926
+        },
+        {
+          "category": "24003730502",
+          "abs_error": 0.0018842721938648796
+        },
+        {
+          "category": "24033807200",
+          "abs_error": 0.0018414335238518872
+        },
+        {
+          "category": "51059482203",
+          "abs_error": 0.0017278318253456887
+        }
+      ]
+    },
+    "d_activity": {
+      "type": "categorical",
+      "total_variation": 0.06382207620410392,
+      "jensen_shannon": 0.06306075567386046,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.03215314645612449
+        },
+        {
+          "category": "2",
+          "abs_error": 0.015288919507572496
+        },
+        {
+          "category": "5",
+          "abs_error": 0.014756702081808168
+        },
+        {
+          "category": "9",
+          "abs_error": 0.011644991799235012
+        },
+        {
+          "category": "16",
+          "abs_error": 0.01115314231010131
+        },
+        {
+          "category": "11",
+          "abs_error": 0.008861809107690664
+        },
+        {
+          "category": "7",
+          "abs_error": 0.008475398035036719
+        },
+        {
+          "category": "13",
+          "abs_error": 0.004693180119107285
+        },
+        {
+          "category": "3",
+          "abs_error": 0.004285565995893159
+        },
+        {
+          "category": "10",
+          "abs_error": 0.003930024600759606
+        }
+      ]
+    },
+    "d_tract_fips": {
+      "type": "categorical",
+      "total_variation": 0.20027952334849583,
+      "jensen_shannon": 0.21707376039006504,
+      "top_category_abs_errors": [
+        {
+          "category": "24021751003",
+          "abs_error": 0.004290246007026897
+        },
+        {
+          "category": "24027606706",
+          "abs_error": 0.0036943177680209345
+        },
+        {
+          "category": "51153900403",
+          "abs_error": 0.003547733673128262
+        },
+        {
+          "category": "24027605602",
+          "abs_error": 0.0032289610273265636
+        },
+        {
+          "category": "24017851002",
+          "abs_error": 0.0028240114942285057
+        },
+        {
+          "category": "24013507602",
+          "abs_error": 0.002452192040319548
+        },
+        {
+          "category": "24025303501",
+          "abs_error": 0.002437567990353825
+        },
+        {
+          "category": "24017851500",
+          "abs_error": 0.0019969309181040997
+        },
+        {
+          "category": "24510040100",
+          "abs_error": 0.0019909880150045228
+        },
+        {
+          "category": "24510999999",
+          "abs_error": 0.0019751810980909094
+        }
+      ]
+    },
+    "departure_time_minutes": {
+      "type": "numeric",
+      "survey": {
+        "mean": 812.3373701299171,
+        "std": 268.4136520822916,
+        "q05": 402.0,
+        "q50": 833.0,
+        "q95": 1227.0
+      },
+      "synthetic": {
+        "mean": 815.211918,
+        "std": 218.46523152383145,
+        "q05": 445.0,
+        "q50": 826.0,
+        "q95": 1159.0
+      },
+      "mean_abs_error": 2.8745478700828926,
+      "std_abs_error": 49.94842055846016,
+      "wasserstein": 47.10763063063062,
+      "ks_statistic": 0.08555509631646319
+    },
+    "reported_travel_time": {
+      "type": "numeric",
+      "survey": {
+        "mean": 22.959672523962162,
+        "std": 28.96512451094754,
+        "q05": 5.0,
+        "q50": 15.0,
+        "q95": 60.0
+      },
+      "synthetic": {
+        "mean": 27.6693,
+        "std": 26.275634673780957,
+        "q05": 11.0,
+        "q50": 19.0,
+        "q95": 74.0
+      },
+      "mean_abs_error": 4.709627476037838,
+      "std_abs_error": 2.689489837166583,
+      "wasserstein": 5.580612612612618,
+      "ks_statistic": 0.3190357160088708
+    },
+    "travel_mode": {
+      "type": "categorical",
+      "total_variation": 0.02743840680181258,
+      "jensen_shannon": 0.044727155973422354,
+      "top_category_abs_errors": [
+        {
+          "category": "5",
+          "abs_error": 0.0274384068018126
+        },
+        {
+          "category": "4",
+          "abs_error": 0.027368876345845394
+        },
+        {
+          "category": "3",
+          "abs_error": 6.953045596716235e-05
+        }
+      ]
+    },
+    "travelers_hh": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.4109446128393295,
+        "std": 0.7900960827542228,
+        "q05": 1.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 1.404841,
+        "std": 0.7010155238787512,
+        "q05": 1.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.006103612839329475,
+      "std_abs_error": 0.08908055887547162,
+      "wasserstein": 0.086,
+      "ks_statistic": 0.06376837253664602
+    },
+    "travelers_nonhh": {
+      "type": "numeric",
+      "survey": {
+        "mean": 0.11061463245434819,
+        "std": 0.4202889331159516,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 1.0
+      },
+      "synthetic": {
+        "mean": 0.106822,
+        "std": 0.3756954355804712,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 1.0
+      },
+      "mean_abs_error": 0.003792632454348188,
+      "std_abs_error": 0.04459349753548042,
+      "wasserstein": 0.01,
+      "ks_statistic": 0.0029427589564213763
+    },
+    "vehicle_occupancy": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.521699897430057,
+        "std": 0.9021712469038374,
+        "q05": 1.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 1.517467,
+        "std": 0.8027358867716081,
+        "q05": 1.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.00423289743005717,
+      "std_abs_error": 0.09943536013222931,
+      "wasserstein": 0.089,
+      "ks_statistic": 0.0637347675206894
+    },
+    "park_loc": {
+      "type": "categorical",
+      "total_variation": 0.04091963411798405,
+      "jensen_shannon": 0.04118915521662971,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.024026331783724708
+        },
+        {
+          "category": "1",
+          "abs_error": 0.022086523786771173
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.01868345835140507
+        },
+        {
+          "category": "3",
+          "abs_error": 0.016893302334259272
+        },
+        {
+          "category": "4",
+          "abs_error": 0.00014965197980786743
+        }
+      ]
+    },
+    "park_pay": {
+      "type": "categorical",
+      "total_variation": 0.016074798968237998,
+      "jensen_shannon": 0.03430870255581705,
+      "top_category_abs_errors": [
+        {
+          "category": "0",
+          "abs_error": 0.016074798968237984
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.011605341403475022
+        },
+        {
+          "category": "1",
+          "abs_error": 0.004469457564762986
+        }
+      ]
+    },
+    "hov_used": {
+      "type": "categorical",
+      "total_variation": 0.00047122588050797147,
+      "jensen_shannon": 0.0031890811781757327,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.00047122588050797906
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.0004712258805079639
+        }
+      ]
+    },
+    "toll_road_used": {
+      "type": "categorical",
+      "total_variation": 0.003391472105628933,
+      "jensen_shannon": 0.011282192685719597,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.0033914721056290207
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.0033914721056288455
+        }
+      ]
+    },
+    "distance": {
+      "type": "numeric",
+      "survey": {
+        "mean": 8.64699444113751,
+        "std": 29.93362578649983,
+        "q05": 0.421003367675,
+        "q50": 4.1023988117000005,
+        "q95": 29.177
+      },
+      "synthetic": {
+        "mean": 10.393204366347312,
+        "std": 22.40865334134392,
+        "q05": 0.0,
+        "q50": 5.136027812957764,
+        "q95": 38.670088195800716
+      },
+      "mean_abs_error": 1.7462099252098024,
+      "std_abs_error": 7.52497244515591,
+      "wasserstein": 5.612422292165451,
+      "ks_statistic": 0.26004765703261634
+    },
+    "year": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1916.6641924196965,
+        "std": 425.03388505713286,
+        "q05": 1990.0,
+        "q50": 2012.0,
+        "q95": 2017.0
+      },
+      "synthetic": {
+        "mean": 1908.261776,
+        "std": 329.85235265088806,
+        "q05": 1486.0,
+        "q50": 1989.0,
+        "q95": 2019.0
+      },
+      "mean_abs_error": 8.402416419696465,
+      "std_abs_error": 95.1815324062448,
+      "wasserstein": 58.76236936936938,
+      "ks_statistic": 0.5055599953482501
+    },
+    "vehicle": {
+      "type": "categorical",
+      "total_variation": 0.16850718207461765,
+      "jensen_shannon": 0.19512086321831235,
+      "top_category_abs_errors": [
+        {
+          "category": "(Honda, Accord, 1.0, 1.0)",
+          "abs_error": 0.02345826977973771
+        },
+        {
+          "category": "(Toyota, Camry, 1.0, 1.0)",
+          "abs_error": 0.017791792653018224
+        },
+        {
+          "category": "(Toyota, Corolla, 1.0, 1.0)",
+          "abs_error": 0.014805732989441
+        },
+        {
+          "category": "(Honda, Civic, 1.0, 1.0)",
+          "abs_error": 0.008906880138944483
+        },
+        {
+          "category": "(Toyota, Sienna, 2.0, 1.0)",
+          "abs_error": 0.007938001566548454
+        },
+        {
+          "category": "(-1, -1, -1, -1)",
+          "abs_error": 0.007839585770725854
+        },
+        {
+          "category": "(Toyota, Tacoma, 4.0, 1.0)",
+          "abs_error": 0.007438277967794888
+        },
+        {
+          "category": "(Ford, Escape, 3.0, 1.0)",
+          "abs_error": 0.007079748725335445
+        },
+        {
+          "category": "(Toyota, RAV4, 3.0, 1.0)",
+          "abs_error": 0.00599958371812998
+        },
+        {
+          "category": "(Nissan, Altima, 1.0, 1.0)",
+          "abs_error": 0.005584005821882999
+        }
+      ]
+    },
+    "tolltransponder": {
+      "type": "categorical",
+      "total_variation": 0.019581719606291875,
+      "jensen_shannon": 0.025301089859826775,
+      "top_category_abs_errors": [
+        {
+          "category": "2.0",
+          "abs_error": 0.019581719606291903
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.010049515991320535
+        },
+        {
+          "category": "1.0",
+          "abs_error": 0.009532203614971313
+        }
+      ]
+    },
+    "home_tract_fips": {
+      "type": "categorical",
+      "total_variation": 0.2488115602845233,
+      "jensen_shannon": 0.2631175418416383,
+      "top_category_abs_errors": [
+        {
+          "category": "24017851002",
+          "abs_error": 0.0036512025118719703
+        },
+        {
+          "category": "24025301702",
+          "abs_error": 0.0036360477165858053
+        },
+        {
+          "category": "24027605503",
+          "abs_error": 0.00337568701678393
+        },
+        {
+          "category": "24003730504",
+          "abs_error": 0.0029147682671602166
+        },
+        {
+          "category": "24021751003",
+          "abs_error": 0.002781102289074129
+        },
+        {
+          "category": "24003731307",
+          "abs_error": 0.002644633415279881
+        },
+        {
+          "category": "51153900802",
+          "abs_error": 0.0025545143539841566
+        },
+        {
+          "category": "24033801404",
+          "abs_error": 0.0024500192479053693
+        },
+        {
+          "category": "51107611802",
+          "abs_error": 0.0024439894694197545
+        },
+        {
+          "category": "24013505102",
+          "abs_error": 0.002366095765802127
+        }
+      ]
+    },
+    "home_type": {
+      "type": "categorical",
+      "total_variation": 0.057294384446159675,
+      "jensen_shannon": 0.06559447730068599,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.05729438444615967
+        },
+        {
+          "category": "1",
+          "abs_error": 0.02837412053071986
+        },
+        {
+          "category": "3",
+          "abs_error": 0.02581827204502654
+        },
+        {
+          "category": "4",
+          "abs_error": 0.0030863407308615014
+        },
+        {
+          "category": "-1",
+          "abs_error": 1.2446904395925306e-05
+        },
+        {
+          "category": "5",
+          "abs_error": 3.2042351558625204e-06
+        }
+      ]
+    },
+    "home_ownership": {
+      "type": "categorical",
+      "total_variation": 0.011795117918029011,
+      "jensen_shannon": 0.013930240288775734,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.011795117918029008
+        },
+        {
+          "category": "2",
+          "abs_error": 0.010245931685131132
+        },
+        {
+          "category": "3",
+          "abs_error": 0.0013288348407969417
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.00022035139210093996
+        }
+      ]
+    },
+    "hhsize": {
+      "type": "numeric",
+      "survey": {
+        "mean": 3.07650157913947,
+        "std": 1.501419711713478,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 5.0
+      },
+      "synthetic": {
+        "mean": 3.032954,
+        "std": 1.319790147668939,
+        "q05": 1.0,
+        "q50": 3.0,
+        "q95": 5.0
+      },
+      "mean_abs_error": 0.04354757913946994,
+      "std_abs_error": 0.1816295640445389,
+      "wasserstein": 0.455,
+      "ks_statistic": 0.19415585866253177
+    },
+    "numstudents": {
+      "type": "numeric",
+      "survey": {
+        "mean": 0.9502645345202739,
+        "std": 1.1825076541222306,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 0.898236,
+        "std": 1.0990287022202831,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.052028534520273895,
+      "std_abs_error": 0.08347895190194743,
+      "wasserstein": 0.271,
+      "ks_statistic": 0.1473614130862016
+    },
+    "numdrivers": {
+      "type": "numeric",
+      "survey": {
+        "mean": 2.1169419600393753,
+        "std": 0.8380362749505877,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 2.119591,
+        "std": 0.7450375780583152,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 4.0
+      },
+      "mean_abs_error": 0.0026490399606244885,
+      "std_abs_error": 0.09299869689227258,
+      "wasserstein": 0.159,
+      "ks_statistic": 0.08078959362097254
+    },
+    "numworkers": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.5546708799461701,
+        "std": 0.9789455677534582,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 1.535521,
+        "std": 0.8521081260960959,
+        "q05": 0.0,
+        "q50": 2.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.019149879946170234,
+      "std_abs_error": 0.12683744165736233,
+      "wasserstein": 0.16335135135134624,
+      "ks_statistic": 0.07763594527883455
+    },
+    "numdisabilities": {
+      "type": "numeric",
+      "survey": {
+        "mean": 0.09868283375083083,
+        "std": 0.435231743595494,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 1.0
+      },
+      "synthetic": {
+        "mean": 0.083191,
+        "std": 0.3529706184925312,
+        "q05": 0.0,
+        "q50": 0.0,
+        "q95": 1.0
+      },
+      "mean_abs_error": 0.015491833750830825,
+      "std_abs_error": 0.0822611251029628,
+      "wasserstein": 0.021,
+      "ks_statistic": 0.011452944034761936
+    },
+    "numvehicle": {
+      "type": "numeric",
+      "survey": {
+        "mean": 2.2647036001457015,
+        "std": 1.0754234129181648,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 4.0
+      },
+      "synthetic": {
+        "mean": 2.329591,
+        "std": 1.0291233029715148,
+        "q05": 1.0,
+        "q50": 2.0,
+        "q95": 4.0
+      },
+      "mean_abs_error": 0.0648873998542987,
+      "std_abs_error": 0.046300109946650014,
+      "wasserstein": 0.202,
+      "ks_statistic": 0.08247163813713645
+    },
+    "numvehicle_transponder": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.2146233393615233,
+        "std": 1.077415346583618,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "synthetic": {
+        "mean": 1.194382,
+        "std": 1.0217835573525345,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 3.0
+      },
+      "mean_abs_error": 0.02024133936152328,
+      "std_abs_error": 0.055631789231083584,
+      "wasserstein": 0.066,
+      "ks_statistic": 0.0461819969709536
+    },
+    "numbicycle": {
+      "type": "numeric",
+      "survey": {
+        "mean": 1.220320397054284,
+        "std": 1.392304238570555,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 4.0
+      },
+      "synthetic": {
+        "mean": 1.163252,
+        "std": 1.3212383526434586,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 4.0
+      },
+      "mean_abs_error": 0.057068397054284015,
+      "std_abs_error": 0.0710658859270965,
+      "wasserstein": 0.134,
+      "ks_statistic": 0.06762095701638932
+    },
+    "hh_income_detailed": {
+      "type": "numeric",
+      "survey": {
+        "mean": 6.158541799632525,
+        "std": 1.9899357620560287,
+        "q05": 2.0,
+        "q50": 7.0,
+        "q95": 8.0
+      },
+      "synthetic": {
+        "mean": 5.930914,
+        "std": 1.9152386599596405,
+        "q05": 2.0,
+        "q50": 6.0,
+        "q95": 8.0
+      },
+      "mean_abs_error": 0.22762779963252555,
+      "std_abs_error": 0.07469710209638825,
+      "wasserstein": 0.179,
+      "ks_statistic": 0.0895170178136776
+    },
+    "tdate_week": {
+      "type": "categorical",
+      "total_variation": 0.09247840280825807,
+      "jensen_shannon": 0.10173113574613377,
+      "top_category_abs_errors": [
+        {
+          "category": "52",
+          "abs_error": 0.008516817624065264
+        },
+        {
+          "category": "73",
+          "abs_error": 0.008258139215586225
+        },
+        {
+          "category": "71",
+          "abs_error": 0.007092718917181169
+        },
+        {
+          "category": "69",
+          "abs_error": 0.006967285040965219
+        },
+        {
+          "category": "79",
+          "abs_error": 0.006590578343545633
+        },
+        {
+          "category": "75",
+          "abs_error": 0.0056344161487331505
+        },
+        {
+          "category": "53",
+          "abs_error": 0.005288512113573809
+        },
+        {
+          "category": "43",
+          "abs_error": 0.004653702447878813
+        },
+        {
+          "category": "89",
+          "abs_error": 0.004467382039656443
+        },
+        {
+          "category": "76",
+          "abs_error": 0.00445144252658182
+        }
+      ]
+    },
+    "tdate_dow": {
+      "type": "categorical",
+      "total_variation": 0.03519159560036582,
+      "jensen_shannon": 0.03320351322533758,
+      "top_category_abs_errors": [
+        {
+          "category": "3",
+          "abs_error": 0.027874390167580865
+        },
+        {
+          "category": "4",
+          "abs_error": 0.014376075589483117
+        },
+        {
+          "category": "2",
+          "abs_error": 0.011199722497163472
+        },
+        {
+          "category": "1",
+          "abs_error": 0.00961579751371916
+        },
+        {
+          "category": "5",
+          "abs_error": 0.007317205432785023
+        }
+      ]
+    },
+    "age": {
+      "type": "numeric",
+      "survey": {
+        "mean": 47.48139725967005,
+        "std": 18.066795657914202,
+        "q05": 19.0,
+        "q50": 52.0,
+        "q95": 76.0
+      },
+      "synthetic": {
+        "mean": 47.901186,
+        "std": 14.204626914966967,
+        "q05": 25.0,
+        "q50": 47.0,
+        "q95": 71.0
+      },
+      "mean_abs_error": 0.41978874032995606,
+      "std_abs_error": 3.862168742947235,
+      "wasserstein": 4.4244594594594595,
+      "ks_statistic": 0.13025022844058198
+    },
+    "gender": {
+      "type": "categorical",
+      "total_variation": 0.0070818609674597,
+      "jensen_shannon": 0.0062500132252385,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.007081860967459663
+        },
+        {
+          "category": "2",
+          "abs_error": 0.007031971291682482
+        },
+        {
+          "category": "-1",
+          "abs_error": 4.988967577725429e-05
+        }
+      ]
+    },
+    "race_ethnicity": {
+      "type": "categorical",
+      "total_variation": 0.07174315321551918,
+      "jensen_shannon": 0.0731521241016372,
+      "top_category_abs_errors": [
+        {
+          "category": "4",
+          "abs_error": 0.04063514366592341
+        },
+        {
+          "category": "2",
+          "abs_error": 0.0313025007621634
+        },
+        {
+          "category": "1",
+          "abs_error": 0.030868667200253275
+        },
+        {
+          "category": "3",
+          "abs_error": 0.028440721022084163
+        },
+        {
+          "category": "5",
+          "abs_error": 0.008152125728547103
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.0038478057027244647
+        },
+        {
+          "category": "6",
+          "abs_error": 0.0002393423493425341
+        }
+      ]
+    },
+    "race_ethnicity_hispanic": {
+      "type": "categorical",
+      "total_variation": 0.014657422708681107,
+      "jensen_shannon": 0.027021420296997934,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.01465742270868109
+        },
+        {
+          "category": "1",
+          "abs_error": 0.013527258102904428
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.0011301646057766965
+        }
+      ]
+    },
+    "license": {
+      "type": "categorical",
+      "total_variation": 0.021058423556463514,
+      "jensen_shannon": 0.048878765930026366,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.02105842355646348
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.02030045171361469
+        },
+        {
+          "category": "2",
+          "abs_error": 0.0007579718428488546
+        }
+      ]
+    },
+    "disability": {
+      "type": "categorical",
+      "total_variation": 0.01969963109484881,
+      "jensen_shannon": 0.043948834612357865,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.019699631094848735
+        },
+        {
+          "category": "1",
+          "abs_error": 0.010947749418882349
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.00875188167596654
+        }
+      ]
+    },
+    "smartphone": {
+      "type": "categorical",
+      "total_variation": 0.026644588130793526,
+      "jensen_shannon": 0.054070753020424876,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.026644588130793512
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.02000704921414001
+        },
+        {
+          "category": "2",
+          "abs_error": 0.006637538916653529
+        }
+      ]
+    },
+    "employment_status": {
+      "type": "categorical",
+      "total_variation": 0.04334055553081903,
+      "jensen_shannon": 0.059838011504847424,
+      "top_category_abs_errors": [
+        {
+          "category": "1",
+          "abs_error": 0.02493777634057537
+        },
+        {
+          "category": "0",
+          "abs_error": 0.020811352754950496
+        },
+        {
+          "category": "-1",
+          "abs_error": 0.016707935472157216
+        },
+        {
+          "category": "4",
+          "abs_error": 0.00934952299139042
+        },
+        {
+          "category": "2",
+          "abs_error": 0.003915119187306665
+        },
+        {
+          "category": "5",
+          "abs_error": 0.003740470594169285
+        },
+        {
+          "category": "3",
+          "abs_error": 0.0031868829654159575
+        },
+        {
+          "category": "6",
+          "abs_error": 0.0023372070375861607
+        },
+        {
+          "category": "7",
+          "abs_error": 0.001694843718086498
+        }
+      ]
+    },
+    "jobs_count": {
+      "type": "numeric",
+      "survey": {
+        "mean": 0.757005796163918,
+        "std": 0.6118563994574218,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 2.0
+      },
+      "synthetic": {
+        "mean": 0.768907,
+        "std": 0.5728097636659137,
+        "q05": 0.0,
+        "q50": 1.0,
+        "q95": 2.0
+      },
+      "mean_abs_error": 0.011901203836081953,
+      "std_abs_error": 0.03904663579150802,
+      "wasserstein": 0.056,
+      "ks_statistic": 0.04217282909326936
+    },
+    "work_tract_fips": {
+      "type": "categorical",
+      "total_variation": 0.16157135446079443,
+      "jensen_shannon": 0.19079144158006234,
+      "top_category_abs_errors": [
+        {
+          "category": "-1",
+          "abs_error": 0.08842822704788089
+        },
+        {
+          "category": "11001006202",
+          "abs_error": 0.004802114122963521
+        },
+        {
+          "category": "11001005800",
+          "abs_error": 0.004556439178674647
+        },
+        {
+          "category": "24033807200",
+          "abs_error": 0.003313648164911435
+        },
+        {
+          "category": "11001010800",
+          "abs_error": 0.0026558861624421115
+        },
+        {
+          "category": "11001010200",
+          "abs_error": 0.0022192593635901566
+        },
+        {
+          "category": "24027606707",
+          "abs_error": 0.002120917937421758
+        },
+        {
+          "category": "24510040100",
+          "abs_error": 0.001954548302632796
+        },
+        {
+          "category": "24021751003",
+          "abs_error": 0.0019127978957879251
+        },
+        {
+          "category": "24005408400",
+          "abs_error": 0.0018597190927749224
+        }
+      ]
+    },
+    "student_status": {
+      "type": "categorical",
+      "total_variation": 0.00025427610967609926,
+      "jensen_shannon": 0.00033699482139240713,
+      "top_category_abs_errors": [
+        {
+          "category": "0",
+          "abs_error": 0.00025427610967609926
+        },
+        {
+          "category": "1",
+          "abs_error": 0.00025427610967609926
+        }
+      ]
+    },
+    "volunteer_status": {
+      "type": "categorical",
+      "total_variation": 0.018216817204171024,
+      "jensen_shannon": 0.019389503361559937,
+      "top_category_abs_errors": [
+        {
+          "category": "2",
+          "abs_error": 0.018216817204171037
+        },
+        {
+          "category": "1",
+          "abs_error": 0.01821681720417101
+        }
+      ]
+    }
+  },
+  "summary": {
+    "mean_categorical_tv": 0.06214342824384102,
+    "mean_numeric_ks": 0.1261252658819593,
+    "marginal_similarity_score": 0.9116821836314742
+  }
+}
