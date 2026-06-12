@@ -1,6 +1,6 @@
 # Trip Synth WCTR Experiment
 
-This repository contains a reproducible research harness for comparing a contrastive-loss mixed-tabular VAE against non-contrastive VAE, weighted bootstrap, Gibbs, and Bayesian-network-style trip synthesis baselines.
+This repository contains a reproducible research harness for comparing a contrastive-loss mixed-tabular VAE against non-contrastive VAE, weighted bootstrap, and Bayesian-network-style trip synthesis baselines.
 
 The default quick run uses `05sample_transformed_survey.csv`, excludes `weight` from all synthetic outputs, keeps `year` as an integer feature, and skips AADT validation unless external geospatial data and two-prong traffic count inputs are available and enabled.
 

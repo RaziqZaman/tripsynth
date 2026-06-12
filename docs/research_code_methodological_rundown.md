@@ -65,7 +65,6 @@ The pipeline runs the methods listed in the config. The default comparison set i
 - `weighted_bootstrap`
 - `noncontrastive_vae`
 - `contrastive_vae`
-- `gibbs`
 - `bayesian_network`
 
 For every method, the synthetic table is saved as:
@@ -84,21 +83,16 @@ sampling probabilities proportional to nonnegative survey weights, and resamples
 with replacement. This baseline preserves empirical rows and weighted marginal
 distributions well, but it is expected to have high exact-row copy rate by design.
 
-### Gibbs Baseline
-
-`src/trip_synth/baselines/gibbs.py` starts from a weighted bootstrap sample and then
-resamples feature values over several sweeps. For each target feature, it builds
-weighted marginal distributions and limited conditional distributions based on
-configured context columns. When a specific context is unavailable, it falls back to
-the target's weighted marginal distribution.
-
 ### Bayesian Network Baseline
 
 `src/trip_synth/baselines/bayesian_network.py` discretizes numeric columns, estimates
 weighted mutual information between features, and builds a maximum-spanning-tree
 dependency structure, equivalent to a Chow-Liu-style single-parent network. It samples
 from the root marginal and conditional probability tables. Numeric draws are decoded
-by sampling observed training values from the sampled bin.
+by sampling observed training values from the sampled bin. Medium and full configs
+cap Bayesian-network generation at 100,000 rows via `method_sample_caps`; the pipeline
+writes a per-method `sample_expansion_factor`, and AADT validation scales that
+method's synthetic screenline counts back to the full target population.
 
 ### Mixed-Tabular VAE
 
@@ -192,12 +186,13 @@ The code computes:
 
 - exact-row copy rate against the real feature table,
 - duplicate rate inside the synthetic table,
-- nearest-neighbor distances from synthetic rows to real rows in preprocessed feature
-  space,
-- a near-zero-distance membership-risk proxy,
 - invalid categorical value rate,
 - novel origin-destination pair share,
 - a simple `privacy_score = 1 - copy_rate - invalid_category_rate`.
+
+Nearest-neighbor privacy distances are disabled in the active pipeline because they
+scale as a synthetic-by-real distance scan and become a bottleneck in medium/full
+experiments.
 
 This is not a formal privacy guarantee. It is a diagnostic layer to avoid confusing
 good marginal fit with row memorization. The weighted bootstrap baseline should score

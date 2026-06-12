@@ -119,7 +119,7 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
         "Experiment pipeline",
         [
             "Survey trips + expansion weights",
-            "Five synthesis methods",
+            "Four synthesis methods",
             "Synthetic tables without weight",
             "Marginals + privacy",
             "OD-to-screenline proxy",

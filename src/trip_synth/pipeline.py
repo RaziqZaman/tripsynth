@@ -8,7 +8,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from trip_synth.baselines import bayesian_network, gibbs, weighted_bootstrap
+from trip_synth.baselines import bayesian_network, weighted_bootstrap
 from trip_synth.data.download import download_external_data
 from trip_synth.data.load import read_survey_csv
 from trip_synth.data.postprocessing import assert_synthetic_contract
@@ -31,7 +31,6 @@ from trip_synth.viz.poster_figures import make_poster_figures
 
 METHOD_MODULES = {
     "weighted_bootstrap": weighted_bootstrap,
-    "gibbs": gibbs,
     "bayesian_network": bayesian_network,
 }
 
@@ -55,6 +54,40 @@ def _sample_n(config: dict[str, Any], df: pd.DataFrame, schema: FeatureSchema, l
     return int(requested)
 
 
+def _method_sample_n(method: str, target_rows: int, config: dict[str, Any], logger) -> int:
+    caps = config.get("method_sample_caps", {}) or {}
+    cap = caps.get(method)
+    if cap is None:
+        return int(target_rows)
+    cap_rows = max(1, int(cap))
+    if target_rows > cap_rows:
+        logger.warning(
+            "Capping %s sample at %s rows from target %s rows; count validations will use expansion factor %.6f.",
+            method,
+            cap_rows,
+            target_rows,
+            target_rows / cap_rows,
+        )
+        return cap_rows
+    return int(target_rows)
+
+
+def _write_sample_scaling(run_dir: Path, method: str, target_rows: int, generated_rows: int, sample_path: Path) -> None:
+    generated = max(1, int(generated_rows))
+    target = max(1, int(target_rows))
+    write_json(
+        {
+            "method": method,
+            "target_rows": target,
+            "generated_rows": generated,
+            "sample_expansion_factor": float(target / generated),
+            "sample_path": str(sample_path),
+            "note": "Synthetic count validations multiply this method's raw screenline counts by sample_expansion_factor.",
+        },
+        run_dir / "metrics" / f"{method}_sample_scaling.json",
+    )
+
+
 def _fit_and_sample(
     method: str,
     real_df: pd.DataFrame,
@@ -66,9 +99,19 @@ def _fit_and_sample(
     logger,
 ) -> pd.DataFrame:
     sample_path = run_dir / "samples" / f"{method}_synthetic.csv"
+    method_rows = _method_sample_n(method, n_rows, config, logger)
     if resume and sample_path.exists():
-        logger.info("Reusing existing sample for %s: %s", method, sample_path)
-        return pd.read_csv(sample_path, low_memory=False)
+        synthetic = pd.read_csv(sample_path, low_memory=False)
+        if len(synthetic) == method_rows:
+            logger.info("Reusing existing sample for %s: %s", method, sample_path)
+            _write_sample_scaling(run_dir, method, n_rows, len(synthetic), sample_path)
+            return synthetic
+        logger.warning(
+            "Regenerating %s because existing sample has %s rows but config now requests %s rows.",
+            method,
+            len(synthetic),
+            method_rows,
+        )
 
     logger.info("Fitting method: %s", method)
     method_dir = ensure_dir(run_dir / "checkpoints" / method)
@@ -76,7 +119,7 @@ def _fit_and_sample(
         artifact = fit_vae_method(real_df, schema, config, method_dir, method=method)
         synthetic = sample_vae_method(
             artifact,
-            n_rows,
+            method_rows,
             schema,
             config,
             run_dir / "samples",
@@ -85,10 +128,11 @@ def _fit_and_sample(
     else:
         module = METHOD_MODULES[method]
         artifact = module.fit(real_df, schema, config, method_dir)
-        synthetic = module.sample(artifact, n_rows, schema, config, run_dir / "samples")
+        synthetic = module.sample(artifact, method_rows, schema, config, run_dir / "samples")
 
     assert_synthetic_contract(synthetic, schema)
     synthetic.to_csv(sample_path, index=False)
+    _write_sample_scaling(run_dir, method, n_rows, len(synthetic), sample_path)
     logger.info("Saved %s synthetic rows for %s to %s", len(synthetic), method, sample_path)
     return synthetic
 

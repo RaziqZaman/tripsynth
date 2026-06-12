@@ -6,7 +6,6 @@ methods:
 - weighted_bootstrap
 - noncontrastive_vae
 - contrastive_vae
-- gibbs
 - bayesian_network
 vae:
   epochs: 30
@@ -31,8 +30,8 @@ vae:
     transform: capped_normalized
     cap_quantile: 0.99
     normalize_mean_to_one: true
-gibbs:
-  sweeps: 5
+method_sample_caps:
+  bayesian_network: 100000
 bayesian_network:
   max_bins: 12
   smoothing: 1.0
