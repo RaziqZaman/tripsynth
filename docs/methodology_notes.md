@@ -10,7 +10,7 @@
 8. `tdate_week` is interpreted as whole weeks after January 1, 2017. With `tdate_dow_encoding: iso_monday_1`, Monday is 1 and Sunday is 7.
 9. Contrastive loss is a representation regularizer and must be ablated against an otherwise identical non-contrastive VAE.
 10. Privacy and copying diagnostics are necessary because marginal fit alone can reward memorization.
-11. Bayesian-network generation is capped in medium/full configs and scaled back up during traffic-count validation with a recorded sample-expansion factor.
+11. Medium and paper-scale runs cap generated rows and scale synthetic traffic counts back to the population target with a recorded sample-expansion factor.
 
 ## AADT Temporal Alignment
 

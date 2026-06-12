@@ -2,14 +2,14 @@
   "config": "configs/data_sources.yaml",
   "files": [
     {
-      "path": "data/external/tiger_tracts/md/tl_2020_24_tract.shp",
+      "path": "data/external/tiger_tracts/md_2019/tl_2019_24_tract.shp",
       "status": "ok",
-      "rows": 1475
+      "rows": 1406
     },
     {
-      "path": "data/external/tiger_tracts/dc/tl_2020_11_tract.shp",
+      "path": "data/external/tiger_tracts/dc_2019/tl_2019_11_tract.shp",
       "status": "ok",
-      "rows": 206
+      "rows": 179
     },
     {
       "path": "data/external/mdot_aadt/aadt_points.geojson",
@@ -24,8 +24,8 @@
   ],
   "warnings": [],
   "attempted_sources": [
-    "https://www2.census.gov/geo/tiger/TIGER2020/TRACT/tl_2020_24_tract.zip",
-    "https://www2.census.gov/geo/tiger/TIGER2020/TRACT/tl_2020_11_tract.zip",
+    "https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_24_tract.zip",
+    "https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_11_tract.zip",
     "https://mdgeodata.md.gov/imap/rest/services/Transportation/MD_AnnualAverageDailyTraffic/FeatureServer"
   ],
   "mdot_points_metadata": {

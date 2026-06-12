@@ -1,4 +1,4 @@
-run_name: medium_test
+run_name: paper_wctr_1m
 input_csv: 05_transformed_survey.csv
 sample_n: population_from_weight_sum
 seed: 20260611
@@ -8,35 +8,37 @@ methods:
 - contrastive_vae
 - bayesian_network
 vae:
-  epochs: 30
-  batch_size: 1024
-  latent_dim: 128
-  depth: 4
+  epochs: 720
+  batch_size: 2048
+  latent_dim: 512
+  depth: 5
   width_decay: 0.9
   lambda_contrastive: 0.5
   beta_kl: 0.05
-  lr: 0.001
+  lr: 0.0005
   dropout: 0.05
   activation: relu
   normalization: layernorm
   contrastive_temperature: 0.1
   positive_aug: light
   negative_mode: marginal
-  checkpoint_every: 5
-  early_stopping_patience: 12
+  checkpoint_every: 10
+  early_stopping_patience: 30
   sample_temperature: 0.8
+  sample_chunk_size: 25000
+  max_single_file_rows: 1000000
   weighting:
     use_weight_for_training_loss: true
     transform: capped_normalized
     cap_quantile: 0.99
     normalize_mean_to_one: true
 method_sample_caps:
-  weighted_bootstrap: 100000
-  noncontrastive_vae: 100000
-  contrastive_vae: 100000
-  bayesian_network: 10000
+  weighted_bootstrap: 1000000
+  noncontrastive_vae: 1000000
+  contrastive_vae: 1000000
+  bayesian_network: 1000000
 bayesian_network:
-  max_bins: 12
+  max_bins: 16
   smoothing: 1.0
 validation:
   run_marginals: true

@@ -11,9 +11,9 @@ two-prong traffic-count screenline validation.
 The main orchestration path is:
 
 1. `scripts/run_pipeline.sh --config <config>` calls `python -m trip_synth.pipeline`.
-2. `scripts/run_quick.sh`, `scripts/run_medium.sh`, and `scripts/run_full.sh` wrap
-   the pipeline with `configs/quick.yaml`, `configs/medium.yaml`, and
-   `configs/full.yaml`.
+2. `scripts/run_quick.sh`, `scripts/run_medium.sh`, `scripts/run_paper.sh`, and `scripts/run_full.sh` wrap
+   the pipeline with `configs/quick.yaml`, `configs/medium.yaml`,
+   `configs/paper.yaml`, and `configs/full.yaml`.
 3. `scripts/run_hparam_grid.sh` calls `python -m trip_synth.hparams` with
    `configs/quick.yaml` and `configs/hparam_grid.yaml`.
 
@@ -89,10 +89,13 @@ distributions well, but it is expected to have high exact-row copy rate by desig
 weighted mutual information between features, and builds a maximum-spanning-tree
 dependency structure, equivalent to a Chow-Liu-style single-parent network. It samples
 from the root marginal and conditional probability tables. Numeric draws are decoded
-by sampling observed training values from the sampled bin. Medium and full configs
-cap Bayesian-network generation at 100,000 rows via `method_sample_caps`; the pipeline
-writes a per-method `sample_expansion_factor`, and AADT validation scales that
-method's synthetic screenline counts back to the full target population.
+by sampling observed training values from the sampled bin. Medium, paper, and full configs can cap method generation via `method_sample_caps`;
+the pipeline writes a per-method `sample_expansion_factor`, and AADT validation
+scales synthetic screenline counts back to the full target population. The medium
+config now targets the expanded population while generating 100,000 rows for the
+bootstrap/VAE methods and 10,000 rows for the Bayesian network. The paper-scale
+config caps every method at 1,000,000 generated rows while retaining the
+population-scale validation target.
 
 ### Mixed-Tabular VAE
 
