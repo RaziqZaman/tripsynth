@@ -1,0 +1,53 @@
+{
+  "direction_lane_days": 75600,
+  "duplicate_direction_lane_groups": 3487,
+  "duplicate_direction_lane_policy": "max observed_count within identical station/date/direction/lane/FHWA station id",
+  "end_date": "2019-07-31",
+  "hourly_output": "data/external/mdot_daily_counts/station_hourly_counts.csv",
+  "lane_audit_output": "data/external/mdot_daily_counts/fhwa_tmas_direction_lane_daily_counts_2017-10-01_2019-07-31.csv",
+  "metadata_output": "data/external/mdot_daily_counts/fhwa_tmas_station_metadata_2017_2019.csv",
+  "min_hours_per_direction_lane": 24,
+  "output": "data/external/mdot_daily_counts/station_daily_counts.csv",
+  "pulled_at_utc": "2026-06-12T01:48:48.853431+00:00",
+  "raw_direction_lane_days": 79087,
+  "source": "FHWA Traffic Monitoring Analysis System continuous count station monthly volume files",
+  "source_base_url": "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata",
+  "start_date": "2017-10-01",
+  "state_abbrev": "MD",
+  "state_codes": [
+    "24"
+  ],
+  "station_data_urls": [
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2017/2017_station_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/2018_station_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2019/2019_station_data.zip"
+  ],
+  "station_days": 37800,
+  "station_hours": 907200,
+  "station_id_note": "FHWA station IDs like 0P0009 are normalized to MDOT AADT Locator IDs like P0009.",
+  "stations": 64,
+  "volume_urls": [
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2017/oct_2017_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2017/nov_2017_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2017/dec_2017_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/jan_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/feb_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/mar_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/apr_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/may_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/jun_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/jul_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/aug_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/sep_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/oct_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/nov_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2018/dec_2018_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2019/jan_2019_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2019/feb_2019_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2019/mar_2019_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2019/apr_2019_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2019/may_2019_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2019/jun_2019_ccs_data.zip",
+    "https://www.fhwa.dot.gov/policyinformation/tables/tmasdata/2019/jul_2019_ccs_data.zip"
+  ]
+}

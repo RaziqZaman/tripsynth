@@ -1,0 +1,601 @@
+state_code,fhwa_station_id,station_id,direction,latitude,longitude,f_system,num_lanes_volume,station_location,posted_route_signing,posted_signed_route,year_record,source_file
+24,0P0001,P0001,1,39.57953,-78.967222,4R,1,.07 MI SOUTH OF BRODIE RD,3,36,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0001,P0001,1,39.579464,-78.96723,4R,1,MD 36 - 100ft South of George's Creek Bridge (ATR#,3,36,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0001,P0001,1,39.57953,-78.967222,4R,1,MD 36 - 100ft South of George's Creek Bridge (ATR#,3,36,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0001,P0001,5,39.57953,-78.967222,4R,1,.07 MI SOUTH OF BRODIE RD,3,36,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0001,P0001,5,39.579464,-78.96723,4R,1,MD 36 - 100ft South of George's Creek Bridge (ATR#,3,36,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0001,P0001,5,39.57953,-78.967222,4R,1,MD 36 - 100ft South of George's Creek Bridge (ATR#,3,36,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0002,P0002,1,39.650902,-77.78933,4R,1,.58 MI EAST OF MD 63,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0002,P0002,1,39.650902,-77.78933,4R,1,.58 MI EAST OF MD 63,2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0002,P0002,3,39.650902,-77.78933,4R,1,.58 MI EAST OF MD 63,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0002,P0002,3,39.650902,-77.78933,3U,1,US 40 - .58 Mile East of MD 63 (ATR#02),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0002,P0002,3,39.650902,-77.78933,3U,1,US 40 - .58 Mile East of MD 63 (ATR#02),2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0002,P0002,7,39.650902,-77.78933,4R,1,.58 MI EAST OF MD 63,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0002,P0002,7,39.650902,-77.78933,3U,1,US 40 - .58 Mile East of MD 63 (ATR#02),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0002,P0002,7,39.650902,-77.78933,3U,1,US 40 - .58 Mile East of MD 63 (ATR#02),2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0003,P0003,1,39.45614,-77.53622,5R,1,.33 MI N OF PETE WILES RD,3,17,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0003,P0003,1,39.45614,-77.53622,5R,1,MD 17 - 1.05 Miles North of US 40AL (ATR#03),3,17,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0003,P0003,1,39.45614,-77.53622,5R,1,MD 17 - 1.05 Miles North of US 40AL (ATR#03),3,17,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0003,P0003,5,39.45614,-77.53622,5R,1,.33 MI N OF PETE WILES RD,3,17,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0003,P0003,5,39.45614,-77.53622,5R,1,MD 17 - 1.05 Miles North of US 40AL (ATR#03),3,17,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0003,P0003,5,39.45614,-77.53622,5R,1,MD 17 - 1.05 Miles North of US 40AL (ATR#03),3,17,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0004,P0004,1,39.205029,-77.271186,1U,3,.65 MI N OF FATHER HURLEY BLVD,1,270,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0004,P0004,1,39.205029,-77.271186,1U,3,IS 270 - 2.0 Miles South of MD 121 (ATR#04),1,270,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0004,P0004,1,39.205029,-77.271186,1U,3,IS 270 - 2.0 Miles South of MD 121 (ATR#04),1,270,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0004,P0004,5,39.205029,-77.271186,1U,3,.65 MI N OF FATHER HURLEY BLVD,1,270,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0004,P0004,5,39.205029,-77.271186,1U,3,IS 270 - 2.0 Miles South of MD 121 (ATR#04),1,270,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0004,P0004,5,39.205029,-77.271186,1U,3,IS 270 - 2.0 Miles South of MD 121 (ATR#04),1,270,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0005,P0005,1,38.57775,-76.96302,3R,2,.80 MI N OF WASHINGTON AVE,2,301,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0005,P0005,1,38.577901,-76.962688,3U,2,US 301 - .74 Mile South of MD 227 (ATR#05),2,301,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0005,P0005,1,38.577901,-76.962688,3U,2,US 301 - .74 Mile South of MD 227 (ATR#05),2,301,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0005,P0005,5,38.57775,-76.96302,3R,2,.80 MI N OF WASHINGTON AVE,2,301,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0005,P0005,5,38.577901,-76.962688,3U,2,US 301 - .74 Mile South of MD 227 (ATR#05),2,301,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0005,P0005,5,38.577901,-76.962688,3U,2,US 301 - .74 Mile South of MD 227 (ATR#05),2,301,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0006,P0006,1,38.812795,-76.721947,3R,2,.54 MI N OF ANNE ARUNDEL COUNTY LINE,3,4,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0006,P0006,1,38.812795,-76.721947,3U,2,MD 4 - .54 Mile North of Patuxent River Bridge (AT,3,4,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0006,P0006,1,38.812795,-76.721947,3U,2,MD 4 - .54 Mile North of Patuxent River Bridge (AT,3,4,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0006,P0006,5,38.812795,-76.721947,3R,2,.54 MI N OF ANNE ARUNDEL COUNTY LINE,3,4,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0006,P0006,5,38.812795,-76.721947,3U,2,MD 4 - .54 Mile North of Patuxent River Bridge (AT,3,4,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0006,P0006,5,38.812795,-76.721947,3U,2,MD 4 - .54 Mile North of Patuxent River Bridge (AT,3,4,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0007,P0007,1,39.489351,-76.870479,3R,2,.09 MI N OF BALTIMORE COUNTY LINE,3,140,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0007,P0007,1,39.489351,-76.870479,3U,2,MD 140 - .09 Mile North of Patapsco River Bridge (,3,140,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0007,P0007,1,39.489351,-76.870479,3U,2,MD 140 - .09 Mile North of Patapsco River Bridge (,3,140,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0007,P0007,5,39.489351,-76.870479,3R,2,.09 MI N OF BALTIMORE COUNTY LINE,3,140,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0007,P0007,5,39.489351,-76.870479,3U,2,MD 140 - .09 Mile North of Patapsco River Bridge (,3,140,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0007,P0007,5,39.489351,-76.870479,3U,2,MD 140 - .09 Mile North of Patapsco River Bridge (,3,140,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0008,P0008,1,38.929145,-75.964094,5R,1,.50 MI N OF MD 404,3,309,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0008,P0008,1,38.929207,-75.964182,5R,1,MD 309 - .50 Mile North of MD 404 (ATR#08),3,309,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0008,P0008,1,38.929145,-75.964094,5R,1,MD 309 - .50 Mile North of MD 404 (ATR#08),3,309,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0008,P0008,5,38.929145,-75.964094,5R,1,.50 MI N OF MD 404,3,309,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0008,P0008,5,38.929207,-75.964182,5R,1,MD 309 - .50 Mile North of MD 404 (ATR#08),3,309,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0008,P0008,5,38.929145,-75.964094,5R,1,MD 309 - .50 Mile North of MD 404 (ATR#08),3,309,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0009,P0009,1,38.423943,-75.564374,3U,3,.37 MI S OF MD 675B,2,13,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0009,P0009,1,38.423943,-75.564374,3U,3,US 13 - 100ft North of Leonards Mill Pond Bridge (,2,13,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0009,P0009,1,38.423943,-75.564374,3U,3,US 13 - 100ft North of Leonards Mill Pond Bridge (,2,13,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0009,P0009,5,38.423943,-75.564374,3U,2,.37 MI S OF MD 675B,2,13,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0009,P0009,5,38.423943,-75.564374,3U,2,US 13 - 100ft North of Leonards Mill Pond Bridge (,2,13,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0009,P0009,5,38.423943,-75.564374,3U,2,US 13 - 100ft North of Leonards Mill Pond Bridge (,2,13,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0010,P0010,1,38.029567,-75.786257,4R,1,.39 MI S OF MD 667,3,413,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0010,P0010,1,38.029567,-75.786257,4R,1,MD 413 - .39 Mile South of MD 667 (ATR#10),3,413,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0010,P0010,1,38.029567,-75.786257,4R,1,MD 413 - .39 Mile South of MD 667 (ATR#10),3,413,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0010,P0010,5,38.029567,-75.786257,4R,1,.39 MI S OF MD 667,3,413,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0010,P0010,5,38.029567,-75.786257,4R,1,MD 413 - .39 Mile South of MD 667 (ATR#10),3,413,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0010,P0010,5,38.029567,-75.786257,4R,1,MD 413 - .39 Mile South of MD 667 (ATR#10),3,413,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0011,P0011,1,39.51148,-76.374521,3U,1,.45 MI N OF US 1,2,1,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0011,P0011,1,39.511472,-76.374544,3U,2,US 1BU - .06 Mile South of Old Joppa Rd (ATR#11),2,1,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0011,P0011,1,39.51148,-76.374521,3U,2,US 1BU - .06 Mile South of Old Joppa Rd (ATR#11),2,1,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0011,P0011,5,39.51148,-76.374521,3U,1,.45 MI N OF US 1,2,1,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0011,P0011,5,39.511472,-76.374544,3U,1,US 1BU - .06 Mile South of Old Joppa Rd (ATR#11),2,1,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0011,P0011,5,39.51148,-76.374521,3U,1,US 1BU - .06 Mile South of Old Joppa Rd (ATR#11),2,1,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0012,P0012,1,39.461723,-76.252401,3U,2,.39 MI E OF LONG BAR HARBOR RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0012,P0012,1,39.461723,-76.252401,3U,2,.39 MI E OF LONG BAR HARBOR RD,2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0012,P0012,1,39.461723,-76.252401,3U,2,.39 MI E OF LONG BAR HARBOR RD,2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0012,P0012,3,39.461723,-76.252401,3U,2,.39 MI E OF LONG BAR HARBOR RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0012,P0012,3,39.461723,-76.252401,3U,2,US 40 - 50ft South of Bush River Bridge (ATR#12),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0012,P0012,3,39.461723,-76.252401,3U,2,US 40 - 50ft South of Bush River Bridge (ATR#12),2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0012,P0012,7,39.461723,-76.252401,3U,2,.39 MI E OF LONG BAR HARBOR RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0012,P0012,7,39.461723,-76.252401,3U,2,US 40 - 50ft South of Bush River Bridge (ATR#12),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0012,P0012,7,39.461723,-76.252401,3U,2,US 40 - 50ft South of Bush River Bridge (ATR#12),2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0013,P0013,1,39.472993,-76.640244,3U,2,.14 MI S OF WARREN RD,3,45,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0013,P0013,1,39.472993,-76.640244,3U,2,MD 45 - .14 Mile South of Warren Rd (ATR#13),3,45,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0013,P0013,1,39.472993,-76.640244,3U,2,MD 45 - .14 Mile South of Warren Rd (ATR#13),3,45,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0013,P0013,5,39.472993,-76.640244,3U,2,.14 MI S OF WARREN RD,3,45,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0013,P0013,5,39.472993,-76.640244,3U,2,MD 45 - .14 Mile South of Warren Rd (ATR#13),3,45,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0013,P0013,5,39.472993,-76.640244,3U,2,MD 45 - .14 Mile South of Warren Rd (ATR#13),3,45,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0014,P0014,1,39.284112,-76.877762,2U,2,.06 MI W OF CEMETERY RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0014,P0014,1,39.284112,-76.877762,2U,2,.06 MI W OF CEMETERY RD,2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0014,P0014,3,39.284112,-76.877762,2U,2,.06 MI W OF CEMETERY RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0014,P0014,3,39.284112,-76.877762,3U,2,US 40 - .06 Mile West of Cemetery La (ATR#14),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0014,P0014,7,39.284112,-76.877762,2U,2,.06 MI W OF CEMETERY RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0014,P0014,7,39.284112,-76.877762,3U,2,US 40 - .06 Mile West of Cemetery La (ATR#14),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0015,P0015,1,39.357165,-75.877741,4R,1,.08 MI S OF GEORGETOWN CEMETERY RD,3,213,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0015,P0015,1,39.357165,-75.877741,4R,1,MD 213 - .12 Mile South of Georgetown Cemetery Rd,3,213,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0015,P0015,1,39.357165,-75.877741,4R,1,MD 213 - .12 Mile South of Georgetown Cemetery Rd,3,213,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0015,P0015,5,39.357165,-75.877741,4R,1,.08 MI S OF GEORGETOWN CEMETERY RD,3,213,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0015,P0015,5,39.357165,-75.877741,4R,1,MD 213 - .12 Mile South of Georgetown Cemetery Rd,3,213,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0015,P0015,5,39.357165,-75.877741,4R,1,MD 213 - .12 Mile South of Georgetown Cemetery Rd,3,213,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0016,P0016,1,38.510909,-75.878274,3R,2,.27 MI E OF MAIDEN FOREST RD,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0016,P0016,1,38.510909,-75.878274,3R,2,.27 MI E OF MAIDEN FOREST RD,2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0016,P0016,1,38.510909,-75.878274,3R,2,.27 MI E OF MAIDEN FOREST RD,2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0016,P0016,3,38.510909,-75.878274,3R,2,.27 MI E OF MAIDEN FOREST RD,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0016,P0016,3,38.510957,-75.878351,3R,2,US 50 - .09 Mile East of Big Mill Pond (ATR#16),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0016,P0016,3,38.510957,-75.878351,3R,2,US 50 - .09 Mile East of Big Mill Pond (ATR#16),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0016,P0016,7,38.510909,-75.878274,3R,2,.27 MI E OF MAIDEN FOREST RD,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0016,P0016,7,38.510957,-75.878351,3R,2,US 50 - .09 Mile East of Big Mill Pond (ATR#16),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0016,P0016,7,38.510957,-75.878351,3R,2,US 50 - .09 Mile East of Big Mill Pond (ATR#16),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0017,P0017,1,38.385617,-75.358354,3R,2,.25 MI W OF MD 354,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0017,P0017,1,38.385617,-75.358354,3R,2,.25 MI W OF MD 354,2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0017,P0017,1,38.385617,-75.358354,3R,2,.25 MI W OF MD 354,2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0017,P0017,3,38.385617,-75.358354,3R,2,.25 MI W OF MD 354,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0017,P0017,3,38.385617,-75.358354,3R,2,US 50 - .25 Mile West of MD 354 (ATR#17),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0017,P0017,3,38.385617,-75.358354,3R,2,US 50 - .25 Mile West of MD 354 (ATR#17),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0017,P0017,7,38.385617,-75.358354,3R,2,.25 MI W OF MD 354,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0017,P0017,7,38.385617,-75.358354,3R,2,US 50 - .25 Mile West of MD 354 (ATR#17),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0017,P0017,7,38.385617,-75.358354,3R,2,US 50 - .25 Mile West of MD 354 (ATR#17),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0018,P0018,1,39.141207,-76.603122,3U,3,.03 MI N OF MARLEY STATION RD,3,2,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0018,P0018,1,39.141207,-76.603122,3U,3,MD 2  - 160ft North of Marley Station Rd (ATR#18 O,3,2,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0018,P0018,1,39.141207,-76.603122,3U,3,MD 2  - 160ft North of Marley Station Rd (ATR#18 O,3,2,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0018,P0018,5,39.141207,-76.603122,3U,4,.03 MI N OF MARLEY STATION RD,3,2,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0018,P0018,5,39.141207,-76.603122,3U,4,MD 2  - 160ft North of Marley Station Rd (ATR#18 O,3,2,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0018,P0018,5,39.141207,-76.603122,3U,4,MD 2  - 160ft North of Marley Station Rd (ATR#18 O,3,2,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0019,P0019,1,39.326407,-77.706219,3R,1,.42 MI N OF VIRGINIA/MARYLAND STATE LINE,2,340,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0019,P0019,1,39.326407,-77.706219,3R,1,.42 MI N OF VIRGINIA/MARYLAND STATE LINE,2,340,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0019,P0019,1,39.326407,-77.706219,3R,1,.42 MI N OF VIRGINIA/MARYLAND STATE LINE,2,340,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0019,P0019,3,39.326407,-77.706219,3R,1,.42 MI N OF VIRGINIA/MARYLAND STATE LINE,2,340,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0019,P0019,3,39.326407,-77.706219,3R,1,US 340 - 50ft East of Potomac River Bridge (ATR#19,2,340,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0019,P0019,3,39.326407,-77.706219,3R,1,US 340 - 50ft East of Potomac River Bridge (ATR#19,2,340,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0019,P0019,7,39.326407,-77.706219,3R,1,.42 MI N OF VIRGINIA/MARYLAND STATE LINE,2,340,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0019,P0019,7,39.326407,-77.706219,3R,1,US 340 - 50ft East of Potomac River Bridge (ATR#19,2,340,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0019,P0019,7,39.326407,-77.706219,3R,1,US 340 - 50ft East of Potomac River Bridge (ATR#19,2,340,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0020,P0020,1,39.161474,-76.522219,3U,1,BETWEEN HOMELAND AND GRANADA RDS,3,173,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0020,P0020,1,39.161474,-76.522219,3U,1,MD 173 - .20 Mile South of Stoney Creek Bridge (AT,3,173,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0020,P0020,1,39.161474,-76.522219,3U,1,MD 173 - .20 Mile South of Stoney Creek Bridge (AT,3,173,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0020,P0020,5,39.161474,-76.522219,3U,1,BETWEEN HOMELAND AND GRANADA RDS,3,173,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0020,P0020,5,39.161474,-76.522219,3U,1,MD 173 - .20 Mile South of Stoney Creek Bridge (AT,3,173,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0020,P0020,5,39.161474,-76.522219,3U,1,MD 173 - .20 Mile South of Stoney Creek Bridge (AT,3,173,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0021,P0021,1,39.47172,-77.528251,1R,3,2.79 Miles East of MD 17,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0021,P0021,1,39.47172,-77.528251,1R,3,2.79 Miles East of MD 17,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0021,P0021,1,39.47172,-77.528251,1R,3,2.79 Miles East of MD 17,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0021,P0021,3,39.47172,-77.528251,1R,3,2.79 Miles East of MD 17,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0021,P0021,3,39.47172,-77.528251,1R,3,IS 70 - 2.79 Miles East of MD 17 (ATR#21),1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0021,P0021,3,39.47172,-77.528251,1R,3,IS 70 - 2.79 Miles East of MD 17 (ATR#21),1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0021,P0021,7,39.47172,-77.528251,1R,2,2.79 Miles East of MD 17,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0021,P0021,7,39.47172,-77.528251,1R,2,IS 70 - 2.79 Miles East of MD 17 (ATR#21),1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0021,P0021,7,39.47172,-77.528251,1R,2,IS 70 - 2.79 Miles East of MD 17 (ATR#21),1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0022,P0022,1,38.871176,-76.061251,3R,2,.06 MI E OF MD 662C,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0022,P0022,1,38.871176,-76.061251,3R,2,.06 MI E OF MD 662C,2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0022,P0022,1,38.871176,-76.061251,3R,2,.06 MI E OF MD 662C,2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0022,P0022,3,38.871176,-76.061251,3R,2,.06 MI E OF MD 662C,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0022,P0022,3,38.871176,-76.061251,3R,2,US 50 - .06 Mile East of Longwoods Rd (ATR#22),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0022,P0022,3,38.871176,-76.061251,3R,2,US 50 - .06 Mile East of Longwoods Rd (ATR#22),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0022,P0022,7,38.871176,-76.061251,3R,2,.06 MI E OF MD 662C,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0022,P0022,7,38.871176,-76.061251,3R,2,US 50 - .06 Mile East of Longwoods Rd (ATR#22),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0022,P0022,7,38.871176,-76.061251,3R,2,US 50 - .06 Mile East of Longwoods Rd (ATR#22),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0023,P0023,1,38.61667,-76.886493,3U,2,MD 5BU - .30 Mile West of MD 5 (ATR#23 OBSOLETE),3,5,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0023,P0023,1,38.61667,-76.886493,3U,2,MD 5BU - .30 Mile West of MD 5 (ATR#23 OBSOLETE),3,5,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0023,P0023,5,38.61667,-76.886493,3U,2,MD 5BU - .30 Mile West of MD 5 (ATR#23 OBSOLETE),3,5,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0023,P0023,5,38.61667,-76.886493,3U,2,MD 5BU - .30 Mile West of MD 5 (ATR#23 OBSOLETE),3,5,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0024,P0024,1,38.955895,-76.678984,1R,3,I E OF PRINCE GEORGES COUNTY LINE,1,595,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0024,P0024,1,38.955895,-76.678984,1R,3,I E OF PRINCE GEORGES COUNTY LINE,1,595,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0024,P0024,1,38.955895,-76.678984,1R,3,I E OF PRINCE GEORGES COUNTY LINE,1,595,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0024,P0024,3,38.955895,-76.678984,1R,3,I E OF PRINCE GEORGES COUNTY LINE,1,595,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0024,P0024,3,38.955895,-76.678984,1R,3,US 50/IS 595 - 1.34 Miles West of MD 424 (ATR#24),1,595,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0024,P0024,3,38.955895,-76.678984,1R,3,US 50/IS 595 - 1.34 Miles West of MD 424 (ATR#24),1,595,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0024,P0024,7,38.955895,-76.678984,1R,3,I E OF PRINCE GEORGES COUNTY LINE,1,595,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0024,P0024,7,38.955895,-76.678984,1R,3,US 50/IS 595 - 1.34 Miles West of MD 424 (ATR#24),1,595,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0024,P0024,7,38.955895,-76.678984,1R,3,US 50/IS 595 - 1.34 Miles West of MD 424 (ATR#24),1,595,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0025,P0025,1,39.161077,-76.73981,2U,3,.68 MI S OF MD 100,3,295,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0025,P0025,1,39.161077,-76.73981,2U,3,MD 295(NB) - .81 South of MD 100 (ATR#25 Includes,3,295,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0025,P0025,1,39.161077,-76.73981,2U,3,MD 295(NB) - .81 South of MD 100 (ATR#25 Includes,3,295,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0025,P0025,5,39.161077,-76.73981,2U,3,.68 MI S OF MD 100,3,295,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0025,P0025,5,39.161077,-76.73981,2U,3,MD 295(NB) - .81 South of MD 100 (ATR#25 Includes,3,295,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0025,P0025,5,39.161077,-76.73981,2U,3,MD 295(NB) - .81 South of MD 100 (ATR#25 Includes,3,295,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0026,P0026,1,39.642393,-78.878689,3U,1,.63 MI EAST OF MD 55,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0026,P0026,1,39.642393,-78.878689,3U,1,.63 MI EAST OF MD 55,2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0026,P0026,3,39.642393,-78.878689,3U,1,.63 MI EAST OF MD 55,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0026,P0026,3,39.642697,-78.876868,4U,1,US 40AL - .62 Mile East of MD 55 (ATR#26),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0026,P0026,3,39.642697,-78.876868,4U,1,US 40AL - .62 Mile East of MD 55 (ATR#26),2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0026,P0026,7,39.642393,-78.878689,3U,1,.63 MI EAST OF MD 55,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0026,P0026,7,39.642697,-78.876868,4U,1,US 40AL - .62 Mile East of MD 55 (ATR#26),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0026,P0026,7,39.642697,-78.876868,4U,1,US 40AL - .62 Mile East of MD 55 (ATR#26),2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0027,P0027,1,39.540815,-76.666332,1R,2,.08 MI S OF THORNTON MILL RD,1,83,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0027,P0027,1,39.540815,-76.666332,1R,2,IS 83 - .50 mile South of Belfast Rd (ATR#27),1,83,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0027,P0027,1,39.540815,-76.666332,1R,2,IS 83 - .50 mile South of Belfast Rd (ATR#27),1,83,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0027,P0027,5,39.540815,-76.666332,1R,2,.08 MI S OF THORNTON MILL RD,1,83,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0027,P0027,5,39.540815,-76.666332,1R,2,IS 83 - .50 mile South of Belfast Rd (ATR#27),1,83,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0027,P0027,5,39.540815,-76.666332,1R,2,IS 83 - .50 mile South of Belfast Rd (ATR#27),1,83,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0028,P0028,1,39.026031,-76.027799,3R,2,.13 MI S OF MD 304,2,301,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0028,P0028,1,,,2R,2,US 301 - .11 Mile South of MD 304 (ATR#28),2,301,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0028,P0028,1,39.021,-76.036,2R,2,US 301 - .11 Mile South of MD 304 (ATR#28),2,301,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0028,P0028,5,39.026031,-76.027799,3R,2,.13 MI S OF MD 304,2,301,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0028,P0028,5,,,2R,2,US 301 - .11 Mile South of MD 304 (ATR#28),2,301,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0028,P0028,5,39.021,-76.036,2R,2,US 301 - .11 Mile South of MD 304 (ATR#28),2,301,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0029,P0029,1,39.210445,-76.854127,2U,2,1.15 MI S OF MD 175,2,29,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0029,P0029,1,39.210445,-76.854127,2U,2,US 29 - .31 Mile North of South Entrance Rd (ATR#2,2,29,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0029,P0029,1,39.210445,-76.854127,2U,2,US 29 - .31 Mile North of South Entrance Rd (ATR#2,2,29,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0029,P0029,5,39.210445,-76.854127,2U,3,1.15 MI S OF MD 175,2,29,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0029,P0029,5,39.210445,-76.854127,2U,3,US 29 - .31 Mile North of South Entrance Rd (ATR#2,2,29,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0029,P0029,5,39.210445,-76.854127,2U,3,US 29 - .31 Mile North of South Entrance Rd (ATR#2,2,29,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0030,P0030,1,39.463594,-77.401423,2U,2,.54 MO N OF MD 355,2,15,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0030,P0030,1,39.463651,-77.401434,2U,2,US 15 - .15 Mile North of Monocacy Blvd (ATR#30 OB,2,15,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0030,P0030,1,39.463651,-77.401434,2U,2,US 15 - .15 Mile North of Monocacy Blvd (ATR#30 OB,2,15,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0030,P0030,5,39.463594,-77.401423,2U,2,.54 MO N OF MD 355,2,15,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0030,P0030,5,39.463651,-77.401434,2U,2,US 15 - .15 Mile North of Monocacy Blvd (ATR#30 OB,2,15,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0030,P0030,5,39.463651,-77.401434,2U,2,US 15 - .15 Mile North of Monocacy Blvd (ATR#30 OB,2,15,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0031,P0031,3,39.41778,-76.655913,1U,5,IS 83/IS 695 - .35 Mile East of Joppa Rd (ATR#31 O,1,83,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0031,P0031,3,39.41778,-76.655913,1U,5,IS 83/IS 695 - .35 Mile East of Joppa Rd (ATR#31 O,1,83,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0031,P0031,7,39.41778,-76.655913,1U,5,IS 83/IS 695 - .35 Mile East of Joppa Rd (ATR#31 O,1,83,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0031,P0031,7,39.41778,-76.655913,1U,5,IS 83/IS 695 - .35 Mile East of Joppa Rd (ATR#31 O,1,83,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0032,P0032,1,39.281939,-76.731,1U,5,.02 MI S OF INGLESIDE AVE.,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0032,P0032,1,39.281939,-76.731,1U,5,IS 695 - 100ft South of Ingleside Ave (ATR#32),1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0032,P0032,1,39.281939,-76.731,1U,5,IS 695 - 100ft South of Ingleside Ave (ATR#32),1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0032,P0032,5,39.281939,-76.731,1U,4,.02 MI S OF INGLESIDE AVE.,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0032,P0032,5,39.281939,-76.731,1U,4,IS 695 - 100ft South of Ingleside Ave (ATR#32),1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0032,P0032,5,39.281939,-76.731,1U,4,IS 695 - 100ft South of Ingleside Ave (ATR#32),1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0033,P0033,1,39.682456,-78.49377,1R,2,1.22 MI E OF OLD CUMBERLAND RD,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0033,P0033,1,39.682456,-78.49377,1R,2,1.22 MI E OF OLD CUMBERLAND RD,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0033,P0033,1,39.682456,-78.49377,1R,2,1.22 MI E OF OLD CUMBERLAND RD,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0033,P0033,3,39.682456,-78.49377,1R,2,1.22 MI E OF OLD CUMBERLAND RD,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0033,P0033,3,39.682442,-78.49374,1R,2,IS 68 - 1.22 Miles East of Old Cumberland Rd (ATR#,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0033,P0033,3,39.682456,-78.49377,1R,2,IS 68 - 1.22 Miles East of Old Cumberland Rd (ATR#,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0033,P0033,7,39.682456,-78.49377,1R,2,1.22 MI E OF OLD CUMBERLAND RD,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0033,P0033,7,39.682442,-78.49374,1R,2,IS 68 - 1.22 Miles East of Old Cumberland Rd (ATR#,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0033,P0033,7,39.682456,-78.49377,1R,2,IS 68 - 1.22 Miles East of Old Cumberland Rd (ATR#,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0034,P0034,1,39.363062,-76.507185,1U,3,.59 MI E OF US 1 BELAIR RD,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0034,P0034,1,39.363062,-76.507185,1U,3,IS 695 - .59 Mile North of US 1 (Belair Rd) (ATR#3,1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0034,P0034,1,39.363062,-76.507185,1U,3,IS 695 - .59 Mile North of US 1 (Belair Rd) (ATR#3,1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0034,P0034,5,39.363062,-76.507185,1U,3,.59 MI E OF US 1 BELAIR RD,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0034,P0034,5,39.363062,-76.507185,1U,3,IS 695 - .59 Mile North of US 1 (Belair Rd) (ATR#3,1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0034,P0034,5,39.363062,-76.507185,1U,3,IS 695 - .59 Mile North of US 1 (Belair Rd) (ATR#3,1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0035,P0035,1,39.529425,-79.345241,3R,1,.10 MI N OF BRIDGE #11021 OVER DEEP CREEK LAKE,2,219,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0035,P0035,1,39.529425,-79.345241,3R,1,US 219 - .10 Mile North of Deep Creek Lake Bridge,2,219,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0035,P0035,1,39.529425,-79.345241,3R,1,US 219 - .10 Mile North of Deep Creek Lake Bridge,2,219,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0035,P0035,5,39.529425,-79.345241,3R,1,.10 MI N OF BRIDGE #11021 OVER DEEP CREEK LAKE,2,219,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0035,P0035,5,39.529425,-79.345241,3R,2,US 219 - .10 Mile North of Deep Creek Lake Bridge,2,219,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0035,P0035,5,39.529425,-79.345241,3R,2,US 219 - .10 Mile North of Deep Creek Lake Bridge,2,219,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0036,P0036,1,38.92282,-75.950082,3R,1,.24 MI E OF MD 303,3,404,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0036,P0036,1,38.92282,-75.950082,3R,1,.24 MI E OF MD 303,3,404,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0036,P0036,1,38.921965,-75.944545,3R,1,.24 MI E OF MD 303,3,404,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0036,P0036,3,38.92282,-75.950082,3R,1,.24 MI E OF MD 303,3,404,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0036,P0036,3,38.921862,-75.944515,3R,2,MD 404 - .065 Mile West of Cemetery Rd(ATR#36),3,404,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0036,P0036,3,38.921965,-75.944545,3R,2,MD 404 - .065 Mile West of Cemetery Rd(ATR#36),3,404,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0036,P0036,7,38.92282,-75.950082,3R,1,.24 MI E OF MD 303,3,404,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0036,P0036,7,38.921862,-75.944515,3R,2,MD 404 - .065 Mile West of Cemetery Rd(ATR#36),3,404,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0036,P0036,7,38.921965,-75.944545,3R,2,MD 404 - .065 Mile West of Cemetery Rd(ATR#36),3,404,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0037,P0037,1,38.01384,-75.543764,3R,2,.57 MI N OF VIRGINIA STATE LINE,2,13,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0037,P0037,1,38.013839,-75.543754,3R,2,US 13 - .10 Mile North of Bunting Rd (ATR#37),2,13,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0037,P0037,1,38.01384,-75.543764,3R,2,US 13 - .10 Mile North of Bunting Rd (ATR#37),2,13,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0037,P0037,5,38.01384,-75.543764,3R,2,.57 MI N OF VIRGINIA STATE LINE,2,13,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0037,P0037,5,38.013839,-75.543754,3R,2,US 13 - .10 Mile North of Bunting Rd (ATR#37),2,13,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0037,P0037,5,38.01384,-75.543764,3R,2,US 13 - .10 Mile North of Bunting Rd (ATR#37),2,13,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0038,P0038,1,39.140735,-76.626754,2U,2,.45 MI W OF OAKWOOD RD,3,100,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0038,P0038,1,39.140735,-76.626754,2U,2,.45 MI W OF OAKWOOD RD,3,100,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0038,P0038,1,39.140735,-76.626754,2U,2,.45 MI W OF OAKWOOD RD,3,100,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0038,P0038,3,39.140735,-76.626754,2U,2,.45 MI W OF OAKWOOD RD,3,100,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0038,P0038,3,,,2U,2,MD 100 - .45 Mile West of Oakwood Rd (ATR#38),3,100,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0038,P0038,3,39.140735,-76.626754,2U,2,MD 100 - .45 Mile West of Oakwood Rd (ATR#38),3,100,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0038,P0038,7,39.140735,-76.626754,2U,2,.45 MI W OF OAKWOOD RD,3,100,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0038,P0038,7,,,2U,2,MD 100 - .45 Mile West of Oakwood Rd (ATR#38),3,100,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0038,P0038,7,39.140735,-76.626754,2U,2,MD 100 - .45 Mile West of Oakwood Rd (ATR#38),3,100,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0039,P0039,1,39.190582,-76.773328,1U,4,1.28 MI N OF MD 175,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0039,P0039,1,39.190536,-76.773374,1U,4,IS 95 - .08 Mile South of MD 103 (ATR#39),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0039,P0039,1,39.190582,-76.773328,1U,4,IS 95 - .08 Mile South of MD 103 (ATR#39),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0039,P0039,5,39.190582,-76.773328,1U,4,1.28 MI N OF MD 175,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0039,P0039,5,39.190536,-76.773374,1U,4,IS 95 - .08 Mile South of MD 103 (ATR#39),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0039,P0039,5,39.190582,-76.773328,1U,4,IS 95 - .08 Mile South of MD 103 (ATR#39),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0040,P0040,1,38.981416,-77.172361,1U,4,AT PERSIMMON TREE RD OVERPASS,1,495,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0040,P0040,1,38.981416,-77.172361,1U,4,AT PERSIMMON TREE RD OVERPASS,1,495,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0040,P0040,1,38.981416,-77.172361,1U,4,AT PERSIMMON TREE RD OVERPASS,1,495,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0040,P0040,3,38.981416,-77.172361,1U,4,AT PERSIMMON TREE RD OVERPASS,1,495,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0040,P0040,3,38.981418,-77.172357,1U,4,IS 495 - 50ft East of Persimmon Tree Rd Overpass (,1,495,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0040,P0040,3,38.981416,-77.172361,1U,4,IS 495 - 50ft East of Persimmon Tree Rd Overpass (,1,495,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0040,P0040,7,38.981416,-77.172361,1U,4,AT PERSIMMON TREE RD OVERPASS,1,495,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0040,P0040,7,38.981418,-77.172357,1U,4,IS 495 - 50ft East of Persimmon Tree Rd Overpass (,1,495,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0040,P0040,7,38.981416,-77.172361,1U,4,IS 495 - 50ft East of Persimmon Tree Rd Overpass (,1,495,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0041,P0041,1,39.018199,-76.991452,1U,4,.82 MI W OF MD 650,1,495,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0041,P0041,1,39.018199,-76.991452,1U,4,.82 MI W OF MD 650,1,495,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0041,P0041,1,39.018199,-76.991452,1U,4,.82 MI W OF MD 650,1,495,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0041,P0041,3,39.018199,-76.991452,1U,4,.82 MI W OF MD 650,1,495,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0041,P0041,3,39.018199,-76.991452,1U,4,IS 495 - .82 Mile West of MD 650 (ATR#41),1,495,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0041,P0041,3,39.018199,-76.991452,1U,4,IS 495 - .82 Mile West of MD 650 (ATR#41),1,495,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0041,P0041,7,39.018199,-76.991452,1U,4,.82 MI W OF MD 650,1,495,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0041,P0041,7,39.018199,-76.991452,1U,4,IS 495 - .82 Mile West of MD 650 (ATR#41),1,495,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0041,P0041,7,39.018199,-76.991452,1U,4,IS 495 - .82 Mile West of MD 650 (ATR#41),1,495,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0042,P0042,1,39.057347,-76.527433,3U,4,.04 MI S OF JONES STATION RD,3,2,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0042,P0042,1,39.057347,-76.527433,3U,4,MD 2 - 211ft South of Jones Station Rd (ATR#42 OBS,3,2,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0042,P0042,1,39.057347,-76.527433,3U,4,MD 2 - 211ft South of Jones Station Rd (ATR#42 OBS,3,2,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0042,P0042,5,39.057347,-76.527433,3U,3,.04 MI S OF JONES STATION RD,3,2,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0042,P0042,5,39.057347,-76.527433,3U,3,MD 2 - 211ft South of Jones Station Rd (ATR#42 OBS,3,2,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0042,P0042,5,39.057347,-76.527433,3U,3,MD 2 - 211ft South of Jones Station Rd (ATR#42 OBS,3,2,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0043,P0043,1,38.87784,-76.843628,1U,4,1.02 MI S OF MD 214,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0043,P0043,1,38.87784,-76.843628,1U,4,IS 95 - 1.02 Miles South of MD 214 (ATR#43),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0043,P0043,1,38.87784,-76.843628,1U,4,IS 95 - 1.02 Miles South of MD 214 (ATR#43),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0043,P0043,5,38.87784,-76.843628,1U,4,1.02 MI S OF MD 214,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0043,P0043,5,38.87784,-76.843628,1U,4,IS 95 - 1.02 Miles South of MD 214 (ATR#43),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0043,P0043,5,38.87784,-76.843628,1U,4,IS 95 - 1.02 Miles South of MD 214 (ATR#43),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0044,P0044,1,39.676944,-78.964678,1R,2,at FINZEL RD MD 546,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0044,P0044,1,39.676944,-78.964678,1R,2,at FINZEL RD MD 546,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0044,P0044,1,39.676944,-78.964678,1R,2,at FINZEL RD MD 546,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0044,P0044,3,39.676944,-78.964678,1R,2,at FINZEL RD MD 546,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0044,P0044,3,39.67763,-78.965161,1R,3,IS 68(EB) - .50 Mile East of MD 546(ATR#44 Include,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0044,P0044,3,39.676944,-78.964678,1R,3,IS 68(EB) - .50 Mile East of MD 546(ATR#44 Include,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0044,P0044,7,39.676944,-78.964678,1R,2,at FINZEL RD MD 546,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0044,P0044,7,39.67763,-78.965161,1R,3,IS 68(EB) - .50 Mile East of MD 546(ATR#44 Include,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0044,P0044,7,39.676944,-78.964678,1R,3,IS 68(EB) - .50 Mile East of MD 546(ATR#44 Include,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0045,P0045,1,39.688004,-78.119969,1R,2,.52 MI E OF RAMP 3 TO MD 615,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0045,P0045,1,39.688004,-78.119969,1R,2,.52 MI E OF RAMP 3 TO MD 615,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0045,P0045,1,39.688004,-78.119969,1R,2,.52 MI E OF RAMP 3 TO MD 615,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0045,P0045,3,39.688004,-78.119969,1R,2,.52 MI E OF RAMP 3 TO MD 615,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0045,P0045,3,39.688004,-78.119969,1R,2,IS 70 - .52 Mile East of MD 615 Structure #21062 (,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0045,P0045,3,39.688004,-78.119969,1R,2,IS 70 - .52 Mile East of MD 61,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0045,P0045,7,39.688004,-78.119969,1R,2,.52 MI E OF RAMP 3 TO MD 615,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0045,P0045,7,39.688004,-78.119969,1R,2,IS 70 - .52 Mile East of MD 615 Structure #21062 (,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0045,P0045,7,39.688004,-78.119969,1R,2,IS 70 - .52 Mile East of MD 61,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0046,P0046,1,39.312773,-76.967226,1R,3,.85 MI W OF MD 32,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0046,P0046,1,39.312773,-76.967226,1R,3,.85 MI W OF MD 32,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0046,P0046,1,39.312773,-76.967226,1R,3,.85 MI W OF MD 32,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0046,P0046,3,39.312773,-76.967226,1R,3,.85 MI W OF MD 32,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0046,P0046,3,39.312773,-76.967226,1R,3,IS 70 - .85 Mile West of MD 32 (ATR#46),1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0046,P0046,3,39.312773,-76.967226,1R,3,IS 70 - .85 Mile West of MD 32 (ATR#46),1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0046,P0046,7,39.312773,-76.967226,1R,3,.85 MI W OF MD 32,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0046,P0046,7,39.312773,-76.967226,1R,3,IS 70 - .85 Mile West of MD 32 (ATR#46),1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0046,P0046,7,39.312773,-76.967226,1R,3,IS 70 - .85 Mile West of MD 32 (ATR#46),1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0047,P0047,1,39.345031,-76.508597,1U,4,IS 95 - .55 Mile South of IS 695 (ATR#47 OBSOLETE),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0047,P0047,1,39.345031,-76.508597,1U,4,IS 95 - .55 Mile South of IS 695 (ATR#47 OBSOLETE),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0047,P0047,5,39.345031,-76.508597,1U,4,IS 95 - .55 Mile South of IS 695 (ATR#47 OBSOLETE),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0047,P0047,5,39.345031,-76.508597,1U,4,IS 95 - .55 Mile South of IS 695 (ATR#47 OBSOLETE),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0048,P0048,1,39.070588,-76.957384,2U,3,.62 MI N OF RANDOLPH RD,2,29,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0048,P0048,1,39.070561,-76.957402,2U,3,US 29 - .22 Mile South of Fairland Rd (ATR#48 OBSO,2,29,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0048,P0048,1,39.070561,-76.957402,2U,3,US 29 - .22 Mile South of Fairland Rd (ATR#48 OBSO,2,29,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0048,P0048,5,39.070588,-76.957384,2U,3,.62 MI N OF RANDOLPH RD,2,29,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0048,P0048,5,39.070561,-76.957402,2U,3,US 29 - .22 Mile South of Fairland Rd (ATR#48 OBSO,2,29,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0048,P0048,5,39.070561,-76.957402,2U,3,US 29 - .22 Mile South of Fairland Rd (ATR#48 OBSO,2,29,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0049,P0049,1,38.81698,-76.948714,1U,4,AT TEMPLE HILLS RD OVERPASS,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0049,P0049,1,38.81698,-76.948714,1U,4,IS 95 - 50ft South of Temple Hill Rd Overpass (ATR,1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0049,P0049,1,38.81698,-76.948714,1U,4,IS 95 - 50ft South of Temple Hill Rd Overpass (ATR,1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0049,P0049,5,38.81698,-76.948714,1U,4,AT TEMPLE HILLS RD OVERPASS,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0049,P0049,5,38.81698,-76.948714,1U,4,IS 95 - 50ft South of Temple Hill Rd Overpass (ATR,1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0049,P0049,5,38.81698,-76.948714,1U,4,IS 95 - 50ft South of Temple Hill Rd Overpass (ATR,1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0050,P0050,1,39.405538,-76.671258,1U,4,IS 695 - 1.16 Miles North of Greenspring Ave (ATR#,1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0050,P0050,1,39.405538,-76.671258,1U,4,IS 695 - 1.16 Miles North of Greenspring Ave (ATR#,1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0050,P0050,5,39.405538,-76.671258,1U,5,IS 695 - 1.16 Miles North of Greenspring Ave (ATR#,1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0050,P0050,5,39.405538,-76.671258,1U,5,IS 695 - 1.16 Miles North of Greenspring Ave (ATR#,1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0051,P0051,1,39.22719,-76.716015,1U,4,.15 MI N OF HOWARD COUNTY LINE,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0051,P0051,1,39.227402,-76.715872,1U,4,IS 95 - .15 Mile North of Howard County Line (ATR#,1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0051,P0051,1,39.227402,-76.715872,1U,4,IS 95 - .15 Mile North of Howard County Line (ATR#,1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0051,P0051,5,39.22719,-76.716015,1U,4,.15 MI N OF HOWARD COUNTY LINE,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0051,P0051,5,39.227402,-76.715872,1U,4,IS 95 - .15 Mile North of Howard County Line (ATR#,1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0051,P0051,5,39.227402,-76.715872,1U,4,IS 95 - .15 Mile North of Howard County Line (ATR#,1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0052,P0052,1,39.428381,-76.63565,1U,4,AT SEMINARY AVE OVERPASS,1,83,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0052,P0052,1,39.428381,-76.63565,1U,4,IS 83 - .64 Mile North of IS 695 (ATR#52),1,83,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0052,P0052,1,39.428381,-76.63565,1U,4,IS 83 - .64 Mile North of IS 695 (ATR#52),1,83,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0052,P0052,5,39.428381,-76.63565,1U,3,AT SEMINARY AVE OVERPASS,1,83,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0052,P0052,5,39.428381,-76.63565,1U,3,IS 83 - .64 Mile North of IS 695 (ATR#52),1,83,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0052,P0052,5,39.428381,-76.63565,1U,3,IS 83 - .64 Mile North of IS 695 (ATR#52),1,83,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0053,P0053,1,39.307077,-76.766692,1U,3,1.64 MI E OF HOWARD COUNTY LINE,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0053,P0053,1,39.307077,-76.766692,1U,3,1.64 MI E OF HOWARD COUNTY LINE,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0053,P0053,1,39.307077,-76.766692,1U,3,1.64 MI E OF HOWARD COUNTY LINE,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0053,P0053,3,39.307077,-76.766692,1U,3,1.64 MI E OF HOWARD COUNTY LINE,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0053,P0053,3,,,1U,3,IS 70 - 1.25 Miles West of IS 695 (ATR#53),1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0053,P0053,3,39.307077,-76.766692,1U,3,IS 70 - 1.25 Miles West of IS 695 (ATR#53),1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0053,P0053,7,39.307077,-76.766692,1U,3,1.64 MI E OF HOWARD COUNTY LINE,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0053,P0053,7,,,1U,3,IS 70 - 1.25 Miles West of IS 695 (ATR#53),1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0053,P0053,7,39.307077,-76.766692,1U,3,IS 70 - 1.25 Miles West of IS 695 (ATR#53),1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0054,P0054,1,39.405909,-76.574641,1U,4,.41 MI W OF CROMWELL BRIDGE RD,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0054,P0054,1,39.405909,-76.574641,1U,4,IS 695 - .41 Mile North of Cromwell Bridge Rd (ATR,1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0054,P0054,1,39.405909,-76.574641,1U,4,IS 695 - .41 Mile North of Cromwell Bridge Rd (ATR,1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0054,P0054,5,39.405909,-76.574641,1U,3,.41 MI W OF CROMWELL BRIDGE RD,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0054,P0054,5,39.405909,-76.574641,1U,3,IS 695 - .41 Mile North of Cromwell Bridge Rd (ATR,1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0054,P0054,5,39.405909,-76.574641,1U,3,IS 695 - .41 Mile North of Cromwell Bridge Rd (ATR,1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0055,P0055,1,38.978838,-76.874048,1U,4,AT GOOD LUCK RD OVERPASS,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0055,P0055,1,38.978863,-76.87407,1U,4,IS 95 - .05 Mile North of Good Luck Rd (ATR#55),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0055,P0055,1,38.978838,-76.874048,1U,4,IS 95 - .05 Mile North of Good Luck Rd (ATR#55),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0055,P0055,5,38.978838,-76.874048,1U,4,AT GOOD LUCK RD OVERPASS,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0055,P0055,5,38.978863,-76.87407,1U,4,IS 95 - .05 Mile North of Good Luck Rd (ATR#55),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0055,P0055,5,38.978838,-76.874048,1U,4,IS 95 - .05 Mile North of Good Luck Rd (ATR#55),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0056,P0056,1,38.751401,-76.992613,2U,3,.61 MI N OF FORT WASHINGTON RD,3,210,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0056,P0056,1,38.751401,-76.992613,2U,3,MD 210 - .31 Mile South of Old Fort Rd (ATR#56),3,210,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0056,P0056,1,38.751401,-76.992613,2U,3,MD 210 - .31 Mile South of Old Fort Rd (ATR#56),3,210,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0056,P0056,5,38.751401,-76.992613,2U,3,.61 MI N OF FORT WASHINGTON RD,3,210,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0056,P0056,5,38.751401,-76.992613,2U,3,MD 210 - .31 Mile South of Old Fort Rd (ATR#56),3,210,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0056,P0056,5,38.751401,-76.992613,2U,3,MD 210 - .31 Mile South of Old Fort Rd (ATR#56),3,210,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0057,P0057,1,39.347361,-76.461539,3U,2,.56 MI W OF MIDDLE RIVER RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0057,P0057,1,39.347361,-76.461539,3U,2,.56 MI W OF MIDDLE RIVER RD,2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0057,P0057,1,39.347361,-76.461539,3U,2,.56 MI W OF MIDDLE RIVER RD,2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0057,P0057,3,39.347361,-76.461539,3U,2,.56 MI W OF MIDDLE RIVER RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0057,P0057,3,39.347361,-76.461539,3U,2,US 40 - .46 Mile East of MD 700 (ATR#57),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0057,P0057,3,39.347361,-76.461539,3U,2,US 40 - .46 Mile East of MD 700 (ATR#57),2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0057,P0057,7,39.347361,-76.461539,3U,2,.56 MI W OF MIDDLE RIVER RD,2,40,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0057,P0057,7,39.347361,-76.461539,3U,2,US 40 - .46 Mile East of MD 700 (ATR#57),2,40,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0057,P0057,7,39.347361,-76.461539,3U,2,US 40 - .46 Mile East of MD 700 (ATR#57),2,40,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0058,P0058,1,39.492502,-75.84316,4R,1,.51 MI N OF MD 310,3,213,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0058,P0058,1,39.492502,-75.84316,4R,1,MD 213 - .49 Mile North of MD 310 (ATR#58),3,213,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0058,P0058,1,39.492502,-75.84316,4R,1,MD 213 - .49 Mile North of MD 310 (ATR#58),3,213,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0058,P0058,5,39.492502,-75.84316,4R,1,.51 MI N OF MD 310,3,213,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0058,P0058,5,39.492502,-75.84316,4R,1,MD 213 - .49 Mile North of MD 310 (ATR#58),3,213,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0058,P0058,5,39.492502,-75.84316,4R,1,MD 213 - .49 Mile North of MD 310 (ATR#58),3,213,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0059,P0059,1,38.266363,-75.661662,3R,2,.45 MI N OF PEGGY NECK RD,2,13,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0059,P0059,1,38.266363,-75.661662,3R,2,US 13 - .45 Mile North of Peggyneck Rd (ATR#59),2,13,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0059,P0059,1,38.266363,-75.661662,3R,2,US 13 - .45 Mile North of Peggyneck Rd (ATR#59),2,13,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0059,P0059,5,38.266363,-75.661662,3R,2,.45 MI N OF PEGGY NECK RD,2,13,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0059,P0059,5,38.266363,-75.661662,3R,2,US 13 - .45 Mile North of Peggyneck Rd (ATR#59),2,13,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0059,P0059,5,38.266363,-75.661662,3R,2,US 13 - .45 Mile North of Peggyneck Rd (ATR#59),2,13,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0060,P0060,1,39.169315,-77.243014,1U,4,.47 MI S OF MIDDLEBROOK RD,1,270,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0060,P0060,1,39.168932,-77.242771,1U,4,IS 270 - .47 Mile South of Middlebrook Rd (ATR#60),1,270,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0060,P0060,1,39.169315,-77.243014,1U,4,IS 270 - .47 Mile South of Middlebrook Rd (ATR#60),1,270,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0060,P0060,5,39.169315,-77.243014,1U,4,.47 MI S OF MIDDLEBROOK RD,1,270,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0060,P0060,5,39.168932,-77.242771,1U,4,IS 270 - .47 Mile South of Middlebrook Rd (ATR#60),1,270,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0060,P0060,5,39.169315,-77.243014,1U,4,IS 270 - .47 Mile South of Middlebrook Rd (ATR#60),1,270,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0061,P0061,1,38.921583,-76.906231,2U,2,.60 MI E OF MD 459,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0061,P0061,1,38.921583,-76.906231,2U,2,.60 MI E OF MD 459,2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0061,P0061,1,38.921583,-76.906231,2U,2,.60 MI E OF MD 459,2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0061,P0061,3,38.921583,-76.906231,2U,2,.60 MI E OF MD 459,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0061,P0061,3,38.921799,-76.905895,2U,2,US 50 - .75 Mile West of MD 202 (ATR#61),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0061,P0061,3,38.921583,-76.906231,2U,2,US 50 - .75 Mile West of MD 202 (ATR#61),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0061,P0061,7,38.921583,-76.906231,2U,2,.60 MI E OF MD 459,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0061,P0061,7,38.921799,-76.905895,2U,2,US 50 - .75 Mile West of MD 202 (ATR#61),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0061,P0061,7,38.921583,-76.906231,2U,2,US 50 - .75 Mile West of MD 202 (ATR#61),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0062,P0062,1,38.347892,-75.231513,3R,2,.73 W OF MD 818,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0062,P0062,1,38.347892,-75.231513,3R,2,.73 W OF MD 818,2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0062,P0062,3,38.347892,-75.231513,3R,2,.73 W OF MD 818,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0062,P0062,3,38.347881,-75.231491,3U,2,US 50 - .73 Mile West of MD 818 (ATR#62),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0062,P0062,3,38.347881,-75.231491,3U,2,US 50 - .73 Mile West of MD 818 (ATR#62),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0062,P0062,7,38.347892,-75.231513,3R,2,.73 W OF MD 818,2,50,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0062,P0062,7,38.347881,-75.231491,3U,2,US 50 - .73 Mile West of MD 818 (ATR#62),2,50,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0062,P0062,7,38.347881,-75.231491,3U,2,US 50 - .73 Mile West of MD 818 (ATR#62),2,50,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0063,P0063,1,38.373515,-75.252812,3R,1,1.46 MI E OF US 50,3,90,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0063,P0063,1,38.373515,-75.252812,3R,1,1.46 MI E OF US 50,3,90,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0063,P0063,3,38.373515,-75.252812,3R,1,1.46 MI E OF US 50,3,90,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0063,P0063,3,38.373521,-75.252829,2R,1,MD 90 - 100ft West of MD 346 (ATR#63),3,90,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0063,P0063,3,38.373521,-75.252829,2R,1,MD 90 - 100ft West of MD 346 (ATR#63),3,90,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0063,P0063,7,38.373515,-75.252812,3R,1,1.46 MI E OF US 50,3,90,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0063,P0063,7,38.373521,-75.252829,2R,1,MD 90 - 100ft West of MD 346 (ATR#63),3,90,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0063,P0063,7,38.373521,-75.252829,2R,1,MD 90 - 100ft West of MD 346 (ATR#63),3,90,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0064,P0064,1,39.470794,-76.316073,2U,2,.44 MI N OF MD 924,3,24,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0064,P0064,1,39.470724,-76.316047,2U,2,MD 24 - .46 Mile North of MD 924 (ATR#64),3,24,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0064,P0064,1,39.470724,-76.316047,2U,2,MD 24 - .46 Mile North of MD 924 (ATR#64),3,24,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0064,P0064,5,39.470794,-76.316073,2U,2,.44 MI N OF MD 924,3,24,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0064,P0064,5,39.470724,-76.316047,2U,2,MD 24 - .46 Mile North of MD 924 (ATR#64),3,24,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0064,P0064,5,39.470724,-76.316047,2U,2,MD 24 - .46 Mile North of MD 924 (ATR#64),3,24,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0065,P0065,1,38.359493,-76.453039,2U,2,.25 MI S OF COSTER MILLBRIDGE RD,3,2,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0065,P0065,1,38.359536,-76.453029,3U,2,MD 2 - .66 Mile North of Dowell Rd (ATR#65),3,2,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0065,P0065,1,38.359493,-76.453039,3U,2,MD 2 - .66 Mile North of Dowel,3,2,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0065,P0065,5,38.359493,-76.453039,2U,2,.25 MI S OF COSTER MILLBRIDGE RD,3,2,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0065,P0065,5,38.359536,-76.453029,3U,2,MD 2 - .66 Mile North of Dowell Rd (ATR#65),3,2,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0065,P0065,5,38.359493,-76.453039,3U,2,MD 2 - .66 Mile North of Dowel,3,2,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0066,P0066,1,39.209056,-76.69485,1U,2,.36 MI S OF BALTIMORE COUNTY LINE,1,195,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0066,P0066,1,39.209056,-76.694849,1U,2,IS 195 - .59 Mile North of MD 295 (ATR#66),1,195,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0066,P0066,1,39.209056,-76.69485,1U,2,IS 195 - .59 Mile North of MD 295 (ATR#66),1,195,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0066,P0066,5,39.209056,-76.69485,1U,2,.36 MI S OF BALTIMORE COUNTY LINE,1,195,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0066,P0066,5,39.209056,-76.694849,1U,2,IS 195 - .59 Mile North of MD 295 (ATR#66),1,195,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0066,P0066,5,39.209056,-76.69485,1U,2,IS 195 - .59 Mile North of MD 295 (ATR#66),1,195,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0067,P0067,1,39.404254,-77.362706,1U,3,.18 MI E OF MONOCACY RIVER BRDGE,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0067,P0067,1,39.404254,-77.362706,1U,3,.18 MI E OF MONOCACY RIVER BRDGE,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0067,P0067,1,39.404254,-77.362706,1U,3,.18 MI E OF MONOCACY RIVER BRDGE,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0067,P0067,3,39.404254,-77.362706,1U,3,.18 MI E OF MONOCACY RIVER BRDGE,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0067,P0067,3,39.404254,-77.362706,1U,3,IS 70 - .18 Mile East of Monocacy River Bridge (AT,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0067,P0067,3,39.404254,-77.362706,1U,3,IS 70 - .18 Mile East of Monocacy River Bridge (AT,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0067,P0067,7,39.404254,-77.362706,1U,3,.18 MI E OF MONOCACY RIVER BRDGE,1,70,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0067,P0067,7,39.404254,-77.362706,1U,3,IS 70 - .18 Mile East of Monocacy River Bridge (AT,1,70,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0067,P0067,7,39.404254,-77.362706,1U,3,IS 70 - .18 Mile East of Monocacy River Bridge (AT,1,70,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0068,P0068,1,39.329381,-77.510505,3R,1,1.16 MI N OF BASFORD RD,2,15,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0068,P0068,1,39.329381,-77.510505,2R,1,US 15 - 1.16 Miles North of Basford Rd (ATR#68),2,15,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0068,P0068,1,39.329381,-77.510505,2R,1,US 15 - 1.16 Miles North of Basford Rd (ATR#68),2,15,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0068,P0068,5,39.329381,-77.510505,3R,1,1.16 MI N OF BASFORD RD,2,15,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0068,P0068,5,39.329381,-77.510505,2R,1,US 15 - 1.16 Miles North of Basford Rd (ATR#68),2,15,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0068,P0068,5,39.329381,-77.510505,2R,1,US 15 - 1.16 Miles North of Basford Rd (ATR#68),2,15,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0069,P0069,1,39.166032,-76.837719,2U,3,.75 MI N OF IS 95,3,32,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0069,P0069,1,39.166032,-76.837719,2U,3,MD 32 - .78 Mile North of IS 95 (ATR#69),3,32,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0069,P0069,1,39.166032,-76.837719,2U,3,MD 32 - .78 Mile North of IS 95 (ATR#69),3,32,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0069,P0069,5,39.166032,-76.837719,2U,3,.75 MI N OF IS 95,3,32,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0069,P0069,5,39.166032,-76.837719,2U,3,MD 32 - .78 Mile North of IS 95 (ATR#69),3,32,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0069,P0069,5,39.166032,-76.837719,2U,3,MD 32 - .78 Mile North of IS 95 (ATR#69),3,32,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0070,P0070,1,39.668362,-78.734814,1U,2,.55 MI W OF MD 144,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0070,P0070,1,39.668362,-78.734814,1U,2,.55 MI W OF MD 144,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0070,P0070,1,39.668362,-78.734814,1U,2,.55 MI W OF MD 144,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0070,P0070,3,39.668362,-78.734814,1U,2,.55 MI W OF MD 144,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0070,P0070,3,39.66847,-78.734718,1U,2,IS 68 - .15 Mile East of Structure #1081 Hillcrest,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0070,P0070,3,39.668362,-78.734814,1U,2,IS 68 - .15 Mile East of Structure #1081 Hillcrest,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0070,P0070,7,39.668362,-78.734814,1U,2,.55 MI W OF MD 144,1,68,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0070,P0070,7,39.66847,-78.734718,1U,2,IS 68 - .15 Mile East of Structure #1081 Hillcrest,1,68,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0070,P0070,7,39.668362,-78.734814,1U,2,IS 68 - .15 Mile East of Structure #1081 Hillcrest,1,68,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0071,P0071,1,39.239529,-76.699033,1U,4,.65 MI N OF IS 195,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0071,P0071,1,39.239529,-76.699033,1U,4,IS 95 - .65 Mile North of IS 1,1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0071,P0071,1,39.239529,-76.699033,1U,4,IS 95 - .65 Mile North of IS 1,1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0071,P0071,5,39.239529,-76.699033,1U,4,.65 MI N OF IS 195,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0071,P0071,5,39.239529,-76.699033,1U,4,IS 95 - .65 Mile North of IS 1,1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0071,P0071,5,39.239529,-76.699033,1U,4,IS 95 - .65 Mile North of IS 1,1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0072,P0072,1,39.38441,-76.755884,1U,3,.05 MI N OF MOUNT WILSON LANE,1,795,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0072,P0072,1,39.38441,-76.755883,1U,3,IS 795(NB) - .05 Mile North of Mt. Wilson La (ATR#,1,795,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0072,P0072,1,39.38441,-76.755883,1U,3,IS 795(NB) - .05 Mile North of Mt. Wilson La (ATR#,1,795,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0072,P0072,5,39.38441,-76.755884,1U,3,.05 MI S OF MOUNT WILSON LANE,1,795,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0072,P0072,5,39.38441,-76.755883,1U,3,IS 795(NB) - .05 Mile North of Mt. Wilson La (ATR#,1,795,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0072,P0072,5,39.38441,-76.755883,1U,3,IS 795(NB) - .05 Mile North of Mt. Wilson La (ATR#,1,795,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0074,P0074,1,39.28181,-76.483827,2U,2,at TRAPPE RD OVERPASS,3,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0074,P0074,1,39.281807,-76.483816,2U,2,MD 695 - 50ft South of Trappe Rd (ATR#74),3,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0074,P0074,1,39.28181,-76.483827,2U,2,MD 695 - 50ft South of Trappe Rd (ATR#74),3,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0074,P0074,5,39.28181,-76.483827,2U,2,at TRAPPE RD OVERPASS,3,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0074,P0074,5,39.281807,-76.483816,2U,2,MD 695 - 50ft South of Trappe Rd (ATR#74),3,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0074,P0074,5,39.28181,-76.483827,2U,2,MD 695 - 50ft South of Trappe Rd (ATR#74),3,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0075,P0075,1,39.212845,-76.652787,1U,4,.26 MI N OF MD 170,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0075,P0075,1,39.212845,-76.652787,1U,4,IS 695 - .26 Mile West of MD 170 (ATR#75),1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0075,P0075,1,39.212845,-76.652787,1U,4,IS 695 - .26 Mile West of MD 170 (ATR#75),1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0075,P0075,5,39.212845,-76.652787,1U,4,.26 MI N OF MD 170,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0075,P0075,5,39.212845,-76.652787,1U,4,IS 695 - .26 Mile West of MD 170 (ATR#75),1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0075,P0075,5,39.212845,-76.652787,1U,4,IS 695 - .26 Mile West of MD 170 (ATR#75),1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0076,P0076,1,39.385355,-76.662409,1U,3,1.08 MI N OF BALTIMORE CITY LINE,1,83,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0076,P0076,1,39.385355,-76.662409,1U,3,IS 83 - .04 Mile North of Old Pimlico Rd (ATR#76),1,83,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0076,P0076,1,39.385355,-76.662409,1U,3,IS 83 - .04 Mile North of Old Pimlico Rd (ATR#76),1,83,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0076,P0076,5,39.385355,-76.662409,1U,3,1.08 MI N OF BALTIMORE CITY LINE,1,83,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0076,P0076,5,39.385355,-76.662409,1U,3,IS 83 - .04 Mile North of Old Pimlico Rd (ATR#76),1,83,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0076,P0076,5,39.385355,-76.662409,1U,3,IS 83 - .04 Mile North of Old Pimlico Rd (ATR#76),1,83,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0077,P0077,1,39.238874,-76.668331,1U,4,.15 MI N OF HOLLINS FERRY RD,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0077,P0077,1,39.238874,-76.668331,1U,4,IS 695 - .15 Mile North of Hollins Ferry Rd (ATR#7,1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0077,P0077,1,39.238874,-76.668331,1U,4,IS 695 - .15 Mile North of Hollins Ferry Rd (ATR#7,1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0077,P0077,5,39.238874,-76.668331,1U,3,.15 MI N OF HOLLINS FERRY RD,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0077,P0077,5,39.238874,-76.668331,1U,3,IS 695 - .15 Mile North of Hollins Ferry Rd (ATR#7,1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0077,P0077,5,39.238874,-76.668331,1U,3,IS 695 - .15 Mile North of Hollins Ferry Rd (ATR#7,1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0078,P0078,1,39.36018,-76.746386,1U,4,1.03 MI S OF IS 795,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0078,P0078,1,39.36018,-76.746389,1U,4,IS 695 - 1.03 Miles South of IS 795 (ATR#78),1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0078,P0078,1,39.36018,-76.746389,1U,5,IS 695 - 1.03 Miles South of IS 795 (ATR#78),1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0078,P0078,5,39.36018,-76.746386,1U,4,1.03 MI S OF IS 795,1,695,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0078,P0078,5,39.36018,-76.746389,1U,4,IS 695 - 1.03 Miles South of IS 795 (ATR#78),1,695,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0078,P0078,5,39.36018,-76.746389,1U,5,IS 695 - 1.03 Miles South of IS 795 (ATR#78),1,695,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0079,P0079,1,39.257929,-76.675064,1U,5,.20 MI S OF JOH AVE,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0079,P0079,1,39.257929,-76.675064,1U,5,IS 95 - .24 Mile South of Joh Ave (ATR#79),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0079,P0079,1,39.257929,-76.675064,1U,5,IS 95 - .24 Mile South of Joh Ave (ATR#79),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0079,P0079,5,39.257929,-76.675064,1U,5,.20 MI S OF JOH AVE,1,95,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0079,P0079,5,39.257929,-76.675064,1U,5,IS 95 - .24 Mile South of Joh Ave (ATR#79),1,95,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0079,P0079,5,39.257929,-76.675064,1U,5,IS 95 - .24 Mile South of Joh Ave (ATR#79),1,95,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0080,P0080,1,38.606685,-76.874602,3R,2,.10 MI S OF RENNER RD,3,5,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0080,P0080,1,38.606685,-76.874602,3U,2,MD 5 - .10 Mile South of Renner Rd (ATR#80),3,5,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0080,P0080,1,38.606685,-76.874602,3U,2,MD 5 - .10 Mile South of Renner Rd (ATR#80),3,5,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0080,P0080,5,38.606685,-76.874602,3R,2,.10 MI S OF RENNER RD,3,5,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0080,P0080,5,38.606685,-76.874602,3U,2,MD 5 - .10 Mile South of Renner Rd (ATR#80),3,5,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0080,P0080,5,38.606685,-76.874602,3U,2,MD 5 - .10 Mile South of Renner Rd (ATR#80),3,5,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0083,P0083,1,38.396505,-75.306839,5R,1,ile North of MD 346,3,610,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0083,P0083,1,38.396505,-75.306839,5R,1,ile North of MD 346,3,610,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0083,P0083,1,38.396505,-75.306839,5R,1,ile North of MD 346,3,610,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0083,P0083,3,38.396505,-75.306839,5R,1,ile North of MD 346,3,610,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0083,P0083,3,38.396505,-75.30684,5R,1,MD 610 - .30 Mile North of MD 346 (ATR#83),3,610,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0083,P0083,3,38.396505,-75.306839,5R,1,MD 610 - .30 Mile North of MD 346 (ATR#83),3,610,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0083,P0083,5,38.396505,-75.306839,5R,1,ile North of MD 346,3,610,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0083,P0083,5,38.396505,-75.306839,5R,1,ile North of MD 346,3,610,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0083,P0083,5,38.396505,-75.306839,5R,1,ile North of MD 346,3,610,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0083,P0083,7,38.396505,-75.306839,5R,1,ile North of MD 346,3,610,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0083,P0083,7,38.396505,-75.30684,5R,1,MD 610 - .30 Mile North of MD 346 (ATR#83),3,610,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0083,P0083,7,38.396505,-75.306839,5R,1,MD 610 - .30 Mile North of MD 346 (ATR#83),3,610,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0084,P0084,1,39.065441,-75.850699,5R,1,ile South of Queen Anne's County Line,3,313,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0084,P0084,1,39.065442,-75.850699,5R,1,MD 313 - .22 Mile South of Queen Anne's County Lin,3,313,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0084,P0084,1,39.065442,-75.850699,5R,1,MD 313 - .22 Mile South of Queen Anne's County Lin,3,313,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0084,P0084,5,39.065441,-75.850699,5R,1,ile South of Queen Anne's County Line,3,313,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0084,P0084,5,39.065442,-75.850699,5R,1,MD 313 - .22 Mile South of Queen Anne's County Lin,3,313,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0084,P0084,5,39.065442,-75.850699,5R,1,MD 313 - .22 Mile South of Queen Anne's County Lin,3,313,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0085,P0085,3,39.703193,-76.635415,5R,1,ile East of IS 83,3,439,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0085,P0085,3,39.703194,-76.635416,5R,1,MD 439 - .44 Mile East of IS 83 (ATR#85),3,439,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0085,P0085,3,39.703194,-76.635416,5R,1,MD 439 - .44 Mile East of IS 83 (ATR#85),3,439,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0085,P0085,7,39.703193,-76.635415,5R,1,ile East of IS 83,3,439,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0085,P0085,7,39.703194,-76.635416,5R,1,MD 439 - .44 Mile East of IS 83 (ATR#85),3,439,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0085,P0085,7,39.703194,-76.635416,5R,1,MD 439 - .44 Mile East of IS 83 (ATR#85),3,439,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0086,P0086,1,38.349416,-76.931677,5R,1,ile South of Morgantown Rd,3,257,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0086,P0086,1,38.349416,-76.931677,5R,1,MD 257 - .40 Mile South of Morgantown Rd (ATR#86),3,257,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0086,P0086,1,38.349416,-76.931677,5R,1,MD 257 - .40 Mile South of Morgantown Rd (ATR#86),3,257,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0086,P0086,5,38.349416,-76.931677,5R,1,ile South of Morgantown Rd,3,257,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0086,P0086,5,38.349416,-76.931677,5R,1,MD 257 - .40 Mile South of Morgantown Rd (ATR#86),3,257,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0086,P0086,5,38.349416,-76.931677,5R,1,MD 257 - .40 Mile South of Morgantown Rd (ATR#86),3,257,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0087,P0087,1,38.101803,-76.365215,5R,1,e North of Fresh Pond Neck Rd,3,5,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0087,P0087,1,38.101803,-76.365215,5R,1,MD 5 - .20 Mile North of Fresh Pond Neck Rd (ATR#8,3,5,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0087,P0087,1,38.101803,-76.365215,5R,1,MD 5 - .20 Mile North of Fresh Pond Neck Rd (ATR#8,3,5,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0087,P0087,5,38.101803,-76.365215,5R,1,e North of Fresh Pond Neck Rd,3,5,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0087,P0087,5,38.101803,-76.365215,5R,1,MD 5 - .20 Mile North of Fresh Pond Neck Rd (ATR#8,3,5,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0087,P0087,5,38.101803,-76.365215,5R,1,MD 5 - .20 Mile North of Fresh Pond Neck Rd (ATR#8,3,5,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0088,P0088,1,39.655624,-75.809562,5U,1,ile East of Oakridge Ct,3,277,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0088,P0088,1,39.655624,-75.809562,5U,1,ile East of Oakridge Ct,3,277,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0088,P0088,1,39.655624,-75.809562,5U,1,ile East of Oakridge Ct,3,277,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0088,P0088,3,39.655624,-75.809562,5U,1,ile East of Oakridge Ct,3,277,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0088,P0088,3,39.655625,-75.809562,5U,1,MD 277 - .10 Mile East of Oakridge Ct (ATR#88),3,277,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0088,P0088,3,39.655624,-75.809562,5U,1,MD 277 - .10 Mile East of Oakridge Ct (ATR#88),3,277,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0088,P0088,5,39.655624,-75.809562,5U,1,ile East of Oakridge Ct,3,277,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0088,P0088,5,39.655624,-75.809562,5U,1,ile East of Oakridge Ct,3,277,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0088,P0088,5,39.655624,-75.809562,5U,1,ile East of Oakridge Ct,3,277,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0088,P0088,7,39.655624,-75.809562,5U,1,ile East of Oakridge Ct,3,277,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0088,P0088,7,39.655625,-75.809562,5U,1,MD 277 - .10 Mile East of Oakridge Ct (ATR#88),3,277,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0088,P0088,7,39.655624,-75.809562,5U,1,MD 277 - .10 Mile East of Oakridge Ct (ATR#88),3,277,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0089,P0089,1,38.952448,-76.812698,5U,2,ile North of Atwell Ave,3,953,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0089,P0089,1,38.952448,-76.812699,5U,2,MD 953 - .10 Mile North of Atwell Ave (ATR#89),3,953,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0089,P0089,1,38.952448,-76.812699,5U,2,MD 953 - .10 Mile North of Atwell Ave (ATR#89),3,953,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0089,P0089,5,38.952448,-76.812698,5U,2,ile North of Atwell Ave,3,953,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0089,P0089,5,38.952448,-76.812699,5U,2,MD 953 - .10 Mile North of Atwell Ave (ATR#89),3,953,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0089,P0089,5,38.952448,-76.812699,5U,2,MD 953 - .10 Mile North of Atwell Ave (ATR#89),3,953,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0090,P0090,1,39.408618,-76.729503,4U,1,ile South of MD 130,3,129,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0090,P0090,1,39.408619,-76.729504,4U,1,MD 129 - .18 Mile South of MD 130 (ATR#90),3,129,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0090,P0090,1,39.408619,-76.729504,4U,1,MD 129 - .18 Mile South of MD 130 (ATR#90),3,129,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0090,P0090,5,39.408618,-76.729503,4U,1,ile South of MD 130,3,129,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0090,P0090,5,39.408619,-76.729504,4U,1,MD 129 - .18 Mile South of MD 130 (ATR#90),3,129,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0090,P0090,5,39.408619,-76.729504,4U,1,MD 129 - .18 Mile South of MD 130 (ATR#90),3,129,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0091,P0091,1,39.664763,-78.889622,5U,1,ile North of Porter Cemetery Rd,3,638,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0091,P0091,1,39.664764,-78.889622,5U,1,MD 638 - .13 Mile North of Porter Cemetery Rd (ATR,3,638,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0091,P0091,1,39.664764,-78.889622,5U,1,MD 638 - .13 Mile North of Porter Cemetery Rd (ATR,3,638,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt
+24,0P0091,P0091,5,39.664763,-78.889622,5U,1,ile North of Porter Cemetery Rd,3,638,17,Station_Data_Extract_Pipe_Delimited_CleanData_2017.txt
+24,0P0091,P0091,5,39.664764,-78.889622,5U,1,MD 638 - .13 Mile North of Porter Cemetery Rd (ATR,3,638,18,Station_Data_Extract_Pipe_Delimited_CleanData_2018.txt
+24,0P0091,P0091,5,39.664764,-78.889622,5U,1,MD 638 - .13 Mile North of Porter Cemetery Rd (ATR,3,638,19,Station_Data_Extract_Pipe_Delimited_CleanData_2019.txt

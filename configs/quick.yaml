@@ -3,25 +3,24 @@ input_csv: 05sample_transformed_survey.csv
 sample_n: 1000
 seed: 20260611
 methods:
-  - weighted_bootstrap
-  - noncontrastive_vae
-  - contrastive_vae
-  - gibbs
-  - bayesian_network
-
+- weighted_bootstrap
+- noncontrastive_vae
+- contrastive_vae
+- gibbs
+- bayesian_network
 vae:
   epochs: 3
   batch_size: 64
   latent_dim: 16
   depth: 2
-  width_decay: 0.90
+  width_decay: 0.9
   lambda_contrastive: 0.25
   beta_kl: 0.05
   lr: 0.001
   dropout: 0.05
   activation: relu
   normalization: layernorm
-  contrastive_temperature: 0.10
+  contrastive_temperature: 0.1
   positive_aug: light
   negative_mode: marginal
   checkpoint_every: 1
@@ -33,36 +32,59 @@ vae:
     transform: capped_normalized
     cap_quantile: 0.99
     normalize_mean_to_one: true
-
 gibbs:
   sweeps: 3
   conditioning_columns:
-    - o_activity
-    - d_activity
-    - tdate_dow
-    - departure_time_minutes
-
+  - o_activity
+  - d_activity
+  - tdate_dow
+  - departure_time_minutes
 bayesian_network:
   max_bins: 8
   smoothing: 1.0
-
 validation:
   run_marginals: true
   run_cross_marginals: true
   run_privacy: true
   run_aadt: false
-
 data:
   auto_download_external: false
-
 geo:
   tract_files:
-    - data/external/tiger_tracts/md/tl_2020_24_tract.shp
-    - data/external/tiger_tracts/dc/tl_2020_11_tract.shp
+  - data/external/tiger_tracts/md_2019/tl_2019_24_tract.shp
+  - data/external/tiger_tracts/dc_2019/tl_2019_11_tract.shp
   aadt_points_file: data/external/mdot_aadt/aadt_points.geojson
   aadt_segments_file: data/external/mdot_aadt/aadt_segments.geojson
   crs_projected: EPSG:26985
-
+  tract_vintage: 2019
 aadt_validation:
   path_method: centroid_line
   max_od_pairs: 250000
+  station_membership_rule: boundary_closer_than_nearest_tract_centroid
+  annual_comparison_basis: average_day
+  validation_mode: two_prong
+  trip_week_origin_date: '2017-01-01'
+  tdate_dow_encoding: iso_monday_1
+  daily_counts:
+    file: data/external/mdot_daily_counts/station_daily_counts.csv
+    station_id_column: station_id
+    date_column: date
+    count_column: observed_count
+  hourly_counts:
+    file: data/external/mdot_daily_counts/station_hourly_counts.csv
+    station_id_column: station_id
+    date_column: date
+    hour_column: hour
+    count_column: observed_count
+  survey_period:
+    start_date: '2017-10-01'
+    end_date: '2019-07-31'
+    trip_year_column: null
+    note: The schema column `year` is vehicle model year, not survey trip year.
+  observed_count_field_priority:
+  - AAWDT_2018
+  - AADT_2018
+  - AAWDT
+  - AADT
+  observed_count_temporal_label: Annual-average counts plus FHWA TMAS hourly counts
+  comparison_basis: two_prong

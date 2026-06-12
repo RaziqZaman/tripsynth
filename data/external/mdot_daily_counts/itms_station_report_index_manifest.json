@@ -1,0 +1,14 @@
+{
+  "end_date": "2019-07-31",
+  "errors": {},
+  "note": "This file indexes official I-TMS count report rows. It is not a station-day observed-count table.",
+  "output": "data/external/mdot_daily_counts/itms_station_report_index_2017-10-01_2019-07-31.csv",
+  "pulled_at_utc": "2026-06-11T21:12:16.671121+00:00",
+  "report_rows": 3664,
+  "retry_note": "Retried S2005240059; added 1 rows.",
+  "source": "MDOT SHA Internet Traffic Monitoring System (I-TMS)",
+  "source_url": "https://maps.roads.maryland.gov/itms_public/",
+  "start_date": "2017-10-01",
+  "station_map": "outputs/runs/quick_test/geo/screenline_station_map.parquet",
+  "stations_requested": 4631
+}

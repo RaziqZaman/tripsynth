@@ -7,7 +7,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from trip_synth.utils.io import ensure_dir, load_yaml, write_json
+from trip_synth.utils.io import ensure_dir, load_yaml, read_json, write_json
 
 from .route_assignment import screenline_id
 
@@ -59,17 +59,63 @@ def _data_source_preferences() -> dict[str, Any]:
     return {}
 
 
+def observed_count_field_priority(config: dict[str, Any]) -> list[str]:
+    aadt_cfg = config.get("aadt_validation", {})
+    configured = aadt_cfg.get("observed_count_field_priority")
+    if configured:
+        return [str(v) for v in configured]
+    pref = config.get("mdot_aadt", {}).get("prefer_fields", {}) or _data_source_preferences()
+    return [str(v) for v in pref.get("observed_count_priority", ["AAWDT", "AADT"])]
+
+
+def choose_observed_count_field(columns: list[str], config: dict[str, Any]) -> str | None:
+    return _first_existing(columns, observed_count_field_priority(config))
+
+
+def comparison_basis_for_field(config: dict[str, Any], field: str) -> str:
+    configured = config.get("aadt_validation", {}).get("comparison_basis")
+    if configured:
+        return str(configured)
+    return "average_weekday" if str(field).upper().startswith("AAWDT") else "average_day"
+
+
+def temporal_label(config: dict[str, Any], field: str) -> str:
+    return str(
+        config.get("aadt_validation", {}).get(
+            "observed_count_temporal_label",
+            f"Observed MDOT field {field}",
+        )
+    )
+
+
+def _cached_points_match(points, config: dict[str, Any]) -> bool:
+    if "observed_count_field" not in points.columns:
+        return False
+    desired = choose_observed_count_field(list(points.columns), config)
+    if desired is None:
+        return False
+    fields = set(points["observed_count_field"].dropna().astype(str).unique())
+    return fields == {desired}
+
+
 def load_tracts(config: dict[str, Any], run_dir: str | Path):
     _require_geo()
     import geopandas as gpd
 
     run_dir = Path(run_dir)
-    out_path = run_dir / "geo" / "tracts.parquet"
-    if out_path.exists():
-        return gpd.read_parquet(out_path)
-
     geo = config.get("geo", {})
     tract_files = geo.get("tract_files", [])
+    signature = {
+        "tract_files": [str(p) for p in tract_files],
+        "crs_projected": str(geo.get("crs_projected", "EPSG:26985")),
+        "tract_vintage": geo.get("tract_vintage"),
+        "point_fields": "representative_and_centroid_v2",
+    }
+    out_path = run_dir / "geo" / "tracts.parquet"
+    meta_path = run_dir / "geo" / "tracts_metadata.json"
+    if out_path.exists() and read_json(meta_path, {}) == signature:
+        return gpd.read_parquet(out_path)
+
     if not tract_files:
         raise FileNotFoundError("No tract files configured under geo.tract_files")
     frames = []
@@ -88,8 +134,12 @@ def load_tracts(config: dict[str, Any], run_dir: str | Path):
     reps = tracts.geometry.representative_point()
     tracts["rep_x"] = reps.x
     tracts["rep_y"] = reps.y
+    centroids = tracts.geometry.centroid
+    tracts["centroid_x"] = centroids.x
+    tracts["centroid_y"] = centroids.y
     ensure_dir(out_path.parent)
     tracts.to_parquet(out_path)
+    write_json(signature, meta_path)
     return tracts
 
 
@@ -100,7 +150,9 @@ def load_aadt_points(config: dict[str, Any], run_dir: str | Path):
     run_dir = Path(run_dir)
     out_path = run_dir / "geo" / "aadt_points.parquet"
     if out_path.exists():
-        return gpd.read_parquet(out_path)
+        cached = gpd.read_parquet(out_path)
+        if _cached_points_match(cached, config):
+            return cached
 
     geo = config.get("geo", {})
     p = Path(geo.get("aadt_points_file", ""))
@@ -116,14 +168,19 @@ def load_aadt_points(config: dict[str, Any], run_dir: str | Path):
     id_col = _first_existing(list(points.columns), pref.get("id_priority", ["LOCATION_ID", "OBJECTID"]))
     if id_col is None:
         id_col = "OBJECTID" if "OBJECTID" in points.columns else points.columns[0]
-    observed_col = _first_existing(
-        list(points.columns), pref.get("observed_count_priority", ["AAWDT", "AADT"])
-    )
+    observed_col = choose_observed_count_field(list(points.columns), config)
     if observed_col is None:
-        raise ValueError("AADT points do not include any configured observed-count field")
+        raise ValueError(
+            "AADT points do not include any configured observed-count field from "
+            f"{observed_count_field_priority(config)}"
+        )
     points["station_id"] = points[id_col].astype(str)
     points["observed_count"] = _safe_numeric(points[observed_col])
     points["observed_count_field"] = observed_col
+    points["observed_count_temporal_label"] = temporal_label(config, observed_col)
+    points["comparison_basis"] = comparison_basis_for_field(config, observed_col)
+    for count_col in [c for c in observed_count_field_priority(config) if c in points.columns]:
+        points[count_col] = _safe_numeric(points[count_col])
     if "AAWDT" in points.columns:
         points["AAWDT"] = _safe_numeric(points["AAWDT"])
     if "AADT" in points.columns:
@@ -173,9 +230,20 @@ def build_tract_adjacency(config: dict[str, Any], run_dir: str | Path):
 
 
 def _count_fields(points) -> tuple[str, str | None]:
-    observed = "AAWDT" if "AAWDT" in points.columns and points["AAWDT"].notna().any() else "observed_count"
-    fallback = "AADT" if observed == "AAWDT" and "AADT" in points.columns else None
+    if "observed_count_field" in points.columns and points["observed_count_field"].notna().any():
+        observed = str(points["observed_count_field"].dropna().astype(str).iloc[0])
+    else:
+        observed = "observed_count"
+    fallback = "AADT" if observed.upper().startswith("AAWDT") and "AADT" in points.columns else None
     return observed, fallback
+
+
+def _station_boundary_membership(station_geom, boundary_geom, tract_a_centroid, tract_b_centroid) -> tuple[bool, float, float]:
+    boundary_distance = float(station_geom.distance(boundary_geom))
+    nearest_centroid_distance = float(
+        min(station_geom.distance(tract_a_centroid), station_geom.distance(tract_b_centroid))
+    )
+    return boundary_distance < nearest_centroid_distance, boundary_distance, nearest_centroid_distance
 
 
 def build_screenlines(config: dict[str, Any], run_dir: str | Path) -> dict[str, Any]:
@@ -225,6 +293,13 @@ def build_screenlines(config: dict[str, Any], run_dir: str | Path) -> dict[str, 
     buffers = [float(v) for v in buffers]
     observed_field, fallback_field = _count_fields(points_gdf)
     sindex = points_gdf.sindex
+    tract_centroids = tracts.set_index("GEOID")[["centroid_x", "centroid_y"]]
+    membership_rule = str(
+        config.get("aadt_validation", {}).get(
+            "station_membership_rule",
+            "boundary_closer_than_nearest_tract_centroid",
+        )
+    )
     screen_rows: list[dict[str, Any]] = []
     station_rows: list[dict[str, Any]] = []
 
@@ -242,8 +317,34 @@ def build_screenlines(config: dict[str, Any], run_dir: str | Path) -> dict[str, 
         stations = points_gdf.iloc[selected_idx].copy() if selected_idx else points_gdf.iloc[[]].copy()
         if not stations.empty:
             stations = stations.drop_duplicates("station_id")
+            if membership_rule == "boundary_closer_than_nearest_tract_centroid":
+                from shapely.geometry import Point
+
+                tract_a_centroid = Point(
+                    float(tract_centroids.loc[row.tract_a, "centroid_x"]),
+                    float(tract_centroids.loc[row.tract_a, "centroid_y"]),
+                )
+                tract_b_centroid = Point(
+                    float(tract_centroids.loc[row.tract_b, "centroid_x"]),
+                    float(tract_centroids.loc[row.tract_b, "centroid_y"]),
+                )
+                metrics = stations.geometry.apply(
+                    lambda geom: _station_boundary_membership(geom, boundary, tract_a_centroid, tract_b_centroid)
+                )
+                stations["boundary_distance_m"] = [item[1] for item in metrics]
+                stations["nearest_tract_centroid_distance_m"] = [item[2] for item in metrics]
+                stations["boundary_centroid_margin_m"] = (
+                    stations["nearest_tract_centroid_distance_m"] - stations["boundary_distance_m"]
+                )
+                stations = stations[[item[0] for item in metrics]].copy()
+            elif membership_rule == "buffer_only":
+                stations["boundary_distance_m"] = stations.geometry.distance(boundary)
+                stations["nearest_tract_centroid_distance_m"] = np.nan
+                stations["boundary_centroid_margin_m"] = np.nan
+            else:
+                raise ValueError(f"Unsupported station_membership_rule: {membership_rule}")
         observed_values = stations[observed_field] if observed_field in stations.columns else stations["observed_count"]
-        if fallback_field and observed_values.notna().sum() == 0:
+        if not stations.empty and fallback_field and observed_values.notna().sum() == 0:
             observed_values = stations[fallback_field]
             count_field = fallback_field
         else:
@@ -257,8 +358,11 @@ def build_screenlines(config: dict[str, Any], run_dir: str | Path) -> dict[str, 
                 "station_count": int(len(stations)),
                 "observed_count": total_observed,
                 "observed_count_field": count_field,
+                "observed_count_temporal_label": temporal_label(config, count_field),
+                "comparison_basis": comparison_basis_for_field(config, count_field),
                 "buffer_m": used_buffer,
                 "shared_boundary_m": float(row.shared_boundary_m),
+                "station_membership_rule": membership_rule,
                 "geometry_confidence": "boundary_buffer_station" if len(stations) else "no_station_in_buffer",
                 "method_note": "geometric proxy, not true route assignment",
                 "geometry": boundary,
@@ -272,7 +376,15 @@ def build_screenlines(config: dict[str, Any], run_dir: str | Path) -> dict[str, 
                     "station_id": str(station.station_id),
                     "observed_count": float(value) if pd.notna(value) else np.nan,
                     "observed_count_field": count_field,
+                    "observed_count_temporal_label": temporal_label(config, count_field),
+                    "comparison_basis": comparison_basis_for_field(config, count_field),
                     "buffer_m": used_buffer,
+                    "boundary_distance_m": float(getattr(station, "boundary_distance_m", np.nan)),
+                    "nearest_tract_centroid_distance_m": float(
+                        getattr(station, "nearest_tract_centroid_distance_m", np.nan)
+                    ),
+                    "boundary_centroid_margin_m": float(getattr(station, "boundary_centroid_margin_m", np.nan)),
+                    "station_membership_rule": membership_rule,
                 }
             )
 
@@ -314,6 +426,10 @@ def build_screenlines(config: dict[str, Any], run_dir: str | Path) -> dict[str, 
         "screenlines_with_stations": int((screenlines["station_count"] > 0).sum()),
         "stations_mapped": int(len(station_map)),
         "observed_count_field": observed_field,
+        "observed_count_temporal_label": temporal_label(config, observed_field),
+        "comparison_basis": comparison_basis_for_field(config, observed_field),
+        "station_membership_rule": membership_rule,
+        "survey_period": config.get("aadt_validation", {}).get("survey_period", {}),
         "segments_note": "MDOT segment layer was optional; current downloaded layer may be empty.",
         "method_note": "Screenline assignment is a geometric proxy, not true route assignment.",
     }

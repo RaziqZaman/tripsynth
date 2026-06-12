@@ -1,36 +1,58 @@
 external_data_dir: data/external
-
 census_tiger:
-  year: 2020
+  year: 2019
   states:
     maryland:
-      state_fips: "24"
-      tract_zip_url: "https://www2.census.gov/geo/tiger/TIGER2020/TRACT/tl_2020_24_tract.zip"
-      output_dir: "data/external/tiger_tracts/md"
+      state_fips: '24'
+      tract_zip_url: https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_24_tract.zip
+      output_dir: data/external/tiger_tracts/md_2019
     district_of_columbia:
-      state_fips: "11"
-      tract_zip_url: "https://www2.census.gov/geo/tiger/TIGER2020/TRACT/tl_2020_11_tract.zip"
-      output_dir: "data/external/tiger_tracts/dc"
-
+      state_fips: '11'
+      tract_zip_url: https://www2.census.gov/geo/tiger/TIGER2019/TRACT/tl_2019_11_tract.zip
+      output_dir: data/external/tiger_tracts/dc_2019
 mdot_aadt:
-  service_root: "https://mdgeodata.md.gov/imap/rest/services/Transportation/MD_AnnualAverageDailyTraffic/FeatureServer"
+  service_root: https://mdgeodata.md.gov/imap/rest/services/Transportation/MD_AnnualAverageDailyTraffic/FeatureServer
   points_layer_id: 0
-  candidate_lines_layer_ids: [1]
-  output_dir: "data/external/mdot_aadt"
+  candidate_lines_layer_ids:
+  - 1
+  output_dir: data/external/mdot_aadt
   query_format: geojson
   out_sr: 4326
   page_size: 20000
-  where: "1=1"
+  where: 1=1
   prefer_fields:
     observed_count_priority:
-      - AAWDT
-      - AADT
+    - AAWDT_2018
+    - AADT_2018
+    - AAWDT
+    - AADT
     id_priority:
-      - LOCATION_ID
-      - OBJECTID
+    - LOCATION_ID
+    - OBJECTID
     route_fields:
-      - ROADNAME
-      - ROUTEID
-      - ID_RTE_NO
-      - BEGIN_SECTION
-      - END_SECTION
+    - ROADNAME
+    - ROUTEID
+    - ID_RTE_NO
+    - BEGIN_SECTION
+    - END_SECTION
+
+vdot_traffic_volume:
+  note: Dense Virginia bidirectional ADT/AAWDT line layers; useful for annual-average spatial validation, not exact-day/hourly validation.
+  hub_url: https://www.virginiaroads.org/datasets/VDOT::traffic-volume/about
+  layers:
+    2018: https://services.arcgis.com/p5v98VHDX9Atv3l7/arcgis/rest/services/Traffic_Volume_ADT_2018/FeatureServer/0
+    2019: https://services.arcgis.com/p5v98VHDX9Atv3l7/arcgis/rest/services/VDOT_Traffic_Volume_2019a/FeatureServer/0
+    2024: https://services.arcgis.com/p5v98VHDX9Atv3l7/arcgis/rest/services/VDOT_Traffic_Volume_2024/FeatureServer/0
+  count_fields:
+  - ADT
+  - AAWDT
+ddot_traffic_volume:
+  note: Dense DC roadway-block AADT line layers and sparse permanent station locations; public layers found here do not expose daily/hourly count totals.
+  layers:
+    2017: https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_TrafficVolume_WebMercator/MapServer/134
+    2018: https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_TrafficVolume_WebMercator/MapServer/154
+    2019: https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_TrafficVolume_WebMercator/MapServer/167
+  station_layer: https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_Sensors_WebMercator/MapServer/92
+  count_fields:
+  - AADT
+  - AADT_YEAR

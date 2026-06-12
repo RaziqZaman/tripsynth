@@ -123,7 +123,7 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
             "Synthetic tables without weight",
             "Marginals + privacy",
             "OD-to-screenline proxy",
-            "AADT/AAWDT comparison",
+            "Two-prong count comparison",
             "Method ranking",
         ],
     )
@@ -214,9 +214,9 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
         plt.figure(figsize=(7, 6))
         for method, group in aadt_comparisons.groupby("method"):
             plt.scatter(np.log1p(group["observed_count"]), np.log1p(group["synthetic_count"]), s=18, alpha=0.55, label=method)
-        plt.xlabel("log1p observed AADT/AAWDT")
+        plt.xlabel("log1p observed screenline counts")
         plt.ylabel("log1p synthetic virtual crossings")
-        plt.title("AADT/AAWDT screenline comparison")
+        plt.title("Traffic screenline comparison")
         plt.legend(fontsize=8)
         plt.tight_layout()
         plt.savefig(p, dpi=300)
@@ -275,8 +275,8 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
             [
                 "# Poster Figure Captions",
                 "",
-                "Figures summarize the synthesis pipeline, validation metrics, privacy diagnostics, and optional AADT/AAWDT screenline validation.",
-                "AADT figures are placeholders in quick runs because external geospatial validation is disabled by configuration.",
+                "Figures summarize the synthesis pipeline, validation metrics, privacy diagnostics, and optional two-prong screenline validation.",
+                "Traffic-count figures are placeholders in quick runs because external geospatial validation is disabled by configuration.",
             ]
         )
         + "\n"
