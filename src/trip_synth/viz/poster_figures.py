@@ -37,6 +37,9 @@ POSTER_FILES = [
     "15_od_pair_screenline_validation_map.png",
     "16_od_pair_screenline_validation_map_cvae_best.png",
     "17_hourly_tmas_profile_cvae_best.png",
+    "18_hourly_tmas_profile_all_stations.png",
+    "19_hourly_tmas_rmse_reduction.png",
+    "20_hourly_annual_traffic_validation_summary.png",
 ]
 
 
@@ -1887,6 +1890,372 @@ def _make_hourly_tmas_validation_profile(path: Path, run_dir: Path, method: str 
     return True
 
 
+def _make_hourly_tmas_aggregate_profile(path: Path, run_dir: Path) -> bool:
+    comparison_path = run_dir / "metrics" / "aadt_hourly_screenline_comparisons.parquet"
+    if not comparison_path.exists():
+        _placeholder(path, "Aggregate hourly TMAS validation profile", "Hourly TMAS screenline comparisons were not available.")
+        return False
+
+    method_specs = [
+        ("weighted_bootstrap", "Survey-Sampled Baseline", "#d06c2f", 2.7, 0.74),
+        ("bayesian_network", "Bayesian Network", "#4c9f70", 2.7, 0.74),
+        ("noncontrastive_vae", "Non-Contrastive VAE", "#756bb1", 2.9, 0.78),
+        ("contrastive_vae", "Contrastive VAE", "#2176ae", 4.3, 0.98),
+    ]
+    method_keys = [key for key, _, _, _, _ in method_specs]
+    comparisons = pd.read_parquet(comparison_path)
+    needed = {"screenline_id", "trip_date", "hour", "method", "observed_count", "synthetic_count", "tmas_station_count"}
+    if comparisons.empty or not needed.issubset(comparisons.columns):
+        _placeholder(path, "Aggregate hourly TMAS validation profile", "Hourly TMAS comparison fields were incomplete.")
+        return False
+    comparisons = comparisons[comparisons["method"].astype(str).isin(method_keys) & comparisons["tmas_station_count"].gt(0)].copy()
+    if comparisons.empty:
+        _placeholder(path, "Aggregate hourly TMAS validation profile", "No TMAS-measured screenline-hour comparisons were available.")
+        return False
+    comparisons["trip_date"] = pd.to_datetime(comparisons["trip_date"], errors="coerce").dt.normalize()
+    comparisons["hour"] = pd.to_numeric(comparisons["hour"], errors="coerce").astype("Int64")
+    comparisons = comparisons[comparisons["trip_date"].notna() & comparisons["hour"].between(0, 23)].copy()
+
+    key_cols = ["screenline_id", "trip_date", "hour"]
+    common_keys: set[tuple[Any, ...]] | None = None
+    for key in method_keys:
+        rows = comparisons[comparisons["method"].eq(key)]
+        keys = set(map(tuple, rows[key_cols].itertuples(index=False, name=None)))
+        common_keys = keys if common_keys is None else common_keys & keys
+    if not common_keys:
+        _placeholder(path, "Aggregate hourly TMAS validation profile", "No common TMAS screenline-hour cells were available across methods.")
+        return False
+    common = pd.DataFrame(list(common_keys), columns=key_cols)
+    common["hour"] = common["hour"].astype("Int64")
+    comparisons = comparisons.merge(common, on=key_cols, how="inner")
+    if comparisons.empty:
+        _placeholder(path, "Aggregate hourly TMAS validation profile", "Common TMAS cells did not join to hourly comparisons.")
+        return False
+
+    observed_cells = comparisons[comparisons["method"].eq("contrastive_vae")][key_cols + ["observed_count"]].drop_duplicates(key_cols)
+    observed_daily = observed_cells.groupby(["trip_date", "hour"], as_index=False)["observed_count"].sum()
+    observed_profile = observed_daily.groupby("hour", as_index=False)["observed_count"].mean().sort_values("hour")
+    if observed_profile.empty:
+        _placeholder(path, "Aggregate hourly TMAS validation profile", "No observed aggregate hourly TMAS profile was available.")
+        return False
+
+    method_profiles = []
+    for key in method_keys:
+        rows = comparisons[comparisons["method"].eq(key)]
+        daily = rows.groupby(["trip_date", "hour"], as_index=False)["synthetic_count"].sum()
+        profile = daily.groupby("hour", as_index=False)["synthetic_count"].mean()
+        profile["method"] = key
+        method_profiles.append(profile)
+    method_profiles_df = pd.concat(method_profiles, ignore_index=True) if method_profiles else pd.DataFrame()
+    if method_profiles_df.empty:
+        _placeholder(path, "Aggregate hourly TMAS validation profile", "No synthetic aggregate hourly profiles were available.")
+        return False
+
+    fig, axes = plt.subplots(2, 2, figsize=(15.0, 8.4), sharex=True, sharey=True, constrained_layout=False)
+    fig.patch.set_facecolor("#fbfaf6")
+    fig.subplots_adjust(left=0.085, right=0.985, top=0.945, bottom=0.105, wspace=0.18, hspace=0.245)
+    ymax = max(
+        float(observed_profile["observed_count"].max()),
+        float(method_profiles_df["synthetic_count"].max()),
+        1.0,
+    )
+    from matplotlib.ticker import FuncFormatter
+
+    for ax, (key, label, color, linewidth, alpha) in zip(axes.ravel(), method_specs):
+        ax.set_facecolor("#fbfaf6")
+        rows = method_profiles_df[method_profiles_df["method"].eq(key)].sort_values("hour")
+        ax.plot(
+            observed_profile["hour"],
+            observed_profile["observed_count"],
+            label="Observed",
+            color="#222222",
+            linewidth=3.6,
+            alpha=0.96,
+            zorder=7,
+        )
+        if not rows.empty:
+            ax.plot(
+                rows["hour"],
+                rows["synthetic_count"],
+                label=label,
+                color=color,
+                linewidth=3.6 if key == "contrastive_vae" else 3.1,
+                alpha=0.96 if key == "contrastive_vae" else alpha,
+                zorder=8 if key == "contrastive_vae" else 6,
+            )
+        ax.set_title(label, loc="left", fontsize=19, fontweight="bold", pad=7, color="#222222")
+        ax.set_xlim(0, 23)
+        ax.set_ylim(0, ymax * 1.12)
+        ax.set_xticks([0, 6, 12, 18, 23])
+        ax.tick_params(axis="both", labelsize=14.5, length=0, pad=6)
+        ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _: _format_compact_count(float(value))))
+        ax.grid(axis="y", color="#b8b2a8", alpha=0.32, linewidth=0.9)
+        ax.grid(axis="x", color="#d9d2c6", alpha=0.16, linewidth=0.75)
+        for spine in ["top", "right"]:
+            ax.spines[spine].set_visible(False)
+        for spine in ["left", "bottom"]:
+            ax.spines[spine].set_color("#8d877d")
+            ax.spines[spine].set_linewidth(0.9)
+        ax.legend(
+            loc="upper left",
+            frameon=False,
+            fontsize=13.5,
+            handlelength=1.45,
+            handletextpad=0.45,
+            borderaxespad=0.0,
+        )
+
+    fig.supxlabel("Hour of day", fontsize=22, y=0.032)
+    fig.supylabel("Hourly traffic count", fontsize=22, x=0.022)
+    fig.savefig(path, dpi=300, facecolor=fig.get_facecolor())
+    fig.savefig(path.with_suffix(".pdf"), facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return True
+
+
+def _make_hourly_rmse_reduction_chart(path: Path, run_dir: Path) -> bool:
+    summary_path = run_dir / "tables" / "aadt_hourly_validation_summary.csv"
+    if not summary_path.exists():
+        _placeholder(path, "Hourly RMSE reduction", "Hourly TMAS validation summary was not available.")
+        return False
+
+    summary = pd.read_csv(summary_path)
+    needed = {"method", "rmse"}
+    if summary.empty or not needed.issubset(summary.columns):
+        _placeholder(path, "Hourly RMSE reduction", "Hourly TMAS validation summary did not include method RMSE values.")
+        return False
+    if "validation_tier" in summary.columns:
+        summary = summary[summary["validation_tier"].astype(str).eq("hourly_tmas_scaled")].copy()
+    summary["rmse"] = pd.to_numeric(summary["rmse"], errors="coerce")
+    summary = summary.dropna(subset=["rmse"])
+
+    method_specs = [
+        ("weighted_bootstrap", "Survey-Sampled Baseline", "#76736d"),
+        ("bayesian_network", "Bayesian Network", "#4c9f70"),
+        ("noncontrastive_vae", "Non-Contrastive VAE", "#756bb1"),
+        ("contrastive_vae", "Contrastive VAE", "#2176ae"),
+    ]
+    rmse_by_method = {str(row.method): float(row.rmse) for row in summary[["method", "rmse"]].itertuples(index=False)}
+    baseline_rmse = rmse_by_method.get("weighted_bootstrap")
+    if not baseline_rmse or baseline_rmse <= 0:
+        _placeholder(path, "Hourly RMSE reduction", "Weighted baseline RMSE was unavailable.")
+        return False
+
+    rows = []
+    for key, label, color in method_specs:
+        if key not in rmse_by_method:
+            continue
+        rmse = rmse_by_method[key]
+        reduction = 100.0 * (baseline_rmse - rmse) / baseline_rmse
+        rows.append({"method": key, "label": label, "color": color, "rmse": rmse, "reduction": reduction})
+    if len(rows) < 2:
+        _placeholder(path, "Hourly RMSE reduction", "Not enough method RMSE values were available.")
+        return False
+
+    data = pd.DataFrame(rows)
+    plot_data = data[data["method"].ne("weighted_bootstrap")].copy()
+    plot_data = plot_data.sort_values("reduction", ascending=True)
+
+    fig, ax = plt.subplots(figsize=(15.0, 8.4), constrained_layout=False)
+    fig.patch.set_facecolor("#fbfaf6")
+    ax.set_facecolor("#fbfaf6")
+    fig.subplots_adjust(left=0.28, right=0.965, top=0.82, bottom=0.16)
+
+    y = np.arange(len(plot_data), dtype=float)
+    bars = ax.barh(plot_data["label"], plot_data["reduction"], color=plot_data["color"], height=0.56, alpha=0.96)
+    ax.axvline(0, color="#77736b", linewidth=1.2, alpha=0.7)
+    ax.set_xlim(0, max(55.0, float(plot_data["reduction"].max()) + 5.0))
+    ax.set_xlabel("Hourly TMAS RMSE reduction vs. survey-sampled baseline", fontsize=22, labelpad=12)
+    ax.tick_params(axis="x", labelsize=17, length=0, pad=8)
+    ax.tick_params(axis="y", labelsize=21, length=0, pad=10)
+    ax.xaxis.set_major_formatter(lambda value, _: f"{value:.0f}%")
+    ax.grid(axis="x", color="#b8b2a8", alpha=0.28, linewidth=1.0)
+    ax.grid(axis="y", visible=False)
+    for spine in ["top", "right", "left"]:
+        ax.spines[spine].set_visible(False)
+    ax.spines["bottom"].set_color("#8d877d")
+    ax.spines["bottom"].set_linewidth(1.0)
+
+    baseline_text = f"Baseline RMSE: {_format_compact_count(baseline_rmse)}"
+    ax.text(
+        0.0,
+        1.08,
+        baseline_text,
+        transform=ax.transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=18,
+        color="#55524b",
+    )
+    for bar, row in zip(bars, plot_data.itertuples(index=False)):
+        value = float(row.reduction)
+        rmse_text = _format_compact_count(float(row.rmse))
+        ax.text(
+            value + 0.8,
+            bar.get_y() + bar.get_height() / 2.0,
+            f"{value:.1f}%  RMSE {rmse_text}",
+            ha="left",
+            va="center",
+            fontsize=20 if row.method == "contrastive_vae" else 17.5,
+            fontweight="bold" if row.method == "contrastive_vae" else "normal",
+            color="#222222",
+        )
+    fig.savefig(path, dpi=300, facecolor=fig.get_facecolor())
+    fig.savefig(path.with_suffix(".pdf"), facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return True
+
+
+def _make_hourly_annual_validation_side_by_side(path: Path, run_dir: Path) -> bool:
+    hourly_summary_path = run_dir / "tables" / "aadt_hourly_validation_summary.csv"
+    annual_path = run_dir / "metrics" / "aadt_annual_screenline_comparisons.parquet"
+    if not (hourly_summary_path.exists() and annual_path.exists()):
+        _placeholder(path, "Traffic-count validation summary", "Hourly or annual traffic-count validation results were unavailable.")
+        return False
+
+    method_specs = [
+        ("weighted_bootstrap", "Survey-Sampled Baseline", "#76736d"),
+        ("bayesian_network", "Bayesian Network", "#4c9f70"),
+        ("noncontrastive_vae", "Non-Contrastive VAE", "#756bb1"),
+        ("contrastive_vae", "Contrastive VAE", "#2176ae"),
+    ]
+    method_labels = {key: label for key, label, _ in method_specs}
+    axis_method_labels = {
+        "weighted_bootstrap": "Survey-Sampled\nBaseline",
+        "bayesian_network": "Bayesian\nNetwork",
+        "noncontrastive_vae": "Non-Contrastive\nVAE",
+        "contrastive_vae": "Contrastive\nVAE",
+    }
+    method_colors = {key: color for key, _, color in method_specs}
+    method_keys = [key for key, _, _ in method_specs]
+
+    hourly = pd.read_csv(hourly_summary_path)
+    if "validation_tier" in hourly.columns:
+        hourly = hourly[hourly["validation_tier"].astype(str).eq("hourly_tmas_scaled")].copy()
+    hourly["rmse"] = pd.to_numeric(hourly["rmse"], errors="coerce")
+    rmse_by_method = {str(row.method): float(row.rmse) for row in hourly[["method", "rmse"]].dropna().itertuples(index=False)}
+    if "weighted_bootstrap" not in rmse_by_method:
+        _placeholder(path, "Traffic-count validation summary", "Weighted baseline hourly RMSE was unavailable.")
+        return False
+
+    hourly_rows = []
+    for key in method_keys:
+        if key not in rmse_by_method:
+            continue
+        hourly_rows.append(
+            {
+                "method": key,
+                "label": axis_method_labels[key],
+                "color": method_colors[key],
+                "rmse": rmse_by_method[key],
+            }
+        )
+    hourly_plot = pd.DataFrame(hourly_rows).sort_values("rmse", ascending=False)
+
+    annual = pd.read_parquet(annual_path)
+    annual = annual[annual["method"].astype(str).isin(method_keys)].copy()
+    if annual.empty:
+        _placeholder(path, "Traffic-count validation summary", "Annual screenline comparisons were unavailable.")
+        return False
+    annual["abs_error"] = (annual["synthetic_count"].astype(float) - annual["observed_count"].astype(float)).abs()
+    annual_wide = annual.pivot(index="screenline_id", columns="method", values="abs_error").dropna(subset=method_keys)
+    if annual_wide.empty:
+        _placeholder(path, "Traffic-count validation summary", "Annual screenline method comparisons did not overlap.")
+        return False
+    annual_winners = annual_wide.idxmin(axis=1)
+    annual_counts = annual_winners.value_counts().reindex(method_keys).fillna(0).astype(int)
+    annual_plot = pd.DataFrame(
+        {
+            "method": method_keys,
+            "label": [axis_method_labels[key] for key in method_keys],
+            "color": [method_colors[key] for key in method_keys],
+            "wins": [int(annual_counts.loc[key]) for key in method_keys],
+        }
+    ).sort_values("wins", ascending=True)
+
+    cvae_wins = int(annual_counts.loc["contrastive_vae"])
+    n_wins = int(annual_winners.size)
+    try:
+        from scipy import stats
+
+        annual_p = float(stats.binomtest(cvae_wins, n_wins, p=0.25, alternative="greater").pvalue)
+    except Exception:
+        annual_p = float("nan")
+
+    text_scale = 1.5
+    fig, (hourly_ax, annual_ax) = plt.subplots(1, 2, figsize=(15.0, 8.4), constrained_layout=False)
+    fig.patch.set_facecolor("#fbfaf6")
+    fig.subplots_adjust(left=0.18, right=0.925, top=0.83, bottom=0.19, wspace=0.98)
+    for ax in [hourly_ax, annual_ax]:
+        ax.set_facecolor("#fbfaf6")
+
+    hourly_bars = hourly_ax.barh(
+        hourly_plot["label"],
+        hourly_plot["rmse"],
+        color=hourly_plot["color"],
+        height=0.56,
+        alpha=0.96,
+    )
+    hourly_ax.set_title("Hourly TMAS\nRMSE ↓", loc="left", fontsize=21 * text_scale, fontweight="bold", pad=12, linespacing=1.0)
+    hourly_ax.set_xlabel("RMSE", fontsize=15.5 * text_scale, labelpad=13)
+    hourly_ax.set_xlim(0, max(15_000.0, float(hourly_plot["rmse"].max()) * 1.16))
+    hourly_ax.xaxis.set_major_formatter(lambda value, _: f"{float(value):,.0f}")
+    hourly_ax.tick_params(axis="x", labelsize=13.5 * text_scale, length=0, pad=8)
+    for idx, tick in enumerate(hourly_ax.get_xticklabels()):
+        if idx % 2 == 1:
+            tick.set_visible(False)
+    hourly_ax.tick_params(axis="y", labelsize=13.8 * text_scale, length=0, pad=10)
+    hourly_ax.grid(axis="x", color="#b8b2a8", alpha=0.28, linewidth=1.0)
+    for bar, row in zip(hourly_bars, hourly_plot.itertuples(index=False)):
+        hourly_ax.text(
+            float(row.rmse) + max(float(hourly_plot["rmse"].max()) * 0.025, 1.0),
+            bar.get_y() + bar.get_height() / 2.0,
+            f"{float(row.rmse):,.0f}",
+            ha="left",
+            va="center",
+            fontsize=17 * text_scale if row.method == "contrastive_vae" else 14.5 * text_scale,
+            fontweight="bold" if row.method == "contrastive_vae" else "normal",
+            color="#222222",
+        )
+
+    annual_bars = annual_ax.barh(
+        annual_plot["label"],
+        annual_plot["wins"],
+        color=annual_plot["color"],
+        height=0.56,
+        alpha=0.96,
+    )
+    annual_ax.set_title("Annual Screenline\nWins ↑", loc="left", fontsize=21 * text_scale, fontweight="bold", pad=12, linespacing=1.0)
+    annual_ax.set_xlabel("screenline wins", fontsize=15.5 * text_scale, labelpad=13)
+    annual_ax.set_xlim(0, max(1_150.0, float(annual_plot["wins"].max()) + 260.0))
+    annual_ax.tick_params(axis="x", labelsize=13.5 * text_scale, length=0, pad=8)
+    annual_ax.tick_params(axis="y", labelsize=13.8 * text_scale, length=0, pad=10)
+    annual_ax.grid(axis="x", color="#b8b2a8", alpha=0.28, linewidth=1.0)
+    for bar, row in zip(annual_bars, annual_plot.itertuples(index=False)):
+        annual_ax.text(
+            int(row.wins) + 14,
+            bar.get_y() + bar.get_height() / 2.0,
+            f"{int(row.wins):,}",
+            ha="left",
+            va="center",
+            fontsize=17 * text_scale if row.method == "contrastive_vae" else 14.5 * text_scale,
+            fontweight="bold" if row.method == "contrastive_vae" else "normal",
+            color="#222222",
+        )
+
+    for ax in [hourly_ax, annual_ax]:
+        for spine in ["top", "right", "left"]:
+            ax.spines[spine].set_visible(False)
+        ax.spines["bottom"].set_color("#8d877d")
+        ax.spines["bottom"].set_linewidth(1.0)
+        ax.grid(axis="y", visible=False)
+
+    fig.savefig(path, dpi=300, facecolor=fig.get_facecolor())
+    fig.savefig(path.with_suffix(".pdf"), facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return True
+
+
 # Final focused poster version: one center-origin tract and its surrounding
 # 24-tract zone. This overrides the broader all-pairs matrix draft above.
 def _select_focus_cluster(
@@ -2349,6 +2718,18 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
     _make_hourly_tmas_validation_profile(p, run_dir)
     created.append(p)
 
+    p = poster / "18_hourly_tmas_profile_all_stations.png"
+    _make_hourly_tmas_aggregate_profile(p, run_dir)
+    created.append(p)
+
+    p = poster / "19_hourly_tmas_rmse_reduction.png"
+    _make_hourly_rmse_reduction_chart(p, run_dir)
+    created.append(p)
+
+    p = poster / "20_hourly_annual_traffic_validation_summary.png"
+    _make_hourly_annual_validation_side_by_side(p, run_dir)
+    created.append(p)
+
     captions = poster / "captions.md"
     captions.write_text(
         "\n".join(
@@ -2364,6 +2745,9 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
                 "Figure 15 zooms to one OD-pair example and traces the station-matched screenlines used to compare synthetic virtual crossings with observed AAWDT counts.",
                 "Figure 16 repeats the OD-pair screenline view for an example where the contrastive VAE has the lowest path-level annual-average count error among all compared synthetic methods.",
                 "Figure 17 shows a single-TMAS-station hourly validation profile where the contrastive VAE has the lowest 24-hour count-profile error among compared synthetic methods.",
+                "Figure 18 repeats the hourly validation profile as an aggregate over all measured TMAS screenlines using common comparable hourly cells across methods.",
+                "Figure 19 summarizes hourly TMAS traffic-count RMSE reductions relative to the survey-sampled baseline for all non-baseline synthesis methods.",
+                "Figure 20 pairs hourly TMAS RMSE reductions with annual screenline first-place counts, where contrastive VAE wins the most annual screenlines by absolute count error.",
             ]
         )
         + "\n"
