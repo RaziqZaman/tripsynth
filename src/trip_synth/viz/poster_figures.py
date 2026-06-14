@@ -33,6 +33,8 @@ POSTER_FILES = [
     "11_best_method_summary_panel.png",
     "12_trip_coverage_resampling_vs_cvae.png",
     "13_single_origin_trip_coverage_60tracts.png",
+    "14_aadt_screenline_station_match_map.png",
+    "15_od_pair_screenline_validation_map.png",
 ]
 
 
@@ -77,6 +79,21 @@ def _bar(path: Path, title: str, labels: list[str], values: list[float], ylabel:
     plt.tight_layout()
     plt.savefig(path, dpi=300)
     plt.close()
+
+
+def _format_compact_count(value: float) -> str:
+    if value >= 1_000_000:
+        return f"{value / 1_000_000:.1f}M"
+    if value >= 1_000:
+        return f"{value / 1_000:.0f}k"
+    return f"{value:.0f}"
+
+
+def _station_marker_sizes(values: pd.Series | np.ndarray, scale_min: float, scale_max: float) -> np.ndarray:
+    numeric = pd.to_numeric(pd.Series(values), errors="coerce").fillna(0.0).clip(lower=0.0).to_numpy(float)
+    logged = np.log1p(numeric)
+    denom = max(scale_max - scale_min, 1e-9)
+    return 16.0 + 120.0 * np.clip((logged - scale_min) / denom, 0.0, 1.0)
 
 
 def _placeholder(path: Path, title: str, message: str) -> None:
@@ -966,6 +983,674 @@ def _make_focused_trip_coverage_map(path: Path, run_dir: Path) -> bool:
     return True
 
 
+def _make_aadt_station_match_map(path: Path, run_dir: Path, method: str = "contrastive_vae") -> bool:
+    try:
+        import geopandas as gpd
+        from matplotlib.colors import TwoSlopeNorm
+    except Exception:
+        _placeholder(path, "AADT station match map", "Install the geo extras to generate station-level validation maps.")
+        return False
+
+    tracts_path = run_dir / "geo" / "tracts.parquet"
+    screenlines_path = run_dir / "geo" / "screenlines.parquet"
+    points_path = run_dir / "geo" / "aadt_points.parquet"
+    station_map_path = run_dir / "geo" / "screenline_station_map.parquet"
+    comparison_path = run_dir / "metrics" / "aadt_annual_screenline_comparisons.parquet"
+    required = [tracts_path, screenlines_path, points_path, station_map_path, comparison_path]
+    if not all(item.exists() for item in required):
+        _placeholder(path, "AADT station match map", "Annual screenline comparisons or station geometry were not available.")
+        return False
+
+    tracts = gpd.read_parquet(tracts_path)
+    screenlines = gpd.read_parquet(screenlines_path)
+    points = gpd.read_parquet(points_path)[["station_id", "geometry"]].copy()
+    station_map = pd.read_parquet(station_map_path)
+    comparisons = pd.read_parquet(comparison_path)
+
+    comparisons = comparisons[
+        (comparisons["method"].astype(str) == method)
+        & (comparisons["validation_tier"].astype(str) == "annual_average")
+    ].copy()
+    needed_station = {"screenline_id", "station_id", "observed_count"}
+    needed_comparison = {"screenline_id", "observed_count", "synthetic_count"}
+    if station_map.empty or comparisons.empty or not needed_station.issubset(station_map.columns) or not needed_comparison.issubset(comparisons.columns):
+        _placeholder(path, "AADT station match map", "Contrastive VAE annual station comparisons were not available.")
+        return False
+
+    station_rows = station_map[["screenline_id", "station_id", "observed_count"]].rename(columns={"observed_count": "station_observed_count"}).copy()
+    station_rows["station_id"] = station_rows["station_id"].astype(str)
+    comparison_rows = comparisons[
+        ["screenline_id", "observed_count", "synthetic_count"]
+    ].rename(columns={"observed_count": "screenline_observed_count"}).copy()
+    joined = station_rows.merge(comparison_rows, on="screenline_id", how="inner")
+    joined = joined[
+        (pd.to_numeric(joined["screenline_observed_count"], errors="coerce") > 0)
+        & pd.to_numeric(joined["synthetic_count"], errors="coerce").notna()
+    ].copy()
+    if joined.empty:
+        _placeholder(path, "AADT station match map", "No mapped station rows matched contrastive VAE screenline comparisons.")
+        return False
+
+    joined["screenline_observed_count"] = pd.to_numeric(joined["screenline_observed_count"], errors="coerce")
+    joined["synthetic_count"] = pd.to_numeric(joined["synthetic_count"], errors="coerce")
+    joined["station_observed_count"] = pd.to_numeric(joined["station_observed_count"], errors="coerce")
+    joined["signed_log2_ratio"] = np.log2((joined["synthetic_count"] + 1.0) / (joined["screenline_observed_count"] + 1.0))
+    joined["weight"] = joined["screenline_observed_count"].clip(lower=1.0)
+    joined["signed_x_weight"] = joined["signed_log2_ratio"] * joined["weight"]
+    joined["abs_x_weight"] = joined["signed_log2_ratio"].abs() * joined["weight"]
+
+    station_stats = (
+        joined.groupby("station_id", as_index=False)
+        .agg(
+            station_observed_count=("station_observed_count", "max"),
+            screenline_count=("screenline_id", "nunique"),
+            weight_sum=("weight", "sum"),
+            signed_weight_sum=("signed_x_weight", "sum"),
+            abs_weight_sum=("abs_x_weight", "sum"),
+        )
+        .copy()
+    )
+    station_stats["signed_log2_ratio"] = station_stats["signed_weight_sum"] / station_stats["weight_sum"].clip(lower=1e-9)
+    station_stats["abs_log2_ratio"] = station_stats["abs_weight_sum"] / station_stats["weight_sum"].clip(lower=1e-9)
+
+    points["station_id"] = points["station_id"].astype(str)
+    mapped = points.drop_duplicates("station_id").merge(station_stats, on="station_id", how="inner")
+    mapped = gpd.GeoDataFrame(mapped, geometry="geometry", crs=points.crs)
+    if mapped.empty:
+        _placeholder(path, "AADT station match map", "Mapped station IDs did not join to point geometry.")
+        return False
+    if tracts.crs and mapped.crs and mapped.crs != tracts.crs:
+        mapped = mapped.to_crs(tracts.crs)
+    if tracts.crs and screenlines.crs and screenlines.crs != tracts.crs:
+        screenlines = screenlines.to_crs(tracts.crs)
+
+    log_values = mapped["signed_log2_ratio"].to_numpy(float)
+    finite = np.isfinite(log_values)
+    mapped = mapped[finite].copy()
+    if mapped.empty:
+        _placeholder(path, "AADT station match map", "Station-level contrastive VAE ratios were not finite.")
+        return False
+
+    marker_scale = np.log1p(mapped["station_observed_count"].fillna(0.0).clip(lower=0.0).to_numpy(float))
+    scale_min, scale_max = np.nanpercentile(marker_scale, [10, 98])
+    mapped["marker_size"] = _station_marker_sizes(mapped["station_observed_count"], float(scale_min), float(scale_max))
+    mapped["plot_log_ratio"] = mapped["signed_log2_ratio"].clip(-3.0, 3.0)
+    mapped = mapped.sort_values("marker_size")
+
+    comparison_ratio = (comparisons["synthetic_count"].astype(float) + 1.0) / (comparisons["observed_count"].astype(float) + 1.0)
+    within_two = float(((comparison_ratio >= 0.5) & (comparison_ratio <= 2.0)).mean())
+    under_two = float((comparison_ratio < 0.5).mean())
+    over_two = float((comparison_ratio > 2.0).mean())
+    median_ratio = float(np.median(comparison_ratio))
+
+    fig = plt.figure(figsize=(15.0, 8.6), constrained_layout=False)
+    fig.patch.set_facecolor("#fbfaf6")
+    grid = fig.add_gridspec(1, 2, width_ratios=[0.76, 0.24], left=0.035, right=0.985, top=0.82, bottom=0.08, wspace=0.035)
+    ax = fig.add_subplot(grid[0, 0])
+    side = grid[0, 1].subgridspec(3, 1, height_ratios=[0.35, 0.30, 0.35], hspace=0.25)
+    stats_ax = fig.add_subplot(side[0])
+    bars_ax = fig.add_subplot(side[1])
+    legend_ax = fig.add_subplot(side[2])
+
+    fig.text(0.035, 0.965, "Contrastive VAE screenline match at MDOT stations", ha="left", va="top", fontsize=22, fontweight="bold")
+    fig.text(
+        0.035,
+        0.920,
+        "Stations inherit the annual-average error from their mapped tract-boundary screenline; repeated station mappings use observed-count-weighted averages.",
+        ha="left",
+        va="top",
+        fontsize=10.5,
+        color="#555555",
+    )
+
+    tracts.boundary.plot(ax=ax, linewidth=0.16, color="#d9d6cc", alpha=0.90, zorder=1)
+    plotted_screenlines = screenlines[screenlines["screenline_id"].astype(str).isin(comparisons["screenline_id"].astype(str))]
+    plotted_screenlines.plot(ax=ax, color="#aeb6b3", linewidth=0.22, alpha=0.32, zorder=2)
+    norm = TwoSlopeNorm(vmin=-3.0, vcenter=0.0, vmax=3.0)
+    scatter = ax.scatter(
+        mapped.geometry.x,
+        mapped.geometry.y,
+        c=mapped["plot_log_ratio"],
+        cmap="RdBu",
+        norm=norm,
+        s=mapped["marker_size"],
+        edgecolors="#2b2b2b",
+        linewidths=0.25,
+        alpha=0.88,
+        zorder=3,
+    )
+
+    bounds = tracts.total_bounds
+    xpad = (bounds[2] - bounds[0]) * 0.025
+    ypad = (bounds[3] - bounds[1]) * 0.025
+    ax.set_xlim(float(bounds[0] - xpad), float(bounds[2] + xpad))
+    ax.set_ylim(float(bounds[1] - ypad), float(bounds[3] + ypad))
+    ax.set_aspect("equal")
+    ax.set_axis_off()
+    ax.set_facecolor("#fbfaf6")
+
+    stats_ax.axis("off")
+    stats_ax.text(0.0, 0.96, "Annual AAWDT tier", ha="left", va="top", fontsize=14, fontweight="bold", color="#222222")
+    stats_ax.text(0.0, 0.74, f"{comparisons['screenline_id'].nunique():,} screenlines compared", ha="left", va="top", fontsize=11.5, color="#333333")
+    stats_ax.text(0.0, 0.56, f"{mapped['station_id'].nunique():,} mapped station points", ha="left", va="top", fontsize=11.5, color="#333333")
+    stats_ax.text(0.0, 0.38, f"Median CVAE/observed ratio: {median_ratio:.2f}x", ha="left", va="top", fontsize=11.5, color="#333333")
+    stats_ax.text(0.0, 0.18, "Faint lines show validation screenlines with mapped stations.", ha="left", va="top", fontsize=9.5, color="#666666", wrap=True)
+
+    bar_labels = ["within 2x", "under by >2x", "over by >2x"]
+    bar_values = [within_two, under_two, over_two]
+    bar_colors = ["#5a9b62", "#c75d4d", "#3c78a8"]
+    bars_ax.barh(np.arange(len(bar_labels)), bar_values, color=bar_colors, height=0.56)
+    bars_ax.set_xlim(0.0, 1.0)
+    bars_ax.set_yticks(np.arange(len(bar_labels)))
+    bars_ax.set_yticklabels(bar_labels, fontsize=10)
+    bars_ax.invert_yaxis()
+    bars_ax.set_xlabel("share of screenlines", fontsize=9.5)
+    bars_ax.tick_params(axis="x", labelsize=9)
+    bars_ax.grid(axis="x", alpha=0.18)
+    for spine in bars_ax.spines.values():
+        spine.set_visible(False)
+    for idx, value in enumerate(bar_values):
+        bars_ax.text(min(value + 0.025, 0.98), idx, f"{value:.0%}", va="center", ha="left", fontsize=10, color="#222222")
+
+    legend_ax.axis("off")
+    cax = legend_ax.inset_axes([0.02, 0.70, 0.92, 0.12])
+    cbar = fig.colorbar(scatter, cax=cax, orientation="horizontal")
+    cbar.set_ticks([-3, -2, -1, 0, 1, 2, 3])
+    cbar.set_ticklabels(["1/8x", "1/4x", "1/2x", "1x", "2x", "4x", "8x"])
+    cbar.ax.tick_params(labelsize=8, length=0, pad=2)
+    cbar.ax.set_title("CVAE / observed screenline volume", fontsize=9.5, pad=8)
+
+    legend_counts = np.array([5_000.0, 25_000.0, 100_000.0])
+    legend_sizes = _station_marker_sizes(legend_counts, float(scale_min), float(scale_max))
+    legend_ax.text(0.02, 0.48, "Point size: station AAWDT", ha="left", va="center", fontsize=9.5, color="#333333")
+    xs = [0.17, 0.48, 0.80]
+    for x, count, size in zip(xs, legend_counts, legend_sizes):
+        legend_ax.scatter([x], [0.28], s=size, color="#777777", edgecolors="#2b2b2b", linewidths=0.25, alpha=0.78)
+        legend_ax.text(x, 0.08, _format_compact_count(float(count)), ha="center", va="center", fontsize=8.5, color="#333333")
+    legend_ax.set_xlim(0, 1)
+    legend_ax.set_ylim(0, 1)
+
+    fig.savefig(path, dpi=300, facecolor=fig.get_facecolor())
+    fig.savefig(path.with_suffix(".pdf"), facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return True
+
+
+def _count_method_od_pairs(sample_path: Path) -> pd.DataFrame:
+    if not sample_path.exists():
+        return pd.DataFrame(columns=["o_tract_fips", "d_tract_fips", "sample_rows"])
+    sample = pd.read_csv(sample_path, usecols=["o_tract_fips", "d_tract_fips"], dtype="string")
+    sample["o_tract_fips"] = _clean_fips_series(sample["o_tract_fips"])
+    sample["d_tract_fips"] = _clean_fips_series(sample["d_tract_fips"])
+    sample = sample[(sample["o_tract_fips"] != "-1") & (sample["d_tract_fips"] != "-1")]
+    return sample.groupby(["o_tract_fips", "d_tract_fips"], as_index=False).size().rename(columns={"size": "sample_rows"})
+
+
+def _select_od_pair_validation_example(
+    run_dir: Path,
+    method: str = "noncontrastive_vae",
+    reference_method: str = "bayesian_network",
+) -> dict[str, Any] | None:
+    paths_path = run_dir / "geo" / "od_screenline_paths.parquet"
+    comparison_path = run_dir / "metrics" / "aadt_annual_screenline_comparisons.parquet"
+    sample_path = run_dir / "samples" / f"{method}_synthetic.csv"
+    if not (paths_path.exists() and comparison_path.exists() and sample_path.exists()):
+        return None
+
+    paths = pd.read_parquet(paths_path)
+    all_comparisons = pd.read_parquet(comparison_path)
+    all_comparisons = all_comparisons[all_comparisons["validation_tier"].astype(str) == "annual_average"].copy()
+    comparisons = all_comparisons[all_comparisons["method"].astype(str) == method].copy()
+    if paths.empty or comparisons.empty:
+        return None
+
+    comparisons["ratio"] = (comparisons["synthetic_count"].astype(float) + 1.0) / (comparisons["observed_count"].astype(float) + 1.0)
+    comparisons["signed_log2_ratio"] = np.log2(comparisons["ratio"])
+    comparisons["abs_log2_ratio"] = comparisons["signed_log2_ratio"].abs()
+
+    path_len = paths.groupby(["o_tract_fips", "d_tract_fips"]).size().rename("path_len").reset_index()
+    merged = paths.merge(
+        comparisons[["screenline_id", "observed_count", "synthetic_count", "station_count", "ratio", "signed_log2_ratio", "abs_log2_ratio"]],
+        on="screenline_id",
+        how="inner",
+    )
+    if merged.empty:
+        return None
+
+    stats = (
+        merged.groupby(["o_tract_fips", "d_tract_fips"])
+        .agg(
+            compared_path_rows=("screenline_id", "size"),
+            compared_screenlines=("screenline_id", "nunique"),
+            mean_abs_log2=("abs_log2_ratio", "mean"),
+            max_abs_log2=("abs_log2_ratio", "max"),
+            min_ratio=("ratio", "min"),
+            max_ratio=("ratio", "max"),
+            total_observed=("observed_count", "sum"),
+            total_synthetic=("synthetic_count", "sum"),
+            total_stations=("station_count", "sum"),
+        )
+        .reset_index()
+        .merge(path_len, on=["o_tract_fips", "d_tract_fips"], how="inner")
+    )
+    counts = _count_method_od_pairs(sample_path)
+    stats = stats.merge(counts, on=["o_tract_fips", "d_tract_fips"], how="inner")
+    stats = stats[
+        (stats["compared_path_rows"] == stats["path_len"])
+        & (stats["compared_screenlines"] == stats["path_len"])
+        & (stats["path_len"].between(4, 7))
+        & (stats["sample_rows"] >= 5)
+        & (stats["total_stations"] >= 4)
+        & (stats["total_observed"] >= 20_000)
+    ].copy()
+    if stats.empty:
+        return None
+
+    all_comparisons["ratio"] = (all_comparisons["synthetic_count"].astype(float) + 1.0) / (all_comparisons["observed_count"].astype(float) + 1.0)
+    all_comparisons["abs_log2_ratio"] = np.log2(all_comparisons["ratio"]).abs()
+    candidate_paths = paths.merge(stats[["o_tract_fips", "d_tract_fips"]], on=["o_tract_fips", "d_tract_fips"], how="inner")
+    method_path_metrics = candidate_paths.merge(
+        all_comparisons[["screenline_id", "method", "observed_count", "synthetic_count", "abs_log2_ratio"]],
+        on="screenline_id",
+        how="inner",
+    )
+    method_summary = (
+        method_path_metrics.groupby(["o_tract_fips", "d_tract_fips", "method"])
+        .agg(
+            method_mean_abs=("abs_log2_ratio", "mean"),
+            method_max_abs=("abs_log2_ratio", "max"),
+            method_observed=("observed_count", "sum"),
+            method_synthetic=("synthetic_count", "sum"),
+        )
+        .reset_index()
+    )
+    wide = method_summary.pivot(index=["o_tract_fips", "d_tract_fips"], columns="method")
+    wide.columns = [f"{metric}_{name}" for metric, name in wide.columns]
+    wide = wide.reset_index()
+    stats = stats.merge(wide, on=["o_tract_fips", "d_tract_fips"], how="left")
+
+    method_mean_col = f"method_mean_abs_{method}"
+    reference_mean_col = f"method_mean_abs_{reference_method}"
+    method_max_col = f"method_max_abs_{method}"
+    if method_mean_col in stats.columns and reference_mean_col in stats.columns:
+        stats["reference_minus_method_abs"] = stats[reference_mean_col] - stats[method_mean_col]
+        stats = stats[
+            (stats["reference_minus_method_abs"] > 0)
+            & (stats[method_mean_col] < 0.45)
+            & (stats[method_max_col] < 0.90)
+        ].copy()
+        if not stats.empty:
+            stats["total_ratio"] = (stats["total_synthetic"] + 1.0) / (stats["total_observed"] + 1.0)
+            stats = stats.sort_values(
+                ["reference_minus_method_abs", method_mean_col, "sample_rows", "path_len"],
+                ascending=[False, True, False, True],
+            )
+            row = stats.iloc[0]
+            return {key: row[key] for key in row.index}
+
+    stats["total_ratio"] = (stats["total_synthetic"] + 1.0) / (stats["total_observed"] + 1.0)
+    stats = stats.sort_values(
+        ["max_abs_log2", "mean_abs_log2", "path_len", "sample_rows"],
+        ascending=[True, True, False, False],
+    )
+    row = stats.iloc[0]
+    return {key: row[key] for key in row.index}
+
+
+def _screenline_midpoint(geom: Any) -> tuple[float, float]:
+    point = geom.representative_point()
+    return float(point.x), float(point.y)
+
+
+def _nearest_point_on_line(line_geom: Any, point_geom: Any) -> Any | None:
+    try:
+        return line_geom.interpolate(line_geom.project(point_geom))
+    except Exception:
+        return None
+
+
+def _region_label_from_tracts(tracts: Any) -> str:
+    state_names = {"11": "District of Columbia", "24": "Maryland", "51": "Virginia"}
+    county_names = {
+        ("24", "003"): "Anne Arundel County",
+        ("24", "005"): "Baltimore County",
+        ("24", "013"): "Carroll County",
+        ("24", "025"): "Harford County",
+        ("24", "027"): "Howard County",
+        ("24", "031"): "Montgomery County",
+        ("24", "033"): "Prince George's County",
+        ("24", "510"): "Baltimore City",
+        ("11", "001"): "Washington, DC",
+    }
+    if not {"STATEFP", "COUNTYFP"}.issubset(tracts.columns):
+        return "selected study-area region"
+    pairs = sorted({(str(row.STATEFP).zfill(2), str(row.COUNTYFP).zfill(3)) for row in tracts[["STATEFP", "COUNTYFP"]].itertuples(index=False)})
+    names = [county_names.get(pair) for pair in pairs]
+    if names and all(names):
+        state_values = {pair[0] for pair in pairs}
+        if len(names) == 1:
+            state = state_names.get(pairs[0][0], "study area")
+            if names[0].endswith("DC"):
+                return names[0]
+            return f"{names[0]}, {state}"
+        if len(state_values) == 1:
+            state = state_names.get(next(iter(state_values)), "study area")
+            return f"{', '.join(names[:-1])} and {names[-1]}, {state}"
+        return ", ".join(names)
+    states = sorted({state_names.get(pair[0], pair[0]) for pair in pairs})
+    if len(states) == 1:
+        return f"{states[0]} study-area region"
+    return "study-area region"
+
+
+def _make_od_pair_screenline_validation_map(path: Path, run_dir: Path, method: str = "noncontrastive_vae") -> bool:
+    try:
+        import geopandas as gpd
+        import matplotlib.patheffects as path_effects
+    except Exception:
+        _placeholder(path, "OD-pair validation map", "Install the geo extras to generate OD-pair screenline validation maps.")
+        return False
+
+    tracts_path = run_dir / "geo" / "tracts.parquet"
+    screenlines_path = run_dir / "geo" / "screenlines.parquet"
+    points_path = run_dir / "geo" / "aadt_points.parquet"
+    station_map_path = run_dir / "geo" / "screenline_station_map.parquet"
+    paths_path = run_dir / "geo" / "od_screenline_paths.parquet"
+    comparison_path = run_dir / "metrics" / "aadt_annual_screenline_comparisons.parquet"
+    required = [tracts_path, screenlines_path, points_path, station_map_path, paths_path, comparison_path]
+    if not all(item.exists() for item in required):
+        _placeholder(path, "OD-pair validation map", "OD paths, station maps, or annual screenline comparisons were not available.")
+        return False
+
+    method_specs = [
+        ("weighted_bootstrap", "Weighted sampling baseline", "#d06c2f"),
+        ("bayesian_network", "Bayesian network", "#4c9f70"),
+        ("noncontrastive_vae", "Non-contrastive VAE", "#756bb1"),
+        ("contrastive_vae", "Contrastive VAE", "#2176ae"),
+    ]
+    method_labels = {key: label for key, label, _ in method_specs}
+    method_colors = {key: color for key, _, color in method_specs}
+    screenline_palette = ["#2c7fb8", "#f28e2b", "#59a14f", "#b07aa1", "#e15759", "#76b7b2", "#edc948"]
+
+    selected = _select_od_pair_validation_example(run_dir, method=method)
+    if selected is None:
+        _placeholder(path, "OD-pair validation map", "No generated OD pair had a compact, well-matched station screenline path.")
+        return False
+    origin = str(selected["o_tract_fips"])
+    destination = str(selected["d_tract_fips"])
+
+    tracts = gpd.read_parquet(tracts_path)
+    tracts = tracts.assign(GEOID=tracts["GEOID"].astype(str).str.zfill(11))
+    screenlines = gpd.read_parquet(screenlines_path)
+    points = gpd.read_parquet(points_path)[["station_id", "geometry"]].copy()
+    points["station_id"] = points["station_id"].astype(str)
+    station_map = pd.read_parquet(station_map_path)
+    paths = pd.read_parquet(paths_path)
+    comparisons = pd.read_parquet(comparison_path)
+    comparisons = comparisons[comparisons["validation_tier"].astype(str) == "annual_average"].copy()
+
+    selected_comparisons = comparisons[comparisons["method"].astype(str) == method].copy()
+    selected_comparisons["ratio"] = (selected_comparisons["synthetic_count"].astype(float) + 1.0) / (selected_comparisons["observed_count"].astype(float) + 1.0)
+
+    path_rows = paths[(paths["o_tract_fips"].astype(str) == origin) & (paths["d_tract_fips"].astype(str) == destination)].copy()
+    path_rows = path_rows.merge(
+        selected_comparisons[["screenline_id", "observed_count", "synthetic_count", "station_count", "ratio"]],
+        on="screenline_id",
+        how="inner",
+    ).sort_values("path_position")
+    if path_rows.empty:
+        _placeholder(path, "OD-pair validation map", "Selected OD pair did not join to annual screenline comparisons.")
+        return False
+    path_rows["path_order"] = np.arange(1, len(path_rows) + 1)
+    path_rows["screenline_color"] = [screenline_palette[(int(order) - 1) % len(screenline_palette)] for order in path_rows["path_order"]]
+
+    origin_row = tracts[tracts["GEOID"] == origin]
+    dest_row = tracts[tracts["GEOID"] == destination]
+    if origin_row.empty or dest_row.empty:
+        _placeholder(path, "OD-pair validation map", "Selected OD tract geometry was unavailable.")
+        return False
+    origin_xy = (float(origin_row.iloc[0]["rep_x"]), float(origin_row.iloc[0]["rep_y"]))
+    dest_xy = (float(dest_row.iloc[0]["rep_x"]), float(dest_row.iloc[0]["rep_y"]))
+
+    path_tracts: set[str] = {origin, destination}
+    for sid in path_rows["screenline_id"].astype(str):
+        left, right = sid.split("__")
+        path_tracts.update([left, right])
+    focus_tracts = tracts[tracts["GEOID"].isin(path_tracts)].copy()
+    if focus_tracts.empty:
+        _placeholder(path, "OD-pair validation map", "Selected path tract geometry was unavailable.")
+        return False
+    region_label = _region_label_from_tracts(focus_tracts)
+
+    bounds = focus_tracts.total_bounds
+    xpad = max((bounds[2] - bounds[0]) * 0.22, 1_400.0)
+    ypad = max((bounds[3] - bounds[1]) * 0.20, 1_400.0)
+    xlim = (float(bounds[0] - xpad), float(bounds[2] + xpad))
+    ylim = (float(bounds[1] - ypad), float(bounds[3] + ypad))
+    context = tracts.cx[xlim[0] : xlim[1], ylim[0] : ylim[1]].copy()
+
+    screenline_rows = screenlines.merge(
+        path_rows[["screenline_id", "path_order", "screenline_color", "observed_count", "synthetic_count", "ratio"]],
+        on="screenline_id",
+        how="inner",
+    )
+    screenline_rows = gpd.GeoDataFrame(screenline_rows, geometry="geometry", crs=screenlines.crs)
+    if tracts.crs and screenline_rows.crs and screenline_rows.crs != tracts.crs:
+        screenline_rows = screenline_rows.to_crs(tracts.crs)
+    if tracts.crs and points.crs and points.crs != tracts.crs:
+        points = points.to_crs(tracts.crs)
+
+    station_rows = station_map[station_map["screenline_id"].isin(path_rows["screenline_id"])].copy()
+    station_rows = station_rows.merge(
+        path_rows[["screenline_id", "path_order", "screenline_color"]],
+        on="screenline_id",
+        how="left",
+    )
+    station_points = station_rows.merge(points.drop_duplicates("station_id"), on="station_id", how="left")
+    station_points = gpd.GeoDataFrame(station_points, geometry="geometry", crs=points.crs)
+    station_points = station_points[station_points.geometry.notna()].copy()
+    if not station_points.empty:
+        station_points = station_points.sort_values(["path_order", "station_id"]).reset_index(drop=True)
+        station_points["plot_x"] = station_points.geometry.x
+        station_points["plot_y"] = station_points.geometry.y
+        for _, group in station_points.groupby("station_id"):
+            if len(group) == 1:
+                continue
+            angles = np.linspace(0, 2 * np.pi, len(group), endpoint=False)
+            radius = 155.0
+            for idx, angle in zip(group.index, angles):
+                station_points.loc[idx, "plot_x"] += radius * float(np.cos(angle))
+                station_points.loc[idx, "plot_y"] += radius * float(np.sin(angle))
+        logged_counts = np.log1p(pd.to_numeric(station_points["observed_count"], errors="coerce").fillna(0.0).clip(lower=0.0))
+        scale_min, scale_max = np.nanpercentile(logged_counts, [5, 95]) if len(station_points) > 1 else (float(logged_counts.iloc[0]), float(logged_counts.iloc[0]))
+        station_points["marker_size"] = _station_marker_sizes(station_points["observed_count"], float(scale_min), float(scale_max)) + 80.0
+
+    method_keys = [key for key, _, _ in method_specs if key in set(comparisons["method"].astype(str))]
+    comparison_subset = comparisons[comparisons["method"].astype(str).isin(method_keys)].copy()
+    count_rows = path_rows[["screenline_id", "path_order", "observed_count"]].drop_duplicates("screenline_id")
+    method_counts = comparison_subset[comparison_subset["screenline_id"].isin(count_rows["screenline_id"])][
+        ["screenline_id", "method", "synthetic_count"]
+    ].copy()
+    method_wide = method_counts.pivot_table(index="screenline_id", columns="method", values="synthetic_count", aggfunc="first")
+    count_rows = count_rows.join(method_wide, on="screenline_id")
+    available_methods = [key for key in method_keys if key in count_rows.columns]
+
+    fig = plt.figure(figsize=(15.0, 8.4), constrained_layout=False)
+    fig.patch.set_facecolor("#fbfaf6")
+    grid = fig.add_gridspec(1, 2, width_ratios=[0.61, 0.39], left=0.035, right=0.985, top=0.80, bottom=0.065, wspace=0.075)
+    ax = fig.add_subplot(grid[0, 0])
+    side = grid[0, 1].subgridspec(3, 1, height_ratios=[0.12, 0.46, 0.42], hspace=0.72)
+    legend_ax = fig.add_subplot(side[0])
+    bars_ax = fig.add_subplot(side[1])
+    sum_ax = fig.add_subplot(side[2])
+
+    fig.text(
+        0.035,
+        0.975,
+        "Observed vs Synthetically-Predicted Traffic Counts along\nScreenline Boundaries for a Single OD Pair",
+        ha="left",
+        va="top",
+        fontsize=18.5,
+        fontweight="bold",
+        linespacing=1.08,
+    )
+    fig.text(
+        0.035,
+        0.895,
+        f"{region_label}: numbered tract-boundary screenlines and same-color MDOT stations show how observed counts are attached to the OD path.",
+        ha="left",
+        va="top",
+        fontsize=10.2,
+        color="#555555",
+    )
+
+    context.boundary.plot(ax=ax, linewidth=0.22, color="#d8d4ca", alpha=0.95, zorder=1)
+    focus_tracts.plot(ax=ax, facecolor="#fffdf7", edgecolor="#77746d", linewidth=0.85, alpha=0.96, zorder=2)
+    origin_row.plot(ax=ax, facecolor="#f2b36f", edgecolor="#9a4c20", linewidth=1.1, alpha=0.72, zorder=3)
+    dest_row.plot(ax=ax, facecolor="#9bc2d9", edgecolor="#155f92", linewidth=1.1, alpha=0.72, zorder=3)
+
+    screenline_rows = screenline_rows.sort_values("path_order")
+    for row in screenline_rows.itertuples(index=False):
+        screenline_rows[screenline_rows["screenline_id"] == row.screenline_id].plot(
+            ax=ax,
+            color=row.screenline_color,
+            linewidth=6.2,
+            alpha=0.96,
+            zorder=5,
+        )
+
+    arrow = FancyArrowPatch(
+        origin_xy,
+        dest_xy,
+        arrowstyle="-|>",
+        mutation_scale=18,
+        linewidth=2.2,
+        color="#202020",
+        alpha=0.82,
+        shrinkA=8,
+        shrinkB=8,
+        zorder=6,
+    )
+    ax.add_patch(arrow)
+    ax.scatter([origin_xy[0], dest_xy[0]], [origin_xy[1], dest_xy[1]], s=[82, 82], color=["#9a4c20", "#155f92"], edgecolor="white", linewidth=0.9, zorder=8)
+    for label, xy, ha, va in [("O", origin_xy, "right", "bottom"), ("D", dest_xy, "left", "top")]:
+        text = ax.text(xy[0], xy[1], f" {label} ", ha=ha, va=va, fontsize=10, fontweight="bold", color="#222222", zorder=9)
+        text.set_path_effects([path_effects.withStroke(linewidth=2.5, foreground="white")])
+
+    screenline_lookup = screenline_rows.set_index("screenline_id")
+    for row in path_rows.itertuples(index=False):
+        geom = screenline_lookup.loc[str(row.screenline_id)].geometry
+        x, y = _screenline_midpoint(geom)
+        number_color = str(row.screenline_color)
+        txt = ax.text(
+            x,
+            y,
+            str(int(row.path_order)),
+            ha="center",
+            va="center",
+            fontsize=10.5,
+            fontweight="bold",
+            color="white",
+            bbox=dict(boxstyle="circle,pad=0.26", facecolor=number_color, edgecolor="white", linewidth=1.2, alpha=0.98),
+            zorder=11,
+        )
+        txt.set_path_effects([path_effects.withStroke(linewidth=1.0, foreground="#222222")])
+
+    if not station_points.empty:
+        for station in station_points.itertuples(index=False):
+            if str(station.screenline_id) not in screenline_lookup.index:
+                continue
+            target = _nearest_point_on_line(screenline_lookup.loc[str(station.screenline_id)].geometry, station.geometry)
+            if target is None:
+                continue
+            ax.plot(
+                [station.plot_x, target.x],
+                [station.plot_y, target.y],
+                color=station.screenline_color,
+                linewidth=1.0,
+                alpha=0.44,
+                zorder=4,
+            )
+        ax.scatter(
+            station_points["plot_x"],
+            station_points["plot_y"],
+            s=station_points["marker_size"],
+            color=station_points["screenline_color"],
+            edgecolor="white",
+            linewidth=1.4,
+            alpha=0.98,
+            zorder=10,
+        )
+        ax.scatter(
+            station_points["plot_x"],
+            station_points["plot_y"],
+            s=station_points["marker_size"] * 0.34,
+            color="#222222",
+            linewidth=0,
+            alpha=0.88,
+            zorder=11,
+        )
+
+    ax.set_xlim(*xlim)
+    ax.set_ylim(*ylim)
+    ax.set_aspect("equal")
+    ax.set_axis_off()
+    ax.set_facecolor("#fbfaf6")
+
+    plot_rows = count_rows.sort_values("path_order").copy()
+    y = np.arange(len(plot_rows), dtype=float)
+    series = [("observed_count", "Observed AAWDT", "#76736d")] + [
+        (key, method_labels[key], method_colors[key]) for key in available_methods
+    ]
+    offsets = np.linspace(-0.32, 0.32, len(series)) if len(series) > 1 else np.array([0.0])
+    bar_height = min(0.12, 0.68 / max(len(series), 1))
+    max_count = float(np.nanmax(plot_rows[[col for col, _, _ in series]].to_numpy(float)))
+    for offset, (col, label, color) in zip(offsets, series):
+        values = pd.to_numeric(plot_rows[col], errors="coerce").fillna(0.0).to_numpy(float)
+        bars_ax.barh(y + offset, values, height=bar_height, color=color, label=label, alpha=0.94)
+
+    legend_ax.axis("off")
+    handles = [plt.Line2D([0], [0], color=color, lw=5.0, label=label) for _, label, color in series]
+    legend_ax.legend(handles=handles, loc="upper left", bbox_to_anchor=(0.0, 0.98), ncol=2, frameon=False, fontsize=8.0, handlelength=1.8, columnspacing=1.0, borderaxespad=0.0)
+
+    row_colors = dict(zip(path_rows["path_order"].astype(int), path_rows["screenline_color"].astype(str)))
+    tick_labels = [f"Screenline {int(row.path_order)}" for row in plot_rows.itertuples(index=False)]
+    bars_ax.set_yticks(y)
+    bars_ax.set_yticklabels(tick_labels, fontsize=9.2)
+    for tick, row in zip(bars_ax.get_yticklabels(), plot_rows.itertuples(index=False)):
+        tick.set_color(row_colors.get(int(row.path_order), "#222222"))
+        tick.set_fontweight("bold")
+    bars_ax.invert_yaxis()
+    bars_ax.set_xlim(0, max_count * 1.22)
+    bars_ax.set_xlabel("annual-average screenline count", fontsize=9.4)
+    bars_ax.tick_params(axis="x", labelsize=8.3)
+    bars_ax.grid(axis="x", alpha=0.20)
+    for spine in bars_ax.spines.values():
+        spine.set_visible(False)
+
+    sum_values = np.array([float(plot_rows[col].sum()) for col, _, _ in series])
+    sum_y = np.arange(len(series), dtype=float)
+    sum_ax.barh(sum_y, sum_values, color=[color for _, _, color in series], height=0.56, alpha=0.94)
+    sum_ax.set_yticks(sum_y)
+    short_labels = ["Observed", "Weighted", "Bayesian", "Non-C VAE", "C VAE"][: len(series)]
+    sum_ax.set_yticklabels(short_labels, fontsize=8.2)
+    sum_ax.invert_yaxis()
+    sum_ax.set_xlim(0, max(float(np.nanmax(sum_values)) * 1.18, 1.0))
+    sum_ax.set_title("Sum of screenlines", loc="left", fontsize=11.5, fontweight="bold", pad=5)
+    sum_ax.set_xlabel("summed count", fontsize=8.8, labelpad=2)
+    sum_ax.tick_params(axis="x", labelsize=8.0)
+    sum_ax.grid(axis="x", alpha=0.20)
+    for spine in sum_ax.spines.values():
+        spine.set_visible(False)
+    for yi, value in zip(sum_y, sum_values):
+        sum_ax.text(value + max(float(np.nanmax(sum_values)) * 0.025, 1.0), yi, _format_compact_count(value), ha="left", va="center", fontsize=8.0, color="#333333")
+
+    fig.savefig(path, dpi=300, facecolor=fig.get_facecolor())
+    fig.savefig(path.with_suffix(".pdf"), facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return True
+
+
 # Final focused poster version: one center-origin tract and its surrounding
 # 24-tract zone. This overrides the broader all-pairs matrix draft above.
 def _select_focus_cluster(
@@ -1412,6 +2097,14 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
     _make_focused_trip_coverage_map(p, run_dir)
     created.append(p)
 
+    p = poster / "14_aadt_screenline_station_match_map.png"
+    _make_aadt_station_match_map(p, run_dir)
+    created.append(p)
+
+    p = poster / "15_od_pair_screenline_validation_map.png"
+    _make_od_pair_screenline_validation_map(p, run_dir)
+    created.append(p)
+
     captions = poster / "captions.md"
     captions.write_text(
         "\n".join(
@@ -1423,6 +2116,8 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
                 "",
                 "Figure 12 compares equal-sized samples of weighted-bootstrap and contrastive-VAE trips as origin-destination tract lines. It is a tract-centroid visualization for coverage, not route assignment.",
                 "Figure 13 zooms to one origin tract inside an auto-selected 60-tract Maryland zone and shows which nearby destination tracts are reached by each method.",
+                "Figure 14 maps MDOT stations assigned to annual AADT screenlines. Point color is the contrastive-VAE synthetic-to-observed screenline ratio, and point size is station AAWDT.",
+                "Figure 15 zooms to one OD-pair example and traces the station-matched screenlines used to compare synthetic virtual crossings with observed AAWDT counts.",
             ]
         )
         + "\n"
