@@ -1,0 +1,304 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1350" viewBox="0 0 2400 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Training and Sampling Pipeline for Contrastive VAE Synthetic Trips</title>
+  <desc id="desc">Two-section diagram showing Contrastive VAE training and synthetic trip sampling, with latent distribution parameters, sampled latent point, reconstruction loss, KL loss, and contrastive loss contribution.</desc>
+  <defs>
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="58%" stop-color="#3652a3"/>
+      <stop offset="100%" stop-color="#d95f45"/>
+    </linearGradient>
+    <linearGradient id="trainingBand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eefcf8"/>
+      <stop offset="100%" stop-color="#f7f8ff"/>
+    </linearGradient>
+    <linearGradient id="samplingBand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff8f4"/>
+      <stop offset="100%" stop-color="#f5fbff"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="13" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <filter id="glowCoral" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#ef7c64" flood-opacity="0.45"/>
+    </filter>
+    <marker id="arrowDark" markerWidth="16" markerHeight="16" refX="13" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L14,8 L2,14 Z" fill="#1f2937"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="16" markerHeight="16" refX="13" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L14,8 L2,14 Z" fill="#0f766e"/>
+    </marker>
+    <marker id="arrowIndigo" markerWidth="16" markerHeight="16" refX="13" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L14,8 L2,14 Z" fill="#3652a3"/>
+    </marker>
+    <marker id="arrowCoral" markerWidth="18" markerHeight="18" refX="15" refY="9" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L16,9 L2,16 Z" fill="#d95f45"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="16" markerHeight="16" refX="13" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L14,8 L2,14 Z" fill="#7c3aed"/>
+    </marker>
+    <style>
+      .bg { fill: #fbfcfe; }
+      .title { font: 800 58px Arial, Helvetica, sans-serif; fill: #0f172a; letter-spacing: 0; }
+      .subtitle { font: 500 25px Arial, Helvetica, sans-serif; fill: #475569; letter-spacing: 0; }
+      .section-title { font: 800 38px Arial, Helvetica, sans-serif; fill: #111827; letter-spacing: 0; }
+      .section-subtitle { display: none; }
+      .node-title { font: 800 27px Arial, Helvetica, sans-serif; fill: #111827; letter-spacing: 0; }
+      .node-body { display: none; }
+      .small { font: 600 18px Arial, Helvetica, sans-serif; fill: #475569; letter-spacing: 0; }
+      .tiny { font: 600 15px Arial, Helvetica, sans-serif; fill: #64748b; letter-spacing: 0; }
+      .chip-text { font: 800 20px Arial, Helvetica, sans-serif; fill: #111827; letter-spacing: 0; }
+      .loss-title { font: 800 22px Arial, Helvetica, sans-serif; letter-spacing: 0; }
+      .loss-body { display: none; }
+      .math { font: 700 22px "Times New Roman", serif; fill: #1f2937; }
+      .panel { rx: 34; filter: url(#softShadow); stroke: #d7dee8; stroke-width: 2; }
+      .card { fill: #ffffff; stroke: #d8e0ea; stroke-width: 2; rx: 24; filter: url(#softShadow); }
+      .soft-card { fill: #ffffff; stroke: #e5e9f0; stroke-width: 2; rx: 22; }
+      .loss-card { fill: #ffffff; stroke-width: 3; rx: 20; filter: url(#softShadow); }
+      .arrow { fill: none; stroke: #1f2937; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowDark); }
+      .arrow-teal { fill: none; stroke: #0f766e; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowTeal); }
+      .arrow-indigo { fill: none; stroke: #3652a3; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowIndigo); }
+      .arrow-coral { fill: none; stroke: #d95f45; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowCoral); }
+      .arrow-purple { fill: none; stroke: #7c3aed; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowPurple); }
+      .dash { stroke-dasharray: 12 12; }
+      .thin { stroke-width: 3.5; }
+      .table-line { stroke: #cbd5e1; stroke-width: 2; }
+      .node-dot { fill: #ffffff; stroke-width: 3; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="2400" height="1350"/>
+  <rect x="0" y="0" width="2400" height="20" fill="url(#headerGrad)"/>
+
+  <text x="120" y="92" class="title">Pre-Validation Methodological Pipeline</text>
+  <text x="120" y="132" class="subtitle">Contrastive VAE architecture for generating synthetic trip-level trip-person-household records</text>
+
+  <!-- Section panels -->
+  <rect x="85" y="185" width="2230" height="705" class="panel" fill="url(#trainingBand)"/>
+  <rect x="85" y="935" width="2230" height="325" class="panel" fill="url(#samplingBand)"/>
+
+  <text x="135" y="250" class="section-title">1. Training</text>
+  <text x="135" y="284" class="section-subtitle">Learn a Contrastive VAE from observed trip-level rows</text>
+
+  <text x="135" y="1000" class="section-title">2. Sampling</text>
+  <text x="135" y="1034" class="section-subtitle">Decode randomly selected latent points to create synthetic trips</text>
+
+  <!-- Training input table -->
+  <rect x="130" y="350" width="315" height="205" class="card"/>
+  <text x="165" y="398" class="node-title">Trip-level data</text>
+  <text x="165" y="431" class="node-body">Observed rows with</text>
+  <text x="165" y="458" class="node-body">trip + person +</text>
+  <text x="165" y="485" class="node-body">household information</text>
+  <g id="input-trip-person-household-icons" transform="translate(176 430)">
+    <path d="M0 22 h45 l12 16 h-68 z" fill="#0f766e"/>
+    <rect x="8" y="8" width="28" height="16" rx="4" fill="#99f6e4"/>
+    <circle cx="5" cy="40" r="6" fill="#0f172a"/>
+    <circle cx="42" cy="40" r="6" fill="#0f172a"/>
+    <circle cx="111" cy="16" r="17" fill="#3652a3"/>
+    <path d="M84 64 q27 -40 54 0" fill="#3652a3"/>
+    <path d="M190 34 l36 -29 l36 29 v44 h-72 z" fill="#d95f45"/>
+    <rect x="217" y="54" width="18" height="24" fill="#fff7ed"/>
+  </g>
+  <g transform="translate(165 510)">
+    <rect x="0" y="0" width="235" height="68" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <line x1="0" y1="22" x2="235" y2="22" class="table-line"/>
+    <line x1="62" y1="0" x2="62" y2="68" class="table-line"/>
+    <line x1="132" y1="0" x2="132" y2="68" class="table-line"/>
+    <line x1="190" y1="0" x2="190" y2="68" class="table-line"/>
+    <circle cx="31" cy="45" r="7" fill="#0f766e"/>
+    <circle cx="96" cy="45" r="7" fill="#3652a3"/>
+    <circle cx="161" cy="45" r="7" fill="#d95f45"/>
+    <circle cx="212" cy="45" r="7" fill="#64748b"/>
+  </g>
+  <text x="220" y="617" class="math">x</text>
+
+  <!-- Encoder -->
+  <path d="M445 452 C510 452, 520 452, 585 452" class="arrow-teal"/>
+  <rect x="585" y="350" width="275" height="205" class="card"/>
+  <text x="647" y="399" class="node-title">Encoder</text>
+  <text x="625" y="434" class="node-body">maps each row</text>
+  <text x="625" y="462" class="node-body">into latent</text>
+  <text x="625" y="490" class="node-body">distribution</text>
+  <g transform="translate(660 512)">
+    <circle cx="0" cy="0" r="14" class="node-dot" stroke="#0f766e"/>
+    <circle cx="52" cy="-26" r="14" class="node-dot" stroke="#3652a3"/>
+    <circle cx="52" cy="26" r="14" class="node-dot" stroke="#d95f45"/>
+    <line x1="14" y1="-4" x2="38" y2="-20" stroke="#64748b" stroke-width="3"/>
+    <line x1="14" y1="4" x2="38" y2="20" stroke="#64748b" stroke-width="3"/>
+  </g>
+
+  <!-- Latent distribution parameters -->
+  <path d="M860 452 C910 452, 925 452, 975 452" class="arrow-indigo"/>
+  <rect x="975" y="318" width="380" height="272" class="card"/>
+  <text x="1025" y="368" class="node-title">Latent space</text>
+  <text x="1025" y="403" class="node-body">parameters defining</text>
+  <text x="1025" y="431" class="node-body">a distribution</text>
+  <rect x="1025" y="456" width="280" height="52" rx="14" fill="#eef2ff" stroke="#a5b4fc" stroke-width="2"/>
+  <text x="1054" y="491" class="math">q(z|x) = N(mu, sigma^2)</text>
+  <g transform="translate(1165 548)">
+    <ellipse cx="0" cy="0" rx="96" ry="35" fill="#f8fafc" stroke="#3652a3" stroke-width="3"/>
+    <circle cx="-44" cy="6" r="7" fill="#3652a3" opacity="0.65"/>
+    <circle cx="-16" cy="-8" r="7" fill="#3652a3" opacity="0.65"/>
+    <circle cx="25" cy="5" r="7" fill="#3652a3" opacity="0.65"/>
+    <circle cx="57" cy="-5" r="7" fill="#3652a3" opacity="0.65"/>
+    <circle cx="7" cy="17" r="7" fill="#3652a3" opacity="0.65"/>
+    <circle cx="37" cy="-20" r="7" fill="#3652a3" opacity="0.35"/>
+  </g>
+
+  <!-- Random latent point -->
+  <path d="M1355 452 C1408 452, 1425 452, 1478 452" class="arrow-purple"/>
+  <rect x="1435" y="335" width="240" height="102" rx="22" fill="#faf5ff" stroke="#c4b5fd" stroke-width="3" filter="url(#softShadow)"/>
+  <text x="1479" y="376" class="node-title">Random point</text>
+  <text x="1515" y="410" class="math">z ~ q(z|x)</text>
+  <circle cx="1560" cy="475" r="18" fill="#7c3aed" filter="url(#glowCoral)"/>
+  <text x="1549" y="484" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#ffffff">z</text>
+  <path d="M1558 437 C1558 448, 1558 452, 1558 457" class="arrow-purple thin"/>
+
+  <!-- Decoder and output -->
+  <path d="M1675 452 C1724 452, 1738 452, 1785 452" class="arrow-purple"/>
+  <rect x="1785" y="350" width="275" height="205" class="card"/>
+  <text x="1846" y="399" class="node-title">Decoder</text>
+  <text x="1825" y="434" class="node-body">decodes the</text>
+  <text x="1825" y="462" class="node-body">selected latent</text>
+  <text x="1825" y="490" class="node-body">point into a row</text>
+  <g transform="translate(1856 512)">
+    <circle cx="0" cy="0" r="14" class="node-dot" stroke="#7c3aed"/>
+    <circle cx="52" cy="-26" r="14" class="node-dot" stroke="#3652a3"/>
+    <circle cx="52" cy="26" r="14" class="node-dot" stroke="#0f766e"/>
+    <line x1="14" y1="-4" x2="38" y2="-20" stroke="#64748b" stroke-width="3"/>
+    <line x1="14" y1="4" x2="38" y2="20" stroke="#64748b" stroke-width="3"/>
+  </g>
+
+  <path d="M2060 452 C2100 452, 2118 452, 2160 452" class="arrow-teal"/>
+  <rect x="2160" y="350" width="125" height="205" class="card"/>
+  <text x="2195" y="418" class="node-title">Output</text>
+  <text x="2204" y="452" class="math">x-hat</text>
+  <rect x="2188" y="485" width="70" height="46" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="2188" y1="508" x2="2258" y2="508" class="table-line"/>
+  <line x1="2223" y1="485" x2="2223" y2="531" class="table-line"/>
+
+  <!-- Losses -->
+  <rect x="590" y="675" width="420" height="130" class="loss-card" stroke="#0f766e"/>
+  <text x="625" y="716" class="loss-title" fill="#0f766e">Reconstruction Loss</text>
+  <text x="625" y="752" class="loss-body">comparison of encoder input</text>
+  <text x="625" y="778" class="loss-body">x and decoder output x-hat</text>
+
+  <path d="M287 555 C360 645, 475 705, 590 735" class="arrow-teal dash"/>
+  <path d="M2222 555 C1830 670, 1275 742, 1010 740" class="arrow-teal dash"/>
+
+  <rect x="1085" y="675" width="350" height="130" class="loss-card" stroke="#3652a3"/>
+  <text x="1120" y="716" class="loss-title" fill="#3652a3">KL Loss</text>
+  <text x="1120" y="752" class="loss-body">distribution parameters</text>
+  <text x="1120" y="778" class="loss-body">vs. standard normal prior</text>
+  <rect x="1240" y="608" width="140" height="44" rx="12" fill="#eef2ff" stroke="#a5b4fc" stroke-width="2"/>
+  <text x="1264" y="637" class="math">N(0, I)</text>
+  <path d="M1170 590 C1178 625, 1200 650, 1228 675" class="arrow-indigo dash thin"/>
+  <path d="M1310 652 C1302 660, 1292 668, 1282 675" class="arrow-indigo dash thin"/>
+
+  <rect x="1540" y="660" width="555" height="160" class="loss-card" stroke="#d95f45" filter="url(#glowCoral)"/>
+  <text x="1578" y="704" class="loss-title" fill="#d95f45">Contrastive Loss Contribution</text>
+  <text x="1578" y="742" class="loss-body">comparison of decoder output</text>
+  <text x="1578" y="768" class="loss-body">against imputed negative sample</text>
+  <rect x="2125" y="690" width="140" height="98" rx="18" fill="#fff1ed" stroke="#ef7c64" stroke-width="3"/>
+  <text x="2154" y="730" class="node-title" fill="#d95f45">x-neg</text>
+  <text x="2149" y="760" class="tiny">imputed</text>
+  <text x="2142" y="782" class="tiny">negative</text>
+  <path d="M2223 555 C2190 600, 2100 638, 2018 660" class="arrow-coral"/>
+  <path d="M2195 690 C2162 675, 2128 668, 2095 668" class="arrow-coral dash thin"/>
+
+  <rect x="1315" y="250" width="420" height="44" rx="14" fill="#ffffff" opacity="0.92" stroke="#d8e0ea" stroke-width="2"/>
+  <text x="1354" y="279" class="small">sampled z -> decoder</text>
+
+  <!-- Visual comparison glyphs for losses -->
+  <g id="visual-loss-glyphs">
+    <g transform="translate(626 742)">
+      <rect x="0" y="0" width="70" height="48" rx="8" fill="#ecfdf5" stroke="#0f766e" stroke-width="3"/>
+      <line x1="0" y1="24" x2="70" y2="24" stroke="#0f766e" stroke-width="2"/>
+      <line x1="35" y1="0" x2="35" y2="48" stroke="#0f766e" stroke-width="2"/>
+      <text x="25" y="78" class="math-small">x</text>
+      <path d="M104 24 h146" stroke="#0f766e" stroke-width="6" stroke-linecap="round"/>
+      <path d="M122 9 l-24 15 l24 15" fill="none" stroke="#0f766e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M232 9 l24 15 l-24 15" fill="none" stroke="#0f766e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="286" y="0" width="70" height="48" rx="8" fill="#ecfdf5" stroke="#0f766e" stroke-width="3"/>
+      <line x1="286" y1="24" x2="356" y2="24" stroke="#0f766e" stroke-width="2"/>
+      <line x1="321" y1="0" x2="321" y2="48" stroke="#0f766e" stroke-width="2"/>
+      <text x="294" y="78" class="math-small">x-hat</text>
+    </g>
+    <g transform="translate(1120 738) scale(0.78)">
+      <path d="M0 48 C32 48, 36 4, 73 4 C111 4, 115 48, 148 48" fill="none" stroke="#3652a3" stroke-width="5" stroke-linecap="round"/>
+      <text x="36" y="81" class="math-small">q(z|x)</text>
+      <path d="M170 30 h42" stroke="#3652a3" stroke-width="5" stroke-linecap="round"/>
+      <path d="M199 17 l16 13 l-16 13" fill="none" stroke="#3652a3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M236 48 C268 48, 272 4, 309 4 C347 4, 351 48, 384 48" fill="none" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>
+      <text x="273" y="81" class="math-small">N(0,I)</text>
+    </g>
+    <g transform="translate(1560 730)">
+      <rect x="0" y="0" width="98" height="62" rx="12" fill="#ecfdf5" stroke="#0f766e" stroke-width="3"/>
+      <text x="18" y="39" class="math-small">x-hat</text>
+      <path d="M135 31 h112" stroke="#d95f45" stroke-width="8" stroke-linecap="round"/>
+      <path d="M154 13 l-27 18 l27 18" fill="none" stroke="#d95f45" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M227 13 l27 18 l-27 18" fill="none" stroke="#d95f45" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="292" y="0" width="104" height="62" rx="12" fill="#fff1ed" stroke="#d95f45" stroke-width="3"/>
+      <text x="315" y="39" class="math-small">x-neg</text>
+      <rect x="438" y="-9" width="86" height="80" rx="12" fill="#fff7ed" stroke="#ef7c64" stroke-width="3" stroke-dasharray="8 7"/>
+      <path d="M458 22 h46" stroke="#d95f45" stroke-width="5" stroke-linecap="round"/>
+      <path d="M458 45 h31" stroke="#d95f45" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+      <text x="432" y="100" class="tiny">imputed negative</text>
+    </g>
+  </g>
+
+  <!-- Sampling section -->
+  <rect x="420" y="1045" width="330" height="150" class="card"/>
+  <text x="468" y="1092" class="node-title">Trained latent</text>
+  <text x="468" y="1125" class="node-body">distribution parameters</text>
+  <text x="468" y="1153" class="math">mu, sigma^2</text>
+  <g transform="translate(635 1166)">
+    <ellipse cx="0" cy="0" rx="72" ry="23" fill="#f8fafc" stroke="#3652a3" stroke-width="3"/>
+    <circle cx="-29" cy="3" r="6" fill="#3652a3" opacity="0.65"/>
+    <circle cx="-4" cy="-4" r="6" fill="#3652a3" opacity="0.65"/>
+    <circle cx="23" cy="6" r="6" fill="#3652a3" opacity="0.65"/>
+    <circle cx="43" cy="-5" r="6" fill="#3652a3" opacity="0.35"/>
+  </g>
+
+  <path d="M750 1120 C835 1120, 858 1120, 940 1120" class="arrow-purple"/>
+  <rect x="940" y="1057" width="250" height="126" rx="24" fill="#faf5ff" stroke="#c4b5fd" stroke-width="3" filter="url(#softShadow)"/>
+  <text x="987" y="1104" class="node-title">Random point</text>
+  <text x="1023" y="1139" class="math">z</text>
+  <text x="965" y="1164" class="small">sampled from distribution</text>
+
+  <path d="M1190 1120 C1278 1120, 1302 1120, 1390 1120" class="arrow-purple"/>
+  <rect x="1390" y="1045" width="305" height="150" class="card"/>
+  <text x="1490" y="1092" class="node-title">Decoder</text>
+  <text x="1430" y="1127" class="node-body">trained generator maps</text>
+  <text x="1430" y="1155" class="node-body">z to trip-level row</text>
+
+  <path d="M1695 1120 C1785 1120, 1810 1120, 1900 1120" class="arrow-teal"/>
+  <rect x="1900" y="1045" width="340" height="150" class="card"/>
+  <text x="1952" y="1092" class="node-title">Synthetic trips</text>
+  <text x="1940" y="1127" class="node-body">Generated trip + person +</text>
+  <text x="1940" y="1155" class="node-body">household information</text>
+  <g id="synthetic-trip-person-household-icons" transform="translate(1944 1123)">
+    <path d="M0 20 h38 l10 14 h-58 z" fill="#0f766e"/>
+    <rect x="7" y="8" width="23" height="13" rx="3" fill="#99f6e4"/>
+    <circle cx="4" cy="36" r="5" fill="#0f172a"/>
+    <circle cx="35" cy="36" r="5" fill="#0f172a"/>
+    <circle cx="86" cy="16" r="15" fill="#3652a3"/>
+    <path d="M63 58 q23 -34 46 0" fill="#3652a3"/>
+    <path d="M146 30 l30 -24 l30 24 v38 h-60 z" fill="#d95f45"/>
+    <rect x="168" y="49" width="16" height="19" fill="#fff7ed"/>
+  </g>
+  <g transform="translate(2150 1092)">
+    <rect x="0" y="0" width="52" height="58" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <line x1="0" y1="20" x2="52" y2="20" class="table-line"/>
+    <line x1="26" y1="0" x2="26" y2="58" class="table-line"/>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(121 1288)">
+    <line x1="0" y1="0" x2="70" y2="0" class="arrow-teal thin"/>
+    <text x="88" y="7" class="tiny">data / reconstruction comparison</text>
+    <line x1="330" y1="0" x2="400" y2="0" class="arrow-indigo thin dash"/>
+    <text x="418" y="7" class="tiny">distribution regularization</text>
+    <line x1="670" y1="0" x2="740" y2="0" class="arrow-coral thin"/>
+    <text x="758" y="7" class="tiny">contrastive contribution</text>
+  </g>
+</svg>
