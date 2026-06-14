@@ -13,7 +13,19 @@ __pycache__/
 *.tmp
 *.bak
 
-outputs/
+# Ignore generated outputs by default, but keep latest poster figures commit-visible.
+outputs/*
+!outputs/runs/
+outputs/runs/*
+!outputs/runs/paper_wctr_1m_vae_sweep/
+outputs/runs/paper_wctr_1m_vae_sweep/*
+!outputs/runs/paper_wctr_1m_vae_sweep/figures/
+outputs/runs/paper_wctr_1m_vae_sweep/figures/*
+!outputs/runs/paper_wctr_1m_vae_sweep/figures/poster/
+outputs/runs/paper_wctr_1m_vae_sweep/figures/poster/*
+!outputs/runs/paper_wctr_1m_vae_sweep/figures/poster/*.png
+!outputs/runs/paper_wctr_1m_vae_sweep/figures/poster/*.pdf
+!outputs/runs/paper_wctr_1m_vae_sweep/figures/poster/*.md
 output/
 target/
 build/
