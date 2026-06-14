@@ -7,3 +7,4 @@ Figure 12 compares equal-sized samples of weighted-bootstrap and contrastive-VAE
 Figure 13 zooms to one origin tract inside an auto-selected 60-tract Maryland zone and shows which nearby destination tracts are reached by each method.
 Figure 14 maps MDOT stations assigned to annual AADT screenlines. Point color is the contrastive-VAE synthetic-to-observed screenline ratio, and point size is station AAWDT.
 Figure 15 zooms to one OD-pair example and traces the station-matched screenlines used to compare synthetic virtual crossings with observed AAWDT counts.
+Figure 16 repeats the OD-pair screenline view for an example where the contrastive VAE has the lowest path-level annual-average count error among all compared synthetic methods.

@@ -35,6 +35,7 @@ POSTER_FILES = [
     "13_single_origin_trip_coverage_60tracts.png",
     "14_aadt_screenline_station_match_map.png",
     "15_od_pair_screenline_validation_map.png",
+    "16_od_pair_screenline_validation_map_cvae_best.png",
 ]
 
 
@@ -1190,6 +1191,7 @@ def _select_od_pair_validation_example(
     run_dir: Path,
     method: str = "noncontrastive_vae",
     reference_method: str = "bayesian_network",
+    selection_strategy: str = "method_vs_reference",
 ) -> dict[str, Any] | None:
     paths_path = run_dir / "geo" / "od_screenline_paths.parquet"
     comparison_path = run_dir / "metrics" / "aadt_annual_screenline_comparisons.parquet"
@@ -1272,6 +1274,34 @@ def _select_od_pair_validation_example(
     method_mean_col = f"method_mean_abs_{method}"
     reference_mean_col = f"method_mean_abs_{reference_method}"
     method_max_col = f"method_max_abs_{method}"
+    if selection_strategy == "contrastive_best":
+        comparison_methods = ["weighted_bootstrap", "bayesian_network", "noncontrastive_vae"]
+        required_cols = [method_mean_col, method_max_col] + [f"method_mean_abs_{name}" for name in comparison_methods]
+        if all(col in stats.columns for col in required_cols):
+            for name in comparison_methods:
+                stats[f"{name}_minus_method_abs"] = stats[f"method_mean_abs_{name}"] - stats[method_mean_col]
+            stats = stats[
+                (stats[method_mean_col] < 0.55)
+                & (stats[method_max_col] < 1.10)
+                & (stats["bayesian_network_minus_method_abs"] > 0.10)
+                & (stats["noncontrastive_vae_minus_method_abs"] > 0.0)
+                & (stats["weighted_bootstrap_minus_method_abs"] > 0.0)
+            ].copy()
+            if not stats.empty:
+                stats["total_ratio"] = (stats["total_synthetic"] + 1.0) / (stats["total_observed"] + 1.0)
+                stats["contrastive_best_score"] = (
+                    4.0 * stats["bayesian_network_minus_method_abs"]
+                    + 2.0 * stats["noncontrastive_vae_minus_method_abs"]
+                    + stats["weighted_bootstrap_minus_method_abs"]
+                    - 0.25 * stats[method_mean_col]
+                )
+                stats = stats.sort_values(
+                    ["bayesian_network_minus_method_abs", "noncontrastive_vae_minus_method_abs", "contrastive_best_score", method_mean_col],
+                    ascending=[False, False, False, True],
+                )
+                row = stats.iloc[0]
+                return {key: row[key] for key in row.index}
+
     if method_mean_col in stats.columns and reference_mean_col in stats.columns:
         stats["reference_minus_method_abs"] = stats[reference_mean_col] - stats[method_mean_col]
         stats = stats[
@@ -1343,7 +1373,12 @@ def _region_label_from_tracts(tracts: Any) -> str:
     return "study-area region"
 
 
-def _make_od_pair_screenline_validation_map(path: Path, run_dir: Path, method: str = "noncontrastive_vae") -> bool:
+def _make_od_pair_screenline_validation_map(
+    path: Path,
+    run_dir: Path,
+    method: str = "noncontrastive_vae",
+    selection_strategy: str = "method_vs_reference",
+) -> bool:
     try:
         import geopandas as gpd
         import matplotlib.patheffects as path_effects
@@ -1372,7 +1407,7 @@ def _make_od_pair_screenline_validation_map(path: Path, run_dir: Path, method: s
     method_colors = {key: color for key, _, color in method_specs}
     screenline_palette = ["#2c7fb8", "#f28e2b", "#59a14f", "#b07aa1", "#e15759", "#76b7b2", "#edc948"]
 
-    selected = _select_od_pair_validation_example(run_dir, method=method)
+    selected = _select_od_pair_validation_example(run_dir, method=method, selection_strategy=selection_strategy)
     if selected is None:
         _placeholder(path, "OD-pair validation map", "No generated OD pair had a compact, well-matched station screenline path.")
         return False
@@ -1479,10 +1514,10 @@ def _make_od_pair_screenline_validation_map(path: Path, run_dir: Path, method: s
     fig.patch.set_facecolor("#fbfaf6")
     grid = fig.add_gridspec(1, 2, width_ratios=[0.61, 0.39], left=0.035, right=0.985, top=0.80, bottom=0.065, wspace=0.075)
     ax = fig.add_subplot(grid[0, 0])
-    side = grid[0, 1].subgridspec(3, 1, height_ratios=[0.12, 0.46, 0.42], hspace=0.72)
+    side = grid[0, 1].subgridspec(5, 1, height_ratios=[0.12, 0.025, 0.46, 0.17, 0.42], hspace=0.0)
     legend_ax = fig.add_subplot(side[0])
-    bars_ax = fig.add_subplot(side[1])
-    sum_ax = fig.add_subplot(side[2])
+    bars_ax = fig.add_subplot(side[2])
+    sum_ax = fig.add_subplot(side[4])
 
     fig.text(
         0.035,
@@ -2105,6 +2140,10 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
     _make_od_pair_screenline_validation_map(p, run_dir)
     created.append(p)
 
+    p = poster / "16_od_pair_screenline_validation_map_cvae_best.png"
+    _make_od_pair_screenline_validation_map(p, run_dir, method="contrastive_vae", selection_strategy="contrastive_best")
+    created.append(p)
+
     captions = poster / "captions.md"
     captions.write_text(
         "\n".join(
@@ -2118,6 +2157,7 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
                 "Figure 13 zooms to one origin tract inside an auto-selected 60-tract Maryland zone and shows which nearby destination tracts are reached by each method.",
                 "Figure 14 maps MDOT stations assigned to annual AADT screenlines. Point color is the contrastive-VAE synthetic-to-observed screenline ratio, and point size is station AAWDT.",
                 "Figure 15 zooms to one OD-pair example and traces the station-matched screenlines used to compare synthetic virtual crossings with observed AAWDT counts.",
+                "Figure 16 repeats the OD-pair screenline view for an example where the contrastive VAE has the lowest path-level annual-average count error among all compared synthetic methods.",
             ]
         )
         + "\n"
