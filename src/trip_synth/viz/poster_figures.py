@@ -963,7 +963,7 @@ def _make_focused_trip_coverage_map(path: Path, run_dir: Path) -> bool:
         f"Auto-selected Anne Arundel County zone centered on tract {metadata['center']}; orange = bootstrap link, pale blue = shared link, dark blue = CVAE-only link.",
         ha="left",
         va="top",
-        fontsize=10.5,
+        fontsize=10.5 * text_scale,
         color="#555555",
     )
     fig.text(0.055, 0.885, f"Weighted bootstrap: {metadata['baseline_links']} / {metadata['possible']} links", ha="left", va="top", fontsize=12, color="#9a4c20", fontweight="bold")
@@ -1132,7 +1132,7 @@ def _make_aadt_station_match_map(path: Path, run_dir: Path, method: str = "contr
 
     stats_ax.axis("off")
     stats_ax.text(0.0, 0.96, "Annual AAWDT tier", ha="left", va="top", fontsize=14, fontweight="bold", color="#222222")
-    stats_ax.text(0.0, 0.74, f"{comparisons['screenline_id'].nunique():,} screenlines compared", ha="left", va="top", fontsize=11.5, color="#333333")
+    stats_ax.text(0.0, 0.74, f"{comparisons['screenline_id'].nunique():,} screenlines compared", ha="left", va="top", fontsize=11.5 * text_scale, color="#333333")
     stats_ax.text(0.0, 0.56, f"{mapped['station_id'].nunique():,} mapped station points", ha="left", va="top", fontsize=11.5, color="#333333")
     stats_ax.text(0.0, 0.38, f"Median CVAE/observed ratio: {median_ratio:.2f}x", ha="left", va="top", fontsize=11.5, color="#333333")
     stats_ax.text(0.0, 0.18, "Faint lines show validation screenlines with mapped stations.", ha="left", va="top", fontsize=9.5, color="#666666", wrap=True)
@@ -1403,7 +1403,12 @@ def _make_od_pair_screenline_validation_map(
         ("noncontrastive_vae", "Non-contrastive VAE", "#756bb1"),
         ("contrastive_vae", "Contrastive VAE", "#2176ae"),
     ]
-    method_labels = {key: label for key, label, _ in method_specs}
+    method_labels = {
+        "weighted_bootstrap": "Baseline",
+        "bayesian_network": "Bayesian",
+        "noncontrastive_vae": "Non-C VAE",
+        "contrastive_vae": "C VAE",
+    }
     method_colors = {key: color for key, _, color in method_specs}
     screenline_palette = ["#2c7fb8", "#f28e2b", "#59a14f", "#b07aa1", "#e15759", "#76b7b2", "#edc948"]
 
@@ -1510,34 +1515,15 @@ def _make_od_pair_screenline_validation_map(
     count_rows = count_rows.join(method_wide, on="screenline_id")
     available_methods = [key for key in method_keys if key in count_rows.columns]
 
+    text_scale = 2.0
     fig = plt.figure(figsize=(15.0, 8.4), constrained_layout=False)
     fig.patch.set_facecolor("#fbfaf6")
-    grid = fig.add_gridspec(1, 2, width_ratios=[0.61, 0.39], left=0.035, right=0.985, top=0.80, bottom=0.065, wspace=0.075)
+    grid = fig.add_gridspec(1, 2, width_ratios=[0.61, 0.39], left=0.035, right=0.985, top=0.965, bottom=0.065, wspace=0.075)
     ax = fig.add_subplot(grid[0, 0])
-    side = grid[0, 1].subgridspec(5, 1, height_ratios=[0.12, 0.025, 0.46, 0.17, 0.42], hspace=0.0)
+    side = grid[0, 1].subgridspec(5, 1, height_ratios=[0.18, 0.06, 0.42, 0.16, 0.41], hspace=0.0)
     legend_ax = fig.add_subplot(side[0])
     bars_ax = fig.add_subplot(side[2])
     sum_ax = fig.add_subplot(side[4])
-
-    fig.text(
-        0.035,
-        0.975,
-        "Observed vs Synthetically-Predicted Traffic Counts along\nScreenline Boundaries for a Single OD Pair",
-        ha="left",
-        va="top",
-        fontsize=18.5,
-        fontweight="bold",
-        linespacing=1.08,
-    )
-    fig.text(
-        0.035,
-        0.895,
-        f"{region_label}: numbered tract-boundary screenlines and same-color MDOT stations show how observed counts are attached to the OD path.",
-        ha="left",
-        va="top",
-        fontsize=10.2,
-        color="#555555",
-    )
 
     context.boundary.plot(ax=ax, linewidth=0.22, color="#d8d4ca", alpha=0.95, zorder=1)
     focus_tracts.plot(ax=ax, facecolor="#fffdf7", edgecolor="#77746d", linewidth=0.85, alpha=0.96, zorder=2)
@@ -1569,7 +1555,7 @@ def _make_od_pair_screenline_validation_map(
     ax.add_patch(arrow)
     ax.scatter([origin_xy[0], dest_xy[0]], [origin_xy[1], dest_xy[1]], s=[82, 82], color=["#9a4c20", "#155f92"], edgecolor="white", linewidth=0.9, zorder=8)
     for label, xy, ha, va in [("O", origin_xy, "right", "bottom"), ("D", dest_xy, "left", "top")]:
-        text = ax.text(xy[0], xy[1], f" {label} ", ha=ha, va=va, fontsize=10, fontweight="bold", color="#222222", zorder=9)
+        text = ax.text(xy[0], xy[1], f" {label} ", ha=ha, va=va, fontsize=10 * text_scale, fontweight="bold", color="#222222", zorder=9)
         text.set_path_effects([path_effects.withStroke(linewidth=2.5, foreground="white")])
 
     screenline_lookup = screenline_rows.set_index("screenline_id")
@@ -1583,7 +1569,7 @@ def _make_od_pair_screenline_validation_map(
             str(int(row.path_order)),
             ha="center",
             va="center",
-            fontsize=10.5,
+            fontsize=10.5 * text_scale,
             fontweight="bold",
             color="white",
             bbox=dict(boxstyle="circle,pad=0.26", facecolor=number_color, edgecolor="white", linewidth=1.2, alpha=0.98),
@@ -1634,7 +1620,7 @@ def _make_od_pair_screenline_validation_map(
 
     plot_rows = count_rows.sort_values("path_order").copy()
     y = np.arange(len(plot_rows), dtype=float)
-    series = [("observed_count", "Observed AAWDT", "#76736d")] + [
+    series = [("observed_count", "Observed", "#76736d")] + [
         (key, method_labels[key], method_colors[key]) for key in available_methods
     ]
     offsets = np.linspace(-0.32, 0.32, len(series)) if len(series) > 1 else np.array([0.0])
@@ -1646,19 +1632,22 @@ def _make_od_pair_screenline_validation_map(
 
     legend_ax.axis("off")
     handles = [plt.Line2D([0], [0], color=color, lw=5.0, label=label) for _, label, color in series]
-    legend_ax.legend(handles=handles, loc="upper left", bbox_to_anchor=(0.0, 0.98), ncol=2, frameon=False, fontsize=8.0, handlelength=1.8, columnspacing=1.0, borderaxespad=0.0)
+    legend_ax.legend(handles=handles, loc="upper left", bbox_to_anchor=(0.0, 0.98), ncol=2, frameon=False, fontsize=8.0 * text_scale, handlelength=1.25, columnspacing=0.9, labelspacing=0.42, borderaxespad=0.0)
 
     row_colors = dict(zip(path_rows["path_order"].astype(int), path_rows["screenline_color"].astype(str)))
     tick_labels = [f"Screenline {int(row.path_order)}" for row in plot_rows.itertuples(index=False)]
     bars_ax.set_yticks(y)
-    bars_ax.set_yticklabels(tick_labels, fontsize=9.2)
+    bars_ax.set_yticklabels(tick_labels, fontsize=9.2 * text_scale)
     for tick, row in zip(bars_ax.get_yticklabels(), plot_rows.itertuples(index=False)):
         tick.set_color(row_colors.get(int(row.path_order), "#222222"))
         tick.set_fontweight("bold")
     bars_ax.invert_yaxis()
     bars_ax.set_xlim(0, max_count * 1.22)
-    bars_ax.set_xlabel("annual-average screenline count", fontsize=9.4)
-    bars_ax.tick_params(axis="x", labelsize=8.3)
+    bars_ax.set_xlabel("annual-average screenline count", fontsize=9.4 * text_scale)
+    bars_ax.tick_params(axis="x", labelsize=8.3 * text_scale)
+    for idx, tick in enumerate(bars_ax.get_xticklabels()):
+        if idx % 2 == 1:
+            tick.set_visible(False)
     bars_ax.grid(axis="x", alpha=0.20)
     for spine in bars_ax.spines.values():
         spine.set_visible(False)
@@ -1667,18 +1656,20 @@ def _make_od_pair_screenline_validation_map(
     sum_y = np.arange(len(series), dtype=float)
     sum_ax.barh(sum_y, sum_values, color=[color for _, _, color in series], height=0.56, alpha=0.94)
     sum_ax.set_yticks(sum_y)
-    short_labels = ["Observed", "Weighted", "Bayesian", "Non-C VAE", "C VAE"][: len(series)]
-    sum_ax.set_yticklabels(short_labels, fontsize=8.2)
+    short_labels = ["Observed", "Baseline", "Bayesian", "Non-C VAE", "C VAE"][: len(series)]
+    sum_ax.set_yticklabels(short_labels, fontsize=8.2 * text_scale)
     sum_ax.invert_yaxis()
     sum_ax.set_xlim(0, max(float(np.nanmax(sum_values)) * 1.18, 1.0))
-    sum_ax.set_title("Sum of screenlines", loc="left", fontsize=11.5, fontweight="bold", pad=5)
-    sum_ax.set_xlabel("summed count", fontsize=8.8, labelpad=2)
-    sum_ax.tick_params(axis="x", labelsize=8.0)
+    sum_ax.set_xlabel("summed count", fontsize=8.8 * text_scale, labelpad=2)
+    sum_ax.tick_params(axis="x", labelsize=8.0 * text_scale)
+    for idx, tick in enumerate(sum_ax.get_xticklabels()):
+        if idx % 2 == 1:
+            tick.set_visible(False)
     sum_ax.grid(axis="x", alpha=0.20)
     for spine in sum_ax.spines.values():
         spine.set_visible(False)
     for yi, value in zip(sum_y, sum_values):
-        sum_ax.text(value + max(float(np.nanmax(sum_values)) * 0.025, 1.0), yi, _format_compact_count(value), ha="left", va="center", fontsize=8.0, color="#333333")
+        sum_ax.text(value + max(float(np.nanmax(sum_values)) * 0.025, 1.0), yi, _format_compact_count(value), ha="left", va="center", fontsize=8.0 * text_scale, color="#333333")
 
     fig.savefig(path, dpi=300, facecolor=fig.get_facecolor())
     fig.savefig(path.with_suffix(".pdf"), facecolor=fig.get_facecolor())
