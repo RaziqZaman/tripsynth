@@ -36,6 +36,7 @@ POSTER_FILES = [
     "14_aadt_screenline_station_match_map.png",
     "15_od_pair_screenline_validation_map.png",
     "16_od_pair_screenline_validation_map_cvae_best.png",
+    "17_hourly_tmas_profile_cvae_best.png",
 ]
 
 
@@ -1677,6 +1678,215 @@ def _make_od_pair_screenline_validation_map(
     return True
 
 
+def _select_hourly_tmas_validation_example(run_dir: Path, method: str = "contrastive_vae") -> dict[str, Any] | None:
+    comparison_path = run_dir / "metrics" / "aadt_hourly_screenline_comparisons.parquet"
+    if not comparison_path.exists():
+        return None
+
+    method_keys = ["weighted_bootstrap", "bayesian_network", "noncontrastive_vae", "contrastive_vae"]
+    comparisons = pd.read_parquet(comparison_path)
+    needed = {"screenline_id", "method", "hour", "observed_count", "synthetic_count", "tmas_station_count"}
+    if comparisons.empty or not needed.issubset(comparisons.columns):
+        return None
+    comparisons = comparisons[comparisons["method"].astype(str).isin(method_keys) & comparisons["tmas_station_count"].eq(1)].copy()
+    if comparisons.empty:
+        return None
+
+    profile = (
+        comparisons.groupby(["screenline_id", "method", "hour"], as_index=False)
+        .agg(
+            observed_count=("observed_count", "mean"),
+            synthetic_count=("synthetic_count", "mean"),
+            cells=("synthetic_count", "size"),
+            annual_station_count_observed=("annual_station_count_observed", "first"),
+            annual_screenline_count=("annual_screenline_count", "first"),
+        )
+    )
+    profile["abs_error"] = (profile["synthetic_count"].astype(float) - profile["observed_count"].astype(float)).abs()
+    profile["abs_log2_ratio"] = np.log2(
+        (profile["synthetic_count"].astype(float) + 1.0) / (profile["observed_count"].astype(float) + 1.0)
+    ).abs()
+    summary = (
+        profile.groupby(["screenline_id", "method"])
+        .agg(
+            profile_mae=("abs_error", "mean"),
+            profile_mean_abs_log2=("abs_log2_ratio", "mean"),
+            profile_max_abs_log2=("abs_log2_ratio", "max"),
+            hours=("hour", "nunique"),
+            mean_observed=("observed_count", "mean"),
+            peak_observed=("observed_count", "max"),
+            annual_station_count_observed=("annual_station_count_observed", "first"),
+            annual_screenline_count=("annual_screenline_count", "first"),
+        )
+        .reset_index()
+    )
+    wide = summary.pivot(index="screenline_id", columns="method")
+    wide.columns = [f"{metric}_{name}" for metric, name in wide.columns]
+    wide = wide.reset_index()
+    if wide.empty:
+        return None
+
+    mask = pd.Series(True, index=wide.index)
+    for key in method_keys:
+        hours_col = f"hours_{key}"
+        if hours_col not in wide.columns:
+            return None
+        mask &= wide[hours_col].eq(24)
+    mask &= wide[f"mean_observed_{method}"].ge(50)
+    mask &= wide[f"peak_observed_{method}"].ge(100)
+    comparison_methods = [key for key in method_keys if key != method]
+    for key in comparison_methods:
+        wide[f"profile_mae_gap_{key}"] = wide[f"profile_mae_{key}"] - wide[f"profile_mae_{method}"]
+        mask &= wide[f"profile_mae_gap_{key}"].gt(0)
+
+    candidates = wide[mask].copy()
+    if candidates.empty:
+        candidates = wide[wide[f"hours_{method}"].eq(24)].copy()
+        if candidates.empty:
+            return None
+        candidates["hourly_profile_score"] = -candidates[f"profile_mae_{method}"]
+    else:
+        candidates["hourly_profile_score"] = (
+            2.0 * candidates.get("profile_mae_gap_bayesian_network", 0.0)
+            + 1.5 * candidates.get("profile_mae_gap_noncontrastive_vae", 0.0)
+            + candidates.get("profile_mae_gap_weighted_bootstrap", 0.0)
+            - 0.05 * candidates[f"profile_mae_{method}"]
+        )
+    candidates = candidates.sort_values(
+        ["hourly_profile_score", f"profile_mae_{method}", f"peak_observed_{method}"],
+        ascending=[False, True, False],
+    )
+    row = candidates.iloc[0]
+    selected = {key: row[key] for key in row.index}
+
+    station_map_path = run_dir / "geo" / "screenline_station_map.parquet"
+    if station_map_path.exists():
+        station_map = pd.read_parquet(station_map_path)
+        station_rows = station_map[station_map["screenline_id"].astype(str).eq(str(selected["screenline_id"]))].copy()
+        if not station_rows.empty and f"annual_station_count_observed_{method}" in selected:
+            target = float(selected[f"annual_station_count_observed_{method}"])
+            station_rows["observed_count_numeric"] = pd.to_numeric(station_rows["observed_count"], errors="coerce")
+            match = station_rows[np.isclose(station_rows["observed_count_numeric"].astype(float), target, rtol=0.0, atol=1e-6)]
+            if not match.empty:
+                selected["station_id"] = str(match.iloc[0]["station_id"])
+                selected["station_observed_count"] = float(match.iloc[0]["observed_count_numeric"])
+            elif len(station_rows) == 1:
+                selected["station_id"] = str(station_rows.iloc[0]["station_id"])
+                selected["station_observed_count"] = float(station_rows.iloc[0]["observed_count_numeric"])
+    return selected
+
+
+def _make_hourly_tmas_validation_profile(path: Path, run_dir: Path, method: str = "contrastive_vae") -> bool:
+    comparison_path = run_dir / "metrics" / "aadt_hourly_screenline_comparisons.parquet"
+    observed_path = run_dir / "metrics" / "observed_hourly_screenline_counts.parquet"
+    if not comparison_path.exists():
+        _placeholder(path, "Hourly TMAS validation profile", "Hourly TMAS screenline comparisons were not available.")
+        return False
+
+    selected = _select_hourly_tmas_validation_example(run_dir, method=method)
+    if selected is None:
+        _placeholder(path, "Hourly TMAS validation profile", "No single-TMAS-station hourly screenline had a complete comparable profile.")
+        return False
+    screenline_id = str(selected["screenline_id"])
+
+    method_specs = [
+        ("weighted_bootstrap", "Survey-Sampled Baseline", "#d06c2f", 2.7, 0.74),
+        ("bayesian_network", "Bayesian Network", "#4c9f70", 2.7, 0.74),
+        ("noncontrastive_vae", "Non-Contrastive VAE", "#756bb1", 2.9, 0.78),
+        ("contrastive_vae", "Contrastive VAE", "#2176ae", 4.3, 0.98),
+    ]
+    method_keys = [key for key, _, _, _, _ in method_specs]
+    comparisons = pd.read_parquet(comparison_path)
+    comparisons = comparisons[comparisons["screenline_id"].astype(str).eq(screenline_id) & comparisons["method"].astype(str).isin(method_keys)].copy()
+    if comparisons.empty:
+        _placeholder(path, "Hourly TMAS validation profile", "Selected hourly screenline did not join to method comparisons.")
+        return False
+
+    method_profiles = (
+        comparisons.groupby(["method", "hour"], as_index=False)
+        .agg(synthetic_count=("synthetic_count", "mean"), observed_count=("observed_count", "mean"))
+    )
+    if observed_path.exists():
+        observed = pd.read_parquet(observed_path)
+        observed = observed[observed["screenline_id"].astype(str).eq(screenline_id)].copy()
+        observed_profile = observed.groupby("hour", as_index=False)["observed_count"].mean() if not observed.empty else pd.DataFrame()
+    else:
+        observed_profile = pd.DataFrame()
+    if observed_profile.empty:
+        observed_profile = (
+            method_profiles[method_profiles["method"].eq(method)]
+            .groupby("hour", as_index=False)["observed_count"]
+            .mean()
+        )
+    if observed_profile.empty:
+        _placeholder(path, "Hourly TMAS validation profile", "Selected hourly screenline had no observed hourly profile.")
+        return False
+
+    observed_profile = observed_profile.sort_values("hour")
+    fig, axes = plt.subplots(2, 2, figsize=(15.0, 8.4), sharex=True, sharey=True, constrained_layout=False)
+    fig.patch.set_facecolor("#fbfaf6")
+    fig.subplots_adjust(left=0.085, right=0.985, top=0.945, bottom=0.105, wspace=0.18, hspace=0.245)
+
+    ymax = max(
+        float(observed_profile["observed_count"].max()),
+        float(method_profiles["synthetic_count"].max()),
+        1.0,
+    )
+    from matplotlib.ticker import FuncFormatter
+
+    for ax, (key, label, color, linewidth, alpha) in zip(axes.ravel(), method_specs):
+        ax.set_facecolor("#fbfaf6")
+        rows = method_profiles[method_profiles["method"].eq(key)].sort_values("hour")
+        ax.plot(
+            observed_profile["hour"],
+            observed_profile["observed_count"],
+            label="Observed",
+            color="#222222",
+            linewidth=3.6,
+            alpha=0.96,
+            zorder=7,
+        )
+        if not rows.empty:
+            ax.plot(
+                rows["hour"],
+                rows["synthetic_count"],
+                label=label,
+                color=color,
+                linewidth=3.6 if key == method else 3.1,
+                alpha=0.96 if key == method else alpha,
+                zorder=8 if key == method else 6,
+            )
+        ax.set_title(label, loc="left", fontsize=19, fontweight="bold", pad=7, color="#222222")
+        ax.set_xlim(0, 23)
+        ax.set_ylim(0, ymax * 1.12)
+        ax.set_xticks([0, 6, 12, 18, 23])
+        ax.tick_params(axis="both", labelsize=14.5, length=0, pad=6)
+        ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _: _format_compact_count(float(value))))
+        ax.grid(axis="y", color="#b8b2a8", alpha=0.32, linewidth=0.9)
+        ax.grid(axis="x", color="#d9d2c6", alpha=0.16, linewidth=0.75)
+        for spine in ["top", "right"]:
+            ax.spines[spine].set_visible(False)
+        for spine in ["left", "bottom"]:
+            ax.spines[spine].set_color("#8d877d")
+            ax.spines[spine].set_linewidth(0.9)
+        ax.legend(
+            loc="upper left",
+            frameon=False,
+            fontsize=13.5,
+            handlelength=1.45,
+            handletextpad=0.45,
+            borderaxespad=0.0,
+        )
+
+    fig.supxlabel("Hour of day", fontsize=22, y=0.032)
+    fig.supylabel("Hourly traffic count", fontsize=22, x=0.022)
+
+    fig.savefig(path, dpi=300, facecolor=fig.get_facecolor())
+    fig.savefig(path.with_suffix(".pdf"), facecolor=fig.get_facecolor())
+    plt.close(fig)
+    return True
+
+
 # Final focused poster version: one center-origin tract and its surrounding
 # 24-tract zone. This overrides the broader all-pairs matrix draft above.
 def _select_focus_cluster(
@@ -2135,6 +2345,10 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
     _make_od_pair_screenline_validation_map(p, run_dir, method="contrastive_vae", selection_strategy="contrastive_best")
     created.append(p)
 
+    p = poster / "17_hourly_tmas_profile_cvae_best.png"
+    _make_hourly_tmas_validation_profile(p, run_dir)
+    created.append(p)
+
     captions = poster / "captions.md"
     captions.write_text(
         "\n".join(
@@ -2149,6 +2363,7 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
                 "Figure 14 maps MDOT stations assigned to annual AADT screenlines. Point color is the contrastive-VAE synthetic-to-observed screenline ratio, and point size is station AAWDT.",
                 "Figure 15 zooms to one OD-pair example and traces the station-matched screenlines used to compare synthetic virtual crossings with observed AAWDT counts.",
                 "Figure 16 repeats the OD-pair screenline view for an example where the contrastive VAE has the lowest path-level annual-average count error among all compared synthetic methods.",
+                "Figure 17 shows a single-TMAS-station hourly validation profile where the contrastive VAE has the lowest 24-hour count-profile error among compared synthetic methods.",
             ]
         )
         + "\n"
