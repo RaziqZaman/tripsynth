@@ -235,16 +235,6 @@ def _make_experiment_pipeline(path: Path) -> None:
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    ax.text(0.055, 0.940, "Experiment pipeline", ha="left", va="top", fontsize=23, fontweight="bold", color="#1f2933")
-    ax.text(
-        0.055,
-        0.885,
-        "Seven stages from weighted survey trips to ranked synthetic trip methods.",
-        ha="left",
-        va="top",
-        fontsize=11.8,
-        color="#4b5563",
-    )
 
     stages = [
         ("Survey", "Weighted trip records", "survey", "#5d6f99"),
@@ -257,8 +247,8 @@ def _make_experiment_pipeline(path: Path) -> None:
     ]
     box_w = 0.170
     box_h = 0.260
-    top_y = 0.550
-    bottom_y = 0.190
+    top_y = 0.610
+    bottom_y = 0.245
     top_xs = [0.055, 0.295, 0.535, 0.775]
     positions = [
         (top_xs[0], top_y),
