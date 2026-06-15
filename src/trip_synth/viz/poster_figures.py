@@ -228,60 +228,59 @@ def _add_pipeline_arrow(ax: plt.Axes, start: tuple[float, float], end: tuple[flo
 
 
 def _make_experiment_pipeline(path: Path) -> None:
-    fig, ax = plt.subplots(figsize=(15.0, 6.1), constrained_layout=False)
+    fig, ax = plt.subplots(figsize=(11.0, 8.0), constrained_layout=False)
     fig.patch.set_facecolor("#fbfaf6")
     ax.set_facecolor("#fbfaf6")
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    ax.text(0.050, 0.930, "Experiment pipeline", ha="left", va="top", fontsize=24, fontweight="bold", color="#1f2933")
+    ax.text(0.055, 0.940, "Experiment pipeline", ha="left", va="top", fontsize=23, fontweight="bold", color="#1f2933")
     ax.text(
-        0.050,
-        0.865,
-        "A compact view of the trip-synthesis experiment: build candidates, validate them, then rank the methods.",
+        0.055,
+        0.885,
+        "Seven stages from weighted survey trips to ranked synthetic trip methods.",
         ha="left",
         va="top",
-        fontsize=12.3,
+        fontsize=11.8,
         color="#4b5563",
     )
 
     stages = [
         ("Survey", "Weighted trip records", "survey", "#5d6f99"),
-        ("Generate", "Bootstrap, BN, VAE, CVAE", "methods", "#5f8f55"),
-        ("Synthetic Trips", "Unweighted output tables", "table", "#b87535"),
-        ("Validate", "Fit, privacy, OD, counts", "diagnostics", "#2f8f83"),
-        ("Rank", "Best-performing method", "rank", "#3d72a4"),
+        ("Methods", "Bootstrap, BN, VAEs", "methods", "#5f8f55"),
+        ("Outputs", "Synthetic trip tables", "table", "#b87535"),
+        ("Diagnostics", "Fit and privacy", "diagnostics", "#8b62a8"),
+        ("Screenlines", "OD proxy crossings", "screenline", "#2f8f83"),
+        ("Counts", "AADT and TMAS checks", "counts", "#b55450"),
+        ("Rank", "Best method summary", "rank", "#3d72a4"),
     ]
-    box_w = 0.162
-    box_h = 0.305
-    y = 0.365
-    xs = [0.050, 0.248, 0.446, 0.644, 0.842]
-    positions = [(x, y) for x in xs]
+    box_w = 0.170
+    box_h = 0.260
+    top_y = 0.550
+    bottom_y = 0.190
+    top_xs = [0.055, 0.295, 0.535, 0.775]
+    positions = [
+        (top_xs[0], top_y),
+        (top_xs[1], top_y),
+        (top_xs[2], top_y),
+        (top_xs[3], top_y),
+        (top_xs[3], bottom_y),
+        (top_xs[2], bottom_y),
+        (top_xs[1], bottom_y),
+    ]
 
     for idx, ((title, body, icon, color), pos) in enumerate(zip(stages, positions), start=1):
         _draw_pipeline_stage(ax, pos, (box_w, box_h), idx, title, body, icon, color)
 
-    y_mid = y + box_h / 2
-    for left, right in zip(positions[:-1], positions[1:]):
-        _add_pipeline_arrow(ax, (left[0] + box_w, y_mid), (right[0], y_mid))
+    top_mid = top_y + box_h / 2
+    bottom_mid = bottom_y + box_h / 2
+    for left, right in [(positions[0], positions[1]), (positions[1], positions[2]), (positions[2], positions[3])]:
+        _add_pipeline_arrow(ax, (left[0] + box_w, top_mid), (right[0], top_mid))
+    _add_pipeline_arrow(ax, (positions[3][0] + box_w / 2, top_y), (positions[4][0] + box_w / 2, bottom_y + box_h))
+    for right, left in [(positions[4], positions[5]), (positions[5], positions[6])]:
+        _add_pipeline_arrow(ax, (right[0], bottom_mid), (left[0] + box_w, bottom_mid))
 
-    detail_y = 0.220
-    validation_color = "#2f8f83"
-    ax.plot([0.660, 0.905], [detail_y, detail_y], color=validation_color, linewidth=1.4, alpha=0.55, zorder=3)
-    for x, label in [(0.660, "marginals"), (0.742, "privacy"), (0.824, "screenlines"), (0.905, "AADT/TMAS")]:
-        ax.add_patch(Circle((x, detail_y), 0.010, facecolor=validation_color, edgecolor="white", linewidth=0.8, zorder=5))
-        ax.text(x, detail_y - 0.035, label, ha="center", va="top", fontsize=8.5, color="#4b5563")
-
-    ax.text(
-        0.050,
-        0.075,
-        "Validation combines distributional checks, privacy diagnostics, OD geography, and traffic-count comparisons.",
-        ha="left",
-        va="bottom",
-        fontsize=9.5,
-        color="#6b7280",
-    )
 
     fig.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight", pad_inches=0.08)
     plt.close(fig)
