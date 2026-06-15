@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import textwrap
 from pathlib import Path
 from typing import Any
 
@@ -12,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.collections import LineCollection
-from matplotlib.patches import FancyArrowPatch
+from matplotlib.patches import Circle, Ellipse, FancyArrowPatch, FancyBboxPatch, Polygon, Rectangle
 
 from trip_synth.utils.io import ensure_dir, read_json
 
@@ -73,6 +74,217 @@ def _save_flow(path: Path, title: str, labels: list[str], vertical: bool = False
     plt.savefig(path, dpi=300)
     plt.close()
 
+
+def _draw_pipeline_icon(ax: plt.Axes, kind: str, center: tuple[float, float], color: str) -> None:
+    cx, cy = center
+    r = 0.037
+    white = "#ffffff"
+    ax.add_patch(Circle((cx, cy), r, facecolor=color, edgecolor="none", alpha=0.98, zorder=7))
+
+    if kind == "survey":
+        ax.add_patch(Rectangle((cx - 0.015, cy - 0.018), 0.030, 0.035, facecolor="none", edgecolor=white, linewidth=1.35, zorder=8))
+        ax.add_patch(Rectangle((cx - 0.009, cy + 0.015), 0.018, 0.007, facecolor=white, edgecolor=white, linewidth=0, zorder=9))
+        for y in [cy + 0.007, cy - 0.006, cy - 0.019]:
+            ax.plot([cx - 0.009, cx + 0.010], [y, y], color=white, linewidth=1.15, solid_capstyle="round", zorder=9)
+        ax.plot([cx - 0.018, cx - 0.014, cx - 0.010], [cy - 0.004, cy - 0.010, cy + 0.004], color=white, linewidth=1.15, zorder=9)
+    elif kind == "methods":
+        nodes = [
+            (cx - 0.016, cy + 0.014),
+            (cx + 0.016, cy + 0.014),
+            (cx - 0.016, cy - 0.014),
+            (cx + 0.016, cy - 0.014),
+        ]
+        for start, end in [(nodes[0], nodes[1]), (nodes[0], nodes[2]), (nodes[1], nodes[3]), (nodes[2], nodes[3]), (nodes[0], nodes[3])]:
+            ax.plot([start[0], end[0]], [start[1], end[1]], color=white, linewidth=1.0, alpha=0.82, zorder=8)
+        for node in nodes:
+            ax.add_patch(Circle(node, 0.0065, facecolor=white, edgecolor=white, linewidth=0, zorder=9))
+    elif kind == "table":
+        ax.add_patch(Rectangle((cx - 0.020, cy - 0.018), 0.040, 0.036, facecolor="none", edgecolor=white, linewidth=1.35, zorder=8))
+        ax.plot([cx - 0.020, cx + 0.020], [cy + 0.006, cy + 0.006], color=white, linewidth=1.15, zorder=9)
+        ax.plot([cx - 0.020, cx + 0.020], [cy - 0.006, cy - 0.006], color=white, linewidth=1.15, zorder=9)
+        for x in [cx - 0.0067, cx + 0.0067]:
+            ax.plot([x, x], [cy - 0.018, cy + 0.018], color=white, linewidth=1.15, zorder=9)
+    elif kind == "diagnostics":
+        bars = [0.011, 0.020, 0.030]
+        for idx, height in enumerate(bars):
+            ax.add_patch(Rectangle((cx - 0.024 + idx * 0.010, cy - 0.020), 0.0065, height, facecolor=white, edgecolor=white, linewidth=0, zorder=9))
+        shield = [
+            (cx + 0.012, cy + 0.017),
+            (cx + 0.028, cy + 0.010),
+            (cx + 0.025, cy - 0.010),
+            (cx + 0.020, cy - 0.020),
+            (cx + 0.012, cy - 0.026),
+            (cx + 0.004, cy - 0.020),
+            (cx - 0.001, cy - 0.010),
+            (cx - 0.004, cy + 0.010),
+        ]
+        ax.add_patch(Polygon(shield, closed=True, facecolor="none", edgecolor=white, linewidth=1.2, zorder=9))
+    elif kind == "screenline":
+        ax.plot([cx - 0.023, cx + 0.024], [cy - 0.018, cy + 0.016], color=white, linewidth=1.45, solid_capstyle="round", zorder=9)
+        ax.plot([cx + 0.002, cx + 0.002], [cy - 0.025, cy + 0.025], color=white, linewidth=1.25, linestyle=(0, (2, 2)), zorder=9)
+        ax.add_patch(Circle((cx - 0.024, cy - 0.019), 0.006, facecolor=white, edgecolor=white, linewidth=0, zorder=10))
+        ax.add_patch(Circle((cx + 0.024, cy + 0.016), 0.006, facecolor=white, edgecolor=white, linewidth=0, zorder=10))
+    elif kind == "counts":
+        for offset, heights in [(-0.014, [0.016, 0.030]), (0.012, [0.024, 0.019])]:
+            ax.add_patch(Rectangle((cx + offset - 0.006, cy - 0.020), 0.007, heights[0], facecolor=white, edgecolor=white, linewidth=0, zorder=9))
+            ax.add_patch(Rectangle((cx + offset + 0.004, cy - 0.020), 0.007, heights[1], facecolor=white, edgecolor=white, linewidth=0, alpha=0.72, zorder=9))
+        ax.plot([cx - 0.026, cx + 0.028], [cy - 0.020, cy - 0.020], color=white, linewidth=1.15, zorder=9)
+        ax.add_patch(Ellipse((cx + 0.020, cy + 0.016), 0.020, 0.013, angle=0, facecolor="none", edgecolor=white, linewidth=1.1, zorder=9))
+        ax.plot([cx + 0.027, cx + 0.034], [cy + 0.009, cy + 0.002], color=white, linewidth=1.1, zorder=9)
+    elif kind == "rank":
+        ax.add_patch(Rectangle((cx - 0.024, cy - 0.021), 0.014, 0.022, facecolor=white, edgecolor=white, linewidth=0, alpha=0.78, zorder=9))
+        ax.add_patch(Rectangle((cx - 0.006, cy - 0.021), 0.014, 0.036, facecolor=white, edgecolor=white, linewidth=0, zorder=9))
+        ax.add_patch(Rectangle((cx + 0.012, cy - 0.021), 0.014, 0.028, facecolor=white, edgecolor=white, linewidth=0, alpha=0.88, zorder=9))
+        ax.add_patch(Circle((cx + 0.001, cy + 0.026), 0.006, facecolor=white, edgecolor=white, linewidth=0, zorder=9))
+
+
+def _draw_pipeline_stage(
+    ax: plt.Axes,
+    xy: tuple[float, float],
+    wh: tuple[float, float],
+    index: int,
+    title: str,
+    body: str,
+    icon: str,
+    color: str,
+) -> None:
+    x, y = xy
+    w, h = wh
+    ax.add_patch(
+        FancyBboxPatch(
+            (x + 0.006, y - 0.008),
+            w,
+            h,
+            boxstyle="round,pad=0.010,rounding_size=0.024",
+            linewidth=0,
+            facecolor="#d7d0c3",
+            alpha=0.28,
+            zorder=1,
+        )
+    )
+    ax.add_patch(
+        FancyBboxPatch(
+            (x, y),
+            w,
+            h,
+            boxstyle="round,pad=0.010,rounding_size=0.024",
+            linewidth=1.7,
+            edgecolor=color,
+            facecolor="#ffffff",
+            zorder=2,
+        )
+    )
+    ax.add_patch(Rectangle((x + 0.018, y + h - 0.018), w - 0.036, 0.009, facecolor=color, edgecolor="none", alpha=0.82, zorder=4))
+    _draw_pipeline_icon(ax, icon, (x + w / 2, y + h - 0.074), color)
+    ax.text(
+        x + w / 2,
+        y + h - 0.135,
+        title,
+        ha="center",
+        va="top",
+        fontsize=12.4,
+        fontweight="bold",
+        color="#1f2933",
+        zorder=6,
+    )
+    ax.text(
+        x + w / 2,
+        y + 0.054,
+        "\n".join(textwrap.wrap(body, width=17, break_long_words=False)),
+        ha="center",
+        va="bottom",
+        fontsize=8.6,
+        color="#4b5563",
+        linespacing=1.12,
+        zorder=6,
+    )
+    ax.text(
+        x + 0.023,
+        y + h - 0.037,
+        f"{index}",
+        ha="center",
+        va="center",
+        fontsize=8.2,
+        fontweight="bold",
+        color=color,
+        zorder=6,
+    )
+
+def _add_pipeline_arrow(ax: plt.Axes, start: tuple[float, float], end: tuple[float, float], rad: float = 0.0) -> None:
+    ax.add_patch(
+        FancyArrowPatch(
+            start,
+            end,
+            arrowstyle="-|>",
+            mutation_scale=18,
+            linewidth=2.1,
+            color="#6b7280",
+            connectionstyle=f"arc3,rad={rad}",
+            shrinkA=7,
+            shrinkB=7,
+            zorder=5,
+        )
+    )
+
+
+def _make_experiment_pipeline(path: Path) -> None:
+    fig, ax = plt.subplots(figsize=(15.0, 6.1), constrained_layout=False)
+    fig.patch.set_facecolor("#fbfaf6")
+    ax.set_facecolor("#fbfaf6")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    ax.text(0.050, 0.930, "Experiment pipeline", ha="left", va="top", fontsize=24, fontweight="bold", color="#1f2933")
+    ax.text(
+        0.050,
+        0.865,
+        "A compact view of the trip-synthesis experiment: build candidates, validate them, then rank the methods.",
+        ha="left",
+        va="top",
+        fontsize=12.3,
+        color="#4b5563",
+    )
+
+    stages = [
+        ("Survey", "Weighted trip records", "survey", "#5d6f99"),
+        ("Generate", "Bootstrap, BN, VAE, CVAE", "methods", "#5f8f55"),
+        ("Synthetic Trips", "Unweighted output tables", "table", "#b87535"),
+        ("Validate", "Fit, privacy, OD, counts", "diagnostics", "#2f8f83"),
+        ("Rank", "Best-performing method", "rank", "#3d72a4"),
+    ]
+    box_w = 0.162
+    box_h = 0.305
+    y = 0.365
+    xs = [0.050, 0.248, 0.446, 0.644, 0.842]
+    positions = [(x, y) for x in xs]
+
+    for idx, ((title, body, icon, color), pos) in enumerate(zip(stages, positions), start=1):
+        _draw_pipeline_stage(ax, pos, (box_w, box_h), idx, title, body, icon, color)
+
+    y_mid = y + box_h / 2
+    for left, right in zip(positions[:-1], positions[1:]):
+        _add_pipeline_arrow(ax, (left[0] + box_w, y_mid), (right[0], y_mid))
+
+    detail_y = 0.220
+    validation_color = "#2f8f83"
+    ax.plot([0.660, 0.905], [detail_y, detail_y], color=validation_color, linewidth=1.4, alpha=0.55, zorder=3)
+    for x, label in [(0.660, "marginals"), (0.742, "privacy"), (0.824, "screenlines"), (0.905, "AADT/TMAS")]:
+        ax.add_patch(Circle((x, detail_y), 0.010, facecolor=validation_color, edgecolor="white", linewidth=0.8, zorder=5))
+        ax.text(x, detail_y - 0.035, label, ha="center", va="top", fontsize=8.5, color="#4b5563")
+
+    ax.text(
+        0.050,
+        0.075,
+        "Validation combines distributional checks, privacy diagnostics, OD geography, and traffic-count comparisons.",
+        ha="left",
+        va="bottom",
+        fontsize=9.5,
+        color="#6b7280",
+    )
+
+    fig.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight", pad_inches=0.08)
+    plt.close(fig)
 
 def _bar(path: Path, title: str, labels: list[str], values: list[float], ylabel: str) -> None:
     plt.figure(figsize=(9, 5.5))
@@ -2539,19 +2751,7 @@ def make_poster_figures(run_dir: str | Path, methods: list[str] | None = None) -
     created.append(p)
 
     p = poster / "02_experiment_pipeline.png"
-    _save_flow(
-        p,
-        "Experiment pipeline",
-        [
-            "Survey trips + expansion weights",
-            "Four synthesis methods",
-            "Synthetic tables without weight",
-            "Marginals + privacy",
-            "OD-to-screenline proxy",
-            "Two-prong count comparison",
-            "Method ranking",
-        ],
-    )
+    _make_experiment_pipeline(p)
     created.append(p)
 
     hparam = _load_table(run_dir, "hparam_results.csv")
