@@ -672,6 +672,43 @@ def metric_dual_panel(ax: plt.Axes, data: pd.DataFrame, title: str, rmse_label: 
         ax.text(bar.get_x() + bar.get_width() / 2, value + max(rmse_k) * 0.025, f"{value:.1f}", ha="center", va="bottom", fontsize=5.8, color=COLORS["ink"])
 
 
+def figure_hourly_rmse_reduction() -> None:
+    data = HOURLY[HOURLY["method"].ne("weighted_bootstrap")].copy()
+    data["label"] = data["method"].map(SHORT_LABELS)
+    values = data["rmse_reduction"].to_numpy(float)
+    x = np.arange(len(data))
+
+    fig, ax = plt.subplots(figsize=(5.25, 3.05))
+    bars = ax.bar(x, values, color=[COLORS[m] for m in data["method"]], width=0.62)
+    ax.set_ylabel("RMSE reduction vs weighted bootstrap (%)")
+    ax.set_xticks(x)
+    ax.set_xticklabels(data["label"], fontsize=6.7)
+    ax.grid(axis="y")
+    ax.set_axisbelow(True)
+
+    label_offset = max(1.2, float(values.max()) * 0.035)
+    top_padding = max(4.2, float(values.max()) * 0.10)
+    ax.set_ylim(0, float(values.max()) + label_offset + top_padding)
+
+    for bar, value in zip(bars, values):
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            value + label_offset,
+            f"{value:.1f}%",
+            ha="center",
+            va="bottom",
+            fontsize=7.0,
+            color=COLORS["ink"],
+        )
+
+    ax.set_title("Hourly TMAS RMSE reduction", loc="left", pad=5)
+    for side in ["top", "right", "bottom", "left"]:
+        ax.spines[side].set_visible(True)
+        ax.spines[side].set_color("#333333")
+        ax.spines[side].set_linewidth(0.6)
+    save_figure(fig, "fig_hourly_rmse_reduction.pdf", png=True)
+
+
 def figure_external_validation_panels() -> None:
     import geopandas as gpd
 
@@ -756,6 +793,7 @@ def main() -> None:
     figure_training_curves()
     figure_internal_validation_dashboard()
     figure_od_support_panels()
+    figure_hourly_rmse_reduction()
     figure_external_validation_panels()
 
 
