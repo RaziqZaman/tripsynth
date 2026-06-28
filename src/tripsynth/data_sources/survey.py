@@ -42,6 +42,9 @@ class SurveyData:
     path: Path
 
 
+RAW_COLUMN_PREFIX = "raw__"
+
+
 def load_table(path: Path) -> pd.DataFrame:
     suffix = "".join(path.suffixes).lower()
     if suffix.endswith(".csv") or suffix.endswith(".csv.gz"):
@@ -168,3 +171,38 @@ def load_survey(config: dict[str, Any]) -> SurveyData:
     canonical, report = apply_schema_mapping(raw, survey_config.get("schema", {}))
     canonical, report = apply_temporal_derivations(canonical, report, survey_config)
     return SurveyData(raw=raw, canonical=canonical, schema_report=report, path=path)
+
+
+def _same_values(left: pd.Series, right: pd.Series) -> bool:
+    return left.astype("string").fillna("__missing__").equals(
+        right.astype("string").fillna("__missing__")
+    )
+
+
+def build_synthesis_frame(survey: SurveyData, config: dict[str, Any] | None = None) -> pd.DataFrame:
+    """Return a route-ready synthesis table containing canonical and raw survey columns."""
+    del config  # Reserved for future column-selection options.
+    canonical = survey.canonical.reset_index(drop=True).copy()
+    raw = survey.raw.reset_index(drop=True)
+    frame = canonical.copy()
+    collisions: dict[str, str] = {}
+
+    for column in raw.columns:
+        raw_name = str(column)
+        target = raw_name
+        if target in frame.columns:
+            if _same_values(frame[target], raw[column]):
+                continue
+            target = f"{RAW_COLUMN_PREFIX}{raw_name}"
+            suffix = 2
+            while target in frame.columns:
+                target = f"{RAW_COLUMN_PREFIX}{raw_name}_{suffix}"
+                suffix += 1
+            collisions[raw_name] = target
+        frame[target] = raw[column]
+
+    frame.attrs["raw_survey_columns"] = [str(column) for column in raw.columns]
+    frame.attrs["canonical_survey_columns"] = list(canonical.columns)
+    frame.attrs["raw_column_collisions"] = collisions
+    return frame
+

@@ -18,6 +18,7 @@ class WeightedResampler:
 
     def fit(self, trips: pd.DataFrame) -> "WeightedResampler":
         self.trips_ = trips.copy()
+        self.input_columns_ = list(trips.columns)
         return self
 
     def sample(self, n: int, *, seed: int | None = None) -> SynthesisResult:
@@ -37,7 +38,14 @@ class WeightedResampler:
         return SynthesisResult(
             method=self.method,
             synthetic_trips=synthetic,
-            metadata={"n": n, "seed": seed, "used_weights": probabilities is not None},
+            metadata={
+                "n": n,
+                "seed": seed,
+                "used_weights": probabilities is not None,
+                "weight_field": self.weight_field,
+                "input_columns": len(self.input_columns_),
+                "row_level_full_table_resampling": True,
+            },
         )
 
 

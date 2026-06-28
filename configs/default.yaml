@@ -139,6 +139,37 @@ observed_counts:
       temporal_type: unknown
       field_map: {}
 
+synthesis:
+  weighted_resampling:
+    weight_field: weight
+  bayesian_network:
+    implementation: weighted_od_conditional_full_row_donor_sampler
+    smoothing: 0.5
+    weight_field: weight
+  vae:
+    implementation: weighted_full_table_vae
+    latent_dim: 128
+    hidden_dim: 1024
+    num_layers: 3
+    epochs: 30
+    batch_size: 65536
+    sample_batch_size: 262144
+    learning_rate: 0.001
+    beta: 0.005
+    weight_field: weight
+    model_all_columns: true
+    max_categorical_cardinality: 50
+    device: auto
+  diffusion:
+    implementation: weighted_full_table_diffusion_proxy
+    noise_scale: 0.1
+    steps: 24
+    sample_batch_size: 524288
+    weight_field: weight
+    model_all_columns: true
+    max_categorical_cardinality: 50
+    device: auto
+
 validation:
   default_mode: survey_holdout
   allow_absolute_volume_validation: true
@@ -197,7 +228,7 @@ experiment:
     - matsim_adapter
     - sumo_or_aequilibrae_adapter
   observed_validation_datasets:
-    - fhwa_hpms_2018_dmv
+    - mdot_sha_aadt
   seeds:
     stochastic: [1, 2, 3, 4, 5]
     deterministic: [1]
@@ -205,3 +236,30 @@ experiment:
     - 1
     - 5
     - 10
+  synthesis_hyperparameter_grids:
+    weighted_resampling:
+      weight_field: [weight]
+    bayesian_network:
+      smoothing: [0.01, 0.05, 0.1, 0.5, 2.0]
+      weight_field: [weight]
+    vae:
+      latent_dim: [64, 128, 256]
+      hidden_dim: [1024, 2048]
+      num_layers: [3, 4]
+      epochs: [30, 60]
+      batch_size: [65536]
+      sample_batch_size: [262144]
+      learning_rate: [0.0005, 0.001]
+      beta: [0.001, 0.005]
+      weight_field: [weight]
+      model_all_columns: [true]
+      max_categorical_cardinality: [50]
+      device: [auto]
+    diffusion:
+      noise_scale: [0.02, 0.05, 0.1, 0.2, 0.35]
+      steps: [12, 24, 48]
+      sample_batch_size: [524288]
+      weight_field: [weight]
+      model_all_columns: [true]
+      max_categorical_cardinality: [50]
+      device: [auto]

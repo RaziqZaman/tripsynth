@@ -90,4 +90,8 @@ def test_mdot_shortest_path_routes_connected_tract_od(tmp_path):
     assert routed.metadata["vehicle_trips_with_supported_tracts"] == 2
     assert routed.metadata["routes"] == 1
     assert routed.metadata["failed_routes"] == 0
+    assert routed.route_table is not None
+    assert len(routed.route_table) == 1
+    assert routed.failed_routes is not None
+    assert routed.failed_routes.empty
     assert routed.routed_volumes["predicted_volume"].sum() > 0

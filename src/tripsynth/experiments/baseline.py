@@ -11,7 +11,7 @@ import pandas as pd
 
 from tripsynth.config import ensure_standard_directories, write_json
 from tripsynth.data_sources.observed_counts.loaders import load_observed_counts_for_validation
-from tripsynth.data_sources.survey import load_survey
+from tripsynth.data_sources.survey import build_synthesis_frame, load_survey
 from tripsynth.preprocessing.survey_audit import run_survey_audit
 from tripsynth.routing.desire_lines import route_county_desire_lines
 from tripsynth.routing.mdot_shortest_path import route_mdot_shortest_paths
@@ -79,7 +79,8 @@ def run_weighted_resampling_desire_line_baseline(
     scale = float(scale_factor if scale_factor is not None else baseline_config.get("scale_factor", 1))
     run_seed = int(seed if seed is not None else config.get("project", {}).get("seed", 42))
 
-    vehicle_trips, vehicle_filter_meta = _filter_vehicle_trips(survey.canonical, config)
+    synthesis_frame = build_synthesis_frame(survey, config)
+    vehicle_trips, vehicle_filter_meta = _filter_vehicle_trips(synthesis_frame, config)
     synthesis = sample_by_scale(vehicle_trips, scale_factor=scale, seed=run_seed)
     routing_method = baseline_config.get("routing_method", "mdot_shortest_path")
     if routing_method == "mdot_shortest_path":
@@ -101,11 +102,17 @@ def run_weighted_resampling_desire_line_baseline(
     segment_path = run_path / "metrics" / "metrics_by_segment.parquet"
     metrics_path = run_path / "metrics" / "metrics_by_run.csv"
     summary_path = run_path / "tables" / "baseline_summary.json"
+    route_table_path = run_path / "tables" / "route_table.csv"
+    failed_routes_path = run_path / "tables" / "failed_routes.csv"
 
     synthesis.synthetic_trips.to_csv(synthetic_path, index=False)
     routed.routed_volumes.to_parquet(routed_path, index=False)
     metrics_by_segment.to_parquet(segment_path, index=False)
     metrics_by_run.to_csv(metrics_path, index=False)
+    route_table = routed.route_table if routed.route_table is not None else pd.DataFrame()
+    failed_routes = routed.failed_routes if routed.failed_routes is not None else pd.DataFrame()
+    route_table.to_csv(route_table_path, index=False)
+    failed_routes.to_csv(failed_routes_path, index=False)
 
     summary = {
         "run_dir": str(run_path),
@@ -131,6 +138,8 @@ def run_weighted_resampling_desire_line_baseline(
             "routed_volumes": str(routed_path),
             "metrics_by_segment": str(segment_path),
             "metrics_by_run": str(metrics_path),
+            "route_table": str(route_table_path),
+            "failed_routes": str(failed_routes_path),
             "summary": str(summary_path),
         },
         "interpretation_caveat": (

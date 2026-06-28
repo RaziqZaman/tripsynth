@@ -22,6 +22,7 @@ dependencies = [
   "matplotlib",
   "folium",
   "torch",
+  "tqdm",
 ]
 
 [project.optional-dependencies]

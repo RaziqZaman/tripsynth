@@ -53,6 +53,49 @@ Run Maryland-only external validation after fetching counts and preparing tracts
 PYTHONPATH=src .venv/bin/python -m tripsynth.cli run-baseline --config configs/default.yaml --validation-mode spatial_aadt_proxy
 ```
 
+Create run diagnostics for a completed baseline:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m tripsynth.cli report-baseline outputs/runs/<run-dir>
+```
+
+The diagnostics step writes coverage summaries, headline metrics, county summaries, top/error segment tables, failed OD routes, an observed-vs-predicted scatter plot, and an interactive residual map under `<run-dir>/diagnostics/`.
+
+Compare multiple synthesis methods through the same MDOT route/validate pipeline:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m tripsynth.cli compare-synthesis \
+  --config configs/default.yaml \
+  --methods weighted_resampling bayesian_network vae diffusion \
+  --seeds 42 \
+  --scale-factor 1
+```
+
+The comparison command writes one sub-run per method/seed plus `comparison_by_run.csv` and `comparison_compact.csv`. Synthesis now trains on a raw-plus-canonical survey frame: canonical route/validation fields are kept alongside every raw survey column, so VAE and diffusion encode every usable column rather than the earlier hand-picked feature subset. The VAE objective is weighted by the configured `weight` field; weighted resampling, Bayesian donor sampling, and diffusion donor selection also use that field.
+
+Run a resumable hyperparameter sweep through the same route/validate pipeline:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m tripsynth.cli sweep-synthesis \
+  --config configs/default.yaml \
+  --methods weighted_resampling bayesian_network vae diffusion \
+  --seeds 42 \
+  --scale-factors 1 \
+  --max-runs-per-method 3
+```
+
+Promote selected configurations to a larger synthetic scale with `--scale-factors 10`. Scale factors are relative to the filtered auto-trip survey sample; `10` generates ten times as many synthetic auto trips as that filtered sample. For a literal weighted population-share target, use `--target-population-share 0.10`; this resolves the per-candidate synthetic trip count from the configured `weight` field and records the resolved scale in `sweep_summary.json`. You can also pass `--target-trip-count N` when the expansion target is defined outside the survey weights.
+
+Run the GPU-sized tune/promote workflow in tmux. This sweeps the configured grid, selects the best configuration per method, and promotes the winners to 10% weighted-population MDOT validation:
+
+```bash
+tmux new-session -d -s tripsynth_gpu_sweep 'cd /home/raziq/Documents/Code/umd/tripsynth && mkdir -p outputs/runs/tune_promote_gpu_mdot_10pct && PYTHONPATH=src .venv/bin/python -m tripsynth.cli tune-promote-synthesis --config configs/default.yaml --methods weighted_resampling bayesian_network vae diffusion --seeds 1 2 3 --promotion-seeds 42 --sweep-scale-factors 1 --target-population-share 0.10 --target-correlation 0.75 --target-correlation-metric spearman --observed-source mdot_sha_aadt --run-dir outputs/runs/tune_promote_gpu_mdot_10pct 2>&1 | tee outputs/runs/tune_promote_gpu_mdot_10pct/run.log'
+```
+
+Attach with `tmux attach -t tripsynth_gpu_sweep`. The target-correlation flag records whether any promoted run reaches the requested threshold; it does not force the validation result.
+
+Progress bars are enabled by default for long synthesis/routing commands. Set `TRIPSYNTH_PROGRESS=0` to silence them, or `TRIPSYNTH_PROGRESS=1` to force them in non-interactive logs.
+
 Run the currently implemented baseline without observed counts using survey-internal holdout validation:
 
 ```bash
@@ -101,6 +144,27 @@ Tract-geometry outputs:
 - `data/raw/census/tiger_tracts/tl_2018_{state}_tract.zip`
 - `data/processed/census/tiger_tracts_study_area.geoparquet`
 - `data/metadata/census_tract_geometries_manifest.json`
+
+Baseline run outputs:
+
+- `outputs/runs/<run-dir>/tables/route_table.csv`
+- `outputs/runs/<run-dir>/tables/failed_routes.csv`
+- `outputs/runs/<run-dir>/diagnostics/tables/coverage_summary.csv`
+- `outputs/runs/<run-dir>/diagnostics/tables/headline_metrics.csv`
+- `outputs/runs/<run-dir>/diagnostics/figures/observed_vs_predicted.png`
+- `outputs/runs/<run-dir>/diagnostics/maps/segment_residual_map.html`
+
+Method-comparison outputs:
+
+- `outputs/runs/method_comparison_<timestamp>/comparison_by_run.csv`
+- `outputs/runs/method_comparison_<timestamp>/comparison_compact.csv`
+- `outputs/runs/method_comparison_<timestamp>/<method>_seed_<seed>/`
+
+Synthesis-sweep outputs:
+
+- `outputs/runs/synthesis_sweep_<timestamp>/sweep_leaderboard.csv`
+- `outputs/runs/synthesis_sweep_<timestamp>/sweep_compact.csv`
+- `outputs/runs/synthesis_sweep_<timestamp>/<method>_scale_<scale>_seed_<seed>_<hash>/`
 
 ## Known Limitations
 

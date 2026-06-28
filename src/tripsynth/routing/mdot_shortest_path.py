@@ -14,6 +14,7 @@ import pandas as pd
 from scipy.spatial import cKDTree
 from shapely.geometry import LineString, MultiLineString, Point
 
+from tripsynth.progress import progress
 from tripsynth.preprocessing.tract_geometries import (
     load_or_fetch_tract_centroids,
     normalize_tract_fips,
@@ -48,7 +49,12 @@ def _build_mdot_graph(
     county_nodes: dict[str, set[NodeKey]] = defaultdict(set)
     observed = observed_counts.to_crs(projected_crs)
 
-    for row in observed.itertuples(index=False):
+    for row in progress(
+        observed.itertuples(index=False),
+        total=len(observed),
+        desc="build MDOT graph",
+        unit="segment",
+    ):
         segment_id = str(row.segment_id)
         county_fips = str(row.county_fips) if pd.notna(row.county_fips) else None
         for line in _iter_lines(row.geometry):
@@ -262,6 +268,8 @@ def _empty_result(observed_counts: gpd.GeoDataFrame, metadata: dict[str, Any]) -
         method="mdot_shortest_path",
         routed_volumes=gpd.GeoDataFrame(geometry=[], crs=observed_counts.crs),
         metadata=metadata,
+        route_table=pd.DataFrame(),
+        failed_routes=pd.DataFrame(),
     )
 
 
@@ -291,11 +299,17 @@ def _route_county_shortest_paths(
 
     volume_by_segment: dict[str, float] = defaultdict(float)
     route_records: list[dict[str, Any]] = []
+    failure_records: list[dict[str, Any]] = []
     failures = 0
     same_county_routes = 0
     no_path = 0
 
-    for row in grouped.itertuples(index=False):
+    for row in progress(
+        grouped.itertuples(index=False),
+        total=len(grouped),
+        desc="route county OD",
+        unit="od",
+    ):
         origin_county = str(row.origin_county_fips)
         destination_county = str(row.destination_county_fips)
         origin_node = _nearest_node(center_by_county[origin_county], nodes, tree)
@@ -306,12 +320,36 @@ def _route_county_shortest_paths(
             destination_node = _nearest_node(center_by_county[destination_county], nodes, tree)
         if destination_node is None or destination_node == origin_node:
             failures += 1
+            failure_records.append(
+                {
+                    "route_id": f"{origin_county}_{destination_county}",
+                    "origin_county_fips": origin_county,
+                    "destination_county_fips": destination_county,
+                    "predicted_volume": float(row.predicted_volume),
+                    "synthetic_trips": int(row.synthetic_trips),
+                    "failure_reason": "no_distinct_destination_node",
+                    "origin_node": str(origin_node),
+                    "destination_node": str(destination_node),
+                }
+            )
             continue
         try:
             path = nx.shortest_path(graph, origin_node, destination_node, weight="length_m")
         except nx.NetworkXNoPath:
             failures += 1
             no_path += 1
+            failure_records.append(
+                {
+                    "route_id": f"{origin_county}_{destination_county}",
+                    "origin_county_fips": origin_county,
+                    "destination_county_fips": destination_county,
+                    "predicted_volume": float(row.predicted_volume),
+                    "synthetic_trips": int(row.synthetic_trips),
+                    "failure_reason": "no_path",
+                    "origin_node": str(origin_node),
+                    "destination_node": str(destination_node),
+                }
+            )
             continue
 
         path_length, touched_count = _accumulate_path(
@@ -350,7 +388,13 @@ def _route_county_shortest_paths(
             "Use only as fallback when tract centroids are unavailable."
         ),
     }
-    return RoutingResult(method="mdot_shortest_path", routed_volumes=routed, metadata=metadata)
+    return RoutingResult(
+        method="mdot_shortest_path",
+        routed_volumes=routed,
+        metadata=metadata,
+        route_table=pd.DataFrame(route_records),
+        failed_routes=pd.DataFrame(failure_records),
+    )
 
 
 def _route_tract_shortest_paths(
@@ -393,13 +437,19 @@ def _route_tract_shortest_paths(
     }
     volume_by_segment: dict[str, float] = defaultdict(float)
     route_records: list[dict[str, Any]] = []
+    failure_records: list[dict[str, Any]] = []
     failures = 0
     same_tract_routes = 0
     same_node_routes = 0
     no_path = 0
     route_jobs_by_origin: dict[NodeKey, list[dict[str, Any]]] = defaultdict(list)
 
-    for row in grouped.itertuples(index=False):
+    for row in progress(
+        grouped.itertuples(index=False),
+        total=len(grouped),
+        desc="prepare tract OD",
+        unit="od",
+    ):
         origin_tract = str(row.origin_tract_fips)
         destination_tract = str(row.destination_tract_fips)
         origin_node = node_by_tract[origin_tract]
@@ -424,6 +474,20 @@ def _route_tract_shortest_paths(
         if not candidate_nodes:
             failures += 1
             no_path += 1
+            failure_records.append(
+                {
+                    "route_id": f"{origin_tract}_{destination_tract}",
+                    "origin_tract_fips": origin_tract,
+                    "destination_tract_fips": destination_tract,
+                    "origin_county_fips": str(county_by_tract.get(origin_tract, origin_tract[:5])),
+                    "destination_county_fips": str(county_by_tract.get(destination_tract, destination_tract[:5])),
+                    "predicted_volume": float(row.predicted_volume),
+                    "synthetic_trips": int(row.synthetic_trips),
+                    "failure_reason": "no_distinct_candidate_node",
+                    "origin_node": str(origin_node),
+                    "destination_node": str(destination_node),
+                }
+            )
             continue
         route_jobs_by_origin[origin_node].append(
             {
@@ -435,7 +499,12 @@ def _route_tract_shortest_paths(
             }
         )
 
-    for origin_node, jobs in route_jobs_by_origin.items():
+    for origin_node, jobs in progress(
+        route_jobs_by_origin.items(),
+        total=len(route_jobs_by_origin),
+        desc="route tract origins",
+        unit="origin",
+    ):
         targets: list[NodeKey] = []
         for job in jobs:
             targets.extend(job["candidate_nodes"])
@@ -450,6 +519,22 @@ def _route_tract_shortest_paths(
             if not available:
                 failures += 1
                 no_path += 1
+                origin_tract = job["origin_tract"]
+                destination_tract = job["destination_tract"]
+                failure_records.append(
+                    {
+                        "route_id": f"{origin_tract}_{destination_tract}",
+                        "origin_tract_fips": origin_tract,
+                        "destination_tract_fips": destination_tract,
+                        "origin_county_fips": str(county_by_tract.get(origin_tract, origin_tract[:5])),
+                        "destination_county_fips": str(county_by_tract.get(destination_tract, destination_tract[:5])),
+                        "predicted_volume": float(job["predicted_volume"]),
+                        "synthetic_trips": int(job["synthetic_trips"]),
+                        "failure_reason": "no_path",
+                        "origin_node": str(origin_node),
+                        "candidate_nodes": ";".join(str(candidate) for candidate in job["candidate_nodes"]),
+                    }
+                )
                 continue
             _, destination_node, path = min(available, key=lambda item: item[0])
             origin_tract = job["origin_tract"]
@@ -497,7 +582,13 @@ def _route_tract_shortest_paths(
             "Validation is restricted to tracts in counties covered by the Maryland MDOT AADT source."
         ),
     }
-    return RoutingResult(method="mdot_shortest_path", routed_volumes=routed, metadata=metadata)
+    return RoutingResult(
+        method="mdot_shortest_path",
+        routed_volumes=routed,
+        metadata=metadata,
+        route_table=pd.DataFrame(route_records),
+        failed_routes=pd.DataFrame(failure_records),
+    )
 
 
 def route_mdot_shortest_paths(

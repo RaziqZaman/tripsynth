@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from tripsynth.config import ensure_standard_directories, write_json
-from tripsynth.data_sources.survey import load_survey
+from tripsynth.data_sources.survey import build_synthesis_frame, load_survey
 from tripsynth.experiments.baseline import (
     BaselineRunResult,
     run_weighted_resampling_desire_line_baseline as _run_spatial_aadt_baseline,
@@ -48,7 +48,8 @@ def _run_survey_holdout_baseline(
     scale = float(scale_factor if scale_factor is not None else baseline_config.get("scale_factor", 1))
     run_seed = int(seed if seed is not None else config.get("project", {}).get("seed", 42))
 
-    split = split_survey_holdout(survey.canonical, config, seed=run_seed)
+    synthesis_frame = build_synthesis_frame(survey, config)
+    split = split_survey_holdout(synthesis_frame, config, seed=run_seed)
     synthesis = sample_by_scale(split.train, scale_factor=scale, seed=run_seed)
     metrics_by_feature, metrics_by_run = validate_synthetic_against_survey_holdout(
         synthesis.synthetic_trips, split.holdout, config
