@@ -1,0 +1,2 @@
+source,source_temporal_type,years_covered,date_or_month_coverage,overlap_with_survey_temporal_coverage,note
+mdot_sha_aadt,annual_average,[2018],none,not_evaluated_for_aadt_proxy,MDOT SHA AADT is annual average daily traffic and is used as spatial proxy validation.

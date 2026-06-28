@@ -79,7 +79,7 @@ def write_observed_counts_coverage_html(
   <div class="panel">
     <strong>{html.escape(title)}</strong><br>
     Features: {len(map_gdf):,}<br>
-    Source temporal type: annual-average/proxy where HPMS is used.
+    Source temporal type: annual-average/proxy AADT.
   </div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -121,7 +121,7 @@ def write_observed_counts_coverage_png(gdf: gpd.GeoDataFrame, path: str | Path) 
         plot_gdf["aadt_quantile"] = _aadt_quantile_labels(plot_gdf["observed_aadt"]).astype(str)
         fig, ax = plt.subplots(figsize=(9, 7))
         plot_gdf.plot(column="aadt_quantile", linewidth=0.7, legend=True, ax=ax)
-        ax.set_title("Observed HPMS AADT coverage in study area")
+        ax.set_title("Observed AADT coverage in study area")
         ax.set_axis_off()
         fig.tight_layout()
         path = Path(path)

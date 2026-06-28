@@ -16,6 +16,7 @@ survey:
     survey_date: null
     survey_year: null
     survey_month: null
+    survey_week: tdate_week
     day_of_week: tdate_dow
     departure_time: departure_time_minutes
     arrival_time: null
@@ -24,6 +25,14 @@ survey:
     purpose: d_activity
     weight: weight
     vehicle_available: numvehicle
+    vehicle_occupancy: vehicle_occupancy
+  temporal_derivation:
+    derive_trip_date_from_week_dow: true
+    reference_date: "2017-01-01"
+    week_field: survey_week
+    day_of_week_field: day_of_week
+    week_index_base: 0
+    day_of_week_encoding: iso_1_monday
   year_min: 2017
   year_max: 2019
   temporal_assumptions:
@@ -31,7 +40,7 @@ survey:
     allow_month_as_feature: false
     allow_year_as_feature: false
     allow_temporal_validation_without_overlap: false
-    default_validation_mode: spatial_aadt_proxy
+    default_validation_mode: survey_holdout
   weighting:
     use_survey_weights: true
     interpret_weights_as_daily_expansion: false
@@ -59,12 +68,35 @@ study_area:
       - "51685"
   polygon_path: null
 
+census:
+  tracts:
+    year: 2018
+    states: [11, 24, 51]
+    raw_dir: data/raw/census/tiger_tracts
+    processed_path: data/processed/census/tiger_tracts_study_area.geoparquet
+
 observed_counts:
-  required: true
-  default_source: fhwa_hpms_2018
+  required: false
+  default_source: mdot_sha_aadt
   default_validation_mode: spatial_aadt_proxy
   cache: true
   sources:
+    mdot_sha_aadt:
+      enabled: true
+      type: arcgis_feature_server
+      temporal_type: annual_average
+      url: https://mdgeodata.md.gov/imap/rest/services/Transportation/MD_AnnualAverageDailyTraffic/FeatureServer
+      layer: 1
+      result_record_count: 1000
+      field_map:
+        year: null
+        segment_id: OBJECTID
+        route_id: ROUTEID_RH
+        route_name: ROADNAME
+        observed_aadt: AADT_2018
+        functional_class: F_SYSTEM
+        through_lanes: NUM_LANES
+
     fhwa_hpms_2018:
       enabled: true
       type: arcgis_feature_server
@@ -108,10 +140,44 @@ observed_counts:
       field_map: {}
 
 validation:
-  default_mode: spatial_aadt_proxy
+  default_mode: survey_holdout
   allow_absolute_volume_validation: true
   allow_relative_share_validation: true
   require_temporal_overlap_for_temporal_metrics: true
+  vehicle_trip_filter:
+    mode_field: mode
+    auto_modes: [3, 4]
+    include_when_mode_missing: false
+  survey_holdout:
+    holdout_share: 0.2
+    split_group_preference: [household_id, person_id]
+    weight_field: weight
+    top_k: 10
+    features:
+      - origin_county_fips
+      - destination_county_fips
+      - od_county_pair
+      - mode
+      - purpose
+      - departure_hour
+      - day_of_week
+      - survey_month
+  baseline:
+    synthesis_method: weighted_resampling
+    routing_method: mdot_shortest_path
+    scale_factor: 1
+    route_volume_col: null
+    desire_line_buffer_m: 5000
+    validation_label: spatial roadway-volume proxy validation against AADT
+  routing:
+    mdot_shortest_path:
+      od_geography: tract
+      auto_fetch_tracts: true
+      fallback_to_county_centroids: true
+      snap_tolerance_m: 15
+      same_node_candidates: 75
+      same_node_min_distance_m: 100
+
   matching:
     method: nearest_or_buffer
     max_distance_m: 50

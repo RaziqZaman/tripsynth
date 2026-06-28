@@ -1,0 +1,56 @@
+{
+  "bounds": [
+    -77.962203,
+    38.171327999999995,
+    -76.321908,
+    39.720045
+  ],
+  "crs": "EPSG:4269",
+  "download_timestamp": "2026-06-28T17:25:07.723084+00:00",
+  "downloads": [
+    {
+      "downloaded": true,
+      "path": "/home/raziq/Documents/Code/umd/tripsynth/data/raw/census/tiger_tracts/tl_2018_11_tract.zip",
+      "state_fips": "11",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2018/TRACT/tl_2018_11_tract.zip"
+    },
+    {
+      "downloaded": true,
+      "path": "/home/raziq/Documents/Code/umd/tripsynth/data/raw/census/tiger_tracts/tl_2018_24_tract.zip",
+      "state_fips": "24",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2018/TRACT/tl_2018_24_tract.zip"
+    },
+    {
+      "downloaded": true,
+      "path": "/home/raziq/Documents/Code/umd/tripsynth/data/raw/census/tiger_tracts/tl_2018_51_tract.zip",
+      "state_fips": "51",
+      "url": "https://www2.census.gov/geo/tiger/TIGER2018/TRACT/tl_2018_51_tract.zip"
+    }
+  ],
+  "processed_path": "/home/raziq/Documents/Code/umd/tripsynth/data/processed/census/tiger_tracts_study_area.geoparquet",
+  "records": 1243,
+  "records_by_county": {
+    "11001": 179,
+    "24009": 19,
+    "24017": 31,
+    "24021": 61,
+    "24031": 215,
+    "24033": 218,
+    "51013": 59,
+    "51059": 258,
+    "51107": 65,
+    "51153": 83,
+    "51510": 38,
+    "51600": 5,
+    "51610": 3,
+    "51683": 7,
+    "51685": 2
+  },
+  "source_name": "census_tiger_tracts",
+  "states": [
+    "11",
+    "24",
+    "51"
+  ],
+  "year": 2018
+}

@@ -21,6 +21,7 @@ CANONICAL_SURVEY_FIELDS = [
     "survey_date",
     "survey_year",
     "survey_month",
+    "survey_week",
     "day_of_week",
     "departure_time",
     "arrival_time",
@@ -29,6 +30,7 @@ CANONICAL_SURVEY_FIELDS = [
     "purpose",
     "weight",
     "vehicle_available",
+    "vehicle_occupancy",
 ]
 
 
@@ -90,6 +92,68 @@ def apply_schema_mapping(
     return canonical, report
 
 
+def _derive_trip_date_from_week_dow(
+    canonical: pd.DataFrame, derivation: dict[str, Any]
+) -> tuple[pd.Series, dict[str, Any]]:
+    reference = pd.Timestamp(derivation.get("reference_date", "2017-01-01"))
+    week_field = derivation.get("week_field", "survey_week")
+    dow_field = derivation.get("day_of_week_field", "day_of_week")
+    week_base = int(derivation.get("week_index_base", 0))
+
+    weeks = pd.to_numeric(canonical.get(week_field), errors="coerce")
+    dows = pd.to_numeric(canonical.get(dow_field), errors="coerce")
+    valid = weeks.notna() & dows.between(1, 7)
+    dates = pd.Series(pd.NaT, index=canonical.index, dtype="datetime64[ns]")
+
+    target_weekday = (dows.loc[valid].astype(int) - 1) % 7
+    offset_from_reference_weekday = (target_weekday - reference.dayofweek) % 7
+    days_after_reference = (
+        (weeks.loc[valid].astype(int) - week_base) * 7 + offset_from_reference_weekday
+    )
+    dates.loc[valid] = reference + pd.to_timedelta(days_after_reference, unit="D")
+    report = {
+        "derived": True,
+        "reference_date": reference.date().isoformat(),
+        "week_field": week_field,
+        "day_of_week_field": dow_field,
+        "week_index_base": week_base,
+        "valid_derived_dates": int(dates.notna().sum()),
+    }
+    return dates, report
+
+
+def apply_temporal_derivations(
+    canonical: pd.DataFrame,
+    report: list[dict[str, Any]],
+    survey_config: dict[str, Any],
+) -> tuple[pd.DataFrame, list[dict[str, Any]]]:
+    derivation = survey_config.get("temporal_derivation", {})
+    if not derivation.get("derive_trip_date_from_week_dow"):
+        return canonical, report
+    if canonical["trip_date"].notna().any():
+        return canonical, report
+
+    dates, derivation_report = _derive_trip_date_from_week_dow(canonical, derivation)
+    if not dates.notna().any():
+        return canonical, report
+
+    canonical = canonical.copy()
+    canonical["trip_date"] = dates
+    for row in report:
+        if row["canonical_field"] == "trip_date":
+            row.update(
+                {
+                    "configured_source_field": "derived:survey_week+day_of_week",
+                    "resolved_source_field": None,
+                    "configured": True,
+                    "field_found": True,
+                    "derivation": derivation_report,
+                }
+            )
+            break
+    return canonical, report
+
+
 def load_survey(config: dict[str, Any]) -> SurveyData:
     survey_config = config.get("survey", {})
     path = resolve_path(config, survey_config.get("path"))
@@ -102,4 +166,5 @@ def load_survey(config: dict[str, Any]) -> SurveyData:
 
     raw = load_table(path)
     canonical, report = apply_schema_mapping(raw, survey_config.get("schema", {}))
+    canonical, report = apply_temporal_derivations(canonical, report, survey_config)
     return SurveyData(raw=raw, canonical=canonical, schema_report=report, path=path)

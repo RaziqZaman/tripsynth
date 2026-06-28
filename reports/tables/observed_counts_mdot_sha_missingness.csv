@@ -1,0 +1,2 @@
+records,missing_aadt,records_by_state,records_by_county,crs,geometry_valid,geometry_invalid,bounds,records_before_study_area_filter,records_after_study_area_filter
+3409,1,{'md': 3409},"{'24009': 122, '24017': 139, '24021': 615, '24031': 1205, '24033': 1328}",EPSG:4326,3409,0,"[-77.67704130319727, 38.26077489537809, -76.39137157833497, 39.71997581212743]",10665,3409

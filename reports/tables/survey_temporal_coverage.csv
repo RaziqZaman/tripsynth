@@ -1,5 +1,26 @@
 coverage_type,year,month,day_of_week,hour,count,status,note
-calendar,,,,,110926,unknown,No exact trip date or configured year/month fields were available.
+year_month,2017,10,,,5756,observed,from trip_date
+year_month,2017,11,,,7976,observed,from trip_date
+year_month,2017,12,,,5720,observed,from trip_date
+year_month,2018,1,,,7277,observed,from trip_date
+year_month,2018,2,,,7336,observed,from trip_date
+year_month,2018,3,,,6596,observed,from trip_date
+year_month,2018,4,,,6038,observed,from trip_date
+year_month,2018,5,,,9176,observed,from trip_date
+year_month,2018,6,,,7741,observed,from trip_date
+year_month,2018,7,,,7358,observed,from trip_date
+year_month,2018,8,,,5370,observed,from trip_date
+year_month,2018,9,,,3929,observed,from trip_date
+year_month,2018,10,,,7270,observed,from trip_date
+year_month,2018,11,,,4209,observed,from trip_date
+year_month,2018,12,,,3130,observed,from trip_date
+year_month,2019,1,,,2852,observed,from trip_date
+year_month,2019,2,,,3456,observed,from trip_date
+year_month,2019,3,,,3224,observed,from trip_date
+year_month,2019,4,,,4757,observed,from trip_date
+year_month,2019,5,,,1514,observed,from trip_date
+year_month,2019,6,,,219,observed,from trip_date
+year_month,2019,7,,,22,observed,from trip_date
 day_of_week,,,1,,21393,observed,from configured day_of_week field
 day_of_week,,,2,,22326,observed,from configured day_of_week field
 day_of_week,,,3,,22038,observed,from configured day_of_week field

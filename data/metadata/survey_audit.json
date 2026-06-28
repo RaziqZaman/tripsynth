@@ -1,7 +1,40 @@
 {
-  "calendar_coverage_status": "unknown",
-  "covered_months_by_year": {},
-  "covered_years": [],
+  "calendar_coverage_status": "exact_dates_available",
+  "covered_months_by_year": {
+    "2017": [
+      10,
+      11,
+      12
+    ],
+    "2018": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "2019": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "covered_years": [
+    2017,
+    2018,
+    2019
+  ],
   "date_time_fields_found": {
     "arrival_time": false,
     "day_of_week": true,
@@ -10,7 +43,7 @@
     "survey_month": false,
     "survey_year": false,
     "travel_time_min": true,
-    "trip_date": false
+    "trip_date": true
   },
   "day_of_week_counts": [
     {
@@ -133,11 +166,15 @@
       "hour": 23
     }
   ],
-  "exact_date_field": null,
-  "first_survey_date": null,
-  "full_year_coverage_by_year": "unknown",
+  "exact_date_field": "trip_date",
+  "first_survey_date": "2017-10-10",
+  "full_year_coverage_by_year": {
+    "2017": false,
+    "2018": true,
+    "2019": false
+  },
   "household_count": null,
-  "last_survey_date": null,
+  "last_survey_date": "2019-07-11",
   "person_count": null,
   "rows_loaded": 110926,
   "schema_report": [
@@ -178,9 +215,17 @@
     },
     {
       "canonical_field": "trip_date",
-      "configured": false,
-      "configured_source_field": null,
-      "field_found": false,
+      "configured": true,
+      "configured_source_field": "derived:survey_week+day_of_week",
+      "derivation": {
+        "day_of_week_field": "day_of_week",
+        "derived": true,
+        "reference_date": "2017-01-01",
+        "valid_derived_dates": 110926,
+        "week_field": "survey_week",
+        "week_index_base": 0
+      },
+      "field_found": true,
       "resolved_source_field": null
     },
     {
@@ -203,6 +248,13 @@
       "configured_source_field": null,
       "field_found": false,
       "resolved_source_field": null
+    },
+    {
+      "canonical_field": "survey_week",
+      "configured": true,
+      "configured_source_field": "tdate_week",
+      "field_found": true,
+      "resolved_source_field": "tdate_week"
     },
     {
       "canonical_field": "day_of_week",
@@ -259,12 +311,23 @@
       "configured_source_field": "numvehicle",
       "field_found": true,
       "resolved_source_field": "numvehicle"
+    },
+    {
+      "canonical_field": "vehicle_occupancy",
+      "configured": true,
+      "configured_source_field": "vehicle_occupancy",
+      "field_found": true,
+      "resolved_source_field": "vehicle_occupancy"
     }
   ],
   "survey_path": "/home/raziq/Documents/Code/umd/tripsynth/00_survey-transformed.csv",
   "trip_count": 110926,
-  "usable_for_calendar_temporal_validation": false,
+  "usable_for_calendar_temporal_validation": true,
   "usable_for_spatial_aadt_proxy_validation": true,
   "warning": "Do not assume complete annual coverage unless full_year_coverage_by_year is true for the relevant year and the paper documents that assumption.",
-  "year_status": {}
+  "year_status": {
+    "2017": "partial_by_month_presence",
+    "2018": "complete_by_month_presence",
+    "2019": "partial_by_month_presence"
+  }
 }

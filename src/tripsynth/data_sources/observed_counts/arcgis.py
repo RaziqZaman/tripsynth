@@ -82,10 +82,11 @@ class ArcGISFeatureServerClient:
         cache_dir: Path,
         where: str = "1=1",
         out_fields: str = "*",
+        result_record_count: int | None = None,
     ) -> tuple[gpd.GeoDataFrame, dict[str, Any], dict[str, Any]]:
         service_meta = self.service_metadata(service_url, cache_dir)
         layer_meta = self.layer_metadata(service_url, layer, cache_dir)
-        max_records = int(layer_meta.get("maxRecordCount") or 2000)
+        max_records = int(result_record_count or layer_meta.get("maxRecordCount") or 2000)
 
         try:
             gdf = self._download_pages(

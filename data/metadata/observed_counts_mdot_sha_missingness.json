@@ -1,0 +1,25 @@
+{
+  "bounds": [
+    -77.67704130319727,
+    38.26077489537809,
+    -76.39137157833497,
+    39.71997581212743
+  ],
+  "crs": "EPSG:4326",
+  "geometry_invalid": 0,
+  "geometry_valid": 3409,
+  "missing_aadt": 1,
+  "records": 3409,
+  "records_after_study_area_filter": 3409,
+  "records_before_study_area_filter": 10665,
+  "records_by_county": {
+    "24009": 122,
+    "24017": 139,
+    "24021": 615,
+    "24031": 1205,
+    "24033": 1328
+  },
+  "records_by_state": {
+    "md": 3409
+  }
+}

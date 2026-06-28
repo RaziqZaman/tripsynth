@@ -1,4 +1,4 @@
-.PHONY: audit-survey fetch-counts test smoke
+.PHONY: audit-survey fetch-counts run-baseline test smoke
 export PYTHONPATH := src
 
 audit-survey:
@@ -6,6 +6,9 @@ audit-survey:
 
 fetch-counts:
 	.venv/bin/python -m tripsynth.cli fetch-counts --config configs/default.yaml
+
+run-baseline:
+	.venv/bin/python -m tripsynth.cli run-baseline --config configs/default.yaml
 
 test:
 	.venv/bin/python -m pytest

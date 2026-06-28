@@ -5,7 +5,7 @@ from tripsynth.config import flatten_study_counties, load_config, resolve_path
 
 def test_default_config_loads():
     config = load_config("configs/default.yaml")
-    assert config["validation"]["default_mode"] == "spatial_aadt_proxy"
+    assert config["validation"]["default_mode"] == "survey_holdout"
     assert "11001" in flatten_study_counties(config)
 
 
