@@ -1,0 +1,141 @@
+project:
+  seed: 42
+  crs_projected: EPSG:26918
+  study_area_name: dmv_core
+  output_dir: outputs
+
+survey:
+  path: 00_survey-transformed.csv
+  schema:
+    trip_id: null
+    household_id: null
+    person_id: null
+    origin_tract: o_tract_fips
+    destination_tract: d_tract_fips
+    trip_date: null
+    survey_date: null
+    survey_year: null
+    survey_month: null
+    day_of_week: tdate_dow
+    departure_time: departure_time_minutes
+    arrival_time: null
+    travel_time_min: reported_travel_time
+    mode: travel_mode
+    purpose: d_activity
+    weight: weight
+    vehicle_available: numvehicle
+  year_min: 2017
+  year_max: 2019
+  temporal_assumptions:
+    assume_full_year_coverage: false
+    allow_month_as_feature: false
+    allow_year_as_feature: false
+    allow_temporal_validation_without_overlap: false
+    default_validation_mode: spatial_aadt_proxy
+  weighting:
+    use_survey_weights: true
+    interpret_weights_as_daily_expansion: false
+    require_user_confirmation_for_absolute_annualization: true
+
+study_area:
+  counties:
+    dc:
+      - "11001"
+    md:
+      - "24031"
+      - "24033"
+      - "24009"
+      - "24017"
+      - "24021"
+    va:
+      - "51013"
+      - "51059"
+      - "51107"
+      - "51153"
+      - "51510"
+      - "51600"
+      - "51610"
+      - "51683"
+      - "51685"
+  polygon_path: null
+
+observed_counts:
+  required: true
+  default_source: fhwa_hpms_2018
+  default_validation_mode: spatial_aadt_proxy
+  cache: true
+  sources:
+    fhwa_hpms_2018:
+      enabled: true
+      type: arcgis_feature_server
+      temporal_type: annual_average
+      states:
+        md:
+          url: https://geo.dot.gov/server/rest/services/Hosted/Maryland_2018_PR/FeatureServer
+          layer: 0
+        dc:
+          url: https://geo.dot.gov/server/rest/services/Hosted/District_2018_PR/FeatureServer
+          layer: 0
+        va:
+          url: https://geo.dot.gov/server/rest/services/Hosted/Virginia_2018_PR/FeatureServer
+          layer: 0
+      field_map:
+        year: year_record
+        segment_id: objectid
+        route_id: route_id
+        route_name: route_name
+        observed_aadt: aadt
+        observed_truck_aadt_single_unit: aadt_single_unit
+        observed_truck_aadt_combination: aadt_combination
+        county_fips_partial: county_code
+        functional_class: f_system
+        through_lanes: through_lanes
+        speed_limit: speed_limit
+
+    vdot_official:
+      enabled: false
+      type: configurable
+      url: null
+      local_path: null
+      temporal_type: unknown
+      field_map: {}
+
+    local_user_counts:
+      enabled: false
+      type: local_file
+      path: null
+      temporal_type: unknown
+      field_map: {}
+
+validation:
+  default_mode: spatial_aadt_proxy
+  allow_absolute_volume_validation: true
+  allow_relative_share_validation: true
+  require_temporal_overlap_for_temporal_metrics: true
+  matching:
+    method: nearest_or_buffer
+    max_distance_m: 50
+    use_route_name_similarity: true
+    use_angle_similarity: true
+    use_functional_class_compatibility: true
+
+experiment:
+  synthesis_methods:
+    - weighted_resampling
+    - bayesian_network
+    - vae
+    - diffusion
+  routing_methods:
+    - tract_border_crossing
+    - shortest_path_osmnx
+    - matsim_adapter
+    - sumo_or_aequilibrae_adapter
+  observed_validation_datasets:
+    - fhwa_hpms_2018_dmv
+  seeds:
+    stochastic: [1, 2, 3, 4, 5]
+    deterministic: [1]
+  synthetic_scale_factors:
+    - 1
+    - 5
+    - 10

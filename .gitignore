@@ -39,3 +39,16 @@ dist/
 *.xml.gz
 *.osm.pbf
 
+
+# Trip Synthesis generated data and model artifacts.
+data/raw/
+data/processed/
+outputs/
+reports/maps/*.html
+reports/maps/*.png
+*.gpkg
+*.geoparquet
+*.parquet
+*.pt
+*.pth
+.pytest_cache/

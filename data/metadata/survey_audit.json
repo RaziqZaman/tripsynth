@@ -1,0 +1,270 @@
+{
+  "calendar_coverage_status": "unknown",
+  "covered_months_by_year": {},
+  "covered_years": [],
+  "date_time_fields_found": {
+    "arrival_time": false,
+    "day_of_week": true,
+    "departure_time": true,
+    "survey_date": false,
+    "survey_month": false,
+    "survey_year": false,
+    "travel_time_min": true,
+    "trip_date": false
+  },
+  "day_of_week_counts": [
+    {
+      "count": 21393,
+      "day_of_week": "1"
+    },
+    {
+      "count": 22326,
+      "day_of_week": "2"
+    },
+    {
+      "count": 22038,
+      "day_of_week": "3"
+    },
+    {
+      "count": 21948,
+      "day_of_week": "4"
+    },
+    {
+      "count": 23221,
+      "day_of_week": "5"
+    }
+  ],
+  "default_validation_label": "spatial roadway-volume proxy validation against AADT",
+  "departure_hour_counts": [
+    {
+      "count": 198,
+      "hour": 0
+    },
+    {
+      "count": 100,
+      "hour": 1
+    },
+    {
+      "count": 76,
+      "hour": 2
+    },
+    {
+      "count": 170,
+      "hour": 3
+    },
+    {
+      "count": 532,
+      "hour": 4
+    },
+    {
+      "count": 1661,
+      "hour": 5
+    },
+    {
+      "count": 3940,
+      "hour": 6
+    },
+    {
+      "count": 7696,
+      "hour": 7
+    },
+    {
+      "count": 7506,
+      "hour": 8
+    },
+    {
+      "count": 6337,
+      "hour": 9
+    },
+    {
+      "count": 6166,
+      "hour": 10
+    },
+    {
+      "count": 7068,
+      "hour": 11
+    },
+    {
+      "count": 7511,
+      "hour": 12
+    },
+    {
+      "count": 6843,
+      "hour": 13
+    },
+    {
+      "count": 7224,
+      "hour": 14
+    },
+    {
+      "count": 8391,
+      "hour": 15
+    },
+    {
+      "count": 9472,
+      "hour": 16
+    },
+    {
+      "count": 9803,
+      "hour": 17
+    },
+    {
+      "count": 7678,
+      "hour": 18
+    },
+    {
+      "count": 4992,
+      "hour": 19
+    },
+    {
+      "count": 3651,
+      "hour": 20
+    },
+    {
+      "count": 2243,
+      "hour": 21
+    },
+    {
+      "count": 1120,
+      "hour": 22
+    },
+    {
+      "count": 548,
+      "hour": 23
+    }
+  ],
+  "exact_date_field": null,
+  "first_survey_date": null,
+  "full_year_coverage_by_year": "unknown",
+  "household_count": null,
+  "last_survey_date": null,
+  "person_count": null,
+  "rows_loaded": 110926,
+  "schema_report": [
+    {
+      "canonical_field": "trip_id",
+      "configured": false,
+      "configured_source_field": null,
+      "field_found": false,
+      "resolved_source_field": null
+    },
+    {
+      "canonical_field": "household_id",
+      "configured": false,
+      "configured_source_field": null,
+      "field_found": false,
+      "resolved_source_field": null
+    },
+    {
+      "canonical_field": "person_id",
+      "configured": false,
+      "configured_source_field": null,
+      "field_found": false,
+      "resolved_source_field": null
+    },
+    {
+      "canonical_field": "origin_tract",
+      "configured": true,
+      "configured_source_field": "o_tract_fips",
+      "field_found": true,
+      "resolved_source_field": "o_tract_fips"
+    },
+    {
+      "canonical_field": "destination_tract",
+      "configured": true,
+      "configured_source_field": "d_tract_fips",
+      "field_found": true,
+      "resolved_source_field": "d_tract_fips"
+    },
+    {
+      "canonical_field": "trip_date",
+      "configured": false,
+      "configured_source_field": null,
+      "field_found": false,
+      "resolved_source_field": null
+    },
+    {
+      "canonical_field": "survey_date",
+      "configured": false,
+      "configured_source_field": null,
+      "field_found": false,
+      "resolved_source_field": null
+    },
+    {
+      "canonical_field": "survey_year",
+      "configured": false,
+      "configured_source_field": null,
+      "field_found": false,
+      "resolved_source_field": null
+    },
+    {
+      "canonical_field": "survey_month",
+      "configured": false,
+      "configured_source_field": null,
+      "field_found": false,
+      "resolved_source_field": null
+    },
+    {
+      "canonical_field": "day_of_week",
+      "configured": true,
+      "configured_source_field": "tdate_dow",
+      "field_found": true,
+      "resolved_source_field": "tdate_dow"
+    },
+    {
+      "canonical_field": "departure_time",
+      "configured": true,
+      "configured_source_field": "departure_time_minutes",
+      "field_found": true,
+      "resolved_source_field": "departure_time_minutes"
+    },
+    {
+      "canonical_field": "arrival_time",
+      "configured": false,
+      "configured_source_field": null,
+      "field_found": false,
+      "resolved_source_field": null
+    },
+    {
+      "canonical_field": "travel_time_min",
+      "configured": true,
+      "configured_source_field": "reported_travel_time",
+      "field_found": true,
+      "resolved_source_field": "reported_travel_time"
+    },
+    {
+      "canonical_field": "mode",
+      "configured": true,
+      "configured_source_field": "travel_mode",
+      "field_found": true,
+      "resolved_source_field": "travel_mode"
+    },
+    {
+      "canonical_field": "purpose",
+      "configured": true,
+      "configured_source_field": "d_activity",
+      "field_found": true,
+      "resolved_source_field": "d_activity"
+    },
+    {
+      "canonical_field": "weight",
+      "configured": true,
+      "configured_source_field": "weight",
+      "field_found": true,
+      "resolved_source_field": "weight"
+    },
+    {
+      "canonical_field": "vehicle_available",
+      "configured": true,
+      "configured_source_field": "numvehicle",
+      "field_found": true,
+      "resolved_source_field": "numvehicle"
+    }
+  ],
+  "survey_path": "/home/raziq/Documents/Code/umd/tripsynth/00_survey-transformed.csv",
+  "trip_count": 110926,
+  "usable_for_calendar_temporal_validation": false,
+  "usable_for_spatial_aadt_proxy_validation": true,
+  "warning": "Do not assume complete annual coverage unless full_year_coverage_by_year is true for the relevant year and the paper documents that assumption.",
+  "year_status": {}
+}

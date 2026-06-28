@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tripsynth"
+version = "0.1.0"
+description = "Trip synthesis experiments with survey audits and roadway-count validation."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pandas",
+  "geopandas",
+  "shapely",
+  "pyproj",
+  "requests",
+  "pydantic",
+  "pyyaml",
+  "scikit-learn",
+  "scipy",
+  "numpy",
+  "matplotlib",
+  "folium",
+  "torch",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov"]
+engines = ["osmnx", "sumolib", "aequilibrae"]
+bayesian = ["pgmpy"]
+
+[project.scripts]
+tripsynth = "tripsynth.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
