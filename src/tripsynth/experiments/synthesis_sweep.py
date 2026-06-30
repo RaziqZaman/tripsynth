@@ -16,7 +16,12 @@ from tripsynth.config import ensure_standard_directories, write_json, read_json
 from tripsynth.data_sources.observed_counts.loaders import load_observed_counts_for_validation
 from tripsynth.data_sources.survey import build_synthesis_frame, load_survey
 from tripsynth.experiments.baseline import _filter_vehicle_trips
-from tripsynth.experiments.method_comparison import _metric_row, _route_synthetic_trips, _write_method_run
+from tripsynth.experiments.method_comparison import (
+    _metric_row,
+    _route_synthetic_trips,
+    _routing_metadata_row,
+    _write_method_run,
+)
 from tripsynth.preprocessing.survey_audit import run_survey_audit
 from tripsynth.progress import progress
 from tripsynth.reporting.baseline_diagnostics import run_baseline_diagnostics
@@ -36,6 +41,25 @@ DEFAULT_SWEEP_GRIDS: dict[str, dict[str, list[Any]]] = {
         "sample_batch_size": [262144],
         "learning_rate": [0.0005, 0.001],
         "beta": [0.001, 0.005],
+        "weight_field": ["weight"],
+        "model_all_columns": [True],
+        "max_categorical_cardinality": [50],
+        "device": ["auto"],
+    },
+    "contrastive_vae": {
+        "latent_dim": [64, 128],
+        "hidden_dim": [1024],
+        "num_layers": [3, 4],
+        "epochs": [30, 60],
+        "batch_size": [65536],
+        "sample_batch_size": [262144],
+        "learning_rate": [0.0005],
+        "beta": [0.005],
+        "contrastive_weight": [0.05, 0.15],
+        "contrastive_temperature": [0.2],
+        "contrastive_batch_size": [512],
+        "sample_from_training_latent": [True],
+        "sample_latent_noise_scale": [0.25, 0.5],
         "weight_field": ["weight"],
         "model_all_columns": [True],
         "max_categorical_cardinality": [50],
@@ -173,6 +197,7 @@ def _load_existing_row(run_path: Path, method: str, params: dict[str, Any], seed
         "failed_routes": int(routing.get("failed_routes", 0) or 0),
         "routed_observed_segments": int(routing.get("routed_observed_segments", 0) or 0),
         "synthesis_implementation": synthesis.get("implementation", method),
+        **_routing_metadata_row(routing),
         **_metric_row(metrics),
     }
 
@@ -239,6 +264,7 @@ def _run_one(
         "failed_routes": int(routing.get("failed_routes", 0) or 0),
         "routed_observed_segments": int(routing.get("routed_observed_segments", 0) or 0),
         "synthesis_implementation": synthesis.metadata.get("implementation", method),
+        **_routing_metadata_row(routing),
         **_metric_row(metrics_by_run),
     }
 
@@ -356,6 +382,11 @@ def run_synthesis_hyperparameter_sweep(
             "seed",
             "scale_factor",
             "params_json",
+            "synthesis_implementation",
+            "routing_method",
+            "routing_od_geography",
+            "routing_edge_weight_strategy",
+            "routing_aadt_preference_alpha",
             "synthetic_trips",
             "supported_vehicle_trips",
             "od_pairs",

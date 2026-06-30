@@ -95,3 +95,58 @@ def test_mdot_shortest_path_routes_connected_tract_od(tmp_path):
     assert routed.failed_routes is not None
     assert routed.failed_routes.empty
     assert routed.routed_volumes["predicted_volume"].sum() > 0
+
+
+def test_mdot_shortest_path_can_prefer_high_aadt_corridor(tmp_path):
+    observed = gpd.GeoDataFrame(
+        {
+            "segment_id": ["low_direct", "high_leg_1", "high_leg_2"],
+            "county_fips": ["24031", "24031", "24031"],
+            "observed_aadt": [10, 1000, 1000],
+        },
+        geometry=[
+            LineString([(0, 0), (100, 0)]),
+            LineString([(0, 0), (0, 10)]),
+            LineString([(0, 10), (100, 0)]),
+        ],
+        crs="EPSG:26918",
+    )
+    tracts = gpd.GeoDataFrame(
+        {
+            "tract_fips": ["24031000100", "24031000200"],
+            "county_fips": ["24031", "24031"],
+        },
+        geometry=[Point(0, 0), Point(100, 0)],
+        crs="EPSG:26918",
+    )
+    tract_path = tmp_path / "tracts.geoparquet"
+    tracts.to_parquet(tract_path, index=False)
+    trips = pd.DataFrame(
+        {
+            "origin_tract": ["24031000100"],
+            "destination_tract": ["24031000200"],
+        }
+    )
+    config = {
+        "project": {"crs_projected": "EPSG:26918"},
+        "census": {"tracts": {"processed_path": str(tract_path)}},
+        "validation": {
+            "routing": {
+                "mdot_shortest_path": {
+                    "od_geography": "tract",
+                    "auto_fetch_tracts": False,
+                    "fallback_to_county_centroids": False,
+                    "snap_tolerance_m": 1,
+                    "edge_weight_strategy": "aadt_preferred",
+                    "aadt_preference_alpha": 0.5,
+                    "aadt_cost_min_multiplier": 0.25,
+                    "aadt_cost_max_multiplier": 4.0,
+                }
+            }
+        },
+    }
+
+    routed = route_mdot_shortest_paths(trips, observed, config)
+
+    assert routed.metadata["edge_weight_strategy"] == "aadt_preferred"
+    assert set(routed.routed_volumes["segment_id"]) == {"high_leg_1", "high_leg_2"}

@@ -29,8 +29,21 @@ def _toy_trips():
 
 
 def test_all_synthesis_methods_sample_canonical_tract_trips():
-    config = {"synthesis": {"vae": {"epochs": 1, "hidden_dim": 8, "latent_dim": 3}}}
-    for method in ["weighted_resampling", "bayesian_network", "vae", "diffusion"]:
+    config = {
+        "synthesis": {
+            "vae": {"epochs": 1, "hidden_dim": 8, "latent_dim": 3, "batch_size": 4},
+            "contrastive_vae": {
+                "epochs": 1,
+                "hidden_dim": 8,
+                "latent_dim": 3,
+                "batch_size": 4,
+                "contrastive_batch_size": 4,
+                "contrastive_weight": 0.2,
+                "sample_batch_size": 8,
+            },
+        }
+    }
+    for method in ["weighted_resampling", "bayesian_network", "vae", "contrastive_vae", "diffusion"]:
         result = synthesize_trips(method, _toy_trips(), n=8, seed=11, config=config)
         assert result.method == method
         assert len(result.synthetic_trips) == 8
@@ -39,9 +52,12 @@ def test_all_synthesis_methods_sample_canonical_tract_trips():
         assert "synthetic_trip_id" in result.synthetic_trips
         assert "home_tract_fips" in result.synthetic_trips
         assert result.metadata["n"] == 8
-        if method in {"vae", "diffusion"}:
+        if method in {"vae", "contrastive_vae", "diffusion"}:
             assert result.metadata["model_all_columns"] is True
             assert "home_tract_fips" in result.metadata["modeled_columns"]
+        if method == "contrastive_vae":
+            assert result.metadata["contrastive_weight"] == 0.2
+            assert result.metadata["sample_from_training_latent"] is True
 
 
 def test_build_synthesis_frame_includes_raw_and_canonical_columns():

@@ -92,8 +92,12 @@ def test_synthesis_sweep_respects_grid_and_writes_leaderboard(tmp_path, monkeypa
     )
 
     assert len(result.leaderboard) == 3
+    assert set(result.leaderboard["routing_method"]) == {"tract_desire_line_proxy"}
     assert Path(result.summary["sweep_leaderboard"]).exists()
     assert Path(result.summary["sweep_compact"]).exists()
+    compact = pd.read_csv(result.summary["sweep_compact"])
+    assert "routing_method" in compact
+    assert "routing_edge_weight_strategy" in compact
 
 
 def test_synthesis_sweep_resolves_weighted_population_share():

@@ -44,6 +44,9 @@ from tripsynth.synthesis.factory import synthesize_trips
 from tripsynth.validation.temporal_alignment import require_temporal_overlap
 
 
+SYNTHESIS_METHOD_CHOICES = ["weighted_resampling", "bayesian_network", "vae", "contrastive_vae", "diffusion"]
+
+
 def _add_config(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--config", default="configs/default.yaml", help="Path to YAML config.")
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging.")
@@ -293,7 +296,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     synth = subparsers.add_parser("run-synthesis", help="Run a synthesis method.")
     _add_config(synth)
-    synth.add_argument("--method", required=True, choices=["weighted_resampling", "bayesian_network", "vae", "diffusion"])
+    synth.add_argument("--method", required=True, choices=SYNTHESIS_METHOD_CHOICES)
     synth.add_argument("--scale-factor", type=float, default=1.0)
     synth.add_argument("--seed", type=int, default=None)
     synth.set_defaults(func=cmd_run_synthesis)
@@ -330,7 +333,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     compare = subparsers.add_parser("compare-synthesis", help="Run routed AADT validation for multiple synthesis methods.")
     _add_config(compare)
-    compare.add_argument("--methods", nargs="+", choices=["weighted_resampling", "bayesian_network", "vae", "diffusion"], default=None)
+    compare.add_argument("--methods", nargs="+", choices=SYNTHESIS_METHOD_CHOICES, default=None)
     compare.add_argument("--seeds", nargs="+", type=int, default=None)
     compare.add_argument("--scale-factor", type=float, default=None)
     compare.add_argument("--run-dir", default=None)
@@ -341,7 +344,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     sweep = subparsers.add_parser("sweep-synthesis", help="Run hyperparameter sweeps for synthesis methods.")
     _add_config(sweep)
-    sweep.add_argument("--methods", nargs="+", choices=["weighted_resampling", "bayesian_network", "vae", "diffusion"], default=None)
+    sweep.add_argument("--methods", nargs="+", choices=SYNTHESIS_METHOD_CHOICES, default=None)
     sweep.add_argument("--seeds", nargs="+", type=int, default=None)
     sweep.add_argument("--scale-factors", nargs="+", type=float, default=None)
     sweep.add_argument("--run-dir", default=None)
@@ -360,7 +363,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="Sweep synthesis configs, select winners, and promote them to population-scale validation.",
     )
     _add_config(tune)
-    tune.add_argument("--methods", nargs="+", choices=["weighted_resampling", "bayesian_network", "vae", "diffusion"], default=None)
+    tune.add_argument("--methods", nargs="+", choices=SYNTHESIS_METHOD_CHOICES, default=None)
     tune.add_argument("--seeds", nargs="+", type=int, default=None, help="Seeds for the tuning sweep.")
     tune.add_argument("--promotion-seeds", nargs="+", type=int, default=None, help="Seeds for the promoted 10%% run.")
     tune.add_argument("--sweep-scale-factors", nargs="+", type=float, default=None, help="Sample-relative scale factors for tuning sweep; defaults to 1.")

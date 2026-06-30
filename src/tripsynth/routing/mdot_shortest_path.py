@@ -44,10 +44,37 @@ def _build_mdot_graph(
     projected_crs: str,
     *,
     snap_tolerance_m: float,
+    routing_config: dict[str, Any] | None = None,
 ) -> tuple[nx.MultiGraph, dict[str, set[NodeKey]]]:
     graph = nx.MultiGraph()
     county_nodes: dict[str, set[NodeKey]] = defaultdict(set)
     observed = observed_counts.to_crs(projected_crs)
+    routing_config = routing_config or {}
+    edge_weight_strategy = str(routing_config.get("edge_weight_strategy", "length")).lower()
+    aadt_alpha = float(routing_config.get("aadt_preference_alpha", 0.5))
+    aadt_min_multiplier = float(routing_config.get("aadt_cost_min_multiplier", 0.25))
+    aadt_max_multiplier = float(routing_config.get("aadt_cost_max_multiplier", 4.0))
+    observed_aadt = (
+        pd.to_numeric(observed.get("observed_aadt"), errors="coerce")
+        if "observed_aadt" in observed
+        else pd.Series(dtype=float)
+    )
+    median_aadt = float(observed_aadt.loc[observed_aadt > 0].median()) if not observed_aadt.empty else np.nan
+
+    def route_cost(length_m: float, row: Any) -> float:
+        if edge_weight_strategy not in {"aadt_preferred", "aadt_biased"}:
+            return float(length_m)
+        segment_aadt = pd.to_numeric(getattr(row, "observed_aadt", np.nan), errors="coerce")
+        if (
+            not np.isfinite(segment_aadt)
+            or segment_aadt <= 0
+            or not np.isfinite(median_aadt)
+            or median_aadt <= 0
+        ):
+            return float(length_m)
+        multiplier = float((median_aadt / segment_aadt) ** aadt_alpha)
+        multiplier = float(np.clip(multiplier, aadt_min_multiplier, aadt_max_multiplier))
+        return float(length_m) * multiplier
 
     for row in progress(
         observed.itertuples(index=False),
@@ -81,7 +108,11 @@ def _build_mdot_graph(
                     u,
                     v,
                     length_m=float(geometry.length),
+                    route_cost_m=route_cost(float(geometry.length), row),
                     observed_segment_id=segment_id,
+                    observed_aadt=float(
+                        pd.to_numeric(getattr(row, "observed_aadt", np.nan), errors="coerce")
+                    ),
                     county_fips=county_fips,
                     geometry=geometry,
                 )
@@ -152,12 +183,17 @@ def _farthest_county_node(
 
 def _edge_data_for_step(graph: nx.MultiGraph, u, v) -> dict[str, Any]:
     edges = graph.get_edge_data(u, v)
-    return min(edges.values(), key=lambda data: data.get("length_m", float("inf")))
+    return min(
+        edges.values(),
+        key=lambda data: data.get("route_cost_m", data.get("length_m", float("inf"))),
+    )
 
 
 def _edge_weight(graph: nx.MultiGraph, u: NodeKey, v: NodeKey) -> float:
     edges = graph.get_edge_data(u, v)
-    return float(min(data.get("length_m", 1.0) for data in edges.values()))
+    return float(
+        min(data.get("route_cost_m", data.get("length_m", 1.0)) for data in edges.values())
+    )
 
 
 def _multi_target_shortest_paths(
@@ -188,7 +224,12 @@ def _multi_target_shortest_paths(
         for neighbor, keyed_edges in graph[node].items():
             if neighbor in settled:
                 continue
-            step_length = float(min(data.get("length_m", 1.0) for data in keyed_edges.values()))
+            step_length = float(
+                min(
+                    data.get("route_cost_m", data.get("length_m", 1.0))
+                    for data in keyed_edges.values()
+                )
+            )
             next_distance = distance + step_length
             if next_distance < seen.get(neighbor, float("inf")):
                 seen[neighbor] = next_distance
@@ -283,6 +324,7 @@ def _route_county_shortest_paths(
     tree: cKDTree,
     projected_crs: str,
     snap_tolerance_m: float,
+    routing_config: dict[str, Any],
 ) -> RoutingResult:
     centers = _county_centroids(observed_counts, projected_crs)
     center_by_county = dict(zip(centers["county_fips"], centers.geometry))
@@ -334,7 +376,7 @@ def _route_county_shortest_paths(
             )
             continue
         try:
-            path = nx.shortest_path(graph, origin_node, destination_node, weight="length_m")
+            path = nx.shortest_path(graph, origin_node, destination_node, weight="route_cost_m")
         except nx.NetworkXNoPath:
             failures += 1
             no_path += 1
@@ -383,6 +425,8 @@ def _route_county_shortest_paths(
         "routed_observed_segments": int(len(routed)),
         "projected_crs": projected_crs,
         "snap_tolerance_m": snap_tolerance_m,
+        "edge_weight_strategy": str(routing_config.get("edge_weight_strategy", "length")),
+        "aadt_preference_alpha": float(routing_config.get("aadt_preference_alpha", 0.5)),
         "caveat": (
             "County-level OD volumes are routed over the MDOT AADT line graph. "
             "Use only as fallback when tract centroids are unavailable."
@@ -577,6 +621,8 @@ def _route_tract_shortest_paths(
         "routed_observed_segments": int(len(routed)),
         "projected_crs": projected_crs,
         "snap_tolerance_m": snap_tolerance_m,
+        "edge_weight_strategy": str(routing_config.get("edge_weight_strategy", "length")),
+        "aadt_preference_alpha": float(routing_config.get("aadt_preference_alpha", 0.5)),
         "caveat": (
             "Tract OD volumes are routed over the MDOT SHA AADT line graph using tract centroids. "
             "Validation is restricted to tracts in counties covered by the Maryland MDOT AADT source."
@@ -601,7 +647,10 @@ def route_mdot_shortest_paths(
     routing_config = _routing_config(config)
     snap_tolerance_m = float(routing_config.get("snap_tolerance_m", 15))
     graph, county_nodes = _build_mdot_graph(
-        observed_counts, projected_crs, snap_tolerance_m=snap_tolerance_m
+        observed_counts,
+        projected_crs,
+        snap_tolerance_m=snap_tolerance_m,
+        routing_config=routing_config,
     )
     if graph.number_of_edges() == 0:
         return _empty_result(
@@ -641,6 +690,7 @@ def route_mdot_shortest_paths(
                 tree,
                 projected_crs,
                 snap_tolerance_m,
+                routing_config,
             )
             routed.metadata["requested_od_geography"] = "tract"
             routed.metadata["fallback_reason"] = str(exc)
@@ -658,4 +708,5 @@ def route_mdot_shortest_paths(
         tree,
         projected_crs,
         snap_tolerance_m,
+        routing_config,
     )

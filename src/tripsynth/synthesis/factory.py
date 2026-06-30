@@ -6,7 +6,7 @@ from typing import Any
 
 from tripsynth.synthesis.bayesian_network import BayesianNetworkSynthesizer
 from tripsynth.synthesis.diffusion import DiffusionSynthesizer
-from tripsynth.synthesis.vae import VAESynthesizer
+from tripsynth.synthesis.vae import ContrastiveVAESynthesizer, VAESynthesizer
 from tripsynth.synthesis.weighted_resampling import WeightedResampler
 
 
@@ -38,8 +38,10 @@ def build_synthesizer(
             smoothing=float(synth_config.get("smoothing", 0.5)),
             weight_field=synth_config.get("weight_field", "weight"),
         )
-    if method == "vae":
-        return VAESynthesizer(
+    if method in {"vae", "contrastive_vae"}:
+        contrastive = method == "contrastive_vae"
+        synthesizer_cls = ContrastiveVAESynthesizer if contrastive else VAESynthesizer
+        return synthesizer_cls(
             latent_dim=int(synth_config.get("latent_dim", 8)),
             hidden_dim=int(synth_config.get("hidden_dim", 48)),
             num_layers=int(synth_config.get("num_layers", 1)),
@@ -55,6 +57,15 @@ def build_synthesizer(
             max_categorical_cardinality=int(synth_config.get("max_categorical_cardinality", 50)),
             canonical_aliases=_canonical_aliases(config),
             device=synth_config.get("device", "auto"),
+            implementation=synth_config.get(
+                "implementation",
+                "contrastive_weighted_full_table_vae" if contrastive else "weighted_full_table_vae",
+            ),
+            contrastive_weight=float(synth_config.get("contrastive_weight", 0.10 if contrastive else 0.0)),
+            contrastive_temperature=float(synth_config.get("contrastive_temperature", 0.2)),
+            contrastive_batch_size=int(synth_config.get("contrastive_batch_size", 512)),
+            sample_from_training_latent=bool(synth_config.get("sample_from_training_latent", contrastive)),
+            sample_latent_noise_scale=float(synth_config.get("sample_latent_noise_scale", 0.5 if contrastive else 1.0)),
         )
     if method == "diffusion":
         return DiffusionSynthesizer(

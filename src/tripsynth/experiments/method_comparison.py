@@ -53,6 +53,21 @@ def _metric_row(metrics_by_run: pd.DataFrame) -> dict[str, Any]:
     return out
 
 
+def _routing_metadata_row(routing: dict[str, Any], *, method: str | None = None) -> dict[str, Any]:
+    routing_method = method or routing.get("method")
+    edge_weight_strategy = routing.get(
+        "edge_weight_strategy",
+        "length" if routing_method == "mdot_shortest_path" else None,
+    )
+    uses_aadt_weight = edge_weight_strategy in {"aadt_preferred", "aadt_biased"}
+    return {
+        "routing_method": routing_method,
+        "routing_od_geography": routing.get("od_geography") or routing.get("requested_od_geography"),
+        "routing_edge_weight_strategy": edge_weight_strategy,
+        "routing_aadt_preference_alpha": routing.get("aadt_preference_alpha") if uses_aadt_weight else None,
+    }
+
+
 def _route_synthetic_trips(synthetic: pd.DataFrame, observed, config: dict[str, Any]):
     routing_method = config.get("validation", {}).get("baseline", {}).get(
         "routing_method", "mdot_shortest_path"
@@ -212,6 +227,7 @@ def run_synthesis_method_comparison(
                 "failed_routes": int(routed.metadata.get("failed_routes", 0) or 0),
                 "routed_observed_segments": int(routed.metadata.get("routed_observed_segments", 0) or 0),
                 "synthesis_implementation": synthesis.metadata.get("implementation", method),
+                **_routing_metadata_row(routed.metadata, method=routed.method),
                 **_metric_row(metrics_by_run),
             }
             rows.append(row)
@@ -225,6 +241,11 @@ def run_synthesis_method_comparison(
         for column in [
             "synthesis_method",
             "seed",
+            "synthesis_implementation",
+            "routing_method",
+            "routing_od_geography",
+            "routing_edge_weight_strategy",
+            "routing_aadt_preference_alpha",
             "synthetic_trips",
             "supported_vehicle_trips",
             "od_pairs",

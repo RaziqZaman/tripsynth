@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pandas as pd
 import yaml
 
 from tripsynth.config import load_config
@@ -82,5 +83,9 @@ def test_method_comparison_writes_compact_metrics(tmp_path, monkeypatch):
 
     assert len(result.comparison) == 2
     assert set(result.comparison["synthesis_method"]) == {"weighted_resampling", "bayesian_network"}
+    assert set(result.comparison["routing_method"]) == {"tract_desire_line_proxy"}
     assert Path(result.summary["comparison_by_run"]).exists()
     assert Path(result.summary["comparison_compact"]).exists()
+    compact = pd.read_csv(result.summary["comparison_compact"])
+    assert "routing_method" in compact
+    assert "routing_edge_weight_strategy" in compact
