@@ -1,140 +1,75 @@
-\documentclass[10pt,letterpaper]{article}
+% ======================================================================
+% TRB Annual Meeting Paper (unofficial) -- Research Manuscript
+% Filled from the user-provided TRB 2027 template.
+% ======================================================================
 
-% TRB 2027 review format: letter paper, one-inch margins, one column,
-% single spacing, page numbers centered at the bottom, and pagewise line numbers.
-\usepackage[letterpaper,margin=1in,includefoot,footskip=0.35in]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{newtxtext,newtxmath}
-\usepackage{microtype}
-\usepackage{setspace}
-\singlespacing
-\usepackage[pagewise]{lineno}
-\modulolinenumbers[1]
-\usepackage{fancyhdr}
-\fancypagestyle{trb}{%
-  \fancyhf{}
-  \fancyfoot[C]{\thepage}
-  \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}}
-\pagestyle{trb}
-\fancypagestyle{plain}{%
-  \fancyhf{}
-  \fancyfoot[C]{\thepage}
-  \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}}
+\documentclass[numbered]{trbunofficial}
 
-\usepackage{graphicx}
-\graphicspath{{../figures/}{figures/}{trb/figures/}}
+% Supplemental packages needed by this manuscript; the template class
+% supplies geometry, Times-like fonts, line numbering, captions, natbib,
+% hyperlinks, headings, lists, equations, and title-page machinery.
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{makecell}
-\usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage{caption}
 \usepackage{placeins}
-\usepackage{titlesec}
-\usepackage{lastpage}
-\usepackage{xcolor}
-\usepackage{csquotes}
-\usepackage[authordate,backend=biber,giveninits=false,maxcitenames=2,maxbibnames=99,doi=true,isbn=false,url=true]{biblatex-chicago}
-\addbibresource{trb_template.bib}
-\AtEveryBibitem{\clearfield{issn}\clearfield{month}}
-\usepackage[hidelinks]{hyperref}
-\urlstyle{same}
+\graphicspath{{../figures/}{figures/}{trb/figures/}}
 
-\setlength{\parindent}{0.22in}
-\setlength{\parskip}{0pt}
 \setlength{\emergencystretch}{2em}
 \setlength{\textfloatsep}{9pt plus 2pt minus 2pt}
 \setlength{\floatsep}{8pt plus 2pt minus 2pt}
 \setlength{\intextsep}{8pt plus 2pt minus 2pt}
-\setlength{\abovecaptionskip}{4pt}
-\setlength{\belowcaptionskip}{2pt}
-\captionsetup{font=normalsize,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false}
-\renewcommand{\figurename}{FIGURE}
-\renewcommand{\tablename}{TABLE}
-\titleformat{\section}{\normalfont\bfseries}{\thesection.}{0.45em}{\MakeUppercase}
-\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{0.45em}{}
-\titlespacing*{\section}{0pt}{10pt}{4pt}
-\titlespacing*{\subsection}{0pt}{8pt}{3pt}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcommand{\ConVAE}{contrastive VAE}
 \newcommand{\NCVAE}{noncontrastive VAE}
 \newcommand{\TV}{\mathrm{TV}}
-\newcommand{\RZ}{Raziq Zaman}
 
 \begin{document}
-\pagewiselinenumbers
 
-% ------------------------------------------------------------------
-% Page 1: title page
-% ------------------------------------------------------------------
-\begin{center}
-{\bfseries\fontsize{14}{16}\selectfont
-When Survey Fidelity Is Not Traffic Validity:\\
-A Falsification-First Evaluation of Contrastive Trip Synthesis\par}
-\vspace{0.45in}
+% ---------- Title Page ----------
+\title{When Survey Fidelity Is Not Traffic Validity: A Falsification-First Evaluation of Contrastive Trip Synthesis}
 
-\begin{tabularx}{\textwidth}{P{0.29\textwidth}P{0.27\textwidth}Y}
-\toprule
-\textbf{Author} & \textbf{Job title} & \textbf{Email} \\
-\midrule
-Raziq Zaman & Doctoral Researcher & \href{mailto:raziq@umd.edu}{raziq@umd.edu} \\
-Raas Sarker Tomal & Doctoral Researcher & \href{mailto:rtomal@umd.edu}{rtomal@umd.edu} \\
-Md Mahmudul Huque Chayan & Graduate Research Assistant & \href{mailto:mchayan@umd.edu}{mchayan@umd.edu} \\
-Darshan Pandit & Researcher & \href{mailto:dmpandit@umd.edu}{dmpandit@umd.edu} \\
-Cinzia Cirillo & Professor & \href{mailto:ccirillo@umd.edu}{ccirillo@umd.edu} \\
-\bottomrule
-\end{tabularx}
+\TRBauthor*{Raziq Zaman}{Doctoral Researcher, Department of Civil and Environmental Engineering, University of Maryland}{raziq@umd.edu}[College Park, Maryland 20742, USA]
+\TRBauthor{Raas Sarker Tomal}{Doctoral Researcher, Department of Civil and Environmental Engineering, University of Maryland}{rtomal@umd.edu}[College Park, Maryland 20742, USA]
+\TRBauthor{Md Mahmudul Huque Chayan}{Graduate Research Assistant, Department of Civil and Environmental Engineering, University of Maryland}{mchayan@umd.edu}[College Park, Maryland 20742, USA]
+\TRBauthor{Darshan Pandit}{Researcher, Department of Civil and Environmental Engineering, University of Maryland}{dmpandit@umd.edu}[College Park, Maryland 20742, USA]
+\TRBauthor{Cinzia Cirillo}{Professor, Department of Civil and Environmental Engineering, University of Maryland}{ccirillo@umd.edu}[College Park, Maryland 20742, USA]
 
-\vspace{0.30in}
-\textbf{Affiliation for all authors}\par
-Department of Civil and Environmental Engineering\par
-University of Maryland\par
-College Park, Maryland 20742, USA\par
+\AuthorHeaders{Zaman, Tomal, Chayan, Pandit, and Cirillo}
 
-\vspace{0.22in}
-\textbf{Corresponding author}\par
-Raziq Zaman, \href{mailto:raziq@umd.edu}{raziq@umd.edu}\par
+\TRBtitlefootnote{%
+  This \LaTeX\ template is unofficial and may not meet current TRB requirements. Please review the latest submission rules at \href{https://trb.secure-platform.com/a/page/TRBPaperReview}{TRB’s Instructions for Authors} and ensure the paper is compliant. Noncompliant papers may be rejected. Template source: \url{https://github.com/chiehrosswang/TRB_LaTeX_tex}.
+}
 
-\vfill
-\textbf{Total pages: \pageref{LastPage}}\par
-\vspace{0.15in}
-Submitted for review for the 2027 TRB Annual Meeting.\par
-\end{center}
+\maketitle
 
-\newpage
+% ---------- Abstract ----------
+\section{Abstract}
+\noindent\textbf{Objectives:}~This study asks whether a deep generator that better preserves selected relationships in a weighted household travel survey also produces more credible transportation evidence outside that survey. It evaluates the proposition that trip synthesis should be qualified simultaneously for distributional fidelity, non-copying and support expansion, and operational traffic plausibility.
 
-% ------------------------------------------------------------------
-% Page 2 only: structured abstract (under 300 words)
-% ------------------------------------------------------------------
-\begin{center}
-\textbf{STRUCTURED ABSTRACT}
-\end{center}
+\hfill\break%
+\noindent\textbf{Methods:}~A mixed-tabular variational autoencoder (VAE) synthesized 44 attributes from 110,926 weekday vehicle-trip records. A controlled contrastive regularizer preserved origin--destination (OD) and temporal fields in positive views while corrupting non-key attributes in negative views. One million records were generated by weighted bootstrap, a dependence-tree Bayesian network, a noncontrastive VAE, and the otherwise identical contrastive VAE. Internal tests covered marginals, nine prespecified cross-tabulations, exact matches, and row-level unseen-OD incidence. Independent roadway diagnostics projected straight tract-representative-point segments across 3,107 station-mapped boundaries and compared annual weekday counts and date-pooled hourly profiles.
 
-\noindent\textbf{Objectives:} This study asks whether a deep generator that better preserves selected relationships in a weighted household travel survey also produces more credible transportation evidence outside that survey. It evaluates the proposition that trip synthesis should be qualified simultaneously for distributional fidelity, non-copying and support expansion, and operational traffic plausibility.
+\hfill\break%
+\noindent\textbf{Findings:}~Relative to its VAE ablation, contrastive training reduced selected cross-table total variation by 11.4\% (seven of nine tables; paired Wilcoxon $p=0.027$) and unweighted numeric Kolmogorov--Smirnov distance by 12.5\%, while categorical total variation worsened 4.9\%. Both VAEs placed about 68.5\% of generated rows on OD pairs unseen in the survey and produced no exact 44-field matches under the implemented test. Yet bootstrap and the Bayesian network retained better overall survey fidelity. External evidence also changed the ranking: after date pooling removed a severe count-quantization artifact, the contrastive VAE improved normalized 24-hour profile error 21.1\% over its ablation, but the Bayesian network remained best and all methods had large volume bias.
 
-\noindent\textbf{Methods:} A mixed-tabular variational autoencoder (VAE) synthesized 44 attributes from 110,926 weekday vehicle-trip records. A controlled contrastive regularizer preserved origin--destination (OD) and temporal fields in positive views while corrupting non-key attributes in negative views. One million records were generated by weighted bootstrap, a dependence-tree Bayesian network, a noncontrastive VAE, and the otherwise identical contrastive VAE. Internal tests covered marginals, nine prespecified cross-tabulations, exact matches, and row-level unseen-OD incidence. Independent roadway diagnostics projected straight tract-representative-point segments across 3,107 station-mapped boundaries and compared annual weekday counts and date-pooled hourly profiles.
+\hfill\break%
+\noindent\textbf{Novelty:}~The contribution is a falsification-first, same-support evaluation that connects a controlled trip-row contrastive ablation to independent annual and hourly roadside-count diagnostics and reports when internal and operational rankings diverge.
 
-\noindent\textbf{Findings:} Relative to its VAE ablation, contrastive training reduced selected cross-table total variation by 11.4\% (seven of nine tables; paired Wilcoxon $p=0.027$) and unweighted numeric Kolmogorov--Smirnov distance by 12.5\%, while categorical total variation worsened 4.9\%. Both VAEs placed about 68.5\% of generated rows on OD pairs unseen in the survey and produced no exact 44-field matches under the implemented test. Yet bootstrap and the Bayesian network retained better overall survey fidelity. External evidence also changed the ranking: after date pooling removed a severe count-quantization artifact, the contrastive VAE improved normalized 24-hour profile error 21.1\% over its ablation, but the Bayesian network remained best and all methods had large volume bias.
-
-\noindent\textbf{Novelty:} The contribution is a falsification-first, same-support evaluation that connects a controlled trip-row contrastive ablation to independent annual and hourly roadside-count diagnostics and reports when internal and operational rankings diverge.
-
-\noindent\textbf{Practical Applications:} Agencies can use the proposed gates to reject generators that look statistically convincing but are too sparse, copied, geographically unconstrained, or volume-miscalibrated for demand-model inputs.
+\hfill\break%
+\noindent\textbf{Practical Applications:}~Agencies can use the proposed gates to reject generators that look statistically convincing but are too sparse, copied, geographically unconstrained, or volume-miscalibrated for demand-model inputs.
 
 \newpage
 
 \section{Introduction}
 
-Household travel surveys are indispensable for observing activities, traveler attributes, modes, locations, and trip timing together. They are also sparse samples of a much larger combinatorial space. Classical population synthesis expands those samples using reweighting, simulation, graphical models, and control totals \parencite{beckman1996creating,farooq2013simulation,sun2015bayesian}. Deep generative models promise a different advantage: they can learn high-dimensional nonlinear associations and generate records beyond the exact support of the survey \parencite{borysov2019microagents,garrido2020rare,kim2023feasible}. For trip synthesis, however, additional rows are useful only if they retain behavioral structure and remain credible when exposed to transportation evidence not used during training.
+Household travel surveys are indispensable for observing activities, traveler attributes, modes, locations, and trip timing together. They are also sparse samples of a much larger combinatorial space. Classical population synthesis expands those samples using reweighting, simulation, graphical models, and control totals \cite{beckman1996creating,farooq2013simulation,sun2015bayesian}. Deep generative models promise a different advantage: they can learn high-dimensional nonlinear associations and generate records beyond the exact support of the survey \cite{borysov2019microagents,garrido2020rare,kim2023feasible}. For trip synthesis, however, additional rows are useful only if they retain behavioral structure and remain credible when exposed to transportation evidence not used during training.
 
-Most synthetic-mobility evaluations emphasize internal evidence: marginal distances, pairwise associations, sequence similarity, feasibility rules, diversity, or disclosure proxies \parencite{kapp2024review,choi2025tutorial,wu2026evaluation}. Those tests are necessary but not sufficient. A generator can preserve one-dimensional histograms while breaking mode--time or distance--duration dependence. It can avoid exact copies by emitting improbable combinations. It can also expand OD support yet fail to reproduce traffic volumes or temporal profiles. Conversely, an exact weighted resample can achieve near-perfect survey fidelity by copying source records. These are not variations of a single objective; they are competing qualifications.
+Most synthetic-mobility evaluations emphasize internal evidence: marginal distances, pairwise associations, sequence similarity, feasibility rules, diversity, or disclosure proxies \cite{kapp2024review,choi2025tutorial,wu2026evaluation}. Those tests are necessary but not sufficient. A generator can preserve one-dimensional histograms while breaking mode--time or distance--duration dependence. It can avoid exact copies by emitting improbable combinations. It can also expand OD support yet fail to reproduce traffic volumes or temporal profiles. Conversely, an exact weighted resample can achieve near-perfect survey fidelity by copying source records. These are not variations of a single objective; they are competing qualifications.
 
-External validation has precedents. Generative activity models have been compared with ground-truth activities and traffic simulation \parencite{yin2018activities}; recent mobility models have used observed traffic or cellular signaling outside the training source \parencite{ma2025foundation,vo2026harnessing}. The unresolved operational question is narrower: when a controlled change improves a trip generator's internal dependence metrics, does that ranking persist under identical-support roadside-count diagnostics? This study uses annual and hourly count sources as deliberate stress tests, not as training targets and not as a substitute for network assignment.
+External validation has precedents. Generative activity models have been compared with ground-truth activities and traffic simulation \cite{yin2018activities}; recent mobility models have used observed traffic or cellular signaling outside the training source \cite{ma2025foundation,vo2026harnessing}. The unresolved operational question is narrower: when a controlled change improves a trip generator's internal dependence metrics, does that ranking persist under identical-support roadside-count diagnostics? This study uses annual and hourly count sources as deliberate stress tests, not as training targets and not as a substitute for network assignment.
 
 We examine three research questions:
 
@@ -157,15 +92,15 @@ The paper makes three contributions. First, it specifies a survey-weight-aware m
 
 \subsection{From population controls to deep joint distributions}
 
-Traditional synthetic-population methods reconstruct agents compatible with microdata and aggregate controls. Reweighting and combinatorial procedures established the baseline problem \parencite{beckman1996creating}; simulation-based optimization, Bayesian networks, and hidden Markov formulations expanded the available dependence structures \parencite{farooq2013simulation,sun2015bayesian,saadi2016hidden}. Open-data workflows now connect synthetic populations to full travel-demand inputs \parencite{horl2021paris}. These methods retain a transportation advantage: their constraints, conditional structure, and control totals are explicit.
+Traditional synthetic-population methods reconstruct agents compatible with microdata and aggregate controls. Reweighting and combinatorial procedures established the baseline problem \cite{beckman1996creating}; simulation-based optimization, Bayesian networks, and hidden Markov formulations expanded the available dependence structures \cite{farooq2013simulation,sun2015bayesian,saadi2016hidden}. Open-data workflows now connect synthetic populations to full travel-demand inputs \cite{horl2021paris}. These methods retain a transportation advantage: their constraints, conditional structure, and control totals are explicit.
 
-Deep population synthesis trades some of that transparency for flexible representation learning. Variational autoencoders (VAEs) \parencite{kingma2014vae} and generative adversarial networks for tabular data \parencite{xu2019ctgan} have been adapted to micro-agent generation, rare combinations, household--person consistency, and feasibility \parencite{borysov2019microagents,garrido2020rare,aemmer2022joint,kim2023feasible}. The central methodological challenge is mixed data: high-cardinality geography, nominal choices, ordered counts, continuous distance, and survey expansion weights must coexist in one record.
+Deep population synthesis trades some of that transparency for flexible representation learning. Variational autoencoders (VAEs) \cite{kingma2014vae} and generative adversarial networks for tabular data \cite{xu2019ctgan} have been adapted to micro-agent generation, rare combinations, household--person consistency, and feasibility \cite{borysov2019microagents,garrido2020rare,aemmer2022joint,kim2023feasible}. The central methodological challenge is mixed data: high-cardinality geography, nominal choices, ordered counts, continuous distance, and survey expansion weights must coexist in one record.
 
 \subsection{Trips, activities, schedules, and trajectories}
 
-The output unit matters. Population synthesis generates people or households; trip-row synthesis generates a multivariate trip record; schedule synthesis generates ordered activity episodes; trajectory synthesis generates spatial sequences. Bayesian activity generation \parencite{joubert2020bayesian}, composite travel GANs \parencite{badumarfo2022composite}, conditional smart-card imputation \parencite{kim2022tripchains}, and synthetic smart-card trips \parencite{kieu2023smartcard} show that tabular and sequential outputs require different coherence tests. Urban mobility VAEs and imitation-learning trajectory generators add spatial sequence structure \parencite{huang2019urbanvae,choi2021trajgail}. More recent work fuses surveys with smart cards, generates full schedules, and learns broad mobility representations \parencite{lee2025collagan,shone2025scheduling,ma2025foundation,liao2026deepactivity,lu2026pop2actloc}.
+The output unit matters. Population synthesis generates people or households; trip-row synthesis generates a multivariate trip record; schedule synthesis generates ordered activity episodes; trajectory synthesis generates spatial sequences. Bayesian activity generation \cite{joubert2020bayesian}, composite travel GANs \cite{badumarfo2022composite}, conditional smart-card imputation \cite{kim2022tripchains}, and synthetic smart-card trips \cite{kieu2023smartcard} show that tabular and sequential outputs require different coherence tests. Urban mobility VAEs and imitation-learning trajectory generators add spatial sequence structure \cite{huang2019urbanvae,choi2021trajgail}. More recent work fuses surveys with smart cards, generates full schedules, and learns broad mobility representations \cite{lee2025collagan,shone2025scheduling,ma2025foundation,liao2026deepactivity,lu2026pop2actloc}.
 
-Contrastive representation learning encourages related views to be nearby and corrupted views to be separated \parencite{oord2018cpc}. In tabular data, random feature corruption can produce useful self-supervision \parencite{bahri2022scarf}. Transportation records require domain-aware views: changing destination, day, or departure time can change the trip itself, whereas light corruption of a non-key household or vehicle field can preserve the trip's spatiotemporal identity. The present experiment therefore protects OD and time in its positive view and uses a same-architecture, same-seed zero-contrastive ablation to isolate the incremental effect.
+Contrastive representation learning encourages related views to be nearby and corrupted views to be separated \cite{oord2018cpc}. In tabular data, random feature corruption can produce useful self-supervision \cite{bahri2022scarf}. Transportation records require domain-aware views: changing destination, day, or departure time can change the trip itself, whereas light corruption of a non-key household or vehicle field can preserve the trip's spatiotemporal identity. The present experiment therefore protects OD and time in its positive view and uses a same-architecture, same-seed zero-contrastive ablation to isolate the incremental effect.
 
 \begin{table}[!htbp]
 \caption{Literature streams and the specific validation gap addressed here.}
@@ -176,11 +111,11 @@ Contrastive representation learning encourages related views to be nearby and co
 \toprule
 \textbf{Stream} & \textbf{Representative contribution} & \textbf{Implication for this study} \\
 \midrule
-Controlled population synthesis & Reweighting, simulation, graphical models, and public-data demand systems \parencite{beckman1996creating,farooq2013simulation,sun2015bayesian,horl2021paris} & Preserve explicit controls and baselines; a deep generator must beat more than an unweighted sample. \\
-Deep population synthesis & Nonlinear joint distributions, rare combinations, joint household--person attributes, and feasibility \parencite{borysov2019microagents,garrido2020rare,aemmer2022joint,kim2023feasible} & Evaluate dependence and feasible support separately from marginal fit. \\
-Trip and schedule synthesis & Tabular/sequential travel records, smart-card imputation, and multimodal activity schedules \parencite{badumarfo2022composite,kim2022tripchains,kieu2023smartcard,lee2025collagan,shone2025scheduling} & Match the metric to the generated unit; this paper evaluates trip rows, not full tours. \\
-External mobility validation & Ground-truth activities, traffic simulation or observations, and cellular signaling \parencite{yin2018activities,ma2025foundation,vo2026harnessing} & External validation is not new; identical support and diagnostic scaling are the unresolved focus. \\
-Evaluation and disclosure & Reviews and representativeness--privacy--utility frameworks \parencite{kapp2024review,choi2025tutorial,wu2026evaluation,stadler2022groundhog} & No exact copies is a diagnostic, not a formal privacy guarantee. \\
+Controlled population synthesis & Reweighting, simulation, graphical models, and public-data demand systems \cite{beckman1996creating,farooq2013simulation,sun2015bayesian,horl2021paris} & Preserve explicit controls and baselines; a deep generator must beat more than an unweighted sample. \\
+Deep population synthesis & Nonlinear joint distributions, rare combinations, joint household--person attributes, and feasibility \cite{borysov2019microagents,garrido2020rare,aemmer2022joint,kim2023feasible} & Evaluate dependence and feasible support separately from marginal fit. \\
+Trip and schedule synthesis & Tabular/sequential travel records, smart-card imputation, and multimodal activity schedules \cite{badumarfo2022composite,kim2022tripchains,kieu2023smartcard,lee2025collagan,shone2025scheduling} & Match the metric to the generated unit; this paper evaluates trip rows, not full tours. \\
+External mobility validation & Ground-truth activities, traffic simulation or observations, and cellular signaling \cite{yin2018activities,ma2025foundation,vo2026harnessing} & External validation is not new; identical support and diagnostic scaling are the unresolved focus. \\
+Evaluation and disclosure & Reviews and representativeness--privacy--utility frameworks \cite{kapp2024review,choi2025tutorial,wu2026evaluation,stadler2022groundhog} & No exact copies is a diagnostic, not a formal privacy guarantee. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -191,7 +126,7 @@ The literature thus does not support a claim of first external validation. It su
 
 \subsection{Travel-survey table}
 
-The transformed input combines the 2018--2019 Maryland Statewide Household Travel Survey and the 2017--2018 Metropolitan Washington Council of Governments Regional Travel Survey \parencite{bmc2020mts,mwcog2019rts}. The archived model table contains 110,926 weekday vehicle-trip rows, 44 synthesized fields, and one excluded expansion-weight field. Dates span October 10, 2017, through July 11, 2019, with 423 observed departure dates and day-of-week categories Monday through Friday.
+The transformed input combines the 2018--2019 Maryland Statewide Household Travel Survey and the 2017--2018 Metropolitan Washington Council of Governments Regional Travel Survey \cite{bmc2020mts,mwcog2019rts}. The archived model table contains 110,926 weekday vehicle-trip rows, 44 synthesized fields, and one excluded expansion-weight field. Dates span October 10, 2017, through July 11, 2019, with 423 observed departure dates and day-of-week categories Monday through Friday.
 
 The 44 fields comprise 26 categoricals, 17 ordinal integers, and one continuous field. They cover origin and destination activity and census tract; mode, parking, occupancy, toll and vehicle attributes; departure time, reported time, and distance; home and work geography; and household/person attributes. Missing values had been filled before the frozen experiment. Reported travel time and distance use $-1$ sentinels for some missing values, which the model treats as numeric values. The retained source field is the household final weight, renamed \texttt{weight}; its sum over trip rows is 19,287,211.907. We call this the \emph{weighted trip expansion total}, not a population estimate. Its use at trip-row level must be interpreted as the repository's weighting design and is revisited under limitations.
 
@@ -203,16 +138,16 @@ Four methods generated at most 1,000,000 records each under seed 20260611:
 
 \begin{enumerate}[leftmargin=0.27in,itemsep=1pt,topsep=3pt]
 \item \textbf{Weighted bootstrap:} sample rows with replacement in proportion to the retained expansion field.
-\item \textbf{Bayesian network:} fit a Chow--Liu dependence tree \parencite{chow1968dependence}, discretizing numeric variables into at most 16 bins with additive smoothing 1.0.
+\item \textbf{Bayesian network:} fit a Chow--Liu dependence tree \cite{chow1968dependence}, discretizing numeric variables into at most 16 bins with additive smoothing 1.0.
 \item \textbf{Noncontrastive VAE:} fit the mixed-tabular VAE with contrastive coefficient zero.
 \item \textbf{Contrastive VAE:} fit the identical architecture and seed with contrastive coefficient 0.25.
 \end{enumerate}
 
-The 19.287-million weighted total was represented by one million sampled rows; count diagnostics multiply raw crossing events by a common sample factor 19.287212. This cap is adequate for internal distributions but, as Section~\ref{sec:externalresults} shows, can be too coarse for exact screenline-date-hour cells.
+The 19.287-million weighted total was represented by one million sampled rows; count diagnostics multiply raw crossing events by a common sample factor 19.287212. This cap is adequate for internal distributions but, as the independent count stress tests show, can be too coarse for exact screenline-date-hour cells.
 
 \subsection{Independent geographic and count data}
 
-Census 2019 TIGER/Line tracts provide geometry \parencite{census2019tiger}. Filtering Maryland, the District of Columbia, and Virginia to tract codes present in the survey leaves 2,232 tracts. Their adjacencies yield 3,257 candidate tract-boundary screenlines; 3,107 have at least one mapped Maryland Department of Transportation State Highway Administration station. The dense external target is the 2018 annual average weekday traffic field \texttt{AAWDT\_2018} \parencite{mdot2018aawdt}. The sparse temporal target is Federal Highway Administration Traffic Monitoring Analysis System hourly station data \parencite{fhwa2018tmas,fhwa2022tmg}: 64 stations, 37,800 station-days, and 907,200 station-hours in the downloaded source, of which 37 stations map to 56 hourly screenlines.
+Census 2019 TIGER/Line tracts provide geometry \cite{census2019tiger}. Filtering Maryland, the District of Columbia, and Virginia to tract codes present in the survey leaves 2,232 tracts. Their adjacencies yield 3,257 candidate tract-boundary screenlines; 3,107 have at least one mapped Maryland Department of Transportation State Highway Administration station. The dense external target is the 2018 annual average weekday traffic field \texttt{AAWDT\_2018} \cite{mdot2018aawdt}. The sparse temporal target is Federal Highway Administration Traffic Monitoring Analysis System hourly station data \cite{fhwa2018tmas,fhwa2022tmg}: 64 stations, 37,800 station-days, and 907,200 station-hours in the downloaded source, of which 37 stations map to 56 hourly screenlines.
 
 Neither source enters training, checkpoint selection, or hyperparameter selection. They are diagnostic proxies. Multiple screenlines can reuse a station, and hourly station counts are scaled by that station's annual share of its mapped screenline. Results therefore use screenline-block resampling and are not interpreted as independent traffic assignment observations.
 
@@ -251,6 +186,7 @@ The encoder means for anchor, positive, and negative records are unit-normalized
 \caption{Frozen experimental configuration required for reproduction.}
 \label{tab:config}
 \centering
+\footnotesize
 \setlength{\tabcolsep}{4pt}
 \begin{tabularx}{\textwidth}{P{0.21\textwidth}Y P{0.21\textwidth}Y}
 \toprule
@@ -302,15 +238,15 @@ where $\widetilde{S}$ is the stored expanded count, $F_m$ is its temporal expans
 
 Categorical fidelity uses weighted total variation (TV) between survey and synthetic proportions. Numeric fidelity uses the two-sample Kolmogorov--Smirnov (KS) statistic. In the frozen implementation, KS and Wasserstein calculations are unweighted even though numeric mean and standard-deviation summaries use survey weights; results are labeled accordingly. Dependence fidelity uses TV for nine prespecified cross-tabulations: activity--mode, mode--departure bin, origin county--destination county, distance bin--travel-time bin, household income--mode, employment--mode, household size--vehicle count, vehicle model year--vehicle, and age--license.
 
-The contrastive and noncontrastive VAEs are paired across 26 categorical fields, 18 numeric fields, and nine cross-tables. Two-sided Wilcoxon signed-rank tests assess whether feature-level differences are centered at zero \parencite{wilcoxon1945rank}. With only nine cross-tables, the test is interpreted with its effect direction and count of improved tables, not as a standalone discovery claim.
+The contrastive and noncontrastive VAEs are paired across 26 categorical fields, 18 numeric fields, and nine cross-tables. Two-sided Wilcoxon signed-rank tests assess whether feature-level differences are centered at zero \cite{wilcoxon1945rank}. With only nine cross-tables, the test is interpreted with its effect direction and count of improved tables, not as a standalone discovery claim.
 
 \subsection{Copying and unseen OD support}
 
-Exact-row copying is the fraction of generated records exactly matching any source row across all 44 synthesized fields. The duplicate rate is the share of generated records duplicated within the sample. Row-level unseen-OD share is the fraction of generated \emph{rows} whose directed tract pair did not occur in the source survey. It is not the share of unique OD pairs, and ``unseen'' does not imply feasible or behaviorally plausible. Exact equality across a continuous distance field is also a weak memorization test. These metrics are therefore non-copying and support diagnostics, not differential-privacy or membership-inference guarantees \parencite{stadler2022groundhog}.
+Exact-row copying is the fraction of generated records exactly matching any source row across all 44 synthesized fields. The duplicate rate is the share of generated records duplicated within the sample. Row-level unseen-OD share is the fraction of generated \emph{rows} whose directed tract pair did not occur in the source survey. It is not the share of unique OD pairs, and ``unseen'' does not imply feasible or behaviorally plausible. Exact equality across a continuous distance field is also a weak memorization test. These metrics are therefore non-copying and support diagnostics, not differential-privacy or membership-inference guarantees \cite{stadler2022groundhog}.
 
 \subsection{External metrics and uncertainty}
 
-Annual and date-pooled hourly absolute fit uses root mean square error (RMSE), mean absolute error (MAE), mean bias, and Pearson correlation after $\log(1+x)$ transformation. Temporal shape uses Equation~\ref{eq:hourly}. Confidence intervals use 10,000 paired percentile bootstrap replicates at the screenline level, retaining all 24 hours within a selected block \parencite{efron1993bootstrap}. Pairing is essential because every method is evaluated on the same screenline grid. Intervals reflect geographic-block variation only; they do not include model-training or synthetic-draw uncertainty from the single seed.
+Annual and date-pooled hourly absolute fit uses root mean square error (RMSE), mean absolute error (MAE), mean bias, and Pearson correlation after $\log(1+x)$ transformation. Temporal shape uses Equation~\ref{eq:hourly}. Confidence intervals use 10,000 paired percentile bootstrap replicates at the screenline level, retaining all 24 hours within a selected block \cite{efron1993bootstrap}. Pairing is essential because every method is evaluated on the same screenline grid. Intervals reflect geographic-block variation only; they do not include model-training or synthetic-draw uncertainty from the single seed.
 
 \section{Results}
 
@@ -357,7 +293,7 @@ The archived exact-date hourly leaderboard is more misleading. Its temporal expa
 
 Date pooling before undoing temporal expansion produces a defensible common $56\times24$ comparison. Absolute RMSE remains 5,916--6,193 vehicles, and every method retains mean underprediction exceeding 4,100 vehicles. The Bayesian network is best on RMSE and both raw and log correlation. Contrastive RMSE is 263 vehicles worse than noncontrastive (paired 95\% confidence interval 207--324). Thus the external absolute-volume ranking contradicts the internal contrastive dependence ranking.
 
-A positive but bounded result remains for temporal shape. After normalizing each screenline to a 24-hour distribution, mean profile TV is 0.309 for bootstrap, 0.141 for the Bayesian network, 0.249 for the noncontrastive VAE, and 0.197 for the contrastive VAE. Contrastive training improves its matched ablation by 21.1\% (paired 95\% confidence interval 16.8--25.5\%), although the Bayesian network remains best. Figure~\ref{fig:hourly} communicates both conclusions: contrastive representation learning helps allocate an already-miscalibrated volume across the day, but it does not solve external volume calibration.
+A positive but bounded result remains for temporal shape. After normalizing each screenline to a 24-hour distribution, mean profile TV is 0.309 for bootstrap, 0.141 for the Bayesian network, 0.249 for the noncontrastive VAE, and 0.197 for the contrastive VAE. Contrastive training improves its matched ablation by 21.1\% (paired 95\% confidence interval 16.8--25.5\%), although the Bayesian network remains best. Figure~\ref{fig:hourly} shows both conclusions. Contrastive representation learning improves allocation of a miscalibrated volume across the day, but it does not solve external volume calibration.
 
 \begin{table}[!htbp]
 \caption{Independent roadway-count stress tests. Annual rows use 3,107 station-mapped screenlines. Hourly rows pool dates before temporal expansion and use 1,344 identical screenline-hour cells.}
@@ -434,20 +370,31 @@ A trip-synthesis model should be judged by more than closeness to its survey. In
 
 The transferable contribution is a falsification-first qualification framework. Separate survey fidelity, copying and unseen support, and independent transportation evidence; force identical support; audit expansion factors and prediction granularity; and interpret roadside counts as a gate to network-aware calibration. The value of deep trip synthesis lies not in producing the most rows, but in producing evidence that survives progressively harder tests.
 
-\section*{Acknowledgments and Generative-AI Disclosure}
+% ---------- Acknowledgments ----------
+\section{Acknowledgments}
 
+\subsection{Generative-AI Disclosure}
 OpenAI Codex assisted with literature discovery, manuscript drafting and restructuring, reference formatting, and visualization code. All numerical results were drawn from the frozen repository artifacts or from the explicitly documented date-pooled reanalysis. The authors are responsible for independently verifying all sources, analyses, figures, declarations, and final wording before submission.
 
-\section*{Author Contributions}
-
+% ---------- Author Contributions ----------
+\section*{AUTHOR CONTRIBUTIONS}
 Raziq Zaman led software, formal analysis, visualization, and preparation of the initial manuscript. All authors contributed to conceptualization and interpretation and reviewed the manuscript.
 
-% AUTHOR ACTION BEFORE SUBMISSION: insert verified funding and conflict-of-interest declarations if required.
+% ---------- Declaration of COI ----------
+\section*{DECLARATION OF CONFLICTING INTERESTS}
+\hl{AUTHOR ACTION BEFORE SUBMISSION: Insert the authors' verified conflict-of-interest declaration.}
 
-\section*{Data and Code Availability}
+% ---------- Funding ----------
+\section*{FUNDING}
+\hl{AUTHOR ACTION BEFORE SUBMISSION: Insert the verified funding declaration and grant number, if applicable.}
 
+% ---------- Data and Code Availability ----------
+\section*{DATA AND CODE AVAILABILITY}
 The analysis code and preserved experiment artifacts are available from \url{https://github.com/RaziqZaman/tripsynth}, branch \texttt{wctr-aadt}, commit \texttt{95dab02c}. Source travel-survey microdata may be subject to provider terms. External geographic and traffic-count sources are cited in the text.
 
-\printbibliography[title={REFERENCES}]
+\newpage
+\bibliographystyle{trb}
+\bibliography{trb_template}
+
 
 \end{document}
