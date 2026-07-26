@@ -24,7 +24,7 @@ The script reads the preserved Parquet/CSV artifacts; it does not retrain or res
 ## Author checks before submission
 
 - Replace the visible conflict-of-interest and funding prompts with verified declarations.
-- Verify every job title, author order, author contribution, and corresponding-author designation.
+- Replace all five placeholder ORCIDs and verify each academic affiliation, author order, author contribution, and corresponding-author designation.
 - Verify the use of the retained household-final weight at trip-row level against both source-survey data dictionaries.
 - Confirm rights and access language for the transformed survey data.
 - Disclose generative-AI use in the TRB submission form; the manuscript contains a disclosure.
