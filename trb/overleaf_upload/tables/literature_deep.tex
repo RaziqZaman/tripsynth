@@ -1,0 +1,18 @@
+\begin{table}[!htbp]
+\caption{Deep-generative and contrastive methods relevant to mixed trip tables.}
+\label{tab:literature_deep}
+\centering
+\setlength{\tabcolsep}{3.0pt}
+\begin{tabularx}{\textwidth}{P{0.15\textwidth} P{0.18\textwidth} Y Y}
+\toprule
+\textbf{Source} & \textbf{Generated unit} & \textbf{Established contribution} & \textbf{Boundary for this study} \\
+\midrule
+\cite{kingma2014vae} & Generic record & Continuous latent-variable generation with a variational objective & Foundation only; no mixed travel semantics or contrastive loss. \\
+\cite{xu2019ctgan,kotelnikov2023tabddpm} & Mixed tabular row & Conditional GAN and diffusion treatments of heterogeneous columns & Generic table benchmarks; no network-count test. \\
+\cite{borysov2019microagents,garrido2020rare,kim2023feasible} & Person or household & Nonlinear dependence, rare combinations, and feasible population records & Population synthesis rather than direct trip-row expansion. \\
+\cite{bahri2022scarf} & Tabular representation & Contrastive self-supervision by random feature corruption & Representation learner, not a generator. \\
+\cite{lee2023codi} & Mixed tabular row & Contrastively coupled continuous and discrete diffusion models & Contrastive synthesis exists, but is not travel-specific. \\
+\cite{li2026syncmove} & Mobility trajectory & Contrastive collective-pattern learning coupled to trajectory generation & Sequence-level mobility precedent, not a mixed survey-trip VAE. \\
+\bottomrule
+\end{tabularx}
+\end{table}

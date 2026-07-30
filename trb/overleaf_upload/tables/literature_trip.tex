@@ -1,0 +1,19 @@
+\begin{table}[!htbp]
+\caption{Travel-synthesis studies distinguished by their generated unit.}
+\label{tab:literature_trip}
+\centering
+\setlength{\tabcolsep}{3.0pt}
+\begin{tabularx}{\textwidth}{P{0.16\textwidth} P{0.18\textwidth} Y Y}
+\toprule
+\textbf{Source} & \textbf{Output unit} & \textbf{Approach and evidence} & \textbf{Distinction from this study} \\
+\midrule
+\cite{greaves2000survey} & Household diary & Synthetic travel/activity-survey feasibility framework & Early diary precedent; predates deep mixed-table generation. \\
+\cite{yin2018activities} & Activity sequence & Cellular-data generative model with survey, activity, and simulation checks & Activities rather than rich household-survey trip rows. \\
+\cite{badumarfo2022composite} & Population record and sequence & Composite GAN for linked tabular and sequential attributes & Population-oriented joint synthesis. \\
+\cite{kim2022tripchains,kieu2023smartcard} & Smart-card chain or trip & Conditional imputation, GAN, and Bayesian-network generation & Transit transactions have fewer survey attributes. \\
+\cite{huang2019urbanvae,choi2021trajgail} & Mobility trajectory & VAE and adversarial-imitation sequence generation & Emphasizes paths and sequences, not survey expansion. \\
+\cite{lee2025collagan,shone2025scheduling,vo2026harnessing} & Activity schedule & Deep schedule generation and survey--smart-card fusion & Preserves full schedules; the present unit is one trip row. \\
+\cite{kressner2017nchrp,wu2026evaluation} & Diary or trip table & Data-fused diaries and multi-model trip-data evaluation & Closest direct precedents, but no matched contrastive-VAE ablation. \\
+\bottomrule
+\end{tabularx}
+\end{table}
