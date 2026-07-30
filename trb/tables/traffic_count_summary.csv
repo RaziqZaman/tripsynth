@@ -1,0 +1,9 @@
+attribute,value
+Annual target,2018 MDOT SHA annual average weekday traffic
+Spatial support,"3,107 station-mapped tract boundaries"
+Tracts/candidate boundaries,"2,232/3,257"
+Hourly target,"FHWA TMAS station-hour counts, 2017-10-01--2019-07-31"
+Downloaded hourly coverage,"64 stations; 665 dates; 907,200 rows"
+Mapped hourly support,"37 stations; 56 boundaries; 1,344 date-pooled cells"
+"Hourly count, median (IQR)","1,004 (275--2,863) vehicles"
+Role in experiment,Not read by implemented training or checkpoint code; human selection history unavailable

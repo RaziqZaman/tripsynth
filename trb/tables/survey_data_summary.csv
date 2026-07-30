@@ -1,0 +1,10 @@
+attribute,value
+Analytical unit,Retained vehicle-mode-coded trip row
+Rows and variables,"110,926 rows; 44 synthesized fields plus weight"
+Field types,26 categorical; 17 ordinal integer; 1 continuous
+Survey date strata,"423 dates, 2017-10-10--2019-07-11"
+Valid directed OD support,"58,897 tract pairs from 110,824 rows"
+Retained weight total,"19,287,211.907 household-final-weight units"
+VAE development split,"88,741 training; 22,185 validation rows"
+"Distance, median (IQR)",4.102 (1.640--10.163) miles
+"Reported time, median (IQR)",15 (10--30) minutes

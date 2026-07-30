@@ -1,33 +1,41 @@
 # TRB 2027 manuscript package
 
-This folder contains a compiled TRB review manuscript built from the frozen `wctr-aadt` run at commit `95dab02c`. The LaTeX source is filled directly into the user-provided unofficial TRB template and vendors its required companion files.
+The submission manuscript and compiled proof are at the root of this folder:
 
-## Overleaf upload
+- `trb_template.tex`
+- `trb_template.bib`
+- `trb_template.pdf`
+- `trbunofficial.cls`
 
-1. Upload these four files from `paper/` to the Overleaf project root: `trb_template.tex`, `trb_template.bib`, `trbunofficial.cls`, and `trb.bst`.
-2. Upload the PDF files from `figures/` into an Overleaf folder named `figures/`.
-3. Set `trb_template.tex` as the main document. The supplied template uses natbib and BibTeX with `trb.bst`.
-4. The local proof is `paper/trb_template.pdf`.
+The proof is 17 pages. It uses standard `chicago.bst` for alphabetical author--date references; the supplied `trb.bst` remains bundled as the original template artifact.
 
-The source also resolves figures when the repository structure (`paper/` beside `figures/`) is preserved.
+## Overleaf
 
-## Rebuild figures
+Upload this folder while preserving `figures/` and `tables/`, then select `trb_template.tex` as the main document. The source uses relative paths, standard packages, BibTeX, and no shell escape or machine-specific path.
+
+## Rebuild analyses and figures
 
 From the repository root:
 
 ```bash
-.venv/bin/python trb/generate_figures.py
+.venv/bin/python trb/scripts/generate_manuscript_assets.py
 ```
 
-The script reads the preserved Parquet/CSV artifacts; it does not retrain or resample a generator. Figure 5 recomputes the audited date-pooled 56-screenline by 24-hour comparison and paired screenline-block intervals.
+This regenerates `generated_results.tex`, all empirical tables, the two machine-readable figure datasets under `generated/`, and six figures in PDF and PNG form. It reads retained survey and frozen experiment artifacts; it does not retrain or resample a generator. Statistical bootstrap seed is 20260730.
 
-## Author checks before submission
+## Compile
 
-- Replace the visible conflict-of-interest and funding prompts with verified declarations.
-- Replace all five placeholder ORCIDs and verify each academic affiliation, author order, author contribution, and corresponding-author designation.
-- Verify the use of the retained household-final weight at trip-row level against both source-survey data dictionaries.
-- Confirm rights and access language for the transformed survey data.
-- Disclose generative-AI use in the TRB submission form; the manuscript contains a disclosure.
-- Confirm that any WCTR paper or submission based on this branch does not make the TRB paper ineligible for Presentation + Publication. Select the appropriate TRB submission track if material overlaps.
+With a current TeX distribution:
 
-The manuscript deliberately omits unsupported unique-OD counts, the unarchived hyperparameter-sweep claim, the incorrect GEH implementation, and the non-comparable exact-date hourly leaderboard.
+```bash
+latexmk -pdf trb_template.tex
+```
+
+The final local proof was built with Tectonic 0.17.0. See `manuscript_audit.md` for the exact command and production checks.
+
+## Evidence and author checks
+
+- `evidence_manifest.md` traces major claims to files, code, denominators, and reproduced calculations.
+- `manuscript_audit.md` records the page count, central and contrary results, three review passes, warnings, file inventory, and all unresolved items.
+
+Before submission, replace every visible `[VERIFY ...]` or `[AUTHOR APPROVAL REQUIRED]` marker. In particular, confirm all job titles, corresponding-author status, CRediT roles, acknowledgments, conflicts, funding, data rights, and the generative-AI disclosure. Also verify the retained household-final weight against the missing source dictionaries and confirm eligibility relative to any prior WCTR dissemination.

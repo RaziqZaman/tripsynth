@@ -1,0 +1,4 @@
+comparison,n_pairs,contrastive_improved,statistic,p_value
+categorical,26,12,142.0,0.4082431197166443
+numeric,18,11,61.0,0.30379486083984375
+cross_marginal,9,7,4.0,0.02734375

@@ -1,0 +1,16 @@
+\begin{table}[!htbp]
+\caption{Specific contributions relative to representative prior work.}
+\label{tab:contributions}
+\centering
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabularx}{\textwidth}{P{0.22\textwidth} P{0.34\textwidth}Y}
+\toprule
+\textbf{Contribution} & \textbf{Prior boundary} & \textbf{Evidence in this study} \\
+\midrule
+Contrastive trip VAE & Contrastive tabular and trajectory generators already exist \citep{lee2023codi,li2026syncmove}. & Matched encoder-level VAE ablation on 44 mixed survey-trip fields; internal and external effects separated. \\
+Direct trip unit & Diaries, smart-card trips, trajectories, and schedules are established \citep{greaves2000survey,kieu2023smartcard,lee2025collagan}. & Survey trip row is sampled directly without first synthesizing households or complete schedules. \\
+Independent counts & Synthetic diaries have previously been assigned and checked against counts \citep{kressner2017nchrp}. & Direct, resampling, network, and VAE alternatives share exact hourly and annual boundary support. \\
+Integrated falsification & Internal and task-specific utility are distinct \citep{snoke2018utility,wu2026evaluation}. & The exact-date gain, pooled reversal, profile effect, and annual contradiction are reported together. \\
+\bottomrule
+\end{tabularx}
+\end{table}

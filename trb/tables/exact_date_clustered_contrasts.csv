@@ -1,0 +1,4 @@
+contrast,metric,estimate,ci_low,ci_high,clusters,replicates
+contrastive_vae_vs_direct_survey,rmse_relative_reduction_pct,48.942669681271155,42.08108880317973,56.60924972414792,37,10000
+contrastive_vae_vs_weighted_bootstrap,rmse_relative_reduction_pct,50.14817877427441,43.411861597028384,57.59212007458773,37,10000
+contrastive_vae_vs_noncontrastive_vae,rmse_difference_vehicles,10.185852467345285,-86.76457020514613,79.09919542665467,37,10000

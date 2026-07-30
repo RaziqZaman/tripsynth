@@ -1,0 +1,7 @@
+contrast,metric,estimate,ci_low,ci_high,clusters,replicates
+contrastive_vae_vs_direct_survey,rmse_difference_vehicles,108.62950640653526,-29.740867085642748,257.2773374931994,37,10000
+contrastive_vae_vs_direct_survey,profile_tv_relative_reduction_pct,35.01358001288429,25.32177888665924,44.27975909417456,37,10000
+contrastive_vae_vs_noncontrastive_vae,rmse_difference_vehicles,263.3418548935588,195.64691351722718,321.5285378696312,37,10000
+contrastive_vae_vs_noncontrastive_vae,profile_tv_relative_reduction_pct,21.121360749999297,16.613792839883118,25.722339935683294,37,10000
+contrastive_vae_vs_bayesian_network,rmse_difference_vehicles,276.0846989585589,132.3892300489385,409.13427256837156,37,10000
+contrastive_vae_vs_bayesian_network,profile_tv_relative_reduction_pct,-39.69678819431876,-54.12051067819765,-25.358965769894468,37,10000

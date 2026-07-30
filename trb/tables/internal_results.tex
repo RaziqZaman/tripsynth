@@ -1,0 +1,16 @@
+\begin{table}[!htbp]
+\caption{Internal fidelity, copying, and unseen-support diagnostics. Lower is better for TV and KS.}
+\label{tab:internal}
+\centering
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabularx}{\textwidth}{Y r r r r r}
+\toprule
+\textbf{Method} & \textbf{Cat. TV} & \textbf{Num. KS} & \textbf{Cross TV} & \textbf{Exact copy} & \textbf{Unseen-OD rows} \\
+\midrule
+Bootstrap & 0.0033 & 0.0439 & 0.0050 & 1.0000 & 0.0000 \\
+Bayesian network & 0.0034 & 0.0437 & 0.0901 & 0.0000 & 0.3330 \\
+Noncontrastive VAE & 0.0621 & 0.1261 & 0.2556 & 0.0000 & 0.6856 \\
+Contrastive VAE & 0.0652 & 0.1103 & 0.2265 & 0.0000 & 0.6852 \\
+\bottomrule
+\end{tabularx}
+\end{table}

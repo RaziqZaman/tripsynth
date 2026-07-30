@@ -1,0 +1,17 @@
+\begin{table}[!htbp]
+\caption{Hourly traffic-count diagnostics. Exact-date results use 521,424 common cells and a shared 423-date factor. Pooled results use 1,344 common boundary--hour cells. RMSE, MAE, and bias are vehicles per cell.}
+\label{tab:external}
+\centering
+\setlength{\tabcolsep}{2.1pt}
+\begin{tabularx}{\textwidth}{Y r r r r r r}
+\toprule
+\textbf{Method} & \makecell{\textbf{Exact}\\\textbf{RMSE}} & \makecell{\textbf{Pooled}\\\textbf{RMSE}} & \makecell{\textbf{Pooled}\\\textbf{MAE}} & \makecell{\textbf{Pooled}\\\textbf{bias}} & \makecell{\textbf{Log}\\$\boldsymbol{r}$} & \makecell{\textbf{Profile}\\\textbf{TV}} \\
+\midrule
+Direct weighted survey & 13,553 & 6,084 & 4,321 & -4,234 & 0.611 & 0.303 \\
+Bootstrap & 13,881 & 6,086 & 4,322 & -4,232 & 0.610 & 0.309 \\
+Bayesian network & 7,038 & 5,916 & 4,194 & -4,101 & 0.696 & 0.141 \\
+Noncontrastive VAE & 6,910 & 5,929 & 4,171 & -4,053 & 0.659 & 0.249 \\
+Contrastive VAE & 6,920 & 6,193 & 4,357 & -4,302 & 0.669 & 0.197 \\
+\bottomrule
+\end{tabularx}
+\end{table}

@@ -1,0 +1,366 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Aemmer and MacKenzie}{Aemmer and
+  MacKenzie}{2022}]{aemmer2022joint}
+Aemmer, Z. and D.~MacKenzie (2022).
+\newblock Generative population synthesis for joint household and individual
+  characteristics.
+\newblock {\em Computers, Environment and Urban Systems\/}~{\em 96}, 101852.
+
+\bibitem[\protect\citeauthoryear{Badu-Marfo, Farooq, and Patterson}{Badu-Marfo
+  et~al.}{2022}]{badumarfo2022composite}
+Badu-Marfo, G., B.~Farooq, and Z.~Patterson (2022).
+\newblock Composite travel generative adversarial networks for tabular and
+  sequential population synthesis.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems\/}~{\em
+  23\/}(10), 17976--17985.
+
+\bibitem[\protect\citeauthoryear{Bahri, Jiang, Tay, and Metzler}{Bahri
+  et~al.}{2022}]{bahri2022scarf}
+Bahri, D., H.~Jiang, Y.~Tay, and D.~Metzler (2022).
+\newblock {SCARF}: Self-supervised contrastive learning using random feature
+  corruption.
+\newblock In {\em Proceedings of the 10th International Conference on Learning
+  Representations}.
+
+\bibitem[\protect\citeauthoryear{{Baltimore Metropolitan Council}}{{Baltimore
+  Metropolitan Council}}{2020}]{bmc2020mts}
+{Baltimore Metropolitan Council} (2020, August).
+\newblock Maryland statewide household travel survey 2018--2019.
+\newblock Technical report, Baltimore Metropolitan Council, Baltimore,
+  Maryland.
+\newblock Prepared by Westat.
+
+\bibitem[\protect\citeauthoryear{Beckman, Baggerly, and McKay}{Beckman
+  et~al.}{1996}]{beckman1996creating}
+Beckman, R.~J., K.~A. Baggerly, and M.~D. McKay (1996).
+\newblock Creating synthetic baseline populations.
+\newblock {\em Transportation Research Part A: Policy and Practice\/}~{\em
+  30\/}(6), 415--429.
+
+\bibitem[\protect\citeauthoryear{Borysov, Rich, and Pereira}{Borysov
+  et~al.}{2019}]{borysov2019microagents}
+Borysov, S.~S., J.~Rich, and F.~C. Pereira (2019).
+\newblock How to generate micro-agents? a deep generative modeling approach to
+  population synthesis.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  106}, 73--97.
+
+\bibitem[\protect\citeauthoryear{Cascetta}{Cascetta}{1984}]{cascetta1984gls}
+Cascetta, E. (1984).
+\newblock Estimation of trip matrices from traffic counts and survey data: A
+  generalized least squares estimator.
+\newblock {\em Transportation Research Part B: Methodological\/}~{\em
+  18\/}(4--5), 289--299.
+
+\bibitem[\protect\citeauthoryear{Chitturi, Shaw, Campbell, and Noyce}{Chitturi
+  et~al.}{2014}]{chitturi2014odvalidation}
+Chitturi, M.~V., J.~W. Shaw, J.~R. Campbell, IV, and D.~A. Noyce (2014).
+\newblock Validation of origin--destination data from {Bluetooth}
+  reidentification and aerial observation.
+\newblock {\em Transportation Research Record: Journal of the Transportation
+  Research Board\/}~{\em 2430\/}(1), 116--123.
+
+\bibitem[\protect\citeauthoryear{Choi, Jin, Ham, Kim, and Sun}{Choi
+  et~al.}{2025}]{choi2025tutorial}
+Choi, S., Z.~Jin, S.~W. Ham, J.~Kim, and L.~Sun (2025).
+\newblock A gentle introduction and tutorial on deep generative models in
+  transportation research.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  176}, 105145.
+
+\bibitem[\protect\citeauthoryear{Choi, Kim, and Yeo}{Choi
+  et~al.}{2021}]{choi2021trajgail}
+Choi, S., J.~Kim, and H.~Yeo (2021).
+\newblock {TrajGAIL}: Generating urban vehicle trajectories using generative
+  adversarial imitation learning.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  128}, 103091.
+
+\bibitem[\protect\citeauthoryear{Chow and Liu}{Chow and
+  Liu}{1968}]{chow1968dependence}
+Chow, C.~K. and C.~N. Liu (1968).
+\newblock Approximating discrete probability distributions with dependence
+  trees.
+\newblock {\em IEEE Transactions on Information Theory\/}~{\em 14\/}(3),
+  462--467.
+
+\bibitem[\protect\citeauthoryear{Efron and Tibshirani}{Efron and
+  Tibshirani}{1993}]{efron1993bootstrap}
+Efron, B. and R.~J. Tibshirani (1993).
+\newblock {\em An Introduction to the Bootstrap}.
+\newblock New York: Chapman and Hall/CRC.
+
+\bibitem[\protect\citeauthoryear{Farooq, Bierlaire, Hurtubia, and
+  Flötteröd}{Farooq et~al.}{2013}]{farooq2013simulation}
+Farooq, B., M.~Bierlaire, R.~Hurtubia, and G.~Flötteröd (2013).
+\newblock Simulation based population synthesis.
+\newblock {\em Transportation Research Part B: Methodological\/}~{\em 58},
+  243--263.
+
+\bibitem[\protect\citeauthoryear{{Federal Highway Administration}}{{Federal
+  Highway Administration}}{2010}]{fhwa2010validation}
+{Federal Highway Administration} (2010).
+\newblock Travel model validation and reasonableness checking manual---second
+  edition.
+\newblock Technical Report FHWA-HEP-10-042, Federal Highway Administration,
+  U.S. Department of Transportation, Washington, DC.
+
+\bibitem[\protect\citeauthoryear{{Federal Highway Administration}}{{Federal
+  Highway Administration}}{2018}]{fhwa2018tmas}
+{Federal Highway Administration} (2018).
+\newblock U.s. traffic volume data: 2018.
+\newblock Traffic Monitoring Analysis System station and monthly hourly-volume
+  files.
+
+\bibitem[\protect\citeauthoryear{{Federal Highway Administration}}{{Federal
+  Highway Administration}}{2022}]{fhwa2022tmg}
+{Federal Highway Administration} (2022).
+\newblock Traffic monitoring guide.
+\newblock Technical report, U.S. Department of Transportation, Washington, DC.
+\newblock Version 1.0; updated October 8, 2024.
+
+\bibitem[\protect\citeauthoryear{Garrido, Borysov, Pereira, and Rich}{Garrido
+  et~al.}{2020}]{garrido2020rare}
+Garrido, S., S.~S. Borysov, F.~C. Pereira, and J.~Rich (2020).
+\newblock Prediction of rare feature combinations in population synthesis:
+  Application of deep generative modelling.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  120}, 102787.
+
+\bibitem[\protect\citeauthoryear{Greaves and Stopher}{Greaves and
+  Stopher}{2000}]{greaves2000survey}
+Greaves, S.~P. and P.~R. Stopher (2000).
+\newblock Creating a synthetic household travel and activity survey: Rationale
+  and feasibility analysis.
+\newblock {\em Transportation Research Record: Journal of the Transportation
+  Research Board\/}~{\em 1706\/}(1), 82--91.
+
+\bibitem[\protect\citeauthoryear{Huang, Song, Fan, Jiang, Shibasaki, Zhang,
+  Wang, and Kato}{Huang et~al.}{2019}]{huang2019urbanvae}
+Huang, D., X.~Song, Z.~Fan, R.~Jiang, R.~Shibasaki, Y.~Zhang, H.~Wang, and
+  Y.~Kato (2019).
+\newblock A variational autoencoder based generative model of urban human
+  mobility.
+\newblock In {\em 2019 IEEE Conference on Multimedia Information Processing and
+  Retrieval}, pp.\  425--430.
+
+\bibitem[\protect\citeauthoryear{Hörl and Balac}{Hörl and
+  Balac}{2021}]{horl2021paris}
+Hörl, S. and M.~Balac (2021).
+\newblock Synthetic population and travel demand for {Paris} and
+  {Île-de-France} based on open and publicly available data.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  130}, 103291.
+
+\bibitem[\protect\citeauthoryear{Joubert and de~Waal}{Joubert and
+  de~Waal}{2020}]{joubert2020bayesian}
+Joubert, J.~W. and A.~de~Waal (2020).
+\newblock Activity-based travel demand generation using {Bayesian} networks.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  120}, 102804.
+
+\bibitem[\protect\citeauthoryear{Kapp, Hansmeyer, and Mihaljević}{Kapp
+  et~al.}{2024}]{kapp2024review}
+Kapp, A., J.~Hansmeyer, and H.~Mihaljević (2024).
+\newblock Generative models for synthetic urban mobility data: A systematic
+  literature review.
+\newblock {\em ACM Computing Surveys\/}~{\em 56\/}(4), 1--37.
+
+\bibitem[\protect\citeauthoryear{Kieu, Meredith, and Raith}{Kieu
+  et~al.}{2023}]{kieu2023smartcard}
+Kieu, M., I.~B. Meredith, and A.~Raith (2023).
+\newblock Synthetic generation of trip data: The case of smart card.
+\newblock {\em Data Science for Transportation\/}~{\em 5}, 14.
+
+\bibitem[\protect\citeauthoryear{Kim and Bansal}{Kim and
+  Bansal}{2023}]{kim2023feasible}
+Kim, E.-J. and P.~Bansal (2023).
+\newblock A deep generative model for feasible and diverse population
+  synthesis.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  148}, 104053.
+
+\bibitem[\protect\citeauthoryear{Kim, Kim, and Sohn}{Kim
+  et~al.}{2022}]{kim2022tripchains}
+Kim, E.-J., D.-K. Kim, and K.~Sohn (2022).
+\newblock Imputing qualitative attributes for trip chains extracted from smart
+  card data using a conditional generative adversarial network.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  137}, 103616.
+
+\bibitem[\protect\citeauthoryear{Kingma and Welling}{Kingma and
+  Welling}{2014}]{kingma2014vae}
+Kingma, D.~P. and M.~Welling (2014).
+\newblock Auto-encoding variational {Bayes}.
+\newblock In {\em Proceedings of the 2nd International Conference on Learning
+  Representations}.
+
+\bibitem[\protect\citeauthoryear{Kotelnikov, Baranchuk, Rubachev, and
+  Babenko}{Kotelnikov et~al.}{2023}]{kotelnikov2023tabddpm}
+Kotelnikov, A., D.~Baranchuk, I.~Rubachev, and A.~Babenko (2023).
+\newblock Tab{DDPM}: Modelling tabular data with diffusion models.
+\newblock In {\em Proceedings of the 40th International Conference on Machine
+  Learning}, Volume 202 of {\em Proceedings of Machine Learning Research}, pp.\
+   17564--17579. PMLR.
+
+\bibitem[\protect\citeauthoryear{Kressner}{Kressner}{2017}]{kressner2017nchrp}
+Kressner, J.~D. (2017, March).
+\newblock Synthetic household travel data using consumer and mobile phone data.
+\newblock {NCHRP} highway {IDEA} project 184 final report, Transportation
+  Research Board, Washington, DC.
+
+\bibitem[\protect\citeauthoryear{Lee, Kim, and Park}{Lee
+  et~al.}{2023}]{lee2023codi}
+Lee, C., J.~Kim, and N.~Park (2023).
+\newblock {CoDi}: Co-evolving contrastive diffusion models for mixed-type
+  tabular synthesis.
+\newblock In {\em Proceedings of the 40th International Conference on Machine
+  Learning}, Volume 202 of {\em Proceedings of Machine Learning Research}, pp.\
+   18940--18956. PMLR.
+
+\bibitem[\protect\citeauthoryear{Lee, Bansal, Vo, and Kim}{Lee
+  et~al.}{2025}]{lee2025collagan}
+Lee, H., P.~Bansal, K.~D. Vo, and E.-J. Kim (2025).
+\newblock Collaborative generative adversarial networks for fusing household
+  travel survey and smart card data to generate heterogeneous activity
+  schedules in urban digital twins.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  176}, 105125.
+
+\bibitem[\protect\citeauthoryear{Li, Liu, Li, Zhou, Lu, and Liu}{Li
+  et~al.}{2026}]{li2026syncmove}
+Li, J., H.~Liu, J.~Li, D.~Zhou, C.~Lu, and Q.~Liu (2026).
+\newblock {SyncMove}: Synchronizing individual and collective mobility patterns
+  for trajectory generation.
+\newblock {\em Complex \& Intelligent Systems\/}.
+\newblock Published online 2 July 2026.
+
+\bibitem[\protect\citeauthoryear{Liao, Jiang, He, Liu, Kuai, and Ma}{Liao
+  et~al.}{2026}]{liao2026deepactivity}
+Liao, X., Q.~Jiang, B.~Y. He, Y.~Liu, C.~Kuai, and J.~Ma (2026).
+\newblock Deep activity model: A generative deep learning approach for human
+  mobility pattern synthesis.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems\/}~{\em
+  27\/}(6), 6519--6536.
+
+\bibitem[\protect\citeauthoryear{Lu, Liu, Li, and Jin}{Lu
+  et~al.}{2026}]{lu2026pop2actloc}
+Lu, Y., G.~Liu, X.~Li, and Z.~Jin (2026).
+\newblock Generate individual spatiotemporal activity sequences from population
+  synthesis via deep learning approaches.
+\newblock {\em Engineering Applications of Artificial Intelligence\/}~{\em
+  167}, 113759.
+
+\bibitem[\protect\citeauthoryear{Ma, Liao, Liu, Jiang, Stanford, Cao, and
+  Ma}{Ma et~al.}{2025}]{ma2025foundation}
+Ma, H., X.~Liao, Y.~Liu, Q.~Jiang, C.~Stanford, S.~Cao, and J.~Ma (2025).
+\newblock Learning universal human mobility patterns with a foundation model
+  for cross-domain data fusion.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  180}, 105311.
+
+\bibitem[\protect\citeauthoryear{{Maryland Department of Transportation State
+  Highway Administration}}{{Maryland Department of Transportation State Highway
+  Administration}}{2018}]{mdot2018aawdt}
+{Maryland Department of Transportation State Highway Administration} (2018).
+\newblock Annual average daily traffic---{MDOT SHA} statewide {AADT} points.
+\newblock Annual Average Daily Weekday Traffic field AAWDT\_2018.
+
+\bibitem[\protect\citeauthoryear{{Metropolitan Washington Council of
+  Governments}}{{Metropolitan Washington Council of
+  Governments}}{2019}]{mwcog2019rts}
+{Metropolitan Washington Council of Governments} (2019, July).
+\newblock 2017/2018 regional travel survey: Final report.
+\newblock Technical report, Metropolitan Washington Council of Governments,
+  Washington, DC.
+
+\bibitem[\protect\citeauthoryear{Saadi, Mustafa, Teller, Farooq, and
+  Cools}{Saadi et~al.}{2016}]{saadi2016hidden}
+Saadi, I., A.~Mustafa, J.~Teller, B.~Farooq, and M.~Cools (2016).
+\newblock Hidden {Markov} model-based population synthesis.
+\newblock {\em Transportation Research Part B: Methodological\/}~{\em 90},
+  1--21.
+
+\bibitem[\protect\citeauthoryear{Shone and Hillel}{Shone and
+  Hillel}{2025}]{shone2025scheduling}
+Shone, F. and T.~Hillel (2025).
+\newblock Synthesising activity participations and scheduling with deep
+  generative machine learning.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  179}, 105273.
+
+\bibitem[\protect\citeauthoryear{Snoke, Raab, Nowok, Dibben, and
+  Slavkovi{\'c}}{Snoke et~al.}{2018}]{snoke2018utility}
+Snoke, J., G.~M. Raab, B.~Nowok, C.~Dibben, and A.~Slavkovi{\'c} (2018).
+\newblock General and specific utility measures for synthetic data.
+\newblock {\em Journal of the Royal Statistical Society Series A: Statistics in
+  Society\/}~{\em 181\/}(3), 663--688.
+
+\bibitem[\protect\citeauthoryear{Stadler, Oprisanu, and Troncoso}{Stadler
+  et~al.}{2022}]{stadler2022groundhog}
+Stadler, T., B.~Oprisanu, and C.~Troncoso (2022).
+\newblock Synthetic data---anonymisation groundhog day.
+\newblock In {\em Proceedings of the 31st USENIX Security Symposium}, pp.\
+  1451--1468. USENIX Association.
+
+\bibitem[\protect\citeauthoryear{Sun and Erath}{Sun and
+  Erath}{2015}]{sun2015bayesian}
+Sun, L. and A.~Erath (2015).
+\newblock A {Bayesian} network approach for population synthesis.
+\newblock {\em Transportation Research Part C: Emerging Technologies\/}~{\em
+  61}, 49--62.
+
+\bibitem[\protect\citeauthoryear{{U.S. Census Bureau}}{{U.S. Census
+  Bureau}}{2019}]{census2019tiger}
+{U.S. Census Bureau} (2019).
+\newblock 2019 {TIGER/Line} shapefiles.
+
+\bibitem[\protect\citeauthoryear{van~den Oord, Li, and Vinyals}{van~den Oord
+  et~al.}{2018}]{oord2018cpc}
+van~den Oord, A., Y.~Li, and O.~Vinyals (2018).
+\newblock Representation learning with contrastive predictive coding.
+\newblock {\em arXiv\/}~{\em abs/1807.03748}.
+
+\bibitem[\protect\citeauthoryear{Van~Zuylen and Willumsen}{Van~Zuylen and
+  Willumsen}{1980}]{vanzuylen1980counts}
+Van~Zuylen, H.~J. and L.~G. Willumsen (1980).
+\newblock The most likely trip matrix estimated from traffic counts.
+\newblock {\em Transportation Research Part B: Methodological\/}~{\em 14\/}(3),
+  281--293.
+
+\bibitem[\protect\citeauthoryear{Vo, Kim, Lee, and Bansal}{Vo
+  et~al.}{2026}]{vo2026harnessing}
+Vo, K.~D., E.-J. Kim, H.~Lee, and P.~Bansal (2026).
+\newblock Harnessing household travel survey with smart card data to generate
+  spatiotemporally-diverse activity schedules for transit users.
+\newblock {\em Transportation Research Part B: Methodological\/}~{\em 205},
+  103388.
+
+\bibitem[\protect\citeauthoryear{Wilcoxon}{Wilcoxon}{1945}]{wilcoxon1945rank}
+Wilcoxon, F. (1945).
+\newblock Individual comparisons by ranking methods.
+\newblock {\em Biometrics Bulletin\/}~{\em 1\/}(6), 80--83.
+
+\bibitem[\protect\citeauthoryear{Wu, Qin, and Ma}{Wu
+  et~al.}{2026}]{wu2026evaluation}
+Wu, Y., Z.~Qin, and Z.~Ma (2026).
+\newblock A representativeness-privacy-utility evaluation framework for
+  synthetic trip data generation.
+\newblock {\em Artificial Intelligence for Transportation\/}~{\em 7}, 100075.
+
+\bibitem[\protect\citeauthoryear{Xu, Skoularidou, Cuesta-Infante, and
+  Veeramachaneni}{Xu et~al.}{2019}]{xu2019ctgan}
+Xu, L., M.~Skoularidou, A.~Cuesta-Infante, and K.~Veeramachaneni (2019).
+\newblock Modeling tabular data using conditional {GAN}.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  Volume~32.
+
+\bibitem[\protect\citeauthoryear{Yin, Sheehan, Feygin, Paiement, and
+  Pozdnoukhov}{Yin et~al.}{2018}]{yin2018activities}
+Yin, M., M.~Sheehan, S.~Feygin, J.-F. Paiement, and A.~Pozdnoukhov (2018).
+\newblock A generative model of urban activities from cellular data.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems\/}~{\em
+  19\/}(6), 1682--1696.
+
+\end{thebibliography}
