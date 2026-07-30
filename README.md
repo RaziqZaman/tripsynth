@@ -1,36 +1,29 @@
-# Trip Synth WCTR Experiment
+# TRB_LaTeX_tex
 
-This repository contains a reproducible research harness for comparing a contrastive-loss mixed-tabular VAE against non-contrastive VAE, weighted bootstrap, and Bayesian-network-style trip synthesis baselines.
+A LaTeX template for preparing papers for the **Transportation Research Board (TRB) Annual Meeting**. This template offers a pragmatic starting point for authors using LaTeX (and related literate programming tools) while matching TRB submission guidance.
 
-The default quick run uses `05sample_transformed_survey.csv`, excludes `weight` from all synthetic outputs, keeps `year` as an integer feature, and skips AADT validation unless external geospatial data and two-prong traffic count inputs are available and enabled.
+## Usage
 
-## Quick Start
+1. Copy `trb.bst` and `trbunofficial.cls` into your project directory.
+1. Update your preamble in `trb_template.tex` to supplement those already in `trbunofficial.cls`.
+2. Run `latexmk`, which automatically recompiles when source files change.
+3. If using version control (recommended), commit the template files to your repository.
 
+## Main .tex file name flexibility
+The template automatically detects the main TeX file name for word counting.  If you rename your main file, no changes are needed in `trbunofficial.cls`.
+
+This works by including:
 ```bash
-bash scripts/run_quick.sh
+\usepackage[realmainfile]{currfile}
+\quickwordcount{\currfilebase}
 ```
 
-Outputs are written to:
+## Automated page count
+The title page now includes an automated page count. Starting with the 2027 TRB Annual Meeting cycle, TRB replaced the 7,500-word limit with a 20-page limit for paper submissions.
 
-```text
-outputs/runs/<run_name>/
-```
+## Automated submission date
+The included `latexmkrc` file ensures the submission date on the title page auto-populates according to TRB’s event clock: https://trb.secure-platform.com/a/page/TRBPaperReview/trbamfaq#due
 
-The longer runs are:
+# Overleaf
 
-```bash
-tmux new -s trip_quick "bash scripts/run_quick.sh"
-tmux new -s trip_medium "bash scripts/run_medium.sh"
-tmux new -s trip_paper "bash scripts/run_paper.sh"
-tmux new -s trip_full "bash scripts/run_full.sh"
-tmux new -s trip_hparams "bash scripts/run_hparam_grid.sh"
-```
-
-## Data Notes
-
-Survey `weight` is an expansion/training weight, not a synthesizable trip attribute. It is used for weighted bootstrap probabilities, weighted survey validation estimates, and optional weighted VAE training losses, but it is removed from generated synthetic tables.
-
-
-The paper-scale run uses `configs/paper.yaml`: it keeps the full-training VAE settings and population-scale target, but caps each generated method at 1,000,000 rows. Traffic-count validation uses the recorded per-method expansion factor to scale synthetic screenline counts back to the target population.
-
-Traffic-count validation is configured as a two-prong screenline check: dense annual-average MDOT station totals validate long-term average synthetic crossings, and sparse FHWA TMAS station-hour counts validate hourly timing after annual-share scaling. The OD-to-screenline path method is still a centroid-line tract-crossing proxy rather than true route assignment.
+This template is also available on Overleaf: https://www.overleaf.com/latex/templates/transportation-research-board-trb-latex-template/jkfndnnkkksw
