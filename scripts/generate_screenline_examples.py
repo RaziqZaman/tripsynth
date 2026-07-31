@@ -50,7 +50,6 @@ ORIGIN_FACE = "#f4a261"
 ORIGIN_EDGE = "#9c421f"
 DEST_FACE = "#72b7d2"
 DEST_EDGE = "#155f92"
-CONTEXT_FACE = "#f7f7f3"
 CONTEXT_EDGE = "#c7c9c4"
 PATH_FACE = "#e9f1f5"
 UNUSED_MDOT = "#868686"
@@ -67,6 +66,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-pairs", type=int, default=120)
     parser.add_argument("--seed", type=int, default=20260731)
     parser.add_argument("--dpi", type=int, default=170)
+    parser.add_argument(
+        "--selection-profile",
+        choices=["observed_nonempty", "exactly_two_stationed"],
+        default="observed_nonempty",
+        help=(
+            "OD eligibility rule. exactly_two_stationed requires exactly two reconstructed shared "
+            "boundaries, at least one mapped AADT station on both, and multiple stations on one or both."
+        ),
+    )
+    parser.add_argument(
+        "--exclude-manifest",
+        type=Path,
+        default=None,
+        help="Optional prior manifest.csv whose directed OD pairs must be excluded.",
+    )
+    parser.add_argument("--background-color", default="#FFFFFF")
     parser.add_argument("--overwrite", action="store_true")
     return parser.parse_args()
 
@@ -167,13 +182,35 @@ def _sampling_universe(
     return universe.sort_values(["o_tract_fips", "d_tract_fips"]).reset_index(drop=True)
 
 
-def _sample_pairs(universe: pd.DataFrame, n_pairs: int, seed: int) -> pd.DataFrame:
+def _sample_pairs(
+    universe: pd.DataFrame,
+    n_pairs: int,
+    seed: int,
+    avoid_reverse_duplicates: bool = False,
+) -> pd.DataFrame:
     if n_pairs <= 0:
         raise ValueError("--n-pairs must be positive")
     if len(universe) < n_pairs:
         raise ValueError(f"Requested {n_pairs} pairs from a universe of only {len(universe)}")
     rng = np.random.default_rng(seed)
-    indices = rng.choice(len(universe), size=n_pairs, replace=False)
+    if avoid_reverse_duplicates:
+        indices = []
+        seen_unordered: set[tuple[str, str]] = set()
+        for index in rng.permutation(len(universe)):
+            row = universe.iloc[int(index)]
+            key = tuple(sorted((str(row["o_tract_fips"]), str(row["d_tract_fips"]))))
+            if key in seen_unordered:
+                continue
+            seen_unordered.add(key)
+            indices.append(int(index))
+            if len(indices) == n_pairs:
+                break
+        if len(indices) < n_pairs:
+            raise ValueError(
+                f"Requested {n_pairs} visually distinct pairs, but only {len(indices)} were available"
+            )
+    else:
+        indices = rng.choice(len(universe), size=n_pairs, replace=False)
     sampled = universe.iloc[indices].reset_index(drop=True).copy()
     sampled.insert(0, "example_id", np.arange(1, len(sampled) + 1))
     return sampled
@@ -225,6 +262,99 @@ def _full_path(
             }
         )
     return od_line, pd.DataFrame(rows), missing
+
+
+def _filter_exactly_two_stationed(
+    universe: pd.DataFrame,
+    cached_paths: pd.DataFrame,
+    station_map: pd.DataFrame,
+    tracts: gpd.GeoDataFrame,
+    tract_lookup: pd.DataFrame,
+    tract_sindex: Any,
+    adjacency_lookup: dict[str, Any],
+    exclude_manifest: Path | None,
+) -> pd.DataFrame:
+    """Apply the exact two-screenline/station criteria before random sampling."""
+    filtered = universe.copy()
+    if exclude_manifest is not None:
+        exclude_manifest = exclude_manifest.resolve()
+        if not exclude_manifest.exists():
+            raise FileNotFoundError(f"Missing exclusion manifest: {exclude_manifest}")
+        excluded = pd.read_csv(
+            exclude_manifest,
+            usecols=["o_tract_fips", "d_tract_fips"],
+            dtype={"o_tract_fips": "string", "d_tract_fips": "string"},
+        )
+        excluded["o_tract_fips"] = _clean_geoids(excluded["o_tract_fips"])
+        excluded["d_tract_fips"] = _clean_geoids(excluded["d_tract_fips"])
+        reversed_excluded = excluded.rename(
+            columns={
+                "o_tract_fips": "d_tract_fips",
+                "d_tract_fips": "o_tract_fips",
+            }
+        )[["o_tract_fips", "d_tract_fips"]]
+        excluded = pd.concat([excluded, reversed_excluded], ignore_index=True).drop_duplicates()
+        filtered = (
+            filtered.merge(
+                excluded.drop_duplicates().assign(_excluded=True),
+                on=["o_tract_fips", "d_tract_fips"],
+                how="left",
+            )
+            .loc[lambda frame: frame["_excluded"].isna(), ["o_tract_fips", "d_tract_fips"]]
+            .reset_index(drop=True)
+        )
+
+    station_counts = station_map.groupby("screenline_id")["station_id"].nunique()
+    candidate_paths = cached_paths.merge(
+        filtered,
+        on=["o_tract_fips", "d_tract_fips"],
+        how="inner",
+    )[["o_tract_fips", "d_tract_fips", "screenline_id"]].drop_duplicates()
+    candidate_paths["mapped_station_count"] = (
+        candidate_paths["screenline_id"].map(station_counts).fillna(0).astype(int)
+    )
+    cheap_stats = (
+        candidate_paths.groupby(["o_tract_fips", "d_tract_fips"], as_index=False)
+        .agg(
+            cached_screenlines=("screenline_id", "nunique"),
+            minimum_station_count=("mapped_station_count", "min"),
+            maximum_station_count=("mapped_station_count", "max"),
+        )
+    )
+    cheap_eligible = cheap_stats[
+        cheap_stats["cached_screenlines"].eq(2)
+        & cheap_stats["minimum_station_count"].ge(1)
+        & cheap_stats["maximum_station_count"].ge(2)
+    ][["o_tract_fips", "d_tract_fips"]].sort_values(["o_tract_fips", "d_tract_fips"])
+
+    exact_rows: list[dict[str, str]] = []
+    for position, row in enumerate(cheap_eligible.itertuples(index=False), start=1):
+        origin = str(row.o_tract_fips)
+        destination = str(row.d_tract_fips)
+        _, full_path, _ = _full_path(
+            origin,
+            destination,
+            tracts,
+            tract_lookup,
+            tract_sindex,
+            adjacency_lookup,
+        )
+        if len(full_path) != 2:
+            continue
+        counts = full_path["screenline_id"].map(station_counts).fillna(0).astype(int)
+        if counts.ge(1).all() and counts.max() >= 2:
+            exact_rows.append({"o_tract_fips": origin, "d_tract_fips": destination})
+        if position % 1_000 == 0:
+            print(
+                f"Eligibility audit {position:,}/{len(cheap_eligible):,}: "
+                f"{len(exact_rows):,} exact matches",
+                flush=True,
+            )
+    return (
+        pd.DataFrame(exact_rows, columns=["o_tract_fips", "d_tract_fips"])
+        .sort_values(["o_tract_fips", "d_tract_fips"])
+        .reset_index(drop=True)
+    )
 
 
 def _screenline_colors(n: int) -> list[str]:
@@ -409,6 +539,8 @@ def _plot_map(
     fhwa_points: gpd.GeoDataFrame,
     assignments: pd.DataFrame,
     dpi: int,
+    background_color: str,
+    map_only: bool = False,
 ) -> dict[str, Any]:
     origin_geometry = tract_lookup.loc[origin, "geometry"]
     destination_geometry = tract_lookup.loc[destination, "geometry"]
@@ -440,10 +572,16 @@ def _plot_map(
     path_tracts = tracts[tracts["GEOID"].isin(ordered_tract_ids)]
 
     fig, ax = plt.subplots(figsize=(12.0, 8.0))
-    fig.patch.set_facecolor("#fbfaf7")
-    ax.set_facecolor("#fbfaf7")
+    fig.patch.set_facecolor(background_color)
+    ax.set_facecolor(background_color)
     if not context.empty:
-        context.plot(ax=ax, facecolor=CONTEXT_FACE, edgecolor=CONTEXT_EDGE, linewidth=0.35, zorder=1)
+        context.plot(
+            ax=ax,
+            facecolor=background_color,
+            edgecolor=CONTEXT_EDGE,
+            linewidth=0.35,
+            zorder=1,
+        )
     if not path_tracts.empty:
         path_tracts.plot(ax=ax, facecolor=PATH_FACE, edgecolor="#8da1ac", linewidth=0.65, alpha=0.78, zorder=2)
     origin_frame.plot(ax=ax, facecolor=ORIGIN_FACE, edgecolor=ORIGIN_EDGE, linewidth=1.2, alpha=0.78, zorder=3)
@@ -687,7 +825,13 @@ def _plot_map(
         fontsize=7.2,
         color="#555555",
     )
-    fig.subplots_adjust(left=0.015, right=0.985, bottom=0.055, top=0.925)
+    if map_only:
+        legend.remove()
+        for text_artist in list(fig.texts):
+            text_artist.remove()
+        fig.subplots_adjust(left=0.006, right=0.994, bottom=0.006, top=0.994)
+    else:
+        fig.subplots_adjust(left=0.015, right=0.985, bottom=0.055, top=0.925)
     fig.savefig(
         output_path,
         dpi=dpi,
@@ -753,11 +897,26 @@ def _write_readme(
     universe_size: int,
     summary: dict[str, Any],
 ) -> None:
+    if summary["selection_profile"] == "exactly_two_stationed":
+        selection_note = """
+Every sampled pair satisfies all three requested constraints:
+
+1. exactly two unique >1 m shared tract-boundary screenlines;
+2. at least one mapped MDOT AADT station on each screenline; and
+3. two or more mapped MDOT AADT stations on at least one of the two screenlines.
+
+Pairs from the prior manifest, including their reverse directions, were excluded so this is a
+visually distinct additional batch.
+"""
+    else:
+        selection_note = ""
     text = f"""# Screenline examples
 
 This folder contains **{n_pairs} reproducibly sampled OD census-tract maps** from the frozen
 `paper_wctr_1m_vae_sweep` run. The random seed is `{seed}` and the eligible observed-survey
 universe contains {universe_size:,} unique directed OD pairs.
+{selection_note}
+The figure and map background is exactly `{summary['background_color']}`.
 
 ## Reading each map
 
@@ -791,6 +950,10 @@ colored station–boundary links across the map set.
 
 def main() -> None:
     args = parse_args()
+    try:
+        background_color = matplotlib.colors.to_hex(args.background_color, keep_alpha=False).upper()
+    except ValueError as exc:
+        raise ValueError(f"Invalid --background-color: {args.background_color}") from exc
     run_dir = args.run_dir.resolve()
     output_dir = args.output_dir.resolve()
     geo_dir = run_dir / "geo"
@@ -825,13 +988,52 @@ def main() -> None:
     fhwa_points = _load_fhwa_points(args.fhwa_metadata.resolve(), args.fhwa_hourly.resolve(), tracts.crs)
     fhwa_ids = set(fhwa_points["station_id"].astype(str))
 
-    universe = _sampling_universe(args.survey.resolve(), tracts, cached_paths, station_map)
-    sampled = _sample_pairs(universe, args.n_pairs, args.seed)
-
     tract_lookup = tracts.set_index("GEOID", drop=False)
     tract_sindex = tracts.sindex
     adjacency_lookup = {str(row.screenline_id): row for row in adjacency.itertuples(index=False)}
     candidate_ids = set(candidates["screenline_id"].astype(str))
+    base_universe = _sampling_universe(args.survey.resolve(), tracts, cached_paths, station_map)
+    if args.selection_profile == "exactly_two_stationed":
+        universe = _filter_exactly_two_stationed(
+            base_universe,
+            cached_paths,
+            station_map,
+            tracts,
+            tract_lookup,
+            tract_sindex,
+            adjacency_lookup,
+            args.exclude_manifest,
+        )
+    else:
+        universe = base_universe
+        if args.exclude_manifest is not None:
+            excluded = pd.read_csv(
+                args.exclude_manifest.resolve(),
+                usecols=["o_tract_fips", "d_tract_fips"],
+                dtype={"o_tract_fips": "string", "d_tract_fips": "string"},
+            )
+            excluded["o_tract_fips"] = _clean_geoids(excluded["o_tract_fips"])
+            excluded["d_tract_fips"] = _clean_geoids(excluded["d_tract_fips"])
+            universe = (
+                universe.merge(
+                    excluded.drop_duplicates().assign(_excluded=True),
+                    on=["o_tract_fips", "d_tract_fips"],
+                    how="left",
+                )
+                .loc[lambda frame: frame["_excluded"].isna(), ["o_tract_fips", "d_tract_fips"]]
+                .reset_index(drop=True)
+            )
+    print(
+        f"Eligible OD universe for {args.selection_profile}: {len(universe):,} pairs",
+        flush=True,
+    )
+    sampled = _sample_pairs(
+        universe,
+        args.n_pairs,
+        args.seed,
+        avoid_reverse_duplicates=args.selection_profile == "exactly_two_stationed",
+    )
+
     cached_pair_groups = {
         key: frame.sort_values("path_position")
         for key, frame in cached_paths[cached_paths.set_index(["o_tract_fips", "d_tract_fips"]).index.isin(
@@ -865,6 +1067,23 @@ def main() -> None:
         full_path["is_in_cached_validation_path"] = full_path["screenline_id"].isin(cached_ids)
 
         assignments = _resolve_station_assignments(full_path, station_map, aadt_points, fhwa_ids)
+        mapped_counts_by_screenline = (
+            assignments.groupby("screenline_id")["station_id"].nunique()
+            if not assignments.empty
+            else pd.Series(dtype=int)
+        )
+        mapped_counts_on_path = (
+            full_path["screenline_id"].map(mapped_counts_by_screenline).fillna(0).astype(int)
+        )
+        if args.selection_profile == "exactly_two_stationed":
+            if not (
+                len(full_path) == 2
+                and mapped_counts_on_path.ge(1).all()
+                and mapped_counts_on_path.max() >= 2
+            ):
+                raise AssertionError(
+                    f"Filtered pair failed exact criteria during rendering: {origin} -> {destination}"
+                )
         ordered_tract_ids = {origin, destination}
         ordered_tract_ids.update(full_path["tract_a"].astype(str))
         ordered_tract_ids.update(full_path["tract_b"].astype(str))
@@ -884,6 +1103,7 @@ def main() -> None:
             fhwa_points,
             assignments,
             args.dpi,
+            background_color,
         )
         image_paths.append(output_path)
 
@@ -900,6 +1120,8 @@ def main() -> None:
                 "cached_validation_path_rows": int(len(cached)),
                 "cached_unique_screenlines": int(cached["screenline_id"].nunique()),
                 "validation_candidate_screenlines": int(full_path["is_validation_candidate"].sum()),
+                "minimum_mapped_aadt_stations_per_screenline": int(mapped_counts_on_path.min()),
+                "maximum_mapped_aadt_stations_per_screenline": int(mapped_counts_on_path.max()),
                 "missing_point_touch_adjacencies": int(len(missing_adjacencies)),
                 **map_stats,
             }
@@ -973,6 +1195,19 @@ def main() -> None:
         "seed": int(args.seed),
         "requested_pairs": int(args.n_pairs),
         "eligible_observed_od_pairs": int(len(universe)),
+        "eligible_unordered_od_geometries": int(
+            universe.apply(
+                lambda row: "__".join(sorted((row["o_tract_fips"], row["d_tract_fips"]))),
+                axis=1,
+            ).nunique()
+        ),
+        "base_eligible_observed_od_pairs": int(len(base_universe)),
+        "selection_profile": str(args.selection_profile),
+        "reverse_direction_duplicates_avoided": bool(
+            args.selection_profile == "exactly_two_stationed"
+        ),
+        "background_color": background_color,
+        "excluded_prior_manifest": str(args.exclude_manifest.resolve()) if args.exclude_manifest else None,
         "png_maps": int(len(image_paths)),
         "unique_directed_od_pairs": int(manifest[["o_tract_fips", "d_tract_fips"]].drop_duplicates().shape[0]),
         "screenlines_displayed": int(len(screenline_table)),
@@ -985,8 +1220,16 @@ def main() -> None:
         "contact_sheets": int(len(contact_sheets)),
         "crs": str(tracts.crs),
         "sampling_frame": (
-            "unique directed nonintrazonal observed-survey OD pairs with both endpoints in the frozen "
-            "study-area tract layer, a nonempty cached validation path, and at least one mapped station"
+            (
+                "unique directed nonintrazonal observed-survey OD pairs with exactly two reconstructed "
+                "shared tract-boundary screenlines; every boundary has at least one mapped AADT station; "
+                "at least one boundary has multiple mapped AADT stations"
+            )
+            if args.selection_profile == "exactly_two_stationed"
+            else (
+                "unique directed nonintrazonal observed-survey OD pairs with both endpoints in the frozen "
+                "study-area tract layer, a nonempty cached validation path, and at least one mapped station"
+            )
         ),
         "path_method": (
             "straight tract representative-point line; ordered intersected tracts; all consecutive >1 m "
