@@ -339,7 +339,7 @@ def figure_internal_tradeoff() -> None:
         "weighted_bootstrap": (7, 10),
         "bayesian_network": (7, 7),
         "noncontrastive_vae": (8, -30),
-        "contrastive_vae": (-30, 7),
+        "contrastive_vae": (0.18, 0.70),
     }
     horizontal_alignment = {
         "weighted_bootstrap": "left",
@@ -363,11 +363,12 @@ def figure_internal_tradeoff() -> None:
             tradeoff_labels[method],
             (row["mean_cross_tv"], row["novel_od_pair_share"]),
             xytext=offsets[method],
-            textcoords="offset points",
+            textcoords="data" if method == "contrastive_vae" else "offset points",
             fontsize=9.0,
             color=COLORS[method],
             fontweight="bold",
             horizontalalignment=horizontal_alignment[method],
+            verticalalignment="center" if method == "contrastive_vae" else "baseline",
             arrowprops={
                 "arrowstyle": "-",
                 "color": COLORS[method],
