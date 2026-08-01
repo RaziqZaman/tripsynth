@@ -227,12 +227,12 @@ On the common exact-date cells with one factor, the direct benchmark RMSE was \E
 
 Date pooling reversed the absolute-volume conclusion. RMSE was \DirectHourlyRMSE{} for direct expansion, 6,086 for bootstrap, \BNHourlyRMSE{} for the Bayesian network, 5,929 for the noncontrastive VAE, and \CVAEHourlyRMSE{} for the contrastive VAE. Contrastive minus direct was \CVAEDirectRMSEDelta{} vehicles (station-cluster 95\% confidence interval \CVAEDirectRMSEDeltaLow{} to \CVAEDirectRMSEDeltaHigh{}), while contrastive minus noncontrastive was 263 (196--322). All methods underpredicted by more than 4,050 vehicles per pooled cell on average.
 
-A bounded contrastive benefit remained for normalized shape. Profile TV was 0.303 for direct expansion, 0.309 for bootstrap, 0.141 for the Bayesian network, 0.249 for the noncontrastive VAE, and 0.197 for the contrastive VAE. The contrastive term reduced profile TV \CVAEProfileReductionAblation{} versus its ablation (95\% confidence interval \CVAEProfileReductionAblationLow{}--\CVAEProfileReductionAblationHigh{}), but the Bayesian network remained best. Figure~\ref{fig:hourly} makes the estimand reversal explicit.
+A bounded contrastive benefit remained for normalized shape. Profile TV was 0.303 for direct expansion, 0.309 for bootstrap, 0.141 for the Bayesian network, 0.249 for the noncontrastive VAE, and 0.197 for the contrastive VAE. The contrastive term reduced profile TV \CVAEProfileReductionAblation{} versus its ablation (95\% confidence interval \CVAEProfileReductionAblationLow{}--\CVAEProfileReductionAblationHigh{}), but the Bayesian network remained best. Figure~\ref{fig:hourly} summarizes common-cell RMSE and normalized 24-hour profile-shape error.
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{fig_05_hourly_granularity.pdf}
-\caption{Principal hourly result. (A) On 521,424 common exact-date cells with a shared 423-date factor, generative methods sharply reduce sparse-cell RMSE relative to direct and bootstrap expansion; station-cluster uncertainty is shown for the contrastive-versus-direct effect. (B) Pooling dates removes that advantage in absolute volume. (C) Contrastive training improves normalized hourly shape relative to its ablation, while the Bayesian network is best.}
+\caption{Hourly traffic-count validation. (A) Root mean square error on 521,424 common boundary--date--hour cells, in thousands of vehicles per cell. (B) Mean total-variation distance between observed and synthesized 24-hour profiles. Lower values indicate better agreement with observed counts.}
 \label{fig:hourly}
 \end{figure}
 

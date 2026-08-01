@@ -1022,108 +1022,77 @@ def compute_evidence() -> dict[str, object]:
 
 def figure_hourly_granularity(evidence: dict[str, object]) -> None:
     exact = evidence["exact_summary"]
-    exact_contrasts = evidence["exact_contrasts"]
     pooled = evidence["hourly_summary"]
-    paired = evidence["paired"]
-    fig = plt.figure(figsize=(7.15, 3.55))
-    grid = fig.add_gridspec(1, 3, width_ratios=[1.04, 0.98, 0.98], wspace=0.40)
-    ax_exact = fig.add_subplot(grid[0])
-    ax_pooled = fig.add_subplot(grid[1])
-    ax_tv = fig.add_subplot(grid[2])
-    x = np.arange(len(EXTERNAL_METHODS))
-    short_labels = ["Direct", "Boot.", "BN", "NC-\nVAE", "C-\nVAE"]
+    methods = [
+        "weighted_bootstrap",
+        "bayesian_network",
+        "noncontrastive_vae",
+        "contrastive_vae",
+    ]
+    tick_labels = [
+        "Survey-Sampled\nBaseline",
+        "Bayesian\nNetwork",
+        "Variational\nAutoencoder",
+        "Contrastive\nVariational\nAutoencoder",
+    ]
 
+    fig = plt.figure(figsize=(7.15, 3.90))
+    grid = fig.add_gridspec(1, 2, width_ratios=[1, 1], wspace=0.38)
+    ax_exact = fig.add_subplot(grid[0])
+    ax_profile = fig.add_subplot(grid[1])
+    x = np.arange(len(methods))
     bars = ax_exact.bar(
         x,
-        [exact.loc[method, "rmse"] / 1000.0 for method in EXTERNAL_METHODS],
-        color=[COLORS[method] for method in EXTERNAL_METHODS],
-        width=0.70,
+        [exact.loc[method, "rmse"] / 1000.0 for method in methods],
+        color=[COLORS[method] for method in methods],
+        width=0.68,
     )
-    for bar, method in zip(bars, EXTERNAL_METHODS):
+    for bar, method in zip(bars, methods):
         ax_exact.text(
             bar.get_x() + bar.get_width() / 2,
-            bar.get_height() + 0.24,
+            bar.get_height() + 0.22,
             f"{exact.loc[method, 'rmse']/1000.0:.2f}",
             ha="center",
             va="bottom",
-            fontsize=9.0,
+            fontsize=8.6,
         )
     ax_exact.set_xticks(x)
-    ax_exact.set_xticklabels(short_labels, fontsize=9.0)
-    ax_exact.set_ylabel("RMSE (thousand vehicles)")
-    ax_exact.set_ylim(0, 16.4)
+    ax_exact.set_xticklabels(tick_labels, fontsize=7.8)
+    ax_exact.set_ylabel(
+        "RMSE on common boundary–date–hour cells\n"
+        "(thousand vehicles; lower is better)"
+    )
+    ax_exact.set_ylim(0, 15.4)
     clean_axes(ax_exact, "y")
     panel(ax_exact, "(A)")
-    ax_exact.set_title("       Common exact-date cells", loc="left", pad=8)
-    effect = exact_contrasts[
-        exact_contrasts["contrast"].eq("contrastive_vae_vs_direct_survey")
-    ].iloc[0]
-    ax_exact.text(
-        0.50,
-        0.96,
-        f"C-VAE vs direct:\n{effect['estimate']:.1f}% lower\n"
-        f"95% CI {effect['ci_low']:.1f}–{effect['ci_high']:.1f}%",
-        transform=ax_exact.transAxes,
-        ha="left",
-        va="top",
-        fontsize=9.0,
-        color=COLORS["ink"],
-    )
+    ax_exact.set_title("  Common-cell RMSE", loc="left", pad=8)
 
-    for idx, method in enumerate(EXTERNAL_METHODS):
-        value = pooled.loc[method, "rmse"] / 1000.0
-        ax_pooled.scatter(
-            idx, value, s=54, color=COLORS[method], edgecolor="white", linewidth=0.7, zorder=4
-        )
-        ax_pooled.text(idx, value + 0.035, f"{value:.2f}", ha="center", va="bottom", fontsize=9.0)
-    ax_pooled.set_xticks(x)
-    ax_pooled.set_xticklabels(short_labels, fontsize=9.0)
-    ax_pooled.set_ylabel("RMSE (thousand vehicles)")
-    ax_pooled.set_ylim(5.72, 6.42)
-    clean_axes(ax_pooled, "y")
-    panel(ax_pooled, "(B)")
-    ax_pooled.set_title("       Dates pooled", loc="left", pad=8)
-    pooled_delta = paired[
-        paired["contrast"].eq("contrastive_vae_vs_direct_survey")
-        & paired["metric"].eq("rmse_difference_vehicles")
-    ].iloc[0]
-    ax_pooled.text(
-        0.04,
-        0.08,
-        f"C-VAE minus direct: {pooled_delta['estimate']:+.0f}\n"
-        f"95% CI {pooled_delta['ci_low']:+.0f} to {pooled_delta['ci_high']:+.0f}",
-        transform=ax_pooled.transAxes,
-        fontsize=9.0,
-        color=COLORS["muted"],
+    profile_bars = ax_profile.bar(
+        x,
+        [pooled.loc[method, "profile_tv"] for method in methods],
+        color=[COLORS[method] for method in methods],
+        width=0.68,
     )
-
-    for idx, method in enumerate(EXTERNAL_METHODS):
-        value = pooled.loc[method, "profile_tv"]
-        ax_tv.scatter(
-            idx, value, s=54, color=COLORS[method], edgecolor="white", linewidth=0.7, zorder=4
+    for bar, method in zip(profile_bars, methods):
+        ax_profile.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 0.006,
+            f"{pooled.loc[method, 'profile_tv']:.3f}",
+            ha="center",
+            va="bottom",
+            fontsize=8.6,
         )
-        ax_tv.text(idx, value + 0.011, f"{value:.3f}", ha="center", va="bottom", fontsize=9.0)
-    ax_tv.set_xticks(x)
-    ax_tv.set_xticklabels(short_labels, fontsize=9.0)
-    ax_tv.set_ylabel("Mean 24-hour profile TV")
-    ax_tv.set_ylim(0.08, 0.38)
-    clean_axes(ax_tv, "y")
-    panel(ax_tv, "(C)")
-    ax_tv.set_title("       Profile shape", loc="left", pad=8)
-    profile = paired[
-        paired["contrast"].eq("contrastive_vae_vs_noncontrastive_vae")
-        & paired["metric"].eq("profile_tv_relative_reduction_pct")
-    ].iloc[0]
-    ax_tv.text(
-        0.04,
-        0.08,
-        f"C-VAE {profile['estimate']:.1f}% lower vs NC-VAE\n"
-        f"95% CI {profile['ci_low']:.1f}–{profile['ci_high']:.1f}%; BN best",
-        transform=ax_tv.transAxes,
-        fontsize=9.0,
-        color=COLORS["muted"],
+    ax_profile.set_xticks(x)
+    ax_profile.set_xticklabels(tick_labels, fontsize=7.8)
+    ax_profile.set_ylabel(
+        "Mean 24-hour profile total variation\n"
+        "(lower is better)"
     )
-    fig.subplots_adjust(left=0.075, right=0.995, bottom=0.20, top=0.89)
+    ax_profile.set_ylim(0, 0.345)
+    clean_axes(ax_profile, "y")
+    panel(ax_profile, "(B)")
+    ax_profile.set_title("  Profile Shape", loc="left", pad=8)
+    fig.subplots_adjust(left=0.095, right=0.995, bottom=0.25, top=0.90)
     save(fig, "fig_05_hourly_granularity")
 
 def figure_annual_validation(evidence: dict[str, object]) -> None:
