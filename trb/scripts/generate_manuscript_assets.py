@@ -99,6 +99,7 @@ def save(fig: plt.Figure, stem: str, dpi: int = 350) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     fig.savefig(
         OUT / f"{stem}.pdf",
+        dpi=dpi,
         bbox_inches="tight",
         pad_inches=0.04,
         metadata={"Creator": "tripsynth TRB figure generator"},
@@ -893,7 +894,10 @@ def compute_evidence() -> dict[str, object]:
     annual_draws = rng.integers(
         0, len(observed_annual), size=(10_000, len(observed_annual))
     )
-    win_flags = annual_abs.eq(annual_abs.min(axis=1), axis=0)
+    win_flags = annual_abs[GENERATED_METHODS].eq(
+        annual_abs[GENERATED_METHODS].min(axis=1),
+        axis=0,
+    )
     unique_win_flags = win_flags & win_flags.sum(axis=1).eq(1).to_numpy()[:, None]
     annual_ties = int(win_flags.sum(axis=1).gt(1).sum())
     annual_rows: list[dict[str, float | int | str]] = []
@@ -918,8 +922,16 @@ def compute_evidence() -> dict[str, object]:
                         np.log1p(observed_annual), np.log1p(annual_predictions[method])
                     )[0, 1]
                 ),
-                "wins": int(unique_win_flags[method].sum()),
-                "win_pct": 100.0 * float(unique_win_flags[method].mean()),
+                "wins": (
+                    int(unique_win_flags[method].sum())
+                    if method in GENERATED_METHODS
+                    else 0
+                ),
+                "win_pct": (
+                    100.0 * float(unique_win_flags[method].mean())
+                    if method in GENERATED_METHODS
+                    else 0.0
+                ),
                 "median_absolute_error": float(annual_abs[method].median()),
                 "screenlines": len(observed_annual),
                 "rmse_delta_vs_direct": float(
@@ -1012,6 +1024,7 @@ def compute_evidence() -> dict[str, object]:
         "hourly_screenlines": hourly_screenlines,
         "paired": paired,
         "annual_summary": annual_summary,
+        "annual_observed": observed_annual,
         "annual_abs": annual_abs,
         "win_flags": unique_win_flags,
         "annual_ties": annual_ties,
@@ -1098,72 +1111,165 @@ def figure_hourly_granularity(evidence: dict[str, object]) -> None:
 def figure_annual_validation(evidence: dict[str, object]) -> None:
     summary = evidence["annual_summary"]
     annual_abs = evidence["annual_abs"]
-    fig, (ax_win, ax_delta) = plt.subplots(1, 2, figsize=(7.15, 3.65))
-    x = np.arange(len(EXTERNAL_METHODS))
+    methods = [
+        "weighted_bootstrap",
+        "bayesian_network",
+        "noncontrastive_vae",
+        "contrastive_vae",
+    ]
+    tick_labels = [
+        "Survey-Sampled\nBaseline",
+        "Bayesian\nNetwork",
+        "Variational\nAutoencoder",
+        "Contrastive\nVariational\nAutoencoder",
+    ]
+
+    fig = plt.figure(figsize=(7.15, 3.90))
+    grid = fig.add_gridspec(1, 2, width_ratios=[1, 1], wspace=0.38)
+    ax_win = fig.add_subplot(grid[0])
+    ax_map = fig.add_subplot(grid[1])
+    x = np.arange(len(methods))
     bars = ax_win.bar(
         x,
-        [summary.loc[method, "wins"] for method in EXTERNAL_METHODS],
-        color=[COLORS[method] for method in EXTERNAL_METHODS],
+        [summary.loc[method, "wins"] for method in methods],
+        color=[COLORS[method] for method in methods],
         width=0.68,
     )
     ax_win.set_xticks(x)
-    ax_win.set_xticklabels(["Direct", "Boot.", "BN", "NC-\nVAE", "C-\nVAE"], fontsize=9.0)
-    ax_win.set_ylabel("Screenlines with minimum absolute error")
-    ax_win.set_ylim(0, 980)
+    ax_win.set_xticklabels(tick_labels, fontsize=7.8)
+    ax_win.set_ylabel(
+        "Boundaries with unique minimum absolute error\n"
+        "(higher is better)"
+    )
+    ax_win.set_ylim(0, 930)
     clean_axes(ax_win, "y")
     panel(ax_win, "(A)")
-    ax_win.set_title("  Unique local wins", loc="left", pad=8)
-    for bar, method in zip(bars, EXTERNAL_METHODS):
+    ax_win.set_title("  Unique Local Wins", loc="left", pad=8)
+    for bar, method in zip(bars, methods):
         ax_win.text(
             bar.get_x() + bar.get_width() / 2,
-            bar.get_height() + 18,
+            bar.get_height() + 14,
             f"{int(summary.loc[method, 'wins'])}\n({summary.loc[method, 'win_pct']:.1f}%)",
             ha="center",
             va="bottom",
-            fontsize=9.0,
+            fontsize=8.6,
         )
 
-    compare = GENERATED_METHODS
-    positions = np.arange(len(compare))
-    for idx, method in enumerate(compare):
-        delta = annual_abs[method] - annual_abs["direct_survey"]
-        q25, median, q75 = np.quantile(delta, [0.25, 0.50, 0.75]) / 1000.0
-        ax_delta.errorbar(
-            idx,
-            median,
-            yerr=np.array([[median - q25], [q75 - median]]),
-            fmt="o",
-            markersize=7.2,
-            color=COLORS[method],
-            ecolor=COLORS[method],
-            elinewidth=2.0,
-            capsize=4.0,
-        )
-        ax_delta.text(
-            idx,
-            q75 + 0.30,
-            f"median {median:+.2f}",
-            ha="center",
-            va="bottom",
-            fontsize=9.0,
-        )
-    ax_delta.axhline(0, color=COLORS["ink"], linewidth=0.8)
-    ax_delta.set_xticks(positions)
-    ax_delta.set_xticklabels(["Boot.", "BN", "NC-\nVAE", "C-\nVAE"], fontsize=9.0)
-    ax_delta.set_ylabel("Absolute-error delta vs. direct\n(thousand vehicles)")
-    ax_delta.set_ylim(-4.2, 6.2)
-    clean_axes(ax_delta, "y")
-    panel(ax_delta, "(B)")
-    ax_delta.set_title("  Paired error magnitude (IQR)", loc="left", pad=8)
-    ax_delta.text(
-        0.02,
-        0.04,
-        "Negative values favor the method.\nContrastive has most wins but worst RMSE.",
-        transform=ax_delta.transAxes,
-        fontsize=9.0,
-        color=COLORS["muted"],
+    import geopandas as gpd
+    from matplotlib.lines import Line2D
+    from shapely.geometry import LineString, MultiLineString
+
+    def linework_only(geometry: object) -> object:
+        if geometry is None or geometry.is_empty:
+            return None
+        if isinstance(geometry, LineString):
+            return geometry
+        if isinstance(geometry, MultiLineString):
+            return geometry
+        parts = []
+        for part in getattr(geometry, "geoms", []):
+            cleaned = linework_only(part)
+            if isinstance(cleaned, LineString):
+                parts.append(cleaned)
+            elif isinstance(cleaned, MultiLineString):
+                parts.extend(cleaned.geoms)
+        if not parts:
+            return None
+        return parts[0] if len(parts) == 1 else MultiLineString(parts)
+
+    tracts = gpd.read_parquet(RUN / "geo" / "tracts.parquet")
+    screenlines = gpd.read_parquet(RUN / "geo" / "screenlines.parquet")[
+        ["screenline_id", "geometry"]
+    ]
+    screenlines["geometry"] = screenlines.geometry.map(linework_only)
+    screenlines = screenlines[screenlines.geometry.notna()].copy()
+    error_subset = annual_abs[methods]
+    winner = error_subset.idxmin(axis=1).rename("best_method")
+    ties = error_subset.eq(error_subset.min(axis=1), axis=0).sum(axis=1).gt(1)
+    winner.loc[ties] = "tie"
+    mapped = screenlines.merge(
+        winner,
+        left_on="screenline_id",
+        right_index=True,
+        how="inner",
+        validate="one_to_one",
     )
-    fig.subplots_adjust(left=0.085, right=0.995, bottom=0.28, top=0.90, wspace=0.42)
+    if len(mapped) != len(error_subset):
+        raise ValueError(
+            f"Mapped {len(mapped):,} of {len(error_subset):,} annual boundaries"
+        )
+
+    tracts.plot(
+        ax=ax_map,
+        facecolor="#FFFFFF",
+        edgecolor="#D8DEE4",
+        linewidth=0.08,
+        zorder=1,
+    )
+    ax_map.set_facecolor("#FFFFFF")
+    tracts.dissolve().boundary.plot(
+        ax=ax_map,
+        color="#AAB2BA",
+        linewidth=0.35,
+        zorder=2,
+    )
+    for method in methods:
+        mapped.loc[mapped["best_method"].eq(method)].plot(
+            ax=ax_map,
+            color=COLORS[method],
+            linewidth=0.62,
+            alpha=0.90,
+            zorder=3,
+        )
+    mapped.loc[mapped["best_method"].eq("tie")].plot(
+        ax=ax_map,
+        color="#7A828A",
+        linewidth=0.75,
+        zorder=4,
+    )
+    for collection in ax_map.collections:
+        collection.set_rasterized(True)
+    legend_handles = [
+        Line2D([0], [0], color=COLORS[method], linewidth=2.2, label=label)
+        for method, label in [
+            ("weighted_bootstrap", "Survey-Sampled Baseline"),
+            ("bayesian_network", "Bayesian Network"),
+            ("noncontrastive_vae", "Variational Autoencoder"),
+            ("contrastive_vae", "Contrastive Variational Autoencoder"),
+        ]
+    ]
+    legend_handles.append(
+        Line2D([0], [0], color="#7A828A", linewidth=2.2, label="Tie")
+    )
+    baltimore = tracts[
+        tracts["STATEFP"].eq("24")
+        & tracts["COUNTYFP"].isin(["005", "510"])
+    ]
+    if baltimore.empty:
+        raise ValueError("Baltimore City and Baltimore County tracts were not found")
+    min_x, min_y, max_x, max_y = baltimore.total_bounds
+    x_padding = 0.035 * (max_x - min_x)
+    y_padding = 0.035 * (max_y - min_y)
+    ax_map.set_xlim(min_x - x_padding, max_x + x_padding)
+    ax_map.set_ylim(min_y - y_padding, max_y + y_padding)
+    ax_map.legend(
+        handles=legend_handles,
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.025),
+        ncol=2,
+        frameon=True,
+        facecolor="white",
+        edgecolor="none",
+        framealpha=0.94,
+        fontsize=6.6,
+        handlelength=2.0,
+        columnspacing=0.8,
+        borderaxespad=0.0,
+    )
+    ax_map.set_axis_off()
+    panel(ax_map, "(B)")
+    ax_map.set_title("  Best Predictor by Boundary: Baltimore", loc="left", pad=8)
+    fig.subplots_adjust(left=0.095, right=0.995, bottom=0.25, top=0.90)
     save(fig, "fig_06_annual_validation")
 
 

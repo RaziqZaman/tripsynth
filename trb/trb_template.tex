@@ -242,12 +242,12 @@ Annual results did not support contrastive superiority. The Bayesian network had
 
 \input{tables/annual_results.tex}
 
-The contrastive VAE nevertheless had \CVAEAnnualWins{} unique local wins (\CVAEAnnualWinPct{} of 3,107 boundaries), followed by the noncontrastive VAE (808) and Bayesian network (772). That rank statistic favored low-volume locations: 426 contrastive wins occurred in the lowest observed-volume quartile and only 14 in the highest; winning boundaries contained 7.46\% of observed volume. The contrastive model also had the largest absolute error on 1,228 boundaries and the worst mean rank. Figure~\ref{fig:annual} therefore shows both win count and paired error magnitude.
+The contrastive VAE nevertheless had \CVAEAnnualWins{} unique local wins (\CVAEAnnualWinPct{} of 3,107 boundaries), followed by the noncontrastive VAE (817) and Bayesian network (802). That rank statistic favored low-volume locations: 433 contrastive wins occurred in the lowest observed-volume quartile and only 14 in the highest; winning boundaries contained 7.58\% of observed volume. The contrastive model also had the largest absolute error on 1,257 boundaries and the worst mean rank. Figure~\ref{fig:annual} therefore shows both win count and the geographic distribution of the best predictor.
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{fig_06_annual_validation.pdf}
-\caption{Annual weekday diagnostics on 3,107 boundaries. (A) Unique minimum-absolute-error counts exclude one five-way tie. (B) Points and whiskers show the median and interquartile range of each generated method's absolute-error difference from direct weighted expansion; negative values favor the method. The contrastive VAE has the most local wins but the worst aggregate RMSE.}
+\caption{Annual weekday diagnostics on 3,107 boundaries. (A) Unique minimum-absolute-error counts among the four comparison datasets; one tied boundary is excluded. (B) Baltimore City and Baltimore County tract-boundary screenlines are colored by the dataset with the lowest absolute annual-count error on that boundary.}
 \label{fig:annual}
 \end{figure}
 
