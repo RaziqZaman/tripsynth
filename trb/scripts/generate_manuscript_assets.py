@@ -325,56 +325,57 @@ def figure_internal_tradeoff() -> None:
     data = validation.join(privacy[["exact_row_copy_rate", "novel_od_pair_share"]])
 
     fig = plt.figure(figsize=(7.15, 3.55))
-    grid = fig.add_gridspec(1, 2, width_ratios=[1.12, 0.88], wspace=0.45)
+    grid = fig.add_gridspec(1, 2, width_ratios=[1, 1], wspace=0.45)
     ax = fig.add_subplot(grid[0])
     ab = fig.add_subplot(grid[1])
 
+    tradeoff_labels = {
+        "weighted_bootstrap": "Survey-Sampled Baseline",
+        "bayesian_network": "Bayesian network",
+        "noncontrastive_vae": "Noncontrastive VAE",
+        "contrastive_vae": "Contrastive VAE",
+    }
+    offsets = {
+        "weighted_bootstrap": (7, 10),
+        "bayesian_network": (7, 7),
+        "noncontrastive_vae": (8, -30),
+        "contrastive_vae": (-30, -52),
+    }
+    horizontal_alignment = {
+        "weighted_bootstrap": "left",
+        "bayesian_network": "left",
+        "noncontrastive_vae": "right",
+        "contrastive_vae": "right",
+    }
     for method in GENERATED_METHODS:
         row = data.loc[method]
-        marker = "X" if row["exact_row_copy_rate"] > 0 else "o"
-        size = 105 if marker == "X" else 85
         ax.scatter(
             row["mean_cross_tv"],
             row["novel_od_pair_share"],
-            s=size,
-            marker=marker,
+            s=85,
+            marker="o",
             color=COLORS[method],
             edgecolor="white",
             linewidth=0.8,
             zorder=4,
         )
-        offsets = {
-            "weighted_bootstrap": (6, 8),
-            "bayesian_network": (6, 6),
-            "noncontrastive_vae": (-118, 8),
-            "contrastive_vae": (-18, -38),
-        }
         ax.annotate(
-            SHORT[method],
+            tradeoff_labels[method],
             (row["mean_cross_tv"], row["novel_od_pair_share"]),
             xytext=offsets[method],
             textcoords="offset points",
             fontsize=9.0,
-            color=COLORS["ink"],
+            color=COLORS[method],
+            fontweight="bold",
+            horizontalalignment=horizontal_alignment[method],
+            arrowprops={
+                "arrowstyle": "-",
+                "color": COLORS[method],
+                "linewidth": 0.8,
+                "shrinkA": 2,
+                "shrinkB": 5,
+            },
         )
-    nc = data.loc["noncontrastive_vae"]
-    cv = data.loc["contrastive_vae"]
-    arrow(
-        ax,
-        (nc["mean_cross_tv"] - 0.001, nc["novel_od_pair_share"] - 0.008),
-        (cv["mean_cross_tv"] + 0.003, cv["novel_od_pair_share"] - 0.008),
-        color=COLORS["contrastive_vae"],
-        linewidth=1.25,
-    )
-    ax.text(
-        0.242,
-        0.65,
-        "11.4% lower\ncross-TV",
-        ha="center",
-        va="top",
-        fontsize=9.0,
-        color=COLORS["contrastive_vae"],
-    )
     ax.set_xlabel("Mean cross-marginal total variation (lower is better)")
     ax.set_ylabel("Novel OD-pair share (higher is broader support)")
     ax.set_xlim(-0.01, 0.285)
@@ -382,15 +383,6 @@ def figure_internal_tradeoff() -> None:
     clean_axes(ax, "both")
     panel(ax, "(A)")
     ax.set_title("  Dependence–support tradeoff", loc="left", pad=8)
-    ax.text(
-        0.01,
-        0.15,
-        "X = exact-copy rate 1.00",
-        transform=ax.transAxes,
-        fontsize=9.0,
-        color=COLORS["weighted_bootstrap"],
-        fontweight="bold",
-    )
 
     metrics = [
         ("mean_numeric_ks", "Numeric KS"),

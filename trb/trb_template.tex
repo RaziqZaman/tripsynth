@@ -36,7 +36,7 @@
 \section{Abstract}
 \noindent\textbf{Objectives:} This study tests whether generating mixed travel-survey trip records can reduce sampling gaps while retaining behavioral structure, and whether improved survey fidelity translates to independent roadside-count agreement.
 
-\noindent\textbf{Methods:} We compared deterministic expansion of 110,926 retained vehicle-mode-coded survey rows with one-million-row weighted-bootstrap, Bayesian-network, noncontrastive variational-autoencoder, and contrastive variational-autoencoder outputs. Internal tests measured marginal and joint fidelity, exact copying, and origin--destination support. A common geometric procedure projected trips across tract boundaries. Annual weekday and hourly station counts were not read by implemented training or checkpoint code. Paired uncertainty resampled 37 hourly stations.
+\noindent\textbf{Methods:} Weighted-bootstrap and Bayesian-network synthesizers fitted all 110,926 vehicle trips from the 2018--2019 Maryland Statewide Household Travel Survey and 2017--2018 Metropolitan Washington Council of Governments Regional Travel Survey; contrastive and noncontrastive variational autoencoders trained on 88,741 trips with 22,185 held out. Each produced 1,000,000 synthetic vehicle trips. A geometric procedure estimated Census-tract boundary crossings. We compared them with an October 2017--July 2019, 64-station hourly archive from the Federal Highway Administration Traffic Monitoring Analysis System and a 2018, 8,767-station annual traffic-count archive from the Maryland Department of Transportation. Synthesizer comparisons report root mean square error, mean absolute error, mean bias, log-Pearson correlation, hourly-profile total variation, and station-clustered bootstrap intervals.
 
 \noindent\textbf{Findings:} On 521,424 common boundary--date--hour cells, the contrastive model's root mean square error was 6,920 vehicles versus 13,553 for direct weighted expansion, a 48.9\% reduction (95\% confidence interval: 42.1\%--56.6\%). The noncontrastive model was statistically indistinguishable at 6,910, identifying generative smoothing rather than the contrastive term as the source of that gain. When dates were pooled, contrastive-model error was 6,193 versus 6,084 for direct expansion and 5,916 for the Bayesian network. The contrastive term nevertheless reduced normalized 24-hour profile error 21.1\% versus its ablation. It had the most unique annual local wins but the worst annual aggregate error.
 
@@ -211,7 +211,7 @@ No exact 44-field source match was detected for the Bayesian network or either V
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{fig_03_internal_tradeoff.pdf}
-\caption{Internal trade-offs. (A) Bootstrap attains survey fidelity through exact copying, while learned methods place more rows on OD pairs absent from the source at a cost in cross-table fit. (B) Contrastive training improves numeric and selected joint metrics but worsens categorical TV. Absence of exact matches is a memorization diagnostic, not a privacy guarantee.}
+\caption{Internal trade-offs. (A) The survey-sampled baseline attains survey fidelity through exact copying, while learned methods place more rows on OD pairs absent from the source at a cost in cross-table fit. (B) Contrastive training improves numeric and selected joint metrics but worsens categorical TV. Absence of exact matches is a memorization diagnostic, not a privacy guarantee.}
 \label{fig:internal}
 \end{figure}
 
