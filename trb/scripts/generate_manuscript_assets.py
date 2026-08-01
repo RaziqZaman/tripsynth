@@ -339,7 +339,7 @@ def figure_internal_tradeoff() -> None:
         "weighted_bootstrap": (7, 10),
         "bayesian_network": (7, 7),
         "noncontrastive_vae": (8, -30),
-        "contrastive_vae": (-30, -52),
+        "contrastive_vae": (-30, 7),
     }
     horizontal_alignment = {
         "weighted_bootstrap": "left",
