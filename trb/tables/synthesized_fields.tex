@@ -1,0 +1,101 @@
+\begin{table}[!htbp]
+\caption{Synthesized survey attributes by conceptual level and frozen model type.}
+\label{tab:synthesized-fields}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.10}
+\begin{tabularx}{\textwidth}{P{0.12\textwidth}P{0.12\textwidth}>{\centering\arraybackslash}P{0.045\textwidth}Y}
+\toprule
+\textbf{Level} & \textbf{Model type} & \textbf{$n$} & \textbf{Exact synthesized field names} \\
+\midrule
+Person
+& Categorical
+& 10
+& \texttt{gender},\allowbreak{} 
+  \texttt{race\_ethnicity},\allowbreak{} 
+  \texttt{race\_ethnicity\_hispanic},\allowbreak{} 
+  \texttt{license},\allowbreak{} 
+  \texttt{disability},\allowbreak{} 
+  \texttt{smartphone},\allowbreak{} 
+  \texttt{employment\_status},\allowbreak{} 
+  \texttt{work\_tract\_fips},\allowbreak{} 
+  \texttt{student\_status},\allowbreak{} 
+  \texttt{volunteer\_status} \\
+
+Person
+& Numerical
+& 2
+& \texttt{age},\allowbreak{} 
+  \texttt{jobs\_count} \\
+\midrule
+
+Household
+& Categorical
+& 3
+& \texttt{home\_tract\_fips},\allowbreak{} 
+  \texttt{home\_type},\allowbreak{} 
+  \texttt{home\_ownership} \\
+
+Household
+& Numerical
+& 9
+& \texttt{hhsize},\allowbreak{} 
+  \texttt{numstudents},\allowbreak{} 
+  \texttt{numdrivers},\allowbreak{} 
+  \texttt{numworkers},\allowbreak{} 
+  \texttt{numdisabilities},\allowbreak{} 
+  \texttt{numvehicle},\allowbreak{} 
+  \texttt{numvehicle\_transponder},\allowbreak{} 
+  \texttt{numbicycle},\allowbreak{} 
+  \texttt{hh\_income\_detailed} \\
+\midrule
+
+Trip
+& Categorical
+& 13
+& \texttt{o\_activity},\allowbreak{} 
+  \texttt{o\_tract\_fips},\allowbreak{} 
+  \texttt{d\_activity},\allowbreak{} 
+  \texttt{d\_tract\_fips},\allowbreak{} 
+  \texttt{travel\_mode},\allowbreak{} 
+  \texttt{park\_loc},\allowbreak{} 
+  \texttt{park\_pay},\allowbreak{} 
+  \texttt{hov\_used},\allowbreak{} 
+  \texttt{toll\_road\_used},\allowbreak{} 
+  \texttt{vehicle},\allowbreak{} 
+  \texttt{tolltransponder},\allowbreak{} 
+  \texttt{tdate\_week},\allowbreak{} 
+  \texttt{tdate\_dow} \\
+
+Trip
+& Numerical
+& 7
+& \texttt{departure\_time\_minutes},\allowbreak{} 
+  \texttt{reported\_travel\_time},\allowbreak{} 
+  \texttt{travelers\_hh},\allowbreak{} 
+  \texttt{travelers\_nonhh},\allowbreak{} 
+  \texttt{vehicle\_occupancy},\allowbreak{} 
+  \texttt{year},\allowbreak{} 
+  \texttt{distance} \\
+\midrule
+
+\textbf{Total}
+& \multicolumn{2}{l}{\textbf{44 fields}}
+& 26 categorical; 17 ordinal-integer; 1 continuous \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+
+\begin{minipage}{\textwidth}
+\scriptsize
+\textit{Notes:} Field names reproduce the frozen experiment schema exactly.
+\textit{Numerical} combines the schema's 17 ordinal-integer fields and one
+continuous field (\texttt{distance}); thus, for example, the coded income
+category \texttt{hh\_income\_detailed} was modeled as ordinal rather than
+nominal. All attributes were synthesized jointly as one trip record. The
+conceptual \textit{Trip} group includes date and selected-vehicle attributes
+attached to that trip. The household-final expansion field \texttt{weight}
+was used in model fitting but was explicitly excluded from synthesis.
+\end{minipage}
+\end{table}
